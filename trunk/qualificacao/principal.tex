@@ -1,0 +1,77 @@
+% ==============================================================================
+% Universidade Federal do Rio Grande do Norte
+% Centro de Tecnologia
+% Programa de Pós-Graduação em Engenharia Elétrica e de Computação
+% Qualificação
+%
+% Revisado em 12/07/2010 -- 10:00h
+%
+% Autor: Diogo Leite Rebouças <diogolr@gmail.com>
+% ==============================================================================
+
+% Classe .......................................................................
+%\documentclass[a4paper,12pt,openright,twoside,notitlepage]{book}
+\documentclass[a4paper,12pt,oneside,notitlepage]{book}
+
+% Pacotes ......................................................................
+\input{configs/pacotes.tex}
+
+% Comandos .....................................................................
+\input{configs/comandos.tex}
+
+% Inicio do documento ..........................................................
+\begin{document}
+
+\pagestyle{empty}
+
+\input{capa.tex}
+\input{rosto.tex}
+%\input{catalograficos.tex}
+\input{assinaturas.tex}
+%\input{epigrafe.tex}
+%\input{dedicatoria.tex}
+%\input{agradecimentos.tex}
+\input{resumo.tex}
+\input{abstract.tex}
+
+\frontmatter
+
+\addcontentsline{toc}{chapter}{Sumário}
+\tableofcontents
+
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Lista de Figuras}
+\listoffigures
+
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Lista de Tabelas}
+\listoftables
+
+\cleardoublepage
+\renewcommand{\nomname}{Lista de Símbolos e Abreviaturas}
+\renewcommand{\glossaryname}{\nomname}
+\markboth{\MakeUppercase{\nomname}}{\MakeUppercase{\nomname}}
+\addcontentsline{toc}{chapter}{\nomname}
+\printglossary
+
+\mainmatter
+
+% Capítulos ....................................................................
+\pagestyle{headings}
+
+\input{capitulos/introducao/introducao}
+\input{capitulos/resultados/resultados}
+\input{capitulos/conclusoes/conclusoes}
+
+\backmatter
+% Apêndices --------------------------------------------------------------------
+%\appendix
+%\input{apendices/codigos}
+
+% Bibliografia -----------------------------------------------------------------
+\addcontentsline{toc}{chapter}{Referências Bibliográficas}
+\bibliographystyle{ppgeec}
+\bibliography{bibliografia}
+
+% Fim do documento .............................................................
+\end{document}

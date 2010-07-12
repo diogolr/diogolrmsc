@@ -1,0 +1,32 @@
+\makeatletter
+\def\thickhrulefill{\leavevmode \leaders \hrule height 0.1ex \hfill \kern \z@}
+\def\@makechapterhead#1{%
+  \vspace*{50\p@}%
+  {\parindent \z@ \raggedleft \reset@font
+    \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+      \if@mainmatter
+        \scshape \@chapapp\space \thechapter
+        %\fbox{\includegraphics[width=1.5cm]{imgs/num_caps/cap_\thechapter.eps}}
+        \par\nobreak
+%        \vskip 10\p@
+      \fi
+    \fi
+    \interlinepenalty\@M
+    \Huge \bfseries #1 \par\nobreak
+%    \hrulefill\par\nobreak
+    \thickhrulefill
+    \vskip 100\p@
+  }}
+\def\@makeschapterhead#1{%
+  \vspace*{10\p@}%
+  {\parindent \z@ \raggedleft \reset@font
+    \scshape \vphantom{\@chapapp\space \thechapter}
+    \par\nobreak
+%        \vskip 10\p@
+    \interlinepenalty\@M
+    \Huge \bfseries #1 \par\nobreak
+%    \hrulefill\par\nobreak
+    \thickhrulefill
+    \vskip 100\p@
+  }}
