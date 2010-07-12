@@ -1,0 +1,60 @@
+% Comandos gerais --------------------------------------------------------------
+\newcommand{\titulo}{Título do trabalho grande o suficiente para ter uma ideia
+                     do que irá acontecer na capa}
+\newcommand{\autor}{Diogo Leite Rebouças}
+\newcommand{\orientador}{Fábio Meneghetti Ugulino de Araújo}
+\newcommand{\coorientador}{André Laurindo Maitelli}
+\newcommand{\diaaprovacao}{26}
+% Mês com inicial maiúscula (capa, folha de rosto)
+\newcommand{\Mesaprovacao}{Julho}
+% Mês com inicial minúscula (folha de assinaturas)
+\newcommand{\mesaprovacao}{julho}
+\newcommand{\anoaprovacao}{2010}
+\let\Anoaprovacao\anoaprovacao
+\newcommand{\dataaprovacao}{\diaaprovacao\ de \mesaprovacao\ de \anoaprovacao}
+
+% Configuração da fonte
+%\renewcommand{\familydefault}{\sfdefault}
+
+% Margens ----------------------------------------------------------------------
+\setlength{\oddsidemargin}{3.5cm}
+\setlength{\evensidemargin}{2.5cm}
+\setlength{\textwidth}{15cm}
+\addtolength{\oddsidemargin}{-1in}
+\addtolength{\evensidemargin}{-1in}
+
+\setlength{\topmargin}{2.0cm}
+\setlength{\headheight}{1.0cm}
+\setlength{\headsep}{1.0cm}
+\setlength{\textheight}{22.7cm}
+\setlength{\footskip}{1.0cm}
+\addtolength{\topmargin}{-1in}
+
+% Glossário --------------------------------------------------------------------
+\makeglossary
+
+% Capítulos --------------------------------------------------------------------
+% Não aparecer o número na primeira página dos capítulos
+\newcommand{\mychapter}[1]{\chapter{#1}\thispagestyle{empty}}
+\newcommand{\mychapterstar}[1]{\chapter*{#1}\thispagestyle{empty}}
+
+% Comandos matemáticos ---------------------------------------------------------
+% Implicação em fórmulas
+\newcommand{\implica}{\quad\Rightarrow\quad} %Meio de linha
+\newcommand{\implicafim}{\quad\Rightarrow}   %Fim de linha
+\newcommand{\tende}{\rightarrow}
+
+% Fração com parenteses
+\newcommand{\pfrac}[2]{\parent{\frac{#1}{#2}}}
+
+% Transformada de Laplace e transformada Z
+\newcommand{\lapl}{\pounds}
+\newcommand{\transfz}{\mathcal{Z}}
+
+% Sequências
+\newcommand{\sequencia}[4]{$#1_{#2}$, $#1_{#3}$, \ldots, $#1_{#4}$}
+
+% Outros ----------------------------------------------------------------------
+\newcommand{\chave}[1]{\left\{#1\right\}}
+\newcommand{\colchete}[1]{\left[#1\right]}
+\newcommand{\parent}[1]{\left(#1\right)}
