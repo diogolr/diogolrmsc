@@ -1,0 +1,30 @@
+Gráficos:
+- Ajustar a escala automaticamente ao marcar/desmarcar curva na legenda
+
+Comunicacao:
+
+Simulacao:
+- Receber valores da planta real para realimentacao?
+
+Controlador:
+
+Dialog - Calibrar sensores:
+- Fazer testes
+
+Interface:
+- Ao inves de selecionar Somente Simulacao/Somente Planta Real em um combobox,
+  agrupar um conjunto de checkbox -> Se o checkbox for marcado, adicionar a aba
+  referente ao que foi marcado (para isso, separar a configuracao do grafico da
+  planta real da configuracao do grafico da simulacao no arquivo principal)
+- A��o imprimir/exportar para PS e PDF (atentar para habilitar/
+  desabilitar os campos ao iniciar)
+- Incorporar as legendas nas imagens exportadas.
+- Configurar Habilitar/Desabilitar botoes de salvar/imprimir/exportar quando
+  parar/iniciar a execucao 
+- Adicionar campos/botões para leitura dos arquivos de configuração: Km,
+  orifícios... NA INTERFACE
+- Melhor configuração dos gráficos (mais discretos)
+- Estudar como serão feitas as "sobreposições" dos gráficos dos tanques com os
+  das mudanças de parâmetros (como exibir em que instante o parâmetro foi
+  modificado... de que valor para que valor - grafico da mudança)
+- Ação "Exibir configuracoes"
