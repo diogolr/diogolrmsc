@@ -1,0 +1,37 @@
+<RCC>
+  <qresource prefix="imgs">
+    <file>irc_protocol.png</file>
+    <file>kedit.png</file>
+    <file>player_play_22x22.png</file>
+    <file>player_stop_22x22.png</file>
+    <file>network_off_22x22.png</file>
+    <file>network_on_22x22.png</file>
+    <file>fileopen.png</file>
+    <file>acroread.png</file>
+    <file>advancedsettings.png</file>
+    <file>configure.png</file>
+    <file>eraser.png</file>
+    <file>fileprint.png</file>
+    <file>folder_blue.png</file>
+    <file>folder_yellow.png</file>
+    <file>help.png</file>
+    <file>inkscape.png</file>
+    <file>logout.png</file>
+    <file>modem_off.png</file>
+    <file>modem_on.png</file>
+    <file>player_play.png</file>
+    <file>network_off.png</file>
+    <file>network_on.png</file>
+    <file>player_stop.png</file>
+    <file>printer.png</file>
+    <file>qt.png</file>
+    <file>save_all.png</file>
+    <file>server.png</file>
+    <file>svg.png</file>
+    <file>trashcan_empty.png</file>
+    <file>trashcan_full.png</file>
+    <file>utilities.png</file>
+    <file>viewmag-.png</file>
+    <file>viewmag+.png</file>
+  </qresource>
+</RCC>
