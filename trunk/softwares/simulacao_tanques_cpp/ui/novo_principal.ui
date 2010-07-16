@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>JanelaPrincipal</class>
+ <widget class="QMainWindow" name="JanelaPrincipal">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Controle para o Sistema de Tanques - Quanser</string>
+  </property>
+  <widget class="QWidget" name="widget_central"/>
+  <widget class="QMenuBar" name="barra_menu">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_Arquivo">
+    <property name="title">
+     <string>&amp;Arquivo</string>
+    </property>
+    <addaction name="acao_salvar_dados"/>
+    <addaction name="acao_exportar"/>
+    <addaction name="acao_imprimir"/>
+    <addaction name="acao_sair"/>
+   </widget>
+   <widget class="QMenu" name="menu_Sobre">
+    <property name="title">
+     <string>&amp;Sobre</string>
+    </property>
+    <addaction name="acao_sobre_qt"/>
+   </widget>
+   <widget class="QMenu" name="menu_Configurar">
+    <property name="title">
+     <string>&amp;Configurar</string>
+    </property>
+    <addaction name="acao_config_parametros"/>
+    <addaction name="acao_excluir_config"/>
+    <addaction name="acao_config_canais"/>
+    <addaction name="acao_calibrar_sensores"/>
+   </widget>
+   <addaction name="menu_Arquivo"/>
+   <addaction name="menu_Configurar"/>
+   <addaction name="menu_Sobre"/>
+  </widget>
+  <widget class="QStatusBar" name="barra_status"/>
+  <widget class="QToolBar" name="barra_ferramentas">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="acao_salvar_dados"/>
+   <addaction name="acao_imprimir"/>
+   <addaction name="acao_exportar"/>
+   <addaction name="separator"/>
+   <addaction name="acao_config_canais"/>
+   <addaction name="acao_calibrar_sensores"/>
+   <addaction name="acao_config_parametros"/>
+   <addaction name="acao_excluir_config"/>
+   <addaction name="separator"/>
+   <addaction name="acao_iniciar"/>
+   <addaction name="acao_parar"/>
+  </widget>
+  <action name="acao_imprimir">
+   <property name="icon">
+    <iconset resource="../imgs/imgs.qrc">
+     <normaloff>:/imgs/printer.png</normaloff>:/imgs/printer.png</iconset>
+   </property>
+   <property name="text">
+    <string>Imprimir gráficos</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="acao_iniciar">
+   <property name="icon">
+    <iconset resource="../imgs/imgs.qrc">
+     <normaloff>:/imgs/player_play.png</normaloff>:/imgs/player_play.png</iconset>
+   </property>
+   <property name="text">
+    <string>Iniciar</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Space</string>
+   </property>
+  </action>
+  <action name="acao_parar">
+   <property name="icon">
+    <iconset resource="../imgs/imgs.qrc">
+     <normaloff>:/imgs/player_stop.png</normaloff>:/imgs/player_stop.png</iconset>
+   </property>
+   <property name="text">
+    <string>Parar</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+Space</string>
+   </property>
+  </action>
+  <action name="acao_config_parametros">
+   <property name="icon">
+    <iconset resource="../imgs/imgs.qrc">
+     <normaloff>:/imgs/kedit.png</normaloff>:/imgs/kedit.png</iconset>
+   </property>
+   <property name="text">
+    <string>Configurar parâmetros</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+P</string>
+   </property>
+  </action>
+  <action name="acao_sair">
+   <property name="icon">
+    <iconset resource="../imgs/imgs.qrc">
+     <normaloff>:/imgs/logout.png</normaloff>:/imgs/logout.png</iconset>
+   </property>
+   <property name="text">
+    <string>Sair</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="acao_salvar_dados">
+   <property name="icon">
+    <iconset resource="../imgs/imgs.qrc">
+     <normaloff>:/imgs/save_all.png</normaloff>:/imgs/save_all.png</iconset>
+   </property>
+   <property name="text">
+    <string>Salvar dados</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="acao_sobre_qt">
+   <property name="icon">
+    <iconset resource="../imgs/imgs.qrc">
+     <normaloff>:/imgs/qt.png</normaloff>:/imgs/qt.png</iconset>
+   </property>
+   <property name="text">
+    <string>Qt</string>
+   </property>
+  </action>
+  <action name="acao_exportar">
+   <property name="icon">
+    <iconset resource="../imgs/imgs.qrc">
+     <normaloff>:/imgs/svg.png</normaloff>:/imgs/svg.png</iconset>
+   </property>
+   <property name="text">
+    <string>Exportar gráficos</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+E</string>
+   </property>
+  </action>
+  <action name="acao_excluir_config">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../imgs/imgs.qrc">
+     <normaloff>:/imgs/eraser.png</normaloff>:/imgs/eraser.png</iconset>
+   </property>
+   <property name="text">
+    <string>Excluir configuração</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+X</string>
+   </property>
+  </action>
+  <action name="acao_config_canais">
+   <property name="icon">
+    <iconset resource="../imgs/imgs.qrc">
+     <normaloff>:/imgs/irc_protocol.png</normaloff>:/imgs/irc_protocol.png</iconset>
+   </property>
+   <property name="text">
+    <string>Configurar canais</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+C</string>
+   </property>
+  </action>
+  <action name="acao_calibrar_sensores">
+   <property name="icon">
+    <iconset resource="../imgs/imgs.qrc">
+     <normaloff>:/imgs/configure.png</normaloff>:/imgs/configure.png</iconset>
+   </property>
+   <property name="text">
+    <string>Calibrar sensores</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../imgs/imgs.qrc"/>
+ </resources>
+ <connections/>
+</ui>

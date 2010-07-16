@@ -1,0 +1,14 @@
+# Aceleracao da gravidade para Natal/RN ########################################
+g = 9.780705618678075
+
+# Area dos orificios de entrada ################################################
+Orificio 1: 0.316692174435936
+Orificio 2: 0.178176754671241
+
+# Area dos orificios de saida ##################################################
+Pequeno: 0.079173043608984
+Medio: 0.178139348120214
+Grande: 0.242467446052514
+
+# Area da seccao transversal do tanque #########################################
+A = 15.517916547360871
