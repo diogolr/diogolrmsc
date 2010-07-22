@@ -1,10 +1,10 @@
-Gr√°ficos:
+Gr·ficos:
 - Ajustar a escala automaticamente ao marcar/desmarcar curva na legenda
 
 Comunicacao:
 
 Simulacao:
-- Receber valores da planta real para realimentacao?
+- Testar simulaÁ„o de erros
 
 Controlador:
 
@@ -16,15 +16,14 @@ Interface:
   agrupar um conjunto de checkbox -> Se o checkbox for marcado, adicionar a aba
   referente ao que foi marcado (para isso, separar a configuracao do grafico da
   planta real da configuracao do grafico da simulacao no arquivo principal)
-- AÁ„o imprimir/exportar para PS e PDF (atentar para habilitar/
-  desabilitar os campos ao iniciar)
 - Incorporar as legendas nas imagens exportadas.
+- AÁ„o imprimir/exportar para PS
 - Configurar Habilitar/Desabilitar botoes de salvar/imprimir/exportar quando
   parar/iniciar a execucao 
-- Adicionar campos/bot√µes para leitura dos arquivos de configura√ß√£o: Km,
-  orif√≠cios... NA INTERFACE
-- Melhor configura√ß√£o dos gr√°ficos (mais discretos)
-- Estudar como ser√£o feitas as "sobreposi√ß√µes" dos gr√°ficos dos tanques com os
-  das mudan√ßas de par√¢metros (como exibir em que instante o par√¢metro foi
-  modificado... de que valor para que valor - grafico da mudan√ßa)
-- A√ß√£o "Exibir configuracoes"
+- Adicionar campos/botıes para leitura dos arquivos de configuraÁ„o: Km,
+  orifÌcios... NA INTERFACE
+- Melhor configuraÁ„o dos gr·ficos (mais discretos)
+- Estudar como ser„o feitas as "sobreposiÁıes" dos gr·ficos dos tanques com os
+  das mudanÁaas de par‚metros (como exibir em que instante o parametro foi
+  modificado... de que valor para que valor - grafico da mudanÁa)
+- AÁ„o "Exibir configuracoes"

@@ -113,8 +113,8 @@ void JanelaPrincipal :: atualizar_simulacao_arquivo()
         simulacao->modificar_ruido_atuador( TANQUE_1, matriz[i][11] );
         simulacao->modificar_ruido_atuador( TANQUE_2, matriz[i][12] );
 
-        simulacao->modificar_ruido_vazamento( TANQUE_1, matriz[i][13] );
-        simulacao->modificar_ruido_vazamento( TANQUE_2, matriz[i][14] );
+        simulacao->modificar_orif_vazamento( TANQUE_1, matriz[i][13] );
+        simulacao->modificar_orif_vazamento( TANQUE_2, matriz[i][14] );
 
         simulacao->modificar_km( TANQUE_1, matriz[i][15] );
         simulacao->modificar_km( TANQUE_2, matriz[i][16] );
@@ -136,8 +136,35 @@ void JanelaPrincipal :: atualizar_simulacao_arquivo()
         nivel_t2 = 6.25 * simulacao->ler( sim_canal_leitura_t2 );
 
         // Sinal de Controle
-        sinal_cont_t1 = controlador_t1.acao_controle( nivel_t1 );
-        sinal_cont_t2 = controlador_t2.acao_controle( nivel_t2 );
+        sinal_cont_t1 = controlador_t1.sinal_controle( nivel_t1 );
+        sinal_cont_t2 = controlador_t2.sinal_controle( nivel_t2 );
+        
+        // Evitar transbordamento ou sugar em vazio
+        if ( sinal_cont_t1 < 0.0 && nivel_t1 <= 2.0 )
+        {
+            sinal_cont_t1 = 0.0;
+        }
+        else if ( nivel_t1 >= 29.0 )
+        {
+            sinal_cont_t1 = -0.5;
+        }
+        else if ( nivel_t1 >= 28.0 )
+        {
+            sinal_cont_t1 = tensao_nivel( 28.0 );
+        }
+        
+        if ( sinal_cont_t2 < 0.0 && nivel_t2 <= 2.0 )
+        {
+            sinal_cont_t2 = 0.0;
+        }
+        else if ( nivel_t2 >= 29.0 )
+        {
+            sinal_cont_t2 = -0.5;
+        }
+        else if ( nivel_t2 >= 28.0 )
+        {
+            sinal_cont_t2 = tensao_nivel( 28.0 );
+        }
 
         acao_p_t1 = controlador_t1.acao_p();
         acao_p_t2 = controlador_t2.acao_p();
@@ -711,7 +738,7 @@ void JanelaPrincipal :: ler_campos()
 
     kd_t1 = valor;
 
-    // Ganhos - Controlador 1
+    // Ganhos - Controlador 2
     valor = ui->kp_t2->text().toDouble( &ok );
 
     if ( !ok )
@@ -770,8 +797,35 @@ void JanelaPrincipal :: atualizar_dados()
         nivel_t1 = 6.25 * quanser->ler( real_canal_leitura_t1 );
         nivel_t2 = 6.25 * quanser->ler( real_canal_leitura_t2 );
 
-        sinal_cont_t1 = controlador_t1.acao_controle( nivel_t1 );
-        sinal_cont_t2 = controlador_t2.acao_controle( nivel_t2 );
+        sinal_cont_t1 = controlador_t1.sinal_controle( nivel_t1 );
+        sinal_cont_t2 = controlador_t2.sinal_controle( nivel_t2 );
+
+        // Evitar transbordamento ou sugar em vazio
+        if ( sinal_cont_t1 < 0.0 && nivel_t1 <= 2.0 )
+        {
+            sinal_cont_t1 = 0.0;
+        }
+        else if ( nivel_t1 >= 29.0 )
+        {
+            sinal_cont_t1 = -0.5;
+        }
+        else if ( nivel_t1 >= 28.0 )
+        {
+            sinal_cont_t1 = tensao_nivel( 28.0 );
+        }
+        
+        if ( sinal_cont_t2 < 0.0 && nivel_t2 <= 2.0 )
+        {
+            sinal_cont_t2 = 0.0;
+        }
+        else if ( nivel_t2 >= 29.0 )
+        {
+            sinal_cont_t2 = -0.5;
+        }
+        else if ( nivel_t2 >= 28.0 )
+        {
+            sinal_cont_t2 = tensao_nivel( 28.0 );
+        }
 
         acao_p_t1 = controlador_t1.acao_p();
         acao_p_t2 = controlador_t2.acao_p();
@@ -814,7 +868,7 @@ void JanelaPrincipal :: atualizar_dados()
                                      QPixmap( ":imgs/player_stop_22x22.png" ) );
                 imgs_barra_status[1].setToolTip( "Sistema parado" );
 
-                habilitar_campos();
+                habilitar_campos_parametros();
 
                 return;
             }
@@ -828,9 +882,36 @@ void JanelaPrincipal :: atualizar_dados()
             nivel_t1 = 6.25 * simulacao->ler( sim_canal_leitura_t1 );
             nivel_t2 = 6.25 * simulacao->ler( sim_canal_leitura_t2 );
 
-            sinal_cont_t1 = controlador_t1.acao_controle( nivel_t1 );
-            sinal_cont_t2 = controlador_t2.acao_controle( nivel_t2 );
+            sinal_cont_t1 = controlador_t1.sinal_controle( nivel_t1 );
+            sinal_cont_t2 = controlador_t2.sinal_controle( nivel_t2 );
             
+            // Evitar transbordamento ou sugar em vazio
+            if ( sinal_cont_t1 < 0.0 && nivel_t1 <= 2.0 )
+            {
+                sinal_cont_t1 = 0.0;
+            }
+            else if ( nivel_t1 >= 29.0 )
+            {
+                sinal_cont_t1 = -0.5;
+            }
+            else if ( nivel_t1 >= 28.0 )
+            {
+                sinal_cont_t1 = tensao_nivel( 28.0 );
+            }
+            
+            if ( sinal_cont_t2 < 0.0 && nivel_t2 <= 2.0 )
+            {
+                sinal_cont_t2 = 0.0;
+            }
+            else if ( nivel_t2 >= 29.0 )
+            {
+                sinal_cont_t2 = -0.5;
+            }
+            else if ( nivel_t2 >= 28.0 )
+            {
+                sinal_cont_t2 = tensao_nivel( 28.0 );
+            }
+
             acao_p_t1 = controlador_t1.acao_p();
             acao_p_t2 = controlador_t2.acao_p();
             acao_i_t1 = controlador_t1.acao_i();
@@ -850,7 +931,7 @@ void JanelaPrincipal :: atualizar_dados()
 }
 
 
-void JanelaPrincipal :: desabilitar_campos()
+void JanelaPrincipal :: desabilitar_campos_parametros()
 {
     // Se houver algum arquivo de configuracao, os parametros dos controladores
     // nao poderao ser configurados e a referencia sera atualizada conforme o
@@ -880,6 +961,12 @@ void JanelaPrincipal :: desabilitar_campos()
     ui->porta_real->setEnabled( false );
     ui->iniciar->setEnabled( false );
     ui->parar->setEnabled( true );
+
+    // Desabilitando o zoom dos graficos
+    ui->sim_niveis->habilitar_zoom( false );
+    ui->sim_erro_sc->habilitar_zoom( false );
+    ui->real_niveis->habilitar_zoom( false );
+    ui->real_erro_sc->habilitar_zoom( false );
 }
 
 
@@ -953,7 +1040,7 @@ void JanelaPrincipal :: habilitar_aplicar()
 }
 
 
-void JanelaPrincipal :: habilitar_campos()
+void JanelaPrincipal :: habilitar_campos_parametros()
 {
     // Se houver algum arquivo de configuracao, os campos dos parametros dos
     // controladores, assim como os campos das referencias que estavam
@@ -987,6 +1074,12 @@ void JanelaPrincipal :: habilitar_campos()
     ui->porta_real->setEnabled( true );
     ui->iniciar->setEnabled( true );
     ui->parar->setEnabled( false );
+
+    // Habilitando o zoom dos graficos
+    ui->sim_niveis->habilitar_zoom( true );
+    ui->sim_erro_sc->habilitar_zoom( true );
+    ui->real_niveis->habilitar_zoom( true );
+    ui->real_erro_sc->habilitar_zoom( true );
 }
 
 
@@ -1155,7 +1248,7 @@ void JanelaPrincipal :: on_iniciar_clicked()
 
     // Resetando a simulacao
     // TODO configurar portas de leitura/escrita da simulacao apos o reset
-    simulacao->resetar();
+    simulacao->reiniciar_valores();
 
     // Variaveis
     erro_t1 = 0.0;
@@ -1164,8 +1257,15 @@ void JanelaPrincipal :: on_iniciar_clicked()
     simulacao_encerrada = false;
 
     // Lendo os campos e configurando os controladores
+    controlador_t1.reiniciar_valores();
+    controlador_t2.reiniciar_valores();
+
     sinal_cont_t1 = 0.0;
     sinal_cont_t2 = 0.0;
+
+    acao_p_t1 = acao_p_t2 = 0.0;
+    acao_i_t1 = acao_i_t2 = 0.0;
+    acao_d_t1 = acao_d_t2 = 0.0;
 
     try
     {
@@ -1243,7 +1343,7 @@ void JanelaPrincipal :: on_iniciar_clicked()
     imgs_barra_status[1].setPixmap( QPixmap( ":imgs/player_play_22x22.png" ) );
     imgs_barra_status[1].setToolTip( utf8( "Sistema em execução" ) );
 
-    desabilitar_campos();
+    desabilitar_campos_parametros();
 
     temporizador->start( (int)( PERIODO_AMOSTRAGEM * 1000 ) );
 }
@@ -1265,7 +1365,7 @@ void JanelaPrincipal :: on_parar_clicked()
     imgs_barra_status[1].setPixmap( QPixmap( ":imgs/player_stop_22x22.png" ) );
     imgs_barra_status[1].setToolTip( "Sistema parado" );
 
-    habilitar_campos();
+    habilitar_campos_parametros();
 }
 
 

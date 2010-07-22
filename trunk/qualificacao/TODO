@@ -1,0 +1,14 @@
+# Simulacao ####################################################################
+- Vazamento: Considerado um orificio de raio especificado pelo usuario no fundo
+  do tanque para que se tivesse uma equação semelhante ao orifício de saída
+  real: nivel = nivel - ( orif_vazamento / A1 ) * sqrt( 2 * g * y[0] ); =>
+  Verificar se pode-se usar ( y[0] - altura_orificio_vazamento ) no lugar de
+  somente y[0] => Observar que a área de secção A1 não será a mesma => Pode-se
+  considerar a mesma?
+
+- Limítrofes de atuação das bombas (planta real, na simulacao nao foi preciso): 
+    - Se o nivel estiver abaixo de 2cm e a bomba estiver sugando, a bomba será
+      desligada 
+    - Se o nivel estiver acima de 28cm a bomba deve manter a tensao constante em
+      Vp = ( a1 / Km1 ) * sqrt( 2 * g * L_desejado ). 
+    - Se o nivel estiver acima de 29cm a bomba deverá sugar um pouco de água 
