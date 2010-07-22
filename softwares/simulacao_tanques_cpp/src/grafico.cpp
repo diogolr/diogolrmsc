@@ -1,6 +1,8 @@
 #ifndef GRAFICO_CPP_
 #define GRAFICO_CPP_
 
+#include <QPrinter>
+
 #include "grafico.h"
 
 Grafico :: Grafico( QWidget *p ) : QwtPlot( p ), pai( p )
@@ -140,7 +142,6 @@ void Grafico :: exportar( const QString &nome_arquivo )
     }
     else if ( extensao == "pdf" || extensao == "ps" )
     {
-        /*
         QPrinter impressora;
 
         if ( extensao == "pdf" )
@@ -157,7 +158,6 @@ void Grafico :: exportar( const QString &nome_arquivo )
         impressora.setOrientation( QPrinter::Landscape );
 
         this->print( impressora, filtro );
-        */
     }
     else
     {
@@ -175,6 +175,22 @@ void Grafico :: exportar( const QString &nome_arquivo )
         this->print( imagem, filtro );
 
         imagem.save( nome_arquivo, qstring_char( extensao ), 100 );
+    }
+}
+
+
+void Grafico :: habilitar_zoom( const bool &hab )
+{
+    if ( hab )
+    {
+        zoom->setZoomBase();
+        zoom->setEnabled( true );
+    }
+    else
+    {
+        zoom->setEnabled( false );
+        this->setAxisAutoScale( QwtPlot::yLeft );
+        this->setAxisAutoScale( QwtPlot::xBottom );
     }
 }
 
@@ -316,6 +332,25 @@ void Grafico :: configurar()
     QPen linha( Qt::lightGray );
     linha.setStyle( Qt::DotLine );
     grid.setPen( linha );
+
+    // Zoom
+    zoom = new QwtPlotZoomer( QwtPlot::xBottom, 
+                              QwtPlot::yLeft,
+                              this->canvas() );
+    zoom->setRubberBand( QwtPicker::RectRubberBand );
+
+    linha.setStyle( Qt::SolidLine );
+    linha.setColor( Qt::red );
+
+    zoom->setRubberBandPen( linha );
+
+    linha.setColor( Qt::black );
+
+    zoom->setTrackerPen( linha );
+
+    zoom->setTrackerMode( QwtPicker::ActiveOnly );
+
+    zoom->setEnabled( false );
 }
 
 #endif
