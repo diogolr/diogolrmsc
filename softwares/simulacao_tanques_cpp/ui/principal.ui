@@ -842,6 +842,9 @@ p, li { white-space: pre-wrap; }
          <layout class="QHBoxLayout" name="horizontalLayout_21">
           <item>
            <widget class="QComboBox" name="configuracao">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <item>
              <property name="text">
               <string>Configuração 1</string>
@@ -855,7 +858,10 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item>
-           <widget class="QToolButton" name="exibir_configuracoes_2">
+           <widget class="QToolButton" name="exibir_configuracoes">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="toolTip">
              <string>Exibir configurações</string>
             </property>
@@ -1551,7 +1557,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>modo_funcionamento</tabstop>
   <tabstop>exibir_modo_funcionamento</tabstop>
   <tabstop>configuracao</tabstop>
-  <tabstop>exibir_configuracoes_2</tabstop>
+  <tabstop>exibir_configuracoes</tabstop>
   <tabstop>ip_real</tabstop>
   <tabstop>porta_real</tabstop>
   <tabstop>ip_simulacao</tabstop>

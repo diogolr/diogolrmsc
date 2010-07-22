@@ -65,11 +65,11 @@ class JanelaPrincipal : public QMainWindow
 
     private slots:
         void atualizar_dados();
-        void desabilitar_campos();
+        void desabilitar_campos_parametros();
         void enter_pressionado();
         void exportar_dados_graficos();
         void habilitar_aplicar();
-        void habilitar_campos();
+        void habilitar_campos_parametros();
         void imprimir_graficos();
         void on_acao_calibrar_sensores_triggered();
         void on_acao_config_canais_triggered();

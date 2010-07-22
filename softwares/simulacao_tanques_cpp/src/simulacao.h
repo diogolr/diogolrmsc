@@ -6,6 +6,7 @@
 
 #include <cmath>
 
+#include "funcoes.h"
 #include "definicoes.h"
 
 class Simulacao : public QObject
@@ -35,16 +36,16 @@ class Simulacao : public QObject
                                      const double &valor = 1.0 );
         void modificar_orif_saida( const int &tanque,
                                    const double &valor = a1_med );
+        void modificar_orif_vazamento( const int &tanque,
+                                       const double &valor = 0.0 );
         void modificar_ruido_atuador( const int &tanque,
                                       const double &valor = 0.0 );
         void modificar_ruido_sensor( const int &tanque,
                                      const double &valor = 0.0 );
-        void modificar_ruido_vazamento( const int &tanque,
-                                        const double &valor = 0.0 );
         void modificar_km( const int &tanque, 
                            const double &valor = 4.6 );
 
-        void resetar();
+        void reiniciar_valores();
 
     private:
         double dLdt( const double &, double *, const int & );
@@ -73,8 +74,8 @@ class Simulacao : public QObject
         ...
         */
 
-        double altura_orif_vazamento_t1;
-        double altura_orif_vazamento_t2;
+        //double altura_orif_vazamento_t1;
+        //double altura_orif_vazamento_t2;
         double ganho_mp_t1;
         double ganho_mp_t2;
         double ganho_atuador_t1;
@@ -96,8 +97,8 @@ class Simulacao : public QObject
         double porcent_ruido_atuador_t2;
         double porcent_ruido_sensor_t1;
         double porcent_ruido_sensor_t2;
-        double porcent_ruido_vazamento_t1;
-        double porcent_ruido_vazamento_t2;
+        double raio_orif_vazamento_t1;
+        double raio_orif_vazamento_t2;
         double tensao_bomba_1;
         double tensao_bomba_2;
 

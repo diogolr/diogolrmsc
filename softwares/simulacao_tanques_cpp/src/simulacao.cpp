@@ -5,7 +5,7 @@
 
 Simulacao :: Simulacao()
 {
-    resetar();
+    reiniciar_valores();
 }
 
 
@@ -16,6 +16,26 @@ Simulacao :: ~Simulacao()
 
 double Simulacao :: ler( const int &canal )
 {
+    // Vazamento ---------------------------------------------------------------
+    // Evitando que seja extraida a raiz quadrada de um numero negativo
+    if ( nivel_t1 > 0.0 )
+        nivel_t1 -= ( raio_orif_vazamento_t1 / A1 ) * 
+                    ( sqrt( 2 * g * nivel_t1 ) );
+    // Evitando que seja extraida a raiz quadrada de um numero negativo
+    if ( nivel_t2 > 0.0 )
+        nivel_t2 -= ( raio_orif_vazamento_t2 / A2 ) * 
+                    ( sqrt( 2 * g * nivel_t2 ) );
+
+    // Ruido -------------------------------------------------------------------
+    nivel_t1 = random( nivel_t1 * ( 1.0 - porcent_ruido_sensor_t1 ),
+                       nivel_t1 * ( 1.0 + porcent_ruido_sensor_t1 ) );
+    nivel_t2 = random( nivel_t2 * ( 1.0 - porcent_ruido_sensor_t2 ),
+                       nivel_t2 * ( 1.0 + porcent_ruido_sensor_t2 ) );
+
+    // Nivel DC ----------------------------------------------------------------
+    nivel_t1 += dc_sensor_t1;
+    nivel_t2 += dc_sensor_t2;
+
     if ( canal == canal_leitura_t1 )
     {
         return ganho_sensor_t1 * GANHO_SENSOR * nivel_t1;
@@ -50,7 +70,18 @@ void Simulacao :: escrever( const int &canal, const double &valor )
     if ( canal == canal_escrita_t1 )
     {
         tensao_bomba_1 = ganho_mp_t1 * valor;
+        
+        // Ganho ---------------------------------------------------------------
+        tensao_bomba_1 *= ganho_atuador_t1;
 
+        // Ruido ---------------------------------------------------------------
+        tensao_bomba_1 = random( tensao_bomba_1 * 
+                                 ( 1.0 - porcent_ruido_atuador_t1 ),
+                                 tensao_bomba_1 * 
+                                 ( 1.0 + porcent_ruido_atuador_t1 ) );
+
+        // Nivel DC ------------------------------------------------------------
+        tensao_bomba_1 += dc_atuador_t1;
         if ( tensao_bomba_1 > 15.0 )
         {
             emit erro( "[Erro Simulação]: Bomba 1 danificada" );
@@ -59,7 +90,19 @@ void Simulacao :: escrever( const int &canal, const double &valor )
     else if ( canal == canal_escrita_t2 )
     {
         tensao_bomba_2 = ganho_mp_t2 * valor;
+        
+        // Ganho ---------------------------------------------------------------
+        tensao_bomba_2 *= ganho_atuador_t2;
 
+        // Ruido ---------------------------------------------------------------
+        tensao_bomba_2 = random( tensao_bomba_2 * 
+                                 ( 1.0 - porcent_ruido_atuador_t2 ),
+                                 tensao_bomba_2 * 
+                                 ( 1.0 + porcent_ruido_atuador_t2 ) );
+
+        // Nivel DC ------------------------------------------------------------
+        tensao_bomba_2 += dc_atuador_t2;
+        
         if ( tensao_bomba_2 > 15.0 )
         {
             emit erro( "[Erro Simulação]: Bomba 2 danificada" );
@@ -184,6 +227,25 @@ void Simulacao :: modificar_orif_saida( const int &tanque,
 }
 
 
+void Simulacao :: modificar_orif_vazamento( const int &tanque,
+                                            const double &valor )
+{
+    switch ( tanque )
+    {
+        case TANQUE_1:
+            raio_orif_vazamento_t1 = valor;
+            break;
+
+        case TANQUE_2:
+            raio_orif_vazamento_t2 = valor;
+            break;
+
+        default:
+            return;
+    }
+}
+
+
 void Simulacao :: modificar_ruido_atuador( const int &tanque,
                                            const double &valor )
 {
@@ -222,25 +284,6 @@ void Simulacao :: modificar_ruido_sensor( const int &tanque,
 }
 
 
-void Simulacao :: modificar_ruido_vazamento( const int &tanque,
-                                             const double &valor )
-{
-    switch ( tanque )
-    {
-        case TANQUE_1:
-            porcent_ruido_vazamento_t1 = valor;
-            break;
-
-        case TANQUE_2:
-            porcent_ruido_vazamento_t2 = valor;
-            break;
-
-        default:
-            return;
-    }
-}
-
-
 void Simulacao :: modificar_km( const int &tanque, const double &valor )
 {
     switch ( tanque )
@@ -259,7 +302,7 @@ void Simulacao :: modificar_km( const int &tanque, const double &valor )
 }
 
 
-void Simulacao :: resetar()
+void Simulacao :: reiniciar_valores()
 {
     /*
     hab_dc_sensor_t1 = false;
@@ -278,8 +321,8 @@ void Simulacao :: resetar()
     canal_leitura_t1 = CANAL_LEITURA_T1;
     canal_leitura_t2 = CANAL_LEITURA_T2;
 
-    altura_orif_vazamento_t1 = 0.0;
-    altura_orif_vazamento_t2 = 0.0;
+    //altura_orif_vazamento_t1 = 0.0;
+    //altura_orif_vazamento_t2 = 0.0;
 
     ganho_mp_t1 = GANHO_MOD_POT;
     ganho_mp_t2 = GANHO_MOD_POT;
@@ -309,8 +352,9 @@ void Simulacao :: resetar()
     porcent_ruido_atuador_t2 = 0.0;
     porcent_ruido_sensor_t1 = 0.0;
     porcent_ruido_sensor_t2 = 0.0;
-    porcent_ruido_vazamento_t1 = 0.0;
-    porcent_ruido_vazamento_t2 = 0.0;
+    
+    raio_orif_vazamento_t1 = 0.0;
+    raio_orif_vazamento_t2 = 0.0;
 
     tensao_bomba_1 = 0.0;
     tensao_bomba_2 = 0.0;
@@ -394,10 +438,6 @@ void Simulacao :: atualizar( const double &t )
 
     nivel_t1 = y[0];
     nivel_t2 = y[1];
-
-    // TODO 
-    // niveis += ruidos
-    // niveis -= vazamentos...
 }
 
 #endif

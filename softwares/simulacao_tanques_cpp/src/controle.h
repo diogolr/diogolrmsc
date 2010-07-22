@@ -1,8 +1,6 @@
 #ifndef CONTROLE_H_
 #define CONTROLE_H_
 
-#include <QDebug>
-
 class Controle
 {
     // Atributos Publicos
@@ -14,7 +12,6 @@ class Controle
         Controle( const TipoControlador &tc = Controle::PID );
         ~Controle();
 
-        double acao_controle( const double & );
         double acao_p( const double & );
         double acao_p_saida( const double & );
         double acao_i( const double & );
@@ -24,6 +21,7 @@ class Controle
         double acao_i();
         double acao_d();
         double ref();
+        double sinal_controle( const double & );
 
         int tipo();
 
@@ -36,14 +34,12 @@ class Controle
         void configurar_referencia( const double & );
         void habilitar_integracao_cond( const bool & );
         void inicializar();
-
-    private:
+        void reiniciar_valores();
 
     // Atributos
     private:
         bool integ_cond;
 
-        double acao;
         double acao_P;
         double acao_I;
         double acao_D;
@@ -60,6 +56,7 @@ class Controle
         double lim_sup;
         double periodo_amostragem;
         double saida_ant;
+        double sinal;
 
         TipoControlador controlador;
 };

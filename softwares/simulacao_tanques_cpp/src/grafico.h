@@ -7,7 +7,6 @@
 #include <QFont>
 #include <QPen>
 #include <QPixmap>
-//#include <QPrinter>
 #include <QSize>
 #include <QString>
 #include <QSvgGenerator>
@@ -22,6 +21,8 @@
 #include <qwt_plot_item.h>
 #include <qwt_plot_layout.h>
 #include <qwt_plot_printfilter.h>
+#include <qwt_plot_zoomer.h>
+#include <qwt_picker.h>
 #include <qwt_text.h>
 
 #include <fstream>
@@ -55,6 +56,7 @@ class Grafico : public QwtPlot
                                    const QwtText & );
         void configurar_titulo( const QwtText & );
         void exportar( const QString &nome_arquivo = "saida.svg" );
+        void habilitar_zoom( const bool & );
         void limpar( const int &curva = -1 );
         void salvar( const QString &nome_arquivo = "saida.dat", 
                      const char &separador = '\t',
@@ -76,6 +78,7 @@ class Grafico : public QwtPlot
 
         QwtLegend *legenda;
         QwtPlotGrid grid;
+        QwtPlotZoomer *zoom;
 };
 
 #endif
