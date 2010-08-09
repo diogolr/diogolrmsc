@@ -19,11 +19,11 @@ double Simulacao :: ler( const int &canal )
     // Vazamento ---------------------------------------------------------------
     // Evitando que seja extraida a raiz quadrada de um numero negativo
     if ( nivel_t1 > 0.0 )
-        nivel_t1 -= ( raio_orif_vazamento_t1 / A1 ) * 
+        nivel_t1 -= ( area_orif_vazamento_t1 / A1 ) * 
                     ( sqrt( 2 * g * nivel_t1 ) );
     // Evitando que seja extraida a raiz quadrada de um numero negativo
     if ( nivel_t2 > 0.0 )
-        nivel_t2 -= ( raio_orif_vazamento_t2 / A2 ) * 
+        nivel_t2 -= ( area_orif_vazamento_t2 / A2 ) * 
                     ( sqrt( 2 * g * nivel_t2 ) );
 
     // Ruido -------------------------------------------------------------------
@@ -233,11 +233,11 @@ void Simulacao :: modificar_orif_vazamento( const int &tanque,
     switch ( tanque )
     {
         case TANQUE_1:
-            raio_orif_vazamento_t1 = valor;
+            area_orif_vazamento_t1 = valor;
             break;
 
         case TANQUE_2:
-            raio_orif_vazamento_t2 = valor;
+            area_orif_vazamento_t2 = valor;
             break;
 
         default:
@@ -353,8 +353,8 @@ void Simulacao :: reiniciar_valores()
     porcent_ruido_sensor_t1 = 0.0;
     porcent_ruido_sensor_t2 = 0.0;
     
-    raio_orif_vazamento_t1 = 0.0;
-    raio_orif_vazamento_t2 = 0.0;
+    area_orif_vazamento_t1 = 0.0;
+    area_orif_vazamento_t2 = 0.0;
 
     tensao_bomba_1 = 0.0;
     tensao_bomba_2 = 0.0;

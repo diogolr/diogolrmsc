@@ -139,6 +139,7 @@ void JanelaPrincipal :: atualizar_simulacao_arquivo()
         sinal_cont_t1 = controlador_t1.sinal_controle( nivel_t1 );
         sinal_cont_t2 = controlador_t2.sinal_controle( nivel_t2 );
         
+        /*
         // Evitar transbordamento ou sugar em vazio
         if ( sinal_cont_t1 < 0.0 && nivel_t1 <= 2.0 )
         {
@@ -165,6 +166,7 @@ void JanelaPrincipal :: atualizar_simulacao_arquivo()
         {
             sinal_cont_t2 = tensao_nivel( 28.0 );
         }
+        */
 
         acao_p_t1 = controlador_t1.acao_p();
         acao_p_t2 = controlador_t2.acao_p();
@@ -187,6 +189,12 @@ void JanelaPrincipal :: atualizar_simulacao_arquivo()
         else
         {
             atualizar_graficos_simulacao( false );
+        }
+
+        // TODO retirar
+        if ( i % 1000 == 0 )
+        {
+            qDebug() << i;
         }
     }
 }
@@ -886,6 +894,7 @@ void JanelaPrincipal :: atualizar_dados()
             sinal_cont_t1 = controlador_t1.sinal_controle( nivel_t1 );
             sinal_cont_t2 = controlador_t2.sinal_controle( nivel_t2 );
             
+            /*
             // Evitar transbordamento ou sugar em vazio
             if ( sinal_cont_t1 < 0.0 && nivel_t1 <= 2.0 )
             {
@@ -912,6 +921,7 @@ void JanelaPrincipal :: atualizar_dados()
             {
                 sinal_cont_t2 = tensao_nivel( 28.0 );
             }
+            */
 
             acao_p_t1 = controlador_t1.acao_p();
             acao_p_t2 = controlador_t2.acao_p();
@@ -1292,7 +1302,7 @@ void JanelaPrincipal :: on_iniciar_clicked()
         
         // Atualizando os graficos da planta real
         // Se o programa estiver executando no modo RealSimulacao ou no modo
-        // Simulacao, ou seja, se houver a simulacao
+        // SomenteReal, ou seja, se houver a planta real
         if ( modo_funcionamento != SomenteSimulacao )
         {
             estabelecer_conexao();
@@ -1305,7 +1315,7 @@ void JanelaPrincipal :: on_iniciar_clicked()
         
         // Atualizando os graficos da simulacao
         // Se o programa estiver executando no modo RealSimulacao ou no modo
-        // Simulacao, ou seja, se houver a simulacao
+        // SomenteSimulacao, ou seja, se houver a simulacao
         if ( modo_funcionamento != SomenteReal )
         {
             nivel_t1 = simulacao->ler( sim_canal_leitura_t1 );
