@@ -648,7 +648,8 @@ void JanelaPrincipal :: inicializar()
     salvar = NULL;
 
     // Modo de funcionamento
-    modo_funcionamento = RealSimulacao;
+    //TODO modo_funcionamento = RealSimulacao;
+    modo_funcionamento = SomenteSimulacao;
 
     // Comunicacao
     quanser = NULL;
