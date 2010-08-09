@@ -97,8 +97,8 @@ class Simulacao : public QObject
         double porcent_ruido_atuador_t2;
         double porcent_ruido_sensor_t1;
         double porcent_ruido_sensor_t2;
-        double raio_orif_vazamento_t1;
-        double raio_orif_vazamento_t2;
+        double area_orif_vazamento_t1;
+        double area_orif_vazamento_t2;
         double tensao_bomba_1;
         double tensao_bomba_2;
 
