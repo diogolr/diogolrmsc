@@ -557,7 +557,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>860</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_arquivo">
@@ -656,6 +656,12 @@ p, li { white-space: pre-wrap; }
          <layout class="QHBoxLayout" name="horizontalLayout_20">
           <item>
            <widget class="QComboBox" name="modo_funcionamento">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="currentIndex">
+             <number>2</number>
+            </property>
             <item>
              <property name="text">
               <string>Planta real e simulação</string>
@@ -675,6 +681,9 @@ p, li { white-space: pre-wrap; }
           </item>
           <item>
            <widget class="QToolButton" name="exibir_modo_funcionamento">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="toolTip">
              <string>Exibir configurações</string>
             </property>
@@ -725,6 +734,9 @@ p, li { white-space: pre-wrap; }
            <layout class="QVBoxLayout" name="verticalLayout_9">
             <item>
              <widget class="QLabel" name="label_6">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="text">
                <string>IP:</string>
               </property>
@@ -732,6 +744,9 @@ p, li { white-space: pre-wrap; }
             </item>
             <item>
              <widget class="QLabel" name="label_2">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="text">
                <string>Porta:</string>
               </property>
@@ -743,6 +758,9 @@ p, li { white-space: pre-wrap; }
            <layout class="QVBoxLayout" name="verticalLayout_10">
             <item>
              <widget class="QLineEdit" name="ip_real">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="text">
                <string>10.13.99.69</string>
               </property>
@@ -750,6 +768,9 @@ p, li { white-space: pre-wrap; }
             </item>
             <item>
              <widget class="QLineEdit" name="porta_real">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="text">
                <string>20081</string>
               </property>
@@ -1103,9 +1124,6 @@ p, li { white-space: pre-wrap; }
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
              <widget class="QLineEdit" name="kp_t2">
-              <property name="enabled">
-               <bool>true</bool>
-              </property>
               <property name="text">
                <string>2.0</string>
               </property>
@@ -1113,9 +1131,6 @@ p, li { white-space: pre-wrap; }
             </item>
             <item>
              <widget class="QLineEdit" name="ki_t2">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
               <property name="text">
                <string>0.5</string>
               </property>
@@ -1123,9 +1138,6 @@ p, li { white-space: pre-wrap; }
             </item>
             <item>
              <widget class="QLineEdit" name="kd_t2">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
               <property name="text">
                <string>0.05</string>
               </property>
@@ -1173,9 +1185,6 @@ p, li { white-space: pre-wrap; }
            <layout class="QVBoxLayout" name="verticalLayout_3">
             <item>
              <widget class="QLineEdit" name="kp_t1">
-              <property name="enabled">
-               <bool>true</bool>
-              </property>
               <property name="text">
                <string>2.0</string>
               </property>
@@ -1183,9 +1192,6 @@ p, li { white-space: pre-wrap; }
             </item>
             <item>
              <widget class="QLineEdit" name="ki_t1">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
               <property name="text">
                <string>0.5</string>
               </property>
@@ -1193,9 +1199,6 @@ p, li { white-space: pre-wrap; }
             </item>
             <item>
              <widget class="QLineEdit" name="kd_t1">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
               <property name="text">
                <string>0.05</string>
               </property>
@@ -1214,6 +1217,9 @@ p, li { white-space: pre-wrap; }
         </item>
         <item row="4" column="0">
          <widget class="QComboBox" name="tipo_controlador_t1">
+          <property name="currentIndex">
+           <number>3</number>
+          </property>
           <item>
            <property name="text">
             <string>P</string>
@@ -1261,6 +1267,9 @@ p, li { white-space: pre-wrap; }
         </item>
         <item row="4" column="1">
          <widget class="QComboBox" name="tipo_controlador_t2">
+          <property name="currentIndex">
+           <number>3</number>
+          </property>
           <item>
            <property name="text">
             <string>P</string>
