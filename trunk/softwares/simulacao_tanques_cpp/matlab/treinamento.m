@@ -4,10 +4,12 @@ clear;
 clc;
 
 % arq_niveis = input( 'Niveis [treinamento]: ' );
-arq_niveis = 'D:\documentos\Diogo\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\10_min_normal\niveis_treinamento.dat';
+% arq_niveis = 'D:\documentos\Diogo\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\10_min_normal\niveis_treinamento.dat';
+arq_niveis = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\10_min_normal\niveis_treinamento.dat';
 
 % arq_erro_sc = input( 'Erro e Sinal de controle [treinamento]: ' );
-arq_erro_sc= 'D:\documentos\Diogo\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\10_min_normal\erro_sc_treinamento.dat';
+% arq_erro_sc = 'D:\documentos\Diogo\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\10_min_normal\erro_sc_treinamento.dat';
+arq_erro_sc = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\10_min_normal\erro_sc_treinamento.dat';
 
 mat_niveis = dlmread( arq_niveis, '\t' );
 mat_erro_sc = dlmread( arq_erro_sc, '\t' );
@@ -86,14 +88,27 @@ if falha
 % =========================================================================
 else
     % Determinando a proposta para adequar a saida da rede
+    disp( ' ' );
     disp( 'Propostas: ');
     disp( '[1] RNA para identificacao global' );
     disp( '[2] RNA para identificacao individual ou em separado' );
     disp( ' ' );
+    proposta = input( 'Proposta: ' );
+    disp( ' ' );
     
-    proposta = input( 'Proposta:' );
+    % Determinando os parametros de treinamento ---------------------------
+    % normalizar = input( 'Normalizar dados [0 ou 1]: ' );
+    normalizar = 0;
+
+    % if normalizar == 1
+    %     min = input( 'Valor minimo: ' );
+    %     max = input( 'Valor maximo: ' );
+    % end
+
+    min = -1;
+    max = 1;
     
-    % Determinacao da entrada/saida da rede -------------------------------
+    % Determinacao da entrada ---------------------------------------------
     entrada = mat_dados;
 
     % A matriz de entrada nao podera conter o nivel atual dos tanques. 
@@ -122,10 +137,8 @@ else
         entrada( :, [3:4 7:12] ) = [];
         indices_mantidos( [3:4 7:12] ) = [];
         
-        % Exibindo as colunas que restaram
-        disp( ' ' );
-        
-        disp( 'Colunas existentes: ' );
+        % Exibindo as colunas que restaram       
+        disp( 'Colunas existentes apos remocao: ' );
         
         for i = 1 : length( indices_mantidos )
             disp( strcat( '[', num2str( i ), '] ', ...
@@ -148,6 +161,28 @@ else
         % Transpondo a saida para adequar a entrada da RNA
         saida = saida';
         
+        % Determinando o numero de neuronios nas camadas ocultas
+        nco = input( 'Neuronios das camadas ocultas [vetor]: ' );
+        
+        % Treinando a RNA
+        tic
+        [rede lim_ent lim_sai] = treinar_rna( entrada, ...
+                                              saida, ...
+                                              nco, min, max, normalizar );
+        tempo_treinamento = toc;
+                                          
+        % Salvando o ambiente
+        nome_arq = strcat( '[Prop 1]_CO', num2str( length( nco ) ) );
+                       
+        for i = 1 : length( nco )
+            nome_arq = strcat( nome_arq, '_', num2str( nco( i ) ) );
+        end
+        
+        save( nome_arq, 'rede', 'lim_ent', 'lim_sai' );
+        
+        % Salvando as informacoes da rede
+        % TODO
+        
     % Proposta 2    
     else
         % Excluindo as colunas que nao serao utilizadas
@@ -168,7 +203,7 @@ else
         % Exibindo as colunas que restaram
         disp( ' ' );
         
-        disp( 'Colunas existentes RNA 1: ' );
+        disp( 'Colunas existentes apos remocao - RNA 1: ' );
         
         for i = 1 : length( indices_mantidos_rna1 )
             disp( strcat( '[', num2str( i ), '] ', ...
@@ -180,7 +215,7 @@ else
         % Exibindo as colunas que restaram
         disp( ' ' );
         
-        disp( 'Colunas existentes RNA 2: ' );
+        disp( 'Colunas existentes apos remocao - RNA 2: ' );
         
         for i = 1 : length( indices_mantidos_rna1 )
             disp( strcat( '[', num2str( i ), '] ', ...
@@ -210,21 +245,43 @@ else
         % Trasnpondo as saidas para se adequarem as saidas das RNAs
         saida_rna1 = saida_rna1';
         saida_rna2 = saida_rna2';
+        
+        % Determinando o numero de neuronios nas camadas ocultas
+        nco = input( 'Neuronios das camadas ocultas [matriz]: ' );
+        
+        % Treinando a RNA
+        [rede_1 lim_ent_rna1 lim_sai_rna1] = treinar_rna( entrada_rna1, ...
+                                                          saida_rna1, ...
+                                                          nco( 1, : ), ...
+                                                          min, ...
+                                                          max, ...
+                                                          normalizar );
+        [rede_2 lim_ent_rna2 lim_sai_rna2] = treinar_rna( entrada_rna2, ...
+                                                          saida_rna2, ...
+                                                          nco( 2, : ), ...
+                                                          min, ...
+                                                          max, ...
+                                                          normalizar );
+                                          
+        % Salvando o ambiente
+        nome_arq = strcat( '[Prop 2]_CO', num2str( size( nco, 2 ) ) );
+                       
+        for i = 1 : size( nco, 2 )
+            nome_arq = strcat( nome_arq, '_', num2str( nco( 1, i ) ) );
+        end
+        
+        nome_arq = strcat( nome_arq, '-' );
+        
+        for i = 1 : size( nco, 2 )
+            nome_arq = strcat( nome_arq, '_', num2str( nco( 2, i ) ) );
+        end
+        
+        save( nome_arq, rede, ...
+              'lim_ent_rna1', 'lim_saida_rna1', ...
+              'lim_ent_rna2', 'lim_saida_rna2' );
+          
+        % Salvando as informacoes das redes
+        % TODO
+        
     end
-    
-    % Determinacao dos parametros de treinamento --------------------------
-    % normalizar = input( 'Normalizar dados [0 ou 1]: ' );
-    normalizar = 0;
-
-    % if normalizar == 1
-    %     min = input( 'Valor minimo: ' );
-    %     max = input( 'Valor maximo: ' );
-    % end
-
-    min = -1;
-    max = 1;
-    
-    % Treinamento ---------------------------------------------------------
-    
-    % Salvar redes --------------------------------------------------------
 end
