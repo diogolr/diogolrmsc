@@ -1,4 +1,7 @@
-function [emq] = validar_rede( rede, entrada, saida_desejada, nome_arq )
+function [saida_rna EMQ ERROS EST] = validar_rede( rede, ...
+                                                   entrada, ...
+                                                   saida_desejada, ...
+                                                   nome_arq )
     % "Executando" a RNA treinada
     saida_rna = sim( rede, entrada );
     
@@ -25,15 +28,24 @@ function [emq] = validar_rede( rede, entrada, saida_desejada, nome_arq )
     emq_tot = sum( emq_var, 1 );
 
     % Matrizes de saida a serem salvas
+    % Erros medios quadraticos
     EMQ = [emq_var; emq_tot];
+    % Erros absoluto e percentual
     ERROS = [erro_abs' erro_perc'];
-    ESTATISTICA = [medias desvio'];
+    % Dados estatisticos
+    EST = [medias desvio'];
     
-    % Salvando os dados de validacao
+    % Gerando o vetor de tempo para ser inserido na primeira coluna
+    tempo = 1 : num_amostras;
+    tempo = tempo * 0.1;
+    
+    % Salvando os dados de validacao   
+    dlmwrite( strcat( nome_arq, '_SAIDA.dat' ), [tempo' saida_rna'], ...
+              'delimiter', '\t', 'precision', '%.12f' );
     dlmwrite( strcat( nome_arq, '_EMQ.dat' ), EMQ, ...
               'delimiter', '\t', 'precision', '%.12f' );
-    dlmwrite( strcat( nome_arq, '_ERROS.dat' ), ERROS, ...
+    dlmwrite( strcat( nome_arq, '_ERROS.dat' ), [tempo' ERROS], ...
               'delimiter', '\t', 'precision', '%.12f' );
-    dlmwrite( strcat( nome_arq, '_ESTATISTICA.dat' ), ESTATISTICA, ...
+    dlmwrite( strcat( nome_arq, '_ESTATISTICA.dat' ), EST, ...
               'delimiter', '\t', 'precision', '%.12f' );
 end
