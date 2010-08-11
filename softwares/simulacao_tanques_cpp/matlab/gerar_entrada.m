@@ -143,7 +143,7 @@ M = [ t', ...
 %                          strcat( num2str( num_amostras ), '.cfg' ) );
 
 % nome_arq_saida = '10_min_normal_treinamento.cfg';
-nome_arq_saida = '10_min_normal_validacao2.cfg';
+nome_arq_saida = '10_min_normal_v3.cfg';
 % nome_arq_saida = '10_min_FSeSR_0.0025_T1.cfg';
 % nome_arq_saida = '10_min_FSeSR_0.0025_T2.cfg';
 % nome_arq_saida = '10_min_FSeSR_0.0025_T1_FSeSR_0.0025_T2.cfg';
