@@ -17,13 +17,16 @@ mat_erro_sc = dlmread( arq_erro_sc, '\t' );
 
 % Determinando se sera treinada uma RNA para identificacao do sistema ou
 % para deteccao de falha --------------------------------------------------
-falha = input( 'RNA para deteccao de falha [0 ou 1]: ' );
+% falha = input( 'RNA para deteccao de falha [0 ou 1]: ' );
+falha = 0;
 
 % Determinando o numero de redes a serem treinadas ------------------------
-n_treinamentos = input( 'Numero de treinamentos: ' );
+% n_treinamentos = input( 'Numero de treinamentos: ' );
+n_treinamentos = 6;
 
 % Determinando o numero de regressores de acordo com a ordem do modelo ----
-ordem = input( 'Ordem do modelo: ' );
+% ordem = input( 'Ordem do modelo: ' );
+ordem = 3;
 
 regressores = ordem - 1;
 
@@ -37,13 +40,14 @@ if falha
     % TODO
 else
     % Determinando a proposta para adequar a saida da rede ----------------
-    disp( ' ' );
-    disp( 'Propostas: ');
-    disp( '[1] RNA para identificacao global' );
-    disp( '[2] RNA para identificacao individual ou em separado' );
-    disp( ' ' );
-    proposta = input( 'Proposta: ' );
-    disp( ' ' );
+%     disp( ' ' );
+%     disp( 'Propostas: ');
+%     disp( '[1] RNA para identificacao global' );
+%     disp( '[2] RNA para identificacao individual ou em separado' );
+%     disp( ' ' );
+%     proposta = input( 'Proposta: ' );
+%     disp( ' ' );
+    proposta = 2;
     
     if proposta == 1
         % Determinando o numero de neuronios nas camadas ocultas
@@ -281,13 +285,13 @@ for r = 1 : n_treinamentos
 %             end
             
             % Nome sem camada oculta
-            nome_arq = strcat( 'P1O', num2str( ordem ), ...
+            nome_arq = strcat( 'P2O', num2str( ordem ), ...
                                'N', num2str( nco(1) ), ...
                                'N', num2str( nco(2) ), ...
                                'T', num2str( r ) );
 
             save( nome_arq, 'rede_1', 'rede_2', ...
-                            'lim_ent_rna1', 'lim_ent_rna1', ...
+                            'lim_ent_rna1', 'lim_ent_rna2', ...
                             'lim_sai_rna1', 'lim_sai_rna2', ...
                             'tempo_treinamento_rna1', ...
                             'tempo_treinamento_rna2' );
