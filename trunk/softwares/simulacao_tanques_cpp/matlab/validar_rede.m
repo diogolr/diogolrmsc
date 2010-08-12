@@ -1,7 +1,8 @@
 function [saida_rna EMQ ERROS EST] = validar_rede( rede, ...
                                                    entrada, ...
                                                    saida_desejada, ...
-                                                   nome_arq )
+                                                   nome_arq, ...
+                                                   proposta )
     % "Executando" a RNA treinada
     saida_rna = sim( rede, entrada );
     
@@ -25,11 +26,19 @@ function [saida_rna EMQ ERROS EST] = validar_rede( rede, ...
     
     % EMQ por variavel e EMQ total
     emq_var = sum( ( erro_abs .^ 2 ) / 2, 2 ) / num_amostras;
-    emq_tot = sum( emq_var, 1 );
+    
+    if ( proposta == 1 )
+        emq_tot = sum( emq_var, 1 );
+    end
 
     % Matrizes de saida a serem salvas
     % Erros medios quadraticos
-    EMQ = [emq_var; emq_tot];
+    if proposta == 1
+        EMQ = [emq_var; emq_tot];
+    else
+        EMQ = emq_var;
+    end
+    
     % Erros absoluto e percentual
     ERROS = [erro_abs' erro_perc'];
     % Dados estatisticos
