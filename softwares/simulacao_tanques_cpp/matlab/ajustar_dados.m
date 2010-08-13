@@ -1,5 +1,4 @@
-function [entrada saida] = ajustar_dados( deteccao_falha, ...
-                                          niveis, erro_sc )
+function [entrada saida] = ajustar_dados( niveis, erro_sc )
     % Ordem das curvas - Grafico de Niveis ................................
     % [2] - Referencia T1
     % [3] - Referencia T2
@@ -16,15 +15,10 @@ function [entrada saida] = ajustar_dados( deteccao_falha, ...
     % [9] - Acao Integral T2
     % [10] - Acao Derivativa T1
     % [11] - Acao Derivativa T2
-
+  
 	% Configuracao da saida -----------------------------------------------
-	if deteccao_falha
-        % TODO
-        % TODO
-    else
-        saida( :, 1 ) = niveis( :, 4 );
-        saida( :, 2 ) = niveis( :, 5 );
-    end
+    saida( :, 1 ) = niveis( :, 4 );
+    saida( :, 2 ) = niveis( :, 5 );
     
     % Configurando a entrada ----------------------------------------------
     % Matriz de entrada sem regressores

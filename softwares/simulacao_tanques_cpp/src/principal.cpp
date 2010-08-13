@@ -859,8 +859,8 @@ void JanelaPrincipal :: atualizar_dados()
         {
             atualizar_simulacao_arquivo();
 
-            // Se o programa estiver executando no modo Simulacao, ou seja, se
-            // nao houver aquisicao de dados da planta real, nao havera
+            // Se o programa estiver executando no modo SomenteSimulacao, ou
+            // seja, se nao houver aquisicao de dados da planta real, nao havera
             // necessidade de continuar apos toda a execucao do arquivo de
             // configuracao. Portanto, o temporizador devera ser parado e os
             // campos da interface habilitados/desabilitados.
@@ -1311,7 +1311,7 @@ void JanelaPrincipal :: on_iniciar_clicked()
             nivel_t2 = quanser->ler( real_canal_leitura_t2 );
         }
         
-        atualizar_graficos_planta_real( false );
+        // atualizar_graficos_planta_real( false );
         
         // Atualizando os graficos da simulacao
         // Se o programa estiver executando no modo RealSimulacao ou no modo
@@ -1322,7 +1322,7 @@ void JanelaPrincipal :: on_iniciar_clicked()
             nivel_t2 = simulacao->ler( sim_canal_leitura_t2 );
         }
 
-        atualizar_graficos_simulacao( false );
+        // atualizar_graficos_simulacao( false );
     }
     else
     {
@@ -1337,7 +1337,7 @@ void JanelaPrincipal :: on_iniciar_clicked()
             nivel_t2 = quanser->ler( real_canal_leitura_t2 );
         }
         
-        atualizar_graficos_planta_real();
+        // atualizar_graficos_planta_real();
         
         // Atualizando os graficos da simulacao
         // Se o programa estiver executando no modo RealSimulacao ou no modo
@@ -1348,7 +1348,7 @@ void JanelaPrincipal :: on_iniciar_clicked()
             nivel_t2 = simulacao->ler( sim_canal_leitura_t2 );
         }
 
-        atualizar_graficos_simulacao();
+        // atualizar_graficos_simulacao();
     }
 
     imgs_barra_status[1].setPixmap( QPixmap( ":imgs/player_play_22x22.png" ) );
