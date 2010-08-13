@@ -12,7 +12,8 @@ a2_gde = 0.242467446052514;
 
 %% Parametros
 % Tempo de simulacao em segundos
-tempo_seg = 60 * 10; % 10 minutos
+% tempo_seg = 60 * 10; % 10 minutos (Identificacao)
+tempo_seg = 60 * 20; % 20 minutos (Deteccao de falhas)
 
 % Periodo de amostragem em segundos
 periodo_amost = 0.1;
@@ -129,23 +130,88 @@ M = [ t', ...
       ref_t2 ];
   
 %% Modificacao da matriz para adicionar os parametros modificados
-% porcent_ruido_sensor_t1 = 0.0025;
-% porcent_ruido_sensor_t2 = 0.0025;
-% 
-% % Do meio ate o final das amostras (degrau)
-% M( num_amostras/2:end , 6 ) = ones( num_amostras/2+1, 1 ) * ...
-%                               porcent_ruido_sensor_t1;
-% M( num_amostras/2:end , 7 ) = ones( num_amostras/2+1, 1 ) * ...
-%                               porcent_ruido_sensor_t2;
+% Falhas para validacao ---------------------------------------------------
+% M( (num_amostras/2)+1:end, 2 ) =  ones( num_amostras/2, 1 ) * ...
+%                                   ganho_sensor_t1;
+% M( (num_amostras/2)+1:end, 3 ) =  ones( num_amostras/2, 1 ) * ...
+%                                   ganho_sensor_t2;
+% M( (num_amostras/2)+1:end, 4 ) =  ones( num_amostras/2, 1 ) * ...
+%                                   offset_sensor_t1;
+% M( (num_amostras/2)+1:end, 5 ) =  ones( num_amostras/2, 1 ) * ...
+%                                   offset_sensor_t2;
+% M( (num_amostras/2)+1:end, 6 ) =  ones( num_amostras/2, 1 ) * ...
+%                                   porcent_ruido_sensor_t1;
+% M( (num_amostras/2)+1:end, 7 ) =  ones( num_amostras/2, 1 ) * ...
+%                                   porcent_ruido_sensor_t2;
+% M( (num_amostras/2)+1:end, 8 ) =  ones( num_amostras/2, 1 ) * ...
+%                                   ganho_atuador_t1;
+% M( (num_amostras/2)+1:end, 9 ) =  ones( num_amostras/2, 1 ) * ...
+%                                   ganho_atuador_t2;
+% M( (num_amostras/2)+1:end, 10 ) = ones( num_amostras/2, 1 ) * ...
+%                                   offset_atuador_t1;
+% M( (num_amostras/2)+1:end, 11 ) = ones( num_amostras/2, 1 ) * ...
+%                                   offset_atuador_t2;
+% M( (num_amostras/2)+1:end, 12 ) = ones( num_amostras/2, 1 ) * ...
+%                                   porcent_ruido_atuador_t1;
+% M( (num_amostras/2)+1:end, 13 ) = ones( num_amostras/2, 1 ) * ...
+%                                   porcent_ruido_atuador_t2;
+% M( (num_amostras/2)+1:end, 14 ) = ones( num_amostras/2, 1 ) * ...
+%                                   area_orif_vazamento_t1;
+% M( (num_amostras/2)+1:end, 15 ) = ones( num_amostras/2, 1 ) * ...
+%                                   area_orif_vazamento_t2;
+% M( (num_amostras/2)+1:end, 16 ) = ones( num_amostras/2, 1 ) * ...
+%                                   constante_bomba_t1 * 0.8;
+% M( (num_amostras/2)+1:end, 17 ) = ones( num_amostras/2, 1 ) * ...
+%                                   constante_bomba_t2 * 0.8;
+% M( (num_amostras/2)+1:end, 18 ) = ones( num_amostras/2, 1 ) * ...
+%                                   area_orif_saida_t1;
+% M( (num_amostras/2)+1:end, 19 ) = ones( num_amostras/2, 1 ) * ...
+%                                   area_orif_saida_t2;
+% M( (num_amostras/2)+1:end, 20 ) = ones( num_amostras/2, 1 ) * ...
+%                                   ganho_mod_pot_t1;
+% M( (num_amostras/2)+1:end, 21 ) = ones( num_amostras/2, 1 ) * ...
+%                                   ganho_mod_pot_t2;
+
+% Falhas para treinamento -------------------------------------------------
+% Dentro do tempo total, sera simulado um periodo sem falha, um periodo com
+% falha somente no tanque 1, um periodo com falha somente no tanque 2 e um
+% ultimo periodo com falha nos dois tanques. Por esse motivo o numero de
+% amostras e dividido por quatro.
+%
+% No primeiro intervalo nao sera simulada nenhuma falha, logo so ha
+% necessidade de modificar os intervalos 2 a 4. Portanto, para um caso com 
+% 12000 amstras as linhas a serem modificadas serao da 3001 ate a 6000, da 
+% 6001 ate a 9000 e da 9001 ate a 12000
+num_amostras = size( M, 1 );
+
+div = num_amostras / 4;
+        
+linhas = [div+1 2*div; 2*div+1 3*div; 3*div+1 4*div];
+
+% Colunas a serem modificadas para as falhas no tanque 1 e 2
+cols = [16 17];
+
+% Valor modificado
+valor = constante_bomba_t1 * 0.8;
+
+for i = 1 : size( linhas, 1 )
+    if i == 1 || i == 2
+        M( linhas( i, 1 ) : linhas( i, 2 ), cols( i ) ) = valor;
+    else
+        M( linhas( i, 1 ) : linhas( i, 2 ), cols ) = valor;
+    end
+end
+
 
 %% Saida para arquivo
 % nome_arq_saida = strcat( 'config_', ...
 %                          strcat( num2str( num_amostras ), '.cfg' ) );
 
 % nome_arq_saida = '10_min_normal_treinamento.cfg';
-nome_arq_saida = '10_min_normal_v3.cfg';
+% nome_arq_saida = '10_min_normal_v3.cfg';
 % nome_arq_saida = '10_min_FSeSR_0.0025_T1.cfg';
 % nome_arq_saida = '10_min_FSeSR_0.0025_T2.cfg';
 % nome_arq_saida = '10_min_FSeSR_0.0025_T1_FSeSR_0.0025_T2.cfg';
+nome_arq_saida = '10_min_FAVK_0.8.cfg';
 
 dlmwrite( nome_arq_saida, M, 'delimiter', '\t' );

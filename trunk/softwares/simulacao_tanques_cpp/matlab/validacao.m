@@ -32,19 +32,18 @@ regressores = ordem - 1;
 gerar_planilha = 1;
 
 if falha
-    % TODO
-    % TODO
 else
     % Determinando a proposta para adequar a saida da rede ----------------
-    disp( ' ' );
-    disp( 'Propostas: ');
-    disp( '[1] RNA para identificacao global' );
-    disp( '[2] RNA para identificacao individual ou em separado' );
-    disp( ' ' );
-    proposta = input( 'Proposta: ' );
-    disp( ' ' );
-    
-    % Determinando o numero de neuronios nas camadas ocultas ------------------
+    % disp( ' ' );
+    % disp( 'Propostas: ');
+    % disp( '[1] RNA para identificacao global' );
+    % disp( '[2] RNA para identificacao individual ou em separado' );
+    % disp( ' ' );
+    % proposta = input( 'Proposta: ' );
+    % disp( ' ' );
+    proposta = 1;
+
+    % Determinando o numero de neuronios nas camadas ocultas --------------
     % Para compor o vetor/matriz do numero de neuronios das camadas ocultas
     % deve-se considerar que cada rede so tera uma camada oculta. Logo, se
     % foram realizados os treinamentos com 8, 10 e 12 neuronios, o 
@@ -58,8 +57,10 @@ else
     % nco = [ 8 10 12 ; -> Sequencia da RNA 1
     %         8 10 12 ] -> Sequencia da RNA 2
     if proposta == 1
+        % Determinando o numero de neuronios nas camadas ocultas
         nco = input( 'Neuronios das camadas ocultas [vetor]: ' );
     else
+        % Determinando o numero de neuronios nas camadas ocultas
         nco = input( 'Neuronios das camadas ocultas [matriz]: ' );
     end
 end

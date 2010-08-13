@@ -3,9 +3,9 @@ function [rede lim_ent lim_sai] = treinar_rna( ent, ...
                                                neur_cam_oculta, ...
                                                min, ...
                                                max, ...
-                                               normalizar )
+                                               norm, tol )
 
-if normalizar == 1
+if norm == 1
     [entrada lim_ent] = normalizar( ent, min, max, 0 );
     [saida lim_sai] = normalizar( sai, min, max, 0 );
 else
@@ -19,9 +19,9 @@ end
 rede = newff( entrada, saida, neur_cam_oculta );
 
 rede.trainParam.show = 20;
-rede.trainParam.goal = 1e-5;
+rede.trainParam.goal = tol;
 rede.trainParam.epochs = 40000;
-rede.trainParam.max_fail = 50;
+rede.trainParam.max_fail = 10;
 
 % Inicializacao dos pesos e do bias
 rede = init( rede );
