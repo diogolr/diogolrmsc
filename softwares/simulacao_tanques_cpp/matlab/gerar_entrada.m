@@ -212,6 +212,6 @@ end
 % nome_arq_saida = '10_min_FSeSR_0.0025_T1.cfg';
 % nome_arq_saida = '10_min_FSeSR_0.0025_T2.cfg';
 % nome_arq_saida = '10_min_FSeSR_0.0025_T1_FSeSR_0.0025_T2.cfg';
-nome_arq_saida = '10_min_FAVK_0.8.cfg';
+nome_arq_saida = '10_min_FAVK_0.8_v3.cfg';
 
 dlmwrite( nome_arq_saida, M, 'delimiter', '\t' );

@@ -10,7 +10,8 @@ close all;
 % arq_niveis = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\10_min_normal\niveis_treinamento.dat';
 
 % Falha
-arq_niveis = 'D:\documentos\Diogo\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\10_min_FAVK_0.8\niveis_treinamento.dat';
+% arq_niveis = 'D:\documentos\Diogo\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\10_min_FAVK_0.8\niveis_treinamento.dat';
+arq_niveis = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\20_min_FAVK_0.8\niveis_treinamento.dat';
 
 % arq_erro_sc = input( 'Erro e Sinal de controle [treinamento]: ' );
 % Identificacao
@@ -18,7 +19,8 @@ arq_niveis = 'D:\documentos\Diogo\diogolrmsc@ggc\softwares\simulacao_tanques_cpp
 % arq_erro_sc = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\10_min_normal\erro_sc_treinamento.dat';
 
 % Falha
-arq_erro_sc = 'D:\documentos\Diogo\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\10_min_FAVK_0.8\erro_sc_treinamento.dat';
+% arq_erro_sc = 'D:\documentos\Diogo\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\10_min_FAVK_0.8\erro_sc_treinamento.dat';
+arq_erro_sc = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\20_min_FAVK_0.8\erro_sc_treinamento.dat';
 
 
 mat_niveis = dlmread( arq_niveis, '\t' );
@@ -88,24 +90,6 @@ else
     end
 end
     
-% Exibindo as colunas existentes na matriz --------------------------------
-nomes_colunas = { 'L1(k-1)' 'L2(k-1)' 'E1(k-1)' 'E2(k-1)' ...
-                  'Vp1(k)' 'Vp2(k)' 'AcaoP1(k)' 'AcaoP2(k)' ...
-                  'AcaoI1(k)' 'AcaoI2(k)' 'AcaoD1(k)' 'AcaoD2(k)' };
-
-indices_mantidos = 1 : length( nomes_colunas );
-
-disp( ' ' );
-
-disp( 'Colunas existentes: ' );
-
-for i = 1 : length( indices_mantidos )
-    disp( strcat( '[', num2str( i ), '] ', ...
-                  nomes_colunas{ indices_mantidos( i ) } ) );
-end
-
-disp( ' ' );
-
 % Determinando os parametros de treinamento -------------------------------
 % normalizar = input( 'Normalizar dados [0 ou 1]: ' );
 normalizar = 0;
@@ -151,52 +135,43 @@ if falha == 1
     
     [num_entradas num_amostras] = size( entrada );
     
-    if falha
-        % Adicionando as colunas dos erros de estimativa
-        arq_config = 'D:\documentos\Diogo\diogolrmsc@ggc\qualificacao\dados_matlab\identificacao\P1\O2\N8\P1O2N8T2';
+    % Adicionando as colunas dos erros de estimativa
+    arq_config = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\20_min_FAVK_0.8\P1O2N8T2';
 
-        load( arq_config );
+    load( arq_config );
 
-        saida_rna = sim( rede, entrada_melhor_rede );
+    saida_rna = sim( rede, entrada_melhor_rede );
 
-        erros = saida - saida_rna;
-        
-        entrada( num_entradas + 1 : num_entradas + 2, : ) = erros;
-        
-        % Configurando a nova saida
-        saida = zeros( num_amostras, 2 );
-        
-% % % %         % As falhas sao consideradas da seguinte forma:
-% % % %         % 0.0 < Saida <   5.0 => Nao ha falha
-% % % %         % 5.0 < Saida < 100.0 => Ha falha
-% % % %         for i = 1 : num_amostras
-% % % %             saida( i, 1 ) = random( -1.0 , 0.0 );
-% % % %         end
-        
-        % Dentro do tempo total, sera simulado um periodo sem falha, um 
-        % periodo com falha somente no tanque 1, um periodo com falha 
-        % somente no tanque 2 e um ultimo periodo com falha nos dois 
-        % tanques. Por esse motivo o numero de amostras e dividido por 
-        % quatro.
-        %
-        % No primeiro intervalo nao sera simulada nenhuma falha, logo so ha
-        % necessidade de modificar os intervalos 2 a 4. Portanto, para um 
-        % caso com 12000 amstras as linhas a serem modificadas serao da 
-        % 3001 ate a 6000, da 6001 ate a 9000 e da 9001 ate a 12000
-        div = num_amostras / 4;
-        
-        linhas = [div+1 2*div; 2*div+1 3*div; 3*div+1 4*div];
-        
-        % Falha T1
-        saida( linhas( 1, 1 ) : linhas( 1, 2 ), 1 ) = -1.0;
-        % Falha T2
-        saida( linhas( 2, 1 ) : linhas( 2, 2 ), 2 ) = 1.0;
-        % Falha T1 + Falha T2
-        saida( linhas( 3, 1 ) : linhas( 3, 2 ), 1 ) = -1.0;
-        saida( linhas( 3, 1 ) : linhas( 3, 2 ), 2 ) = 1.0;
-        
-        saida = saida';
-    end
+    erros = saida - saida_rna;
+
+    entrada( num_entradas + 1 : num_entradas + 2, : ) = erros;
+
+    % Configurando a nova saida
+    saida = zeros( num_amostras, 2 );
+
+    % Dentro do tempo total, sera simulado um periodo sem falha, um 
+    % periodo com falha somente no tanque 1, um periodo com falha 
+    % somente no tanque 2 e um ultimo periodo com falha nos dois 
+    % tanques. Por esse motivo o numero de amostras e dividido por 
+    % quatro.
+    %
+    % No primeiro intervalo nao sera simulada nenhuma falha, logo so ha
+    % necessidade de modificar os intervalos 2 a 4. Portanto, para um 
+    % caso com 12000 amstras as linhas a serem modificadas serao da 
+    % 3001 ate a 6000, da 6001 ate a 9000 e da 9001 ate a 12000
+    div = num_amostras / 4;
+
+    linhas = [div+1 2*div; 2*div+1 3*div; 3*div+1 4*div];
+
+    % Falha T1
+    saida( linhas( 1, 1 ) : linhas( 1, 2 ), 1 ) = -1.0;
+    % Falha T2
+    saida( linhas( 2, 1 ) : linhas( 2, 2 ), 2 ) = 1.0;
+    % Falha T1 + Falha T2
+    saida( linhas( 3, 1 ) : linhas( 3, 2 ), 1 ) = -1.0;
+    saida( linhas( 3, 1 ) : linhas( 3, 2 ), 2 ) = 1.0;
+
+    saida = saida';
 % Identificacao
 else
     % Proposta 1
