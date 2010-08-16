@@ -10,8 +10,8 @@ close all;
 % arq_niveis = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\10_min_normal\niveis_treinamento.dat';
 
 % Falha
-% arq_niveis = 'D:\documentos\Diogo\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\10_min_FAVK_0.8\niveis_treinamento.dat';
-arq_niveis = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\20_min_FAVK_0.8\niveis_treinamento.dat';
+arq_niveis = 'D:\documentos\Diogo\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\20_min_FSeDG\niveis_treinamento.dat';
+% arq_niveis = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\20_min_FAVK_0.8\niveis_treinamento.dat';
 
 % arq_erro_sc = input( 'Erro e Sinal de controle [treinamento]: ' );
 % Identificacao
@@ -19,8 +19,8 @@ arq_niveis = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saida
 % arq_erro_sc = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\10_min_normal\erro_sc_treinamento.dat';
 
 % Falha
-% arq_erro_sc = 'D:\documentos\Diogo\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\10_min_FAVK_0.8\erro_sc_treinamento.dat';
-arq_erro_sc = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\20_min_FAVK_0.8\erro_sc_treinamento.dat';
+arq_erro_sc = 'D:\documentos\Diogo\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\20_min_FSeDG\erro_sc_treinamento.dat';
+% arq_erro_sc = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\20_min_FAVK_0.8\erro_sc_treinamento.dat';
 
 
 mat_niveis = dlmread( arq_niveis, '\t' );
@@ -112,10 +112,9 @@ if falha == 1
     saida = saida_pad;
     
     entrada( :, [3:4 7:12] ) = [];
-    indices_mantidos( [3:4 7:12] ) = [];
     
     % Vetor auxiliar para determinacao dos regressores
-    vetor = ones( size( indices_mantidos ) );
+    vetor = ones( 1, 4 );
     
     % Entrada para a melhor rede com regressores
     ordem_melhor_rede = 2;
@@ -136,7 +135,7 @@ if falha == 1
     [num_entradas num_amostras] = size( entrada );
     
     % Adicionando as colunas dos erros de estimativa
-    arq_config = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\20_min_FAVK_0.8\P1O2N8T2';
+    arq_config = 'P1O2N8T2';
 
     load( arq_config );
 

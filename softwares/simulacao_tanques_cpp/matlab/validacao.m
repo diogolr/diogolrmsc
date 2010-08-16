@@ -8,12 +8,13 @@ clc;
 close all;
 
 % pasta_valid = input( 'Pasta dos arquivos de validacao: ' );
-% pasta_valid = 'D:\documentos\Diogo\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\10_min_normal\';
-pasta_valid = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\20_min_FAVK_0.8\';
+pasta_valid = 'D:\documentos\Diogo\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\20_min_FSeG\';
+% pasta_valid = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\20_min_FSeG\';
 
 % pasta_rnas = input( 'Pasta dos arquivos das redes treinadas: ' );
 % pasta_rnas = 'D:\documentos\Diogo\diogolrmsc@ggc\qualificacao\dados_matlab\identificacao\';
-pasta_rnas = 'E:\documentos\diogolrmsc@ggc\qualificacao\dados_matlab\deteccao\FAVK\';
+pasta_rnas = 'D:\documentos\Diogo\diogolrmsc@ggc\qualificacao\dados_matlab\deteccao\FSeG\';
+% pasta_rnas = 'E:\documentos\diogolrmsc@ggc\qualificacao\dados_matlab\deteccao\FAVK\';
 
 % Determinando se sera treinada uma RNA para identificacao do sistema ou
 % para deteccao de falha --------------------------------------------------
@@ -117,7 +118,7 @@ for v = 1 : 3
         [num_entradas num_amostras] = size( entrada );
 
         % Adicionando as colunas dos erros de estimativa
-        arq_config = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\20_min_FAVK_0.8\P1O2N8T2';
+        arq_config = 'P1O2N8T2';
 
         load( arq_config );
 
