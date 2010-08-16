@@ -129,7 +129,7 @@ M = [ t', ...
       ref_t1, ...
       ref_t2 ];
   
-%% Modificacao da matriz para adicionar os parametros modificados
+%% Modificacao da matriz para adicionar os novos parametros
 % Falhas para validacao ---------------------------------------------------
 % M( (num_amostras/2)+1:end, 2 ) =  ones( num_amostras/2, 1 ) * ...
 %                                   ganho_sensor_t1;
@@ -189,16 +189,23 @@ div = num_amostras / 4;
 linhas = [div+1 2*div; 2*div+1 3*div; 3*div+1 4*div];
 
 % Colunas a serem modificadas para as falhas no tanque 1 e 2
-cols = [16 17];
+cols = [2 3];
 
-% Valor modificado
-valor = constante_bomba_t1 * 0.8;
+% Valor a ser modificado
+valor_param = ganho_sensor_t1;
+
+% Porcentagens minima e maxima de alteracao
+min = 0.8;
+max = 1.2;
 
 for i = 1 : size( linhas, 1 )
-    if i == 1 || i == 2
-        M( linhas( i, 1 ) : linhas( i, 2 ), cols( i ) ) = valor;
-    else
-        M( linhas( i, 1 ) : linhas( i, 2 ), cols ) = valor;
+    for j = linhas( i, 1 ) : linhas( i, 2 )
+        if i == 1 || i == 2
+            M( j, cols( i ) ) = valor_param * random( min, max );
+        else
+            M( j, cols( 1 ) ) = valor_param * random( min, max );
+            M( j, cols( 2 ) ) = valor_param * random( min, max );
+        end
     end
 end
 
@@ -212,6 +219,7 @@ end
 % nome_arq_saida = '10_min_FSeSR_0.0025_T1.cfg';
 % nome_arq_saida = '10_min_FSeSR_0.0025_T2.cfg';
 % nome_arq_saida = '10_min_FSeSR_0.0025_T1_FSeSR_0.0025_T2.cfg';
-nome_arq_saida = '10_min_FAVK_0.8_v3.cfg';
+% nome_arq_saida = '10_min_FAVK_0.8_v3.cfg';
+nome_arq_saida = '20_min_FSeDG_v3.cfg';
 
 dlmwrite( nome_arq_saida, M, 'delimiter', '\t' );
