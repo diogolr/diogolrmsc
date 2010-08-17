@@ -189,14 +189,14 @@ div = num_amostras / 4;
 linhas = [div+1 2*div; 2*div+1 3*div; 3*div+1 4*div];
 
 % Colunas a serem modificadas para as falhas no tanque 1 e 2
-cols = [2 3];
+cols = [6 7];
 
 % Valor a ser modificado
-valor_param = ganho_sensor_t1;
+valor_param = 1.0;
 
 % Porcentagens minima e maxima de alteracao
-min = 0.8;
-max = 1.2;
+min = -0.02;
+max = 0.02;
 
 for i = 1 : size( linhas, 1 )
     for j = linhas( i, 1 ) : linhas( i, 2 )
@@ -214,12 +214,6 @@ end
 % nome_arq_saida = strcat( 'config_', ...
 %                          strcat( num2str( num_amostras ), '.cfg' ) );
 
-% nome_arq_saida = '10_min_normal_treinamento.cfg';
-% nome_arq_saida = '10_min_normal_v3.cfg';
-% nome_arq_saida = '10_min_FSeSR_0.0025_T1.cfg';
-% nome_arq_saida = '10_min_FSeSR_0.0025_T2.cfg';
-% nome_arq_saida = '10_min_FSeSR_0.0025_T1_FSeSR_0.0025_T2.cfg';
-% nome_arq_saida = '10_min_FAVK_0.8_v3.cfg';
-nome_arq_saida = '20_min_FSeDG_v3.cfg';
+nome_arq_saida = '20_min_FSeSR_v3.cfg';
 
 dlmwrite( nome_arq_saida, M, 'delimiter', '\t' );
