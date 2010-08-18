@@ -5,23 +5,10 @@ clc;
 close all;
 
 % arq_niveis = input( 'Niveis [treinamento]: ' );
-% Identificacao
-% arq_niveis = 'D:\documentos\Diogo\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\10_min_normal\niveis_treinamento.dat';
-% arq_niveis = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\10_min_normal\niveis_treinamento.dat';
-
-% Falha
-arq_niveis = 'D:\documentos\Diogo\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\20_min_FSeSR\niveis_treinamento.dat';
-% arq_niveis = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\20_min_FAVK_0.8\niveis_treinamento.dat';
+arq_niveis = '..\saidas\20_min_FADG+-20\niveis_treinamento.dat';
 
 % arq_erro_sc = input( 'Erro e Sinal de controle [treinamento]: ' );
-% Identificacao
-% arq_erro_sc = 'D:\documentos\Diogo\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\10_min_normal\erro_sc_treinamento.dat';
-% arq_erro_sc = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\10_min_normal\erro_sc_treinamento.dat';
-
-% Falha
-arq_erro_sc = 'D:\documentos\Diogo\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\20_min_FSeSR\erro_sc_treinamento.dat';
-% arq_erro_sc = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\20_min_FAVK_0.8\erro_sc_treinamento.dat';
-
+arq_erro_sc = '..\saidas\20_min_FADG+-20\erro_sc_treinamento.dat';
 
 mat_niveis = dlmread( arq_niveis, '\t' );
 mat_erro_sc = dlmread( arq_erro_sc, '\t' );
