@@ -8,12 +8,10 @@ clc;
 close all;
 
 % pasta_valid = input( 'Pasta dos arquivos de validacao: ' );
-pasta_valid = '..\saidas\20_min_FSeSR\';
-% pasta_valid = 'E:\documentos\diogolrmsc@ggc\softwares\simulacao_tanques_cpp\saidas\20_min_FSeDG\';
+pasta_valid = '..\saidas\20_min_FSeDO_0a5\';
 
 % pasta_rnas = input( 'Pasta dos arquivos das redes treinadas: ' );
-pasta_rnas = '..\..\..\qualificacao\dados_matlab\deteccao\FSeSR\';
-% pasta_rnas = 'E:\documentos\diogolrmsc@ggc\qualificacao\dados_matlab\deteccao\FSeDG\';
+pasta_rnas = '..\..\qualificacao\dados_matlab\deteccao\FSeDO\';
 
 % Determinando se sera treinada uma RNA para identificacao do sistema ou
 % para deteccao de falha --------------------------------------------------
