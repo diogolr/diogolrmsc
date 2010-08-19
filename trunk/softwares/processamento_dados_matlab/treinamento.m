@@ -5,10 +5,13 @@ clc;
 close all;
 
 % arq_niveis = input( 'Niveis [treinamento]: ' );
-arq_niveis = '..\saidas\20_min_FADG+-20\niveis_treinamento.dat';
+arq_niveis = '..\simulacao_tanques_cpp\saidas\20_min_FADG_+-20%\niveis_treinamento.dat';
 
 % arq_erro_sc = input( 'Erro e Sinal de controle [treinamento]: ' );
-arq_erro_sc = '..\saidas\20_min_FADG+-20\erro_sc_treinamento.dat';
+arq_erro_sc = '..\simulacao_tanques_cpp\saidas\20_min_FADG_+-20%\erro_sc_treinamento.dat';
+
+% pasta_rnas = input( 'Pasta em que as redes serao salvas: ' );
+pasta_rnas = '..\..\qualificacao\dados_matlab\deteccao\FADG\';
 
 mat_niveis = dlmread( arq_niveis, '\t' );
 mat_erro_sc = dlmread( arq_erro_sc, '\t' );
@@ -30,6 +33,8 @@ ordem = input( 'Ordem do modelo: ' );
 
 regressores = ordem - 1;
 
+ncos_deteccao = [ 8 12 16 ; 14 18 22 ; 20 24 28 ];
+
 % Ajustanto os dados das matrizes de entrada e saida ----------------------
 [entrada_pad saida_pad] = ajustar_dados( mat_niveis, mat_erro_sc );
 
@@ -43,7 +48,8 @@ if falha
     % vetor nco sera:
     %
     % nco = [8 10 12]; 
-    nco = input( 'Neuronios das camadas ocultas [vetor]: ' );
+%     nco = input( 'Neuronios das camadas ocultas [vetor]: ' );
+    nco = ncos_deteccao( ordem - 1, : );
 else
     % Determinando a proposta para adequar a saida da rede ----------------
     % disp( ' ' );
@@ -229,7 +235,10 @@ for r = 1 : num_redes
     % =====================================================================
     if falha
         disp( ' ' );
-        disp( strcat( 'Rede N', num2str( nco( r ) ), ' ===============' ) );
+        disp( strcat( 'Rede N', num2str( nco( r ) ), ' ==============' ) );
+        
+        subpasta = strcat( 'O', num2str( ordem ), '\', ...
+                           'N', num2str( nco( r ) ), '\' );
         
         for t = 1 : n_treinamentos
             disp( ' ' );
@@ -246,7 +255,8 @@ for r = 1 : num_redes
             tempo_treinamento = toc;
 
             % Salvando o ambiente
-            nome_arq = strcat( 'O', num2str( ordem ), ...
+            nome_arq = strcat( pasta_rnas, subpasta, ...
+                               'O', num2str( ordem ), ...
                                'N', num2str( nco( r ) ), ...
                                'T', num2str( t ) );
 
@@ -264,7 +274,10 @@ for r = 1 : num_redes
         % Proposta 1
         if proposta == 1
             disp( ' ' );
-            disp( strcat( 'Rede N', num2str( nco( r ) ), ' ===========' ) );
+            disp( strcat( 'Rede N', num2str( nco( r ) ), ' ==========' ) );
+            
+            subpasta = strcat( 'P1\O', num2str( ordem ), '\', ...
+                               'N', num2str( nco( r ) ), '\' );
             
             for t = 1 : n_treinamentos
                 disp( ' ' );
@@ -281,7 +294,8 @@ for r = 1 : num_redes
                 tempo_treinamento = toc;
 
                 % Salvando o ambiente
-                nome_arq = strcat( 'P1O', num2str( ordem ), ...
+                nome_arq = strcat( pasta_rnas, subpasta, ...
+                                   'P1O', num2str( ordem ), ...
                                    'N', num2str( nco( r ) ), ...
                                    'T', num2str( t ) );
 
@@ -297,6 +311,10 @@ for r = 1 : num_redes
             disp( ' ' );
             disp( strcat( 'Rede N', nco( 1, r ), ...
                           'N', nco( 2, r ), '==================' ) );
+
+            subpasta = strcat( 'P2\O', num2str( ordem ), '\', ...
+                               'N', num2str( nco( 1, r ) ), ...
+                               'N', num2str( nco( 2, r ) ), '\' );
             
             for t = 1 : n_treinamentos
                 disp( ' ' );
@@ -326,7 +344,8 @@ for r = 1 : num_redes
                 tempo_treinamento_rna2 = toc;
 
                 % Salvando o ambiente
-                nome_arq = strcat( 'P2O', num2str( ordem ), ...
+                nome_arq = strcat( pasta_rnas, subpasta, ...
+                                   'P2O', num2str( ordem ), ...
                                    'N', num2str( nco( 1, r ) ), ...
                                    'N', num2str( nco( 2, r ) ), ...
                                    'T', num2str( t ) );

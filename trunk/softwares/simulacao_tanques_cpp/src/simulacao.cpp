@@ -82,6 +82,7 @@ void Simulacao :: escrever( const int &canal, const double &valor )
 
         // Nivel DC ------------------------------------------------------------
         tensao_bomba_1 += dc_atuador_t1;
+
         if ( tensao_bomba_1 > 15.0 )
         {
             emit erro( "[Erro Simulação]: Bomba 1 danificada" );
