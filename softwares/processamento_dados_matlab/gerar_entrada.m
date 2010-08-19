@@ -192,7 +192,8 @@ linhas = [div+1 2*div; 2*div+1 3*div; 3*div+1 4*div];
 cols = [8 9];
 
 % Valor a ser modificado
-valor_param = ganho_atuador_t1;
+% valor_param = 0.178139348120214 / 2;
+valor_param = 1.0;
 
 % Porcentagens minima e maxima de alteracao
 min = 0.8;
@@ -214,6 +215,6 @@ end
 % nome_arq_saida = strcat( 'config_', ...
 %                          strcat( num2str( num_amostras ), '.cfg' ) );
 
-nome_arq_saida = '20_min_FADG_v3.cfg';
+nome_arq_saida = '..\simulacao_tanques_cpp\entradas\20_min_FADG_v3.cfg';
 
 dlmwrite( nome_arq_saida, M, 'delimiter', '\t' );
