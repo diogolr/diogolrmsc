@@ -4,14 +4,19 @@ clear;
 clc;
 close all;
 
+% falha = input( 'Sigla da falha: ' );
+falha = 'FSeDG';
+
 % arq_niveis = input( 'Niveis [treinamento]: ' );
-arq_niveis = '..\simulacao_tanques_cpp\saidas\20_min_FADG_+-20%\niveis_treinamento.dat';
+arq_niveis = strcat( '..\simulacao_tanques_cpp\saidas\', ...
+                     falha, '\niveis_tr.dat' );
 
 % arq_erro_sc = input( 'Erro e Sinal de controle [treinamento]: ' );
-arq_erro_sc = '..\simulacao_tanques_cpp\saidas\20_min_FADG_+-20%\erro_sc_treinamento.dat';
+arq_erro_sc = strcat( '..\simulacao_tanques_cpp\saidas\', ...
+                      falha, '\erro_sc_tr.dat' );
 
 % pasta_rnas = input( 'Pasta em que as redes serao salvas: ' );
-pasta_rnas = '..\..\qualificacao\dados_matlab\deteccao\FADG\';
+pasta_rnas = strcat( '..\..\dados\deteccao\', falha, '\' );
 
 mat_niveis = dlmread( arq_niveis, '\t' );
 mat_erro_sc = dlmread( arq_erro_sc, '\t' );
