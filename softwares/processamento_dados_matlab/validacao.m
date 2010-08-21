@@ -7,14 +7,17 @@ clear;
 clc;
 close all;
 
+% falha = input( 'Sigla da falha: ' );
+falha = 'FSeSR';
+
 % pasta_valid = input( 'Pasta dos arquivos de validacao: ' );
-pasta_valid = '..\simulacao_tanques_cpp\saidas\20_min_FADG_+-20%\';
+pasta_valid = strcat( '..\simulacao_tanques_cpp\saidas\', falha, '\' );
 
 % pasta_rnas = input( 'Pasta dos arquivos das redes treinadas: ' );
-pasta_rnas = '..\..\qualificacao\dados_matlab\deteccao\FADG\';
+pasta_rnas = strcat( '..\..\dados\deteccao\', falha, '\' );
 
 % pasta_arq_excel = input( 'Pasta para salvar a planilha do excel: ' );
-pasta_arq_excel = '..\..\qualificacao\planilhas\deteccao\FADG\';
+pasta_arq_excel = strcat( '..\..\planilhas\deteccao\', falha, '\' );
 
 % Determinando se sera treinada uma RNA para identificacao do sistema ou
 % para deteccao de falha --------------------------------------------------
