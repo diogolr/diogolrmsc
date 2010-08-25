@@ -5,7 +5,7 @@ clc;
 close all;
 
 % falha = input( 'Sigla da falha: ' );
-falha = 'FASR';
+falha = 'FSiVzT';
 
 % arq_niveis = input( 'Niveis [treinamento]: ' );
 arq_niveis = strcat( '..\simulacao_tanques_cpp\saidas\', ...
