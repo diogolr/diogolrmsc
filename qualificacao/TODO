@@ -12,3 +12,8 @@
     - Se o nivel estiver acima de 28cm a bomba deve manter a tensao constante em
       Vp = ( a1 / Km1 ) * sqrt( 2 * g * L_desejado ). 
     - Se o nivel estiver acima de 29cm a bomba deverá sugar um pouco de água 
+
+# Descrição das terminologias ##################################################
+- Apesar de ter colocado na introdução os termos que melhor se adequassem ao 
+  texto para um melhor entendimento por parte do leitor (falha/erro), esses
+  termos não devem e não podem ser confundidos...
