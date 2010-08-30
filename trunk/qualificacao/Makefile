@@ -19,4 +19,4 @@ principal: principal.tex
 clean: 
 	-cd scripts && make clean
 #	-cd apresentacao && make clean
-	-rm -f *.pdf *.aux *.dvi *.ps *.lo* *.toc *.bbl *.log *.blg *.gl* *.ilg
+	-rm -f *.pdf *.aux *.dvi *.ps *.lo* *.toc *.bbl *.log *.blg *.gl* *.ilg *.out

@@ -38,12 +38,12 @@ esferas}.
 O dispositivo, inteiramente mecânico, mostrado na Fig.
 \ref{fig:controlador_james}, controlava a velocidade de um motor a vapor através
 do movimento de duas esferas. Na medida em que a velocidade do eixo de saída do
-motor a vapor aumentava, as esferas eram elevadas (força centrífuga) e a válvula
-era fechada, diminuindo o fluxo de vapor para o motor e, consequentemente, sua
-velocidade. No caso oposto, quando a velocidade de saída do eixo do motor a
-vapor reduzia, as esferas eram rebaixadas, abrindo a válvula e aumentando o
-fluxo de vapor para o motor, o que, consequentemente, aumentava sua velocidade
-\cite{mayr:1970,mayr:1975,dorf:2009}.
+motor a vapor aumentava, as esferas eram elevadas (por força centrífuga) e a
+válvula era fechada, diminuindo o fluxo de vapor para o motor e,
+consequentemente, sua velocidade. No caso oposto, quando a velocidade de saída
+do eixo do motor a vapor reduzia, as esferas eram rebaixadas, abrindo a válvula
+e aumentando o fluxo de vapor para o motor, o que, consequentemente, aumentava
+sua velocidade \cite{mayr:1970,mayr:1975,dorf:2009}.
 
 \begin{figure}[htb]
 \centering
@@ -75,22 +75,170 @@ controle.
 
 Nos anos seguintes, E. J. Routh (1877) e A. Hourwitz (1885) criaram seus
 critérios de estabilidade de maneira independente
-\cite{routh:1877,bennett:1996,faccin:2004}.
+\cite{routh:1877,bennett:1996}. Mais tarde, em 1896, A. M. Lyapunov também
+desenvolveu seu critério de estabilidade baseado em equações diferenciais
+não-lineares de movimento \cite{faccin:2004}.
+
+No início do século XX, por volta de 1907, foi desenvolvido o primeiro
+controlador de temperatura pneumático (do tipo liga-desliga), o qual foi
+instalado em uma unidade de pasteurização de leite em Nova York. Poucos anos
+depois, em 1914, Edgar H. Bristol, fundador da {\it Foxboro Instrument Company},
+contribuiu significativamente para o desenvolvimento de sistemas de controle ao
+protocolar o pedido de patente de um amplificador denominado {\it flapper-nozzle
+amplifier}, capaz de prover a ação proporcional. Em seguida, por volta de 1920,
+Morris E. Leeds obteve uma patente de um controlador eletromecânico que provia a
+ação integral \cite{faccin:2004}.
+
+Em 1922, Nicholas Minorsky apresentou uma análise sobre a teoria de controle
+envolvida no controle de posição, formulando a lei de controle de três termos,
+hoje conhecida como controle PID.  Entretanto, até 1930 seu trabalho não havia
+sido amplamente reconhecido \cite{bennett:1996}.
+
+Somente em 1935, Ralph Clarridge criou o controlador de três termos, ao utilizar
+um controlador que antecipava a variação no sinal de erro para solucionar um
+problema de oscilação de uma malha de controle de temperatura em uma indústria
+de celulose \cite{faccin:2004}.
 
 % ------------------------------------------------------------------------------
 \section{Importância da automação}
+Durante o período entre guerras, a teoria e a prática de controle nos Estados
+Unidos e na Europa Ocidental se desenvolveram de modo diferente do que na Rússia
+e no Leste Europeu. O principal incentivo para o uso da realimentação nos
+Estados Unidos foi o desenvolvimento do sistema telefônico e dos amplificadores
+eletrônicos com realimentação por Bode, Nyquist e Black nos Laboratórios
+Telefônicos Bell \cite{dorf:2009}.
+
+Durante a segunda guerra mundial fez-se necessário projetar e construir pilotos
+automáticos para aeronaves, sistemas de posicionamento de armas, sistemas de
+controle de antenas de radares e outros sistemas militares baseados na abordagem
+do controle com realimentação. A complexidade e o desempenho esperados desses
+sistemas militares fizeram com que houvesse uma extensão das técnicas de
+controle disponíveis e promoveram o interesse em sistemas de controle e o
+desenvolvimento de novos critérios e métodos. O projeto de sistemas de controle,
+até então, era uma arte envolvendo a abordagem da tentativa e erro
+\cite{dorf:2009}.
+
+A primeira tentativa de sucesso que não levava em consideração métodos de
+tentativa e erro foi proposta em \citeasnoun{ziegler:1942}. Neste artigo foram
+apresentados dois procedimentos para sintonia dos controladores através de
+regras simples baseadas nas características dinâmicas do processo.
+
+Após a disseminação dos controladores PID na industria nos anos seguintes à
+publicação do artigo de Ziegler e Nichols, aconteceu o grande marco da indústria
+eletrônica: a criação, em 1947, do transistor. A partir de então, começaram a
+ser desenvolvidos os primeiros ``computadores industriais''. Segundo
+\citeasnoun{goeking:2010}, embora o microprocessamento tenha sido comercializado
+apenas a partir dos anos 1960, foi nesse período que surgiram os primeiros robôs
+mecânicos a incorporar sistemas de microprocessamento e unir tecnologias
+mecânicas e elétricas.
+
+Considerando que até o final da década de 1960 as empresas automobilísticas,
+apesar de produzirem em grande escala com rapidez e qualidade, não ofereciam
+muitas opções de personalização para os clientes (incluindo as cores dos
+acessórios), a General Motors, solicitou à empresa Allen-Bradley que
+confeccionasse um produto que conferisse versatilidade à produção. A empresa que
+já produzia outros dispositivos elétricos, desenvolveu em 1968, o primeiro
+Controlador Lógico Programável (CLP), substituindo os antigos painéis de relés,
+permitindo fazer modificações rápidas no processo produtivo \cite{goeking:2010}.
+
+\Glossary{CLP}{Controlador Lógico Programável}
+
+De acordo com \citeasnoun{isermann:2005}, a partir de 1975, com a
+disponibilidade de microcomputadores ``baratos'', o grau de automação da
+industria foi drasticamente elevado. Tal aumento ocorreu em paralelo com os
+avanços dos sensores, atuadores, das redes de comunicação e das Interfaces
+Humano-Computador (IHC).
+
+\Glossary{IHC}{Interface Humano-Computador}
+
+Desde então, a demanda, cada vez mais crescente, pela necessidade de maior
+desempenho dos processos ou de maior qualidade dos produtos, bem como a
+independência do funcionamento da planta para com os operadores humanos vem
+despertando interesse de diversos membros da comunidade científica.
+
+%TODO citar artigos de pesquisas na área de controle/desempenho do
+%processo/qualidade dos produtos
+
+\subsection{Automação e supervisão de processos}
+A Fig. \ref{fig:esquema_automacao} mostra um esquema simplificado da automação
+de dois processos acoplados. O esquema foi dividido em três níveis: nível
+inferior, o qual contempla as estratégias de controle mais comuns na industria;
+nível intermediário, onde estarão os sistemas de supervisão e o nível superior,
+no qual estão contidas as atividades de gerenciamento, coordenação e otimização
+dos processos.
+
+\begin{figure}[!htb]
+\centering
+    \includegraphics{imgs/introducao/eps/esquema_automacao}
+    \caption{Diagrama esquemático simplificado da automação de dois processos
+             acoplados.}
+    \label{fig:esquema_automacao}
+\end{figure}
+
+De acordo com \citeasnoun{isermann:2005}, ao longo dos anos vem sendo
+desenvolvendo diversos estudos sobre a teoria de controle com realimentação.
+Especialmente nos sistemas de controle que incluem os observadores de estado e
+estimadores de parâmetros pode-se observar uma evolução significativa. Para ele,
+com a evolução da teoria de controle e de processamento de sinais, diversos
+processos que antes possuíam um comportamento que dificultava a elaboração de
+estratégias de controle, agora podem ser controlados mais facilmente.
+
+Entretanto, quanto mais eficiente forem as estratégias de controle no nível
+inferior, melhor deverão ser as estratégias de supervisão do nível
+intermediário, uma vez que os operadores são removidos do processo. Pode-se
+dizer que isso ocorre porque os operadores humanos não se limitam a controlar o
+processo mudando suas referências nos horários previstos, eles também realizam
+a atividade de supervisão, especialmente quando estão em contato direto com o
+processo. Logo, com a evolução das técnicas de controle no nível inferior, as
+estratégias de supervisão também deverão ser aperfeiçoadas.
+
+No passado, o supervisionamento automático dos processos, em sua maioria, era
+composto por algum tipo de sistema que possuía a simples tarefa de verificar se
+uma determinada variável, tal como {\it força}, {\it velocidade}, {\it pressão},
+{\it nível} ou {\it temperatura}, ultrapassava um determinado limite
+especificado para o processo. Caso isso viesse a ocorrer, um determinado tipo de
+alarme disparava, notificando o operador do ocorrido, fazendo com que este
+agisse de maneira a corrigir o problema. Algumas vezes o problema podia ser
+corrigido também de maneira automática por algum subsistema de proteção. Tal
+procedimento, em muitos dos casos, era suficiente para evitar que houvessem
+falhas ou danos graves ao processo. Por outro lado, as falhas ou os erros só
+eram detectados após um certo intervalo de tempo, o que impossibilitava a
+obtenção de um diagnóstico detalhado sobre o ocorrido \cite{isermann:2005}.
+
+Os novos desafios estão em se utilizar modelos matemáticos do processo, modelos
+de sinais, métodos de identificação e estimação e técnicas de inteligência
+artificial para se desenvolver um sistema capaz de detectar e diagnosticar
+falhas em um processo. As características para o desenvolvimento desses sistemas
+levam em consideração diversos aspectos, destacando-se: a detecção antecipada de
+pequenas falhas (abruptas ou incipientes); o diagnóstico de falhas nos sensores,
+atuadores e componentes de um processo; o supervisionamento de estados
+transientes; o reparo e a manutenção baseados no comportamento do processo; o
+rigoroso controle de qualidade em processos de fabricação; a detecção e
+diagnóstico de falhas remotas; o suporte para gerenciamento de falhas e o
+suporte para sistemas tolerantes a falhas e sistemas reconfiguráveis.
+
+As primeiras publicações no segmento de detecção e diagnóstico de falhas baseado
+em modelos de processo estão relacionados com sistemas aeroespaciais
+\cite{beard:1971,jones:1973,willsky:1976,clark:1978} e processos químicos
+\cite{himmelblau:1978}. Os primeiros conceitos discutidos podem ser
+classificados como abordagens de relação de paridade. Em tais documentos são
+demonstrados procedimentos de verificação da consistência da leitura dos
+instrumentos ou do balanço de massas. Outras abordagens que utilizavam o erro
+residual do balanço de massas foram aplicadas, por exemplo, na verificação de
+vazamento em dutos \cite{billman:1987}. A abordagem de relações de paridade foi
+também investigada em \citeasnoun{gertler:1985}.
+
+Nessa mesma época, também foram desenvolvidos métodos baseados em observadores
+de estado ou filtros de Kalman \cite{beard:1971,mehra:1971,jones:1973}. Em
+\citeasnoun{clark:1978}, por exemplo, um banco de observadores é utilizado para
+detectar falhas em sensores através de redundância de informações. Uma variação
+dos modelos de observadores de estado foi mostrada em \citeasnoun{patton:1991},
+no qual se faz uso de uma estrutura de autovalores e autovetores para detecção
+de falhas.
+
+Uma outra abordagem para detecção e diagnóstico de falhas fez uso de estimadores
+de parâmetros \cite{baskiotis:1979,isermann:1982,isermann:1993} \ldots
 
 % ------------------------------------------------------------------------------
-\section{Falhas}
+\section{Estrutura do texto}
 
-% ------------------------------------------------------------------------------
-\subsection{Tipos de falhas}
-
-% ------------------------------------------------------------------------------
-\subsection{Detecção}
-
-% ------------------------------------------------------------------------------
-\subsection{Métodos de detecção}
-
-% ------------------------------------------------------------------------------
-\subsection{Detecção de falhas com RNAs}
