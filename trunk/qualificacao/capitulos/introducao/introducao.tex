@@ -100,7 +100,7 @@ problema de oscilação de uma malha de controle de temperatura em uma indústri
 de celulose \cite{faccin:2004}.
 
 % ------------------------------------------------------------------------------
-\section{Importância da automação}
+\section{A automação na indústria}
 Durante o período entre guerras, a teoria e a prática de controle nos Estados
 Unidos e na Europa Ocidental se desenvolveram de modo diferente do que na Rússia
 e no Leste Europeu. O principal incentivo para o uso da realimentação nos
@@ -159,7 +159,8 @@ despertando interesse de diversos membros da comunidade científica.
 %TODO citar artigos de pesquisas na área de controle/desempenho do
 %processo/qualidade dos produtos
 
-\subsection{Automação e supervisão de processos}
+% ------------------------------------------------------------------------------
+\section{Automação e supervisão de processos}
 A Fig. \ref{fig:esquema_automacao} mostra um esquema simplificado da automação
 de dois processos acoplados. O esquema foi dividido em três níveis: nível
 inferior, o qual contempla as estratégias de controle mais comuns na industria;
@@ -223,10 +224,10 @@ em modelos de processo estão relacionados com sistemas aeroespaciais
 \cite{himmelblau:1978}. Os primeiros conceitos discutidos podem ser
 classificados como abordagens de relação de paridade. Em tais documentos são
 demonstrados procedimentos de verificação da consistência da leitura dos
-instrumentos ou do balanço de massas. Outras abordagens que utilizavam o erro
-residual do balanço de massas foram aplicadas, por exemplo, na verificação de
-vazamento em dutos \cite{billman:1987}. A abordagem de relações de paridade foi
-também investigada em \citeasnoun{gertler:1985}.
+instrumentos ou do balanço de massas. Outras abordagens, as quais utilizavam o
+erro residual do balanço de massas foram aplicadas, por exemplo, na verificação
+de vazamento em dutos \cite{billman:1987}. A abordagem de relações de paridade
+foi também investigada em \citeasnoun{gertler:1985}.
 
 Nessa mesma época, também foram desenvolvidos métodos baseados em observadores
 de estado ou filtros de Kalman \cite{beard:1971,mehra:1971,jones:1973}. Em
@@ -251,31 +252,54 @@ diferentes abordagens técnicas e matemáticas. De acordo com
 diagnóstico de falhas podem ser classificados conforme estruturas em árvore
 mostradas pelas Figs. \ref{fig:arvore_deteccao} e \ref{fig:arvore_diagnostico}.
 
+%\begin{landscape}
 \begin{figure}[htb]
 \centering
     \subfigure[Métodos de Detecção]
     {
-        \includegraphics[width=\textwidth]{imgs/introducao/eps/arvore_deteccao}
+        %\includegraphics[height=0.45\textwidth]
+        \includegraphics[width=\textwidth]
+                        {imgs/introducao/eps/arvore_deteccao}
         \label{fig:arvore_deteccao}
     }
     \subfigure[Métodos de Diagnóstico]
     {
-        % TODO MUDAR PARA ARVORE DIAGNOSTICO
-        \includegraphics[width=\textwidth]{imgs/introducao/eps/arvore_deteccao}
+        %\includegraphics[height=0.45\textwidth]
+        \includegraphics[width=\textwidth]
+                        {imgs/introducao/eps/arvore_diagnostico}
         \label{fig:arvore_diagnostico}
     }
-    \caption{Métodos de detecção e diagnóstico.}
+    \caption{Métodos de detecção e diagnóstico de falhas.}
     \label{fig:arvores_isermann}
 \end{figure}
+%\end{landscape}
 
-De maneira complementar ao que foi exibido pela Fig. \ref{fig:arvores_isermann},
-pode-se destacar um outra estrutura em árvore exibida em
-\citeasnoun{venkatasu:2003a}, mostrada na Fig.
-\ref{fig:arvores_compl}. Tal estrutura deu origem a uma sequência de três
-artigos que compõe uma revisão bibliográfica dos algoritmos de classificação
-baseados em modelos de análise quantitativa, qualitativa e de histórico do
-processo \cite{venkatasu:2003a,venkatasu:2003b,venkatasu:2003c}.
+De maneira complementar ao que foi exibido pela Fig.
+\ref{fig:arvore_diagnostico}, \citeasnoun{venkatasu:2003a} subdivide os
+algoritmos de diagnóstico de falhas em três classes, conforme Figs.
+\ref{fig:arvore_venkatsu_quant} a \ref{fig:arvore_venkatsu_hist}. Cada uma das
+classes é abordada detalhadamente em três artigos
+\cite{venkatasu:2003a,venkatasu:2003b,venkatasu:2003c}.
 
+\begin{figure}[htb]
+\centering
+    \subfigure[Algoritmos baseados em Análise Quantitativa]
+    {
+        \includegraphics{imgs/introducao/eps/arvore_venkatsu_quant}
+        \label{fig:arvore_venkatsu_quant}
+    }
+    \subfigure[Algoritmos baseados em Análise Qualitativa]
+    {
+        \includegraphics{imgs/introducao/eps/arvore_venkatsu_qual}
+    }
+    \subfigure[Algoritmos baseados em Histórico do Processo]
+    {
+        \includegraphics{imgs/introducao/eps/arvore_venkatsu_hist}
+        \label{fig:arvore_venkatsu_hist}
+    }
+    \caption{Classificação dos algoritmos de diagnóstico de falhas.}
+    \label{fig:arvore_venkatsu}
+\end{figure}
 
 % ------------------------------------------------------------------------------
 \section{Estrutura do texto}
