@@ -205,8 +205,8 @@ falhas ou danos graves ao processo. Por outro lado, as falhas ou os erros só
 eram detectados após um certo intervalo de tempo, o que impossibilitava a
 obtenção de um diagnóstico detalhado sobre o ocorrido \cite{isermann:2005}.
 
-Os novos desafios estão em se utilizar modelos matemáticos do processo, modelos
-de sinais, métodos de identificação e estimação e técnicas de inteligência
+Os desafios estão em se utilizar modelos matemáticos do processo, modelos de
+sinais, métodos de identificação e estimação e técnicas de inteligência
 artificial para se desenvolver um sistema capaz de detectar e diagnosticar
 falhas em um processo. As características para o desenvolvimento desses sistemas
 levam em consideração diversos aspectos, destacando-se: a detecção antecipada de
@@ -237,7 +237,45 @@ no qual se faz uso de uma estrutura de autovalores e autovetores para detecção
 de falhas.
 
 Uma outra abordagem para detecção e diagnóstico de falhas fez uso de estimadores
-de parâmetros \cite{baskiotis:1979,isermann:1982,isermann:1993} \ldots
+de parâmetros, como pode ser observado em \citeasnoun{baskiotis:1979} para
+aplicações com turbinas de aeronaves, em \citeasnoun{isermann:1982},
+\citeasnoun{isermann:1984} e \citeasnoun{isermann:1993} para processos de
+maneira geral, bombas e motores de corrente contínua, ou ainda em
+\citeasnoun{filbert:1982} e \citeasnoun{filbert:1985} para aplicações envolvendo
+motores elétricos.
+
+Desde essas publicações, diversas outras contribuições foram feitas na área de
+detecção e diagnóstico de falhas, tendo sido implementados diversos métodos com
+diferentes abordagens técnicas e matemáticas. De acordo com
+\citeasnoun{isermann:2005}, os métodos mais conhecidos para detecção e
+diagnóstico de falhas podem ser classificados conforme estruturas em árvore
+mostradas pelas Figs. \ref{fig:arvore_deteccao} e \ref{fig:arvore_diagnostico}.
+
+\begin{figure}[htb]
+\centering
+    \subfigure[Métodos de Detecção]
+    {
+        \includegraphics[width=\textwidth]{imgs/introducao/eps/arvore_deteccao}
+        \label{fig:arvore_deteccao}
+    }
+    \subfigure[Métodos de Diagnóstico]
+    {
+        % TODO MUDAR PARA ARVORE DIAGNOSTICO
+        \includegraphics[width=\textwidth]{imgs/introducao/eps/arvore_deteccao}
+        \label{fig:arvore_diagnostico}
+    }
+    \caption{Métodos de detecção e diagnóstico.}
+    \label{fig:arvores_isermann}
+\end{figure}
+
+De maneira complementar ao que foi exibido pela Fig. \ref{fig:arvores_isermann},
+pode-se destacar um outra estrutura em árvore exibida em
+\citeasnoun{venkatasu:2003a}, mostrada na Fig.
+\ref{fig:arvores_compl}. Tal estrutura deu origem a uma sequência de três
+artigos que compõe uma revisão bibliográfica dos algoritmos de classificação
+baseados em modelos de análise quantitativa, qualitativa e de histórico do
+processo \cite{venkatasu:2003a,venkatasu:2003b,venkatasu:2003c}.
+
 
 % ------------------------------------------------------------------------------
 \section{Estrutura do texto}
