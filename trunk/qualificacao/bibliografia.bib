@@ -12,6 +12,17 @@ publisher = {Pergamon Press, Inc.},
 address = {Tarrytown, NY, USA},
 }
 
+@article{chang:2003, 
+author = {Chang, C.S. and Xu, Z. and Khambadkone, A.}, 
+title = {Enhancement and laboratory implementation of neural network detection
+         of short circuit faults in DC transit system}, 
+journal = {IEE Proceedings -- Electric Power Applications}, 
+year = {2003}, 
+volume = {150}, 
+number = {3}, 
+pages = {344-350}
+}
+
 @article{clark:1978,
 author = {Robert N. Clark},
 title = {A simplified instrument failure detection scheme},
@@ -116,6 +127,42 @@ pages = {229-252},
 url = {http://dx.doi.org/10.1016/j.arcontrol.2008.03.008}
 }
 
+@article{wu:2004,
+author = {N. E. Wu},
+title = {Coverage in fault-tolerant control},
+journal = {Automatica},
+year = {2004},
+volume = {40},
+pages = {537-548}
+}
+
+@article{vemuri:1998, 
+author = {A. T. Vemuri and M. M. Polycarpou and S. A. Diakourtis}, 
+title = {Neural network based fault detection in robotic manipulators}, 
+journal = {IEEE Transactions on Robotics and Automation}, 
+year = {1998}, 
+volume = {14}, 
+number = {2}, 
+pages = {342-348}, 
+}
+
+@book{blanke:2006,
+author = {M. Blanke and M. Kinnaert and J. Lunze and M. Staroswiecki and
+          J. Schr\"{o}der},
+title = {Diagnosis and Fault-Tolerant Control},
+year = {2006},
+isbn = {3540356525},
+publisher = {Springer-Verlag New York, Inc.},
+address = {Secaucus, NJ, USA},
+}
+
+@book{chiang:2001,
+author = {L. H. Chiang, E. L. Russel, R. D. Braatz},
+title = {Fault detection and diagnosis in industrial systems},
+publisher = {Springer},
+year = {2001}
+}
+
 @book{dorf:2009,
 author = {Richard C. Dorf and Robert H. Bishop},
 title = {sistemas de controle modernos},
@@ -134,12 +181,12 @@ subjects = {Chemical process control - Mathematical models.},
 catalogue-url = {http://nla.gov.au/nla.cat-vn985495},
 }
 
-@book{isermann:2005,
+@book{isermann:2006,
 author = {Rolf Isermann},
 title = {Fault-diagnosis systems: an introduction from fault detection to fault
          tolerance},
 publisher = {Springer-Verlag},
-year = {2005}
+year = {2006}
 }
 
 @book{mayr:1971,
@@ -161,10 +208,18 @@ url = {http://hdl.handle.net/10088/2411}
 @book{mayr:1975,
 author = {Otto Mayr},
 title = {The  origins of feedback control},
-year = {1975},
-isbn = {0262630567},
 publisher = {MIT Press},
+year = {1975},
 address = {Cambridge, MA, USA},
+isbn = {0262630567},
+}
+
+@book{patton:2000,
+author = {R. Patton and P. Frank and P. Clark},
+title = {Issues of fault diagnosis for dynamic systems},
+publisher = {Springer},
+year = {2000},
+address = {New York}
 }
 
 @book{ribeiro:1999,
@@ -184,10 +239,30 @@ year = {1877},
 address = {London}
 }
 
+@book{russel:2000,
+author = {E. Russel and L. Chiang and R. Baatz},
+title = {Data-driven techniques for fault detection and diagnosis in chemical
+         processes},
+publisher = {Springer},
+year = {2000},
+address = {London}
+}
+
+@book{simani:2003,
+author = {S. Simani and C. Fantuzzi and R. Patton},
+title = {Model-based fault diagnosis in dynamic systems using identification
+         techniques},
+publisher = {Springer},
+year = {2003},
+address = {London}
+}
+
 @inproceedings{baskiotis:1979, 
 author = {C. Baskiotis and J. Raymond and A. Rault}, 
-title = {Parameter identification and discriminant analysis for jet engine machanical state diagnosis}, 
-journal = {18th IEEE Conference on Decision and Control including the Symposium on Adaptive Processes},
+title = {Parameter identification and discriminant analysis for jet engine
+         machanical state diagnosis}, 
+booktitle = {18th IEEE Conference on Decision and Control including the
+             Symposium on Adaptive Processes},
 year = {1979}, 
 volume = {18}, 
 pages = {648-650}, 
@@ -198,16 +273,42 @@ doi = {10.1109/CDC.1979.270264}
 author = {Stuart Bennett},
 title = {A brief history of {A}utomatic {C}ontrol},
 booktitle = {IEEE Control Systems Magazine},
-volume = {16},
-number = {3},
+volume = {16(3)},
 year = {1996},
 pages = {17-25}
+}
+
+@inproceedings{erdenet:2007, 
+author = {T. Erdenetsetseg and D. Ulemj},
+title = {Supervision and fault management of process-tasks and terminology}, 
+booktitle = {International Forum on Strategic Technology},
+year = {2007}, 
+pages = {444-447}
+}
+
+@inproceedings{ericson:2005,
+author = {S. Ericson and N. Grip and E. Johannson and L. Persson and R.
+          Sj\"{o}berg and J. Str\"{o}mberg},
+title = {Towards automatic detection of local bearing defects in rotating
+         machines},
+booktitle = {Mechanical Systems and Signal Processing},
+year = {2005},
+volume = {9},
+pages = {509-535}
+}
+
+@inproceedings{fesq:2009,
+author = {L. M. Fesq}, 
+title = {Current fault management trends in NASA's planetary spacecraft}, 
+booktitle = {IEEE Aerospace conference},
+year = {2009}, 
+pages = {1-9}, 
 }
 
 @inproceedings{filbert:1982,
 author = {D. Filbert and K. Metzger},
 title = {Quality test of systems by parameter estimation},
-journal = {9th IMEKO Congress},
+booktitle = {9th IMEKO Congress},
 year = {1982},
 address = {Berlin, Germany}
 }
@@ -216,20 +317,86 @@ address = {Berlin, Germany}
 author = {D. Filbert},
 title = {Fault diagnosis in nonlinear electromechanical systems by
          continous-time parameter estimation},
-journal = {ISA Transactions},
+booktitle = {ISA Transactions},
 year = {1985},
-volume = {24},
-number = {3},
+volume = {24(3)},
 pages = {23-27}
+}
+
+@inproceedings{gao:2000,
+author = {X. Z. Gao and S. J. Ovaska and Y. Dote},
+title = {Motor fault detection using Elman neural network with genetic
+         algorithm-aided training}, 
+booktitle = {IEEE International Conference on Systems, Man, and Cybernetics},
+year = {2000}, 
+volume = {4}, 
+pages = {2386-2392}, 
 }
 
 @inproceedings{gertler:1985, 
 author = {Janos Gertler and David Singer},
 title = {Augmented models for statistical fault isolation in complex dynamic
          systems}, 
-journal = {American Control Conference},
+booktitle = {American Control Conference},
 year = {1985}, 
 pages = {317-322}
+}
+
+@inproceedings{guo:2005, 
+author = {Qian-jin Guo and Hai-bin Yu and Ai-dong Xu}, 
+title = {Modified Morlet wavelet neural networks for fault detection}, 
+booktitle = {International Conference on Control and Automation},
+year = {2005}, 
+volume = {2}, 
+pages = {1209-1214}, 
+}
+
+@inproceedings{hang:2009,
+author = {L. Hang and M. Lei}, 
+title = {Definition of Managed Objects for Fault Management of Satellite
+         Network}, 
+booktitle = {International Forum on Information Technology and Applications},
+year = {2009}, 
+volume = {1}, 
+pages = {107-110},
+}
+
+@inproceedings{higham:2001,
+author = {E. Higham and S. Perovic},
+title = {Predictive maintenance of pumps based on signal analysis of pressure
+         and differential pressure (flow) measurements},
+booktitle = {Transactions of Institute of Measurement and Control},
+year = {2001},
+volume = {23(4)},
+pages = {226-248}
+}
+
+@inproceedings{jia-li:2010, 
+author = {Tang Jia-li and Liu Yi-jun and Wu Fang-sheng}, 
+title = {Levenberg-Marquardt neural network for gear fault diagnosis},
+booktitle = {2nd International Conference on Networking and Digital Society},
+year = {2010}, 
+volume = {1}, 
+pages = {134-137}
+}
+
+@inproceedings{khaled:2010, 
+author = {O. Khaled and D. Hedi and N. Lotfi and H. Messaoud and Z. S-abazi}, 
+title = {Fault detection and localization with Neural Principal Component
+         Analysis}, 
+booktitle = {18th Mediterranean Conference on Control Automation (MED)},
+year = {2010}, 
+pages = {880-885}
+}
+
+@inproceedings{laprie:1996, 
+author = {Jean-Claude Laprie}, 
+title = {Dependable computing and fault tolerance : concepts and terminology}, 
+booktitle = {25th International Symposium on Fault-Tolerant Computing},
+year = {1996}, 
+month = {jun.}, 
+volume = {3}, 
+pages = {2-11}, 
 }
 
 @inproceedings{maxwell:1964,
@@ -248,46 +415,64 @@ pages = {270-283}
 author = {R. J. Patton and J. Chen},
 title = {Robust fault detection using eigenstructure assignment: a tutorial
          consideration and some new results}, 
-journal = {30th IEEE Conference on Proceedings of the Decision and Control},
+booktitle = {30th IEEE Conference on Proceedings of the Decision and Control},
 year = {1991},
 volume = {3},
-pages = {2242-2247}, 
-keywords = {deadbeat design;disturbance decoupling;eigenstructure
-            assignment;eigenvector assignment;first-order parity space
-            structure;observer;robust fault detection;state
-            estimation;tutorial;eigenvalues and eigenfunctions;state
-            estimation;}, 
-doi = {10.1109/CDC.1991.261546}, 
+pages = {2242-2247}
+}
+
+@inproceedings{sreedhar:1995, 
+author = {R. Sreedhar and B. Fernandez and G. Y. Masada}, 
+title = {A neural network based adaptive fault detection scheme},
+booktitle = {Proceedings of the American Control Conference},
+year = {1995}, 
+volume = {5}, 
+pages = {3259-3263}
+}
+
+@inproceedings{talebi:2005, 
+author = {H. A. Talebi and R. V. Patel}, 
+title = {A neural network-based fault detection scheme for satellite attitude
+         control systems}, 
+journal = {IEEE Conference on Control Applications},
+year = {2005}, 
+pages = {1293-1298}
+}
+
+@inproceedings{tian:2007, 
+author = {Jingwen Tian and Meijuan Gao and Liting Cao and Kai Li},
+title = {Fault Detection of Oil Pump Based on Fuzzy Neural Network},
+booktitle = {Third International Conference on Natural Computation},
+year = {2007},
+volume = {2}, 
+pages = {636-640}, 
 }
 
 @inproceedings{venkatasu:2003a,
-author = {Venkat Venkatasubramanian and Raghunathan Rengaswamy and Kewen Yin and
-          Surya N. Kavuri},
+author = {V. Venkatasubramanian and R. Rengaswamy and K. Yin and S. N. Kavuri},
 title = {A review of process fault detection and diagnosis {P}art {I}:
          Quantitative model-based methods},
-journal = {Computers \& Chemical Engineering},
+booktitle = {Computers \& Chemical Engineering},
 year = {2003},
 volume = {27},
 pages = {293-311}
 }
 
 @inproceedings{venkatasu:2003b,
-author = {Venkat Venkatasubramanian and Raghunathan Rengaswamy and Surya N.
-          Kavuri},
+author = {V. Venkatasubramanian and R. Rengaswamy and S. N.  Kavuri},
 title = {A review of process fault detection and diagnosis {P}art {II}:
          Qualitative models and search strategies},
-journal = {Computers \& Chemical Engineering},
+booktitle = {Computers \& Chemical Engineering},
 year = {2003},
 volume = {27},
 pages = {313-326}
 }
 
 @inproceedings{venkatasu:2003c,
-author = {Venkat Venkatasubramanian and Raghunathan Rengaswamy and Surya N.
-          Kavuri and Kewen Yin},
+author = {V. Venkatasubramanian and R. Rengaswamy and S. N.  Kavuri and K. Yin},
 title = {A review of process fault detection and diagnosis {P}art {III}: Process
          history based methods},
-journal = {Computers \& Chemical Engineering},
+booktitle = {Computers \& Chemical Engineering},
 year = {2003},
 volume = {27},
 pages = {327-346}
@@ -301,6 +486,13 @@ year = {2004},
 address = {Porto Alegre}
 }
 
+@misc{avizienis:2000,
+author = {Algirdas Avizienis and Jean-Claude Laprie and Brian Randell and
+          Vytautas Magnus U},
+title = {Fundamental Concepts of Dependability},
+year = {2000}
+}
+
 @misc{goeking:2010,
 title = {Da máquina a vapor aos softwares de automação},
 howpublished = {Publicação online -- O Setor Elétrico/Memória da Eletricidade},
@@ -308,6 +500,15 @@ author = {Weruska Goeking},
 month = {Maio},
 year = {2010},
 url = {http://www.osetoreletrico.com.br/web/automacao.html}
+}
+
+@misc{vdi2206:2003,
+author = {VDI},
+title = {{VDI} {G}uidelines 2206 -- {D}esign methodology for mechatronic
+         systems},
+publisher = {Beuth Verlag},
+year = {2003},
+address = {Berlin}
 }
 
 @phdthesis{beard:1971,
