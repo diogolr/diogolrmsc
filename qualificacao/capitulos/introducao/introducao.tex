@@ -100,7 +100,7 @@ problema de oscilação de uma malha de controle de temperatura em uma indústri
 de celulose \cite{faccin:2004}.
 
 % ------------------------------------------------------------------------------
-\section{A automação na indústria}
+\section{Introdução da automação na indústria}
 Durante o período entre guerras, a teoria e a prática de controle nos Estados
 Unidos e na Europa Ocidental se desenvolveram de modo diferente do que na Rússia
 e no Leste Europeu. O principal incentivo para o uso da realimentação nos
@@ -143,7 +143,7 @@ permitindo fazer modificações rápidas no processo produtivo \cite{goeking:201
 
 \Glossary{CLP}{Controlador Lógico Programável}
 
-De acordo com \citeasnoun{isermann:2005}, a partir de 1975, com a
+De acordo com \citeasnoun{isermann:2006}, a partir de 1975, com a
 disponibilidade de microcomputadores ``baratos'', o grau de automação da
 industria foi drasticamente elevado. Tal aumento ocorreu em paralelo com os
 avanços dos sensores, atuadores, das redes de comunicação e das Interfaces
@@ -160,7 +160,7 @@ despertando interesse de diversos membros da comunidade científica.
 %processo/qualidade dos produtos
 
 % ------------------------------------------------------------------------------
-\section{Automação e supervisão de processos}
+\section{A automação e supervisão de processos}
 A Fig. \ref{fig:esquema_automacao} mostra um esquema simplificado da automação
 de dois processos acoplados. O esquema foi dividido em três níveis: nível
 inferior, o qual contempla as estratégias de controle mais comuns na industria;
@@ -176,7 +176,7 @@ dos processos.
     \label{fig:esquema_automacao}
 \end{figure}
 
-De acordo com \citeasnoun{isermann:2005}, ao longo dos anos vem sendo
+De acordo com \citeasnoun{isermann:2006}, ao longo dos anos vem sendo
 desenvolvendo diversos estudos sobre a teoria de controle com realimentação.
 Especialmente nos sistemas de controle que incluem os observadores de estado e
 estimadores de parâmetros pode-se observar uma evolução significativa. Para ele,
@@ -196,30 +196,30 @@ estratégias de supervisão também deverão ser aperfeiçoadas.
 No passado, o supervisionamento automático dos processos, em sua maioria, era
 composto por algum tipo de sistema que possuía a simples tarefa de verificar se
 uma determinada variável, tal como {\it força}, {\it velocidade}, {\it pressão},
-{\it nível} ou {\it temperatura}, ultrapassava um determinado limite
-especificado para o processo. Caso isso viesse a ocorrer, um determinado tipo de
-alarme disparava, notificando o operador do ocorrido, fazendo com que este
-agisse de maneira a corrigir o problema. Algumas vezes o problema podia ser
-corrigido também de maneira automática por algum subsistema de proteção. Tal
-procedimento, em muitos dos casos, era suficiente para evitar que houvessem
-falhas ou danos graves ao processo. Por outro lado, as falhas ou os erros só
-eram detectados após um certo intervalo de tempo, o que impossibilitava a
-obtenção de um diagnóstico detalhado sobre o ocorrido \cite{isermann:2005}.
+{\it nível} ou {\it temperatura}, ultrapassava um certo limite ou limiar
+especificado para o processo. Caso isso viesse a ocorrer, um tipo de alarme
+disparava, notificando o operador do ocorrido, fazendo com que este agisse de
+maneira a corrigir a situação. Algumas vezes o problema podia ser corrigido
+também de maneira automática por algum subsistema de proteção. Tal procedimento,
+em muitos dos casos, era suficiente para evitar que houvessem falhas ou danos
+graves ao processo. Por outro lado, as falhas ou os erros só eram detectados
+após um certo intervalo de tempo, o que impossibilitava a obtenção de um
+diagnóstico detalhado sobre o ocorrido \cite{isermann:2006}.
 
-Os desafios estão em se utilizar modelos matemáticos do processo, modelos de
-sinais, métodos de identificação e estimação e técnicas de inteligência
-artificial para se desenvolver um sistema capaz de detectar e diagnosticar
-falhas em um processo. As características para o desenvolvimento desses sistemas
-levam em consideração diversos aspectos, destacando-se: a detecção antecipada de
-pequenas falhas (abruptas ou incipientes); o diagnóstico de falhas nos sensores,
-atuadores e componentes de um processo; o supervisionamento de estados
-transientes; o reparo e a manutenção baseados no comportamento do processo; o
-rigoroso controle de qualidade em processos de fabricação; a detecção e
-diagnóstico de falhas remotas; o suporte para gerenciamento de falhas e o
-suporte para sistemas tolerantes a falhas e sistemas reconfiguráveis.
+Os desafios na área estão em se utilizar modelos matemáticos do processo,
+modelos de sinais, métodos de identificação e estimação e técnicas de
+inteligência artificial para se desenvolver um sistema capaz de detectar e
+diagnosticar falhas em um processo. Para se desenvolver esses tipos de sistemas
+deve-se levar em consideração diversos aspectos, destacando-se: a detecção
+antecipada de pequenas falhas (abruptas ou incipientes); o diagnóstico de falhas
+nos sensores, atuadores e componentes de um processo; o supervisionamento de
+estados transientes; o reparo e a manutenção baseados no comportamento do
+processo; o rigoroso controle de qualidade em processos de fabricação; a
+detecção e diagnóstico de falhas remotas; o suporte para gerenciamento de falhas
+e o suporte para sistemas tolerantes a falhas e sistemas reconfiguráveis.
 
-As primeiras publicações no segmento de detecção e diagnóstico de falhas baseado
-em modelos de processo estão relacionados com sistemas aeroespaciais
+As primeiras publicações na área de Detecção e Diagnóstico de Falhas (DDF) estão
+relacionadas com sistemas aeroespaciais
 \cite{beard:1971,jones:1973,willsky:1976,clark:1978} e processos químicos
 \cite{himmelblau:1978}. Os primeiros conceitos discutidos podem ser
 classificados como abordagens de relação de paridade. Em tais documentos são
@@ -229,6 +229,8 @@ erro residual do balanço de massas foram aplicadas, por exemplo, na verificaç�
 de vazamento em dutos \cite{billman:1987}. A abordagem de relações de paridade
 foi também investigada em \citeasnoun{gertler:1985}.
 
+\Glossary{DDF}{Detecção e Diagnóstico de Falha}
+
 Nessa mesma época, também foram desenvolvidos métodos baseados em observadores
 de estado ou filtros de Kalman \cite{beard:1971,mehra:1971,jones:1973}. Em
 \citeasnoun{clark:1978}, por exemplo, um banco de observadores é utilizado para
@@ -237,20 +239,41 @@ dos modelos de observadores de estado foi mostrada em \citeasnoun{patton:1991},
 no qual se faz uso de uma estrutura de autovalores e autovetores para detecção
 de falhas.
 
-Uma outra abordagem para detecção e diagnóstico de falhas fez uso de estimadores
-de parâmetros, como pode ser observado em \citeasnoun{baskiotis:1979} para
+Uma outra abordagem para esse tipo de sistema fez uso de estimadores de
+parâmetros, como pode ser observado em \citeasnoun{baskiotis:1979} para
 aplicações com turbinas de aeronaves, em \citeasnoun{isermann:1982},
 \citeasnoun{isermann:1984} e \citeasnoun{isermann:1993} para processos de
 maneira geral, bombas e motores de corrente contínua, ou ainda em
 \citeasnoun{filbert:1982} e \citeasnoun{filbert:1985} para aplicações envolvendo
 motores elétricos.
 
-Desde essas publicações, diversas outras contribuições foram feitas na área de
-detecção e diagnóstico de falhas, tendo sido implementados diversos métodos com
-diferentes abordagens técnicas e matemáticas. De acordo com
-\citeasnoun{isermann:2005}, os métodos mais conhecidos para detecção e
-diagnóstico de falhas podem ser classificados conforme estruturas em árvore
-mostradas pelas Figs. \ref{fig:arvore_deteccao} e \ref{fig:arvore_diagnostico}.
+Mais recentemente, diversas contribuições foram feitas na área de DDF. Pode-se
+citar, por exemplo, as publicações relacionadas ao gerenciamento de falhas e
+supervisão de processos, tais como \citeasnoun{russel:2000},
+\citeasnoun{patton:2000}, \citeasnoun{higham:2001}, \citeasnoun{simani:2003},
+\citeasnoun{ericson:2005}, \citeasnoun{blanke:2006}, \citeasnoun{erdenet:2007},
+\citeasnoun{fesq:2009} e \citeasnoun{hang:2009}.
+
+\begin{comment}
+Em \citeasnoun{vdi2206:2003}, é mostrado um ``Diagrama em V'', que lista passos
+importantes para o desenvolvimento de sistemas de DDF.
+\citeasnoun{isermann:2006} diz que apesar de seguir uma sequência lógica, muitas
+vezes os passos do diagrama são realizados de maneira paralela ou iterativa.
+\end{comment}
+
+Segundo \citeasnoun{zhang:2008}, apesar das diversas pesquisas existentes desde
+1970, os conceitos sistemáticos, os métodos de desenvolvimento e até mesmo as
+terminologias relacionados a área de DDF ainda não estão bem estabelecidos, o
+que faz com que existam certos conflitos com relação aos termos adequados a
+serem utilizados em cada situação. Algumas das contribuições sobre o assunto
+podem ser observadas em \citeasnoun{laprie:1996}, \citeasnoun{avizienis:2000},
+\citeasnoun{chiang:2001}, \citeasnoun{wu:2004} e \citeasnoun{isermann:2006}.
+
+Já com relação aos métodos e algoritmos de detecção e diagnóstico de falhas,
+pode-se encontrar em \citeasnoun{isermann:2006}, duas estruturas em árvore que
+classificam os diversos métodos/al\-go\-rit\-mos existentes segundo determinados
+critérios. Tais estruturas podem ser observadas pelas Figs.
+\ref{fig:arvore_deteccao} e \ref{fig:arvore_diagnostico}.
 
 %\begin{landscape}
 \begin{figure}[htb]
@@ -274,33 +297,90 @@ mostradas pelas Figs. \ref{fig:arvore_deteccao} e \ref{fig:arvore_diagnostico}.
 \end{figure}
 %\end{landscape}
 
-De maneira complementar ao que foi exibido pela Fig.
-\ref{fig:arvore_diagnostico}, \citeasnoun{venkatasu:2003a} subdivide os
-algoritmos de diagnóstico de falhas em três classes, conforme Figs.
-\ref{fig:arvore_venkatsu_quant} a \ref{fig:arvore_venkatsu_hist}. Cada uma das
-classes é abordada detalhadamente em três artigos
+De maneira complementar, \citeasnoun{venkatasu:2003a} subdividem os algoritmos
+de diagnóstico de falhas em três classes, conforme Figs.
+\ref{fig:arvore_venkatasu_quant} a \ref{fig:arvore_venkatasu_hist}. Cada uma das
+classes é abordada em detalhes nos três artigos que compõem uma revisão
+bibliográfica sobre o assunto
 \cite{venkatasu:2003a,venkatasu:2003b,venkatasu:2003c}.
 
 \begin{figure}[htb]
 \centering
     \subfigure[Algoritmos baseados em Análise Quantitativa]
     {
-        \includegraphics{imgs/introducao/eps/arvore_venkatsu_quant}
-        \label{fig:arvore_venkatsu_quant}
+        \includegraphics[width=0.3\textwidth]
+                        {imgs/introducao/eps/arvore_venkatasu_quant}
+        \label{fig:arvore_venkatasu_quant}
     }
+    \qquad
     \subfigure[Algoritmos baseados em Análise Qualitativa]
     {
-        \includegraphics{imgs/introducao/eps/arvore_venkatsu_qual}
+        \includegraphics[width=0.51\textwidth]
+                        {imgs/introducao/eps/arvore_venkatasu_qual}
     }
     \subfigure[Algoritmos baseados em Histórico do Processo]
     {
-        \includegraphics{imgs/introducao/eps/arvore_venkatsu_hist}
-        \label{fig:arvore_venkatsu_hist}
+        \includegraphics[width=0.6\textwidth]
+                        {imgs/introducao/eps/arvore_venkatasu_hist}
+        \label{fig:arvore_venkatasu_hist}
     }
     \caption{Classificação dos algoritmos de diagnóstico de falhas.}
-    \label{fig:arvore_venkatsu}
+    \label{fig:arvore_venkatasu}
 \end{figure}
 
-% ------------------------------------------------------------------------------
-\section{Estrutura do texto}
+\citeasnoun{zhang:2008} abordam ainda um grande conjunto de tópicos relacionados
+com sistema de controle tolerante a falhas, um outro segmento até agora não
+comentado, mostrando que por razões históricas e por questões de complexidade, a
+maioria das pesquisas relacionadas à DDF e às estratégias de controle
+reconfiguráveis foram realizadas como duas coisas separadas. Pouca atenção é
+dada para a construção de um sistema ``completo'' que possua essa interação
+entre um sistema de detecção e diagnóstico e as estratégias de controle
+reconfiguráveis.
 
+Sendo mais específico, o autor mostra que as técnicas de detecção e isolamento
+de falhas foram desenvolvidas como ferramentas de diagnóstico ou de
+monitoramento. Como resultado disso, o autor aduz que os métodos de detecção e
+diagnóstico não satisfazem as necessidades das técnicas de controle
+reconfigurável. Por outro lado, a maioria das pesquisas na área de controle
+reconfigurável assumem a existência de um sistema de detecção e diagnóstico
+perfeito.
+
+Tendo conhecido alguns dos temas mais abordados ao longo de todos esses anos, o
+trabalho a ser aqui apresentado se propõe a desenvolver um sistema que faça uso
+de Redes Neurais Artificiais para detectar e diagnosticar as falhas que venham a
+ocorrer em um determinado processo. O sistema deverá ser capaz de detectar a
+presença e indicar a intensidade das falhas, gerando alarmes que notifiquem o
+operador e que possam vir a ser pós-processados.
+
+Considerando então os métodos de DDF que fazem uso de redes neurais artificiais,
+pode-se destacar uma série de contribuições. Em \citeasnoun{sreedhar:1995}, por
+exemplo, é elaborado um sistema que possui uma rede neural adaptativa capaz de
+detectar falhas em sistemas não-lineares. \citeasnoun{vemuri:1998}, por sua vez,
+propõe um sistema de detecção de falhas em manipuladores robóticos. Já em
+\citeasnoun{chang:2003} é desenvolvido um sistema que faz uso de redes neurais
+artificiais para detectar curto-circuitos. Em \citeasnoun{talebi:2005}
+é mostrado uma estrutura capaz de detectar falhas em sistemas de controle de
+satélites. \citeasnoun{jia-li:2010} mostra ainda um sistema capaz de
+diagnosticar falhas em sistemas de câmbio automotivo.
+
+Diversas outras contribuições foram feitas fazendo uso de técnicas híbridas. Em
+\citeasnoun{gao:2000}, é proposto um sistema que utiliza uma rede neural de
+Elman, com treinamento assistido por algoritmo genético para a detecção de
+falhas em unidades de sistemas de motor. \citeasnoun{guo:2005} combinam as
+propriedades das transformadas {\it wavelet} com redes neurais artificiais para
+detecção de falhas em máquinas rotativas Já em \citeasnoun{tian:2007}, é
+proposto um sistema Neuro-{\it Fuzzy} para detecção de falhas em oleodutos. Por
+fim, \citeasnoun{khaled:2010}, mostra um sistema composto por um método que
+combina redes neurais artificiais com análise de componentes principais, capaz
+de identificar e isolar falhas em processos de fabricação.
+
+Assim sendo, os capítulos seguintes do presente texto serão divididos conforme
+descrição a seguir. O Capítulo \ref{cap:aspectos} trará toda a fundamentação
+teórica necessária para o desenvolvimento do sistema proposto, abordando desde a
+descrição das terminologias até a especificação das estruturas neurais que serão
+utilizadas. O Capítulo \ref{cap:sistema}, por sua vez, irá conter a descrição
+detalhada do processo escolhido como estudo de caso e mostrará algumas
+possibilidades de como o sistema final poderá ser composto. Por fim, nos dois
+últimos capítulos, serão apresentados e discutidos os resultados obtidos para
+cada uma das estruturas idealizadas no Capítulo \ref{cap:sistema}, encerrando
+com uma breve conclusão e mostrando as possibilidades de trabalhos futuros.
