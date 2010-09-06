@@ -1,8 +1,87 @@
 \mychapter{Aspectos de projeto}
 \label{cap:aspectos}
 
+Com a demanda cada vez mais crescente com relação a eficiência, a qualidade dos
+produtos e integração dos processos no setor industrial, aliada aos altos custos
+envolvidos e as mais diversas necessidades de segurança, torna-se claro a
+importância dos sistemas de supervisão e dos sistemas de detecção e diagnóstico
+de falhas \cite{isermann:2006}.
+
+Considerando tais aspectos, este capítulo mostrará os conceitos relacionados ao
+desenvolvimento de um sistema de detecção e diagnóstico de falhas que fará uso
+de Redes Neurais Artificiais. Inicialmente, serão mostradas as principais
+terminologias utilizadas na área. Em seguida a atenção será voltada para as
+Redes Neurais Artificiais e suas estruturas de identificação. Por fim, será
+mostrado rapidamente como o sistema será estruturado para que sejam feitas as
+simulações computacionais.
+
 % ------------------------------------------------------------------------------
-\section{Falhas}
+\section{Conceitos e terminologias}
+Segundo \citeasnoun{kaanich:2002}, os sistemas computacionais podem ser
+caracterizados por cinco propriedades fundamentais: funcionalidade, usabilidade,
+desempenho, custo e {\it dependabilidade}. Para \citeasnoun{kaanich:2002} {\it
+apud} \citeasnoun{laprie:1992}, o termo {\it dependabilidade} está relacionado
+com a capacidade de um sistema prestar um serviço que possa ser,
+justificadamente, confiável. O serviço prestado se refere ao comportamento do
+sistema percebido por seus usuários, os quais também serão sistemas
+(máquinas físicas ou seres humanos), que interagem com o anterior.
+
+De acordo com \citeasnoun{laprie:1994}, dependendo das aplicações envolvidas, o
+termo dependabilidade pode ainda ser visto de acordo com suas diferentes, mas
+complementares, propriedades:
+
+\begin{itemize}
+    \item {\bf Disponibilidade:} Prontidão para o uso;
+    \item {\bf Confiabilidade:} Continuidade do serviço;
+    \item \textbf{Proteção (\textit{safety}):} Não ocorrência de consequências
+          catastróficas para o meio;
+    \item {\bf Confidencialidade:} Não ocorrência da divulgação não-autorizada
+          da informação;
+    \item {\bf Integridade:} Não ocorrência de alterações indevidas da
+          informação;
+    \item {\bf Manutenção:} Aptidão para sofrer reparos e evolução.
+\end{itemize}
+
+A associação da integridade com a disponibilidade e a confidencialidade leva à
+\textbf{Segurança (\textit{security})}.
+
+% ------------------------------------------------------------------------------
+\subsection{Taxonomia da dependabilidade}
+O termo dependabilidade nada mais é do que a tradução literal do termo inglês
+{\it dependability}. Entretanto, o dicionário Michaelis, traduz tal termo como
+{\it confiabilidade} ou {\it garantia de funcionamento}. Assim sendo, daqui para
+frente, utilizar-se-á a palavra {\it confiável}, ou suas variações linguísticas,
+para se referir ao termo {\it dependable}. Quando for desejado fazer referência
+a propriedade da confiabilidade de um sistema, tal intenção será claramente
+especificada pelo texto.
+
+\citeasnoun{avizienis:2000} e \citeasnoun{kaanich:2002} mostram que para se
+desenvolver um Sistema Computacional Confiável (SCC, do inglês {\it Dependable
+Computing System -- DCS}), faz-se uso de diferentes técnicas, tais como as
+técnicas de: {\bf prevenção}, {\bf tolerância}, {\bf remoção} e {\bf previsão}
+de falhas. Todas essas técnicas serão brevemente explicadas na Seção
+\ref{sec:tecnicas}.
+
+\begin{comment}
+\begin{itemize}
+    \item {\bf Técnicas de prevenção:} Como prevenir a ocorrência ou a introdução de
+          falhas;
+    \item {\bf Técnicas de tolerância:} Como oferecer um serviço ``correto'' na
+          presença de falhas;
+    \item {\bf Técnicas de remoção:} Como reduzir o número ou atenuar a gravidade
+          das falhas;
+    \item {\bf Técnicas de previsão:} Como estimar o número atual, a incidência
+          futura e as consequências das prováveis falhas.
+\end{itemize}
+\end{comment}
+
+Além das propriedades descritas na seção anterior e das técnicas acima citadas,
+deve-se conhecer também os conceitos de {\bf defeito} (ou {\bf avaria}), {\bf
+erro} e {\bf falha}, a serem explicados na Seção \ref{sec:avaria_erro_falha}.
+
+\citeasnoun{avizienis:2000} agrupa os termos acima discutidos em três partes: os
+atributos (propriedades), as ameaças e os meios pelos quais a dependabilidade é
+atingida. Tal divisão pode ser observada na Fig. \ref{fig:div_avizienis}.
 
 % ------------------------------------------------------------------------------
 \subsection{Tipos de falhas}
