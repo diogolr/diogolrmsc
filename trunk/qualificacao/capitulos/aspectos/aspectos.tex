@@ -16,15 +16,16 @@ mostrado rapidamente como o sistema será estruturado para que sejam feitas as
 simulações computacionais.
 
 % ------------------------------------------------------------------------------
-\section{Conceitos e terminologias}
+\section{Conceitos e terminologias}\label{sec:propriedades}
 Segundo \citeasnoun{kaanich:2002}, os sistemas computacionais podem ser
 caracterizados por cinco propriedades fundamentais: funcionalidade, usabilidade,
 desempenho, custo e {\it dependabilidade}. Para \citeasnoun{kaanich:2002} {\it
-apud} \citeasnoun{laprie:1992}, o termo {\it dependabilidade} está relacionado
+apud} \citeasnoun{laprie:1992}, o termo {\it dependabilidade}, que nada mais é
+do que a tradução literal do termo inglês {\it dependability}, está relacionado
 com a capacidade de um sistema prestar um serviço que possa ser,
 justificadamente, confiável. O serviço prestado se refere ao comportamento do
-sistema percebido por seus usuários, os quais também serão sistemas
-(máquinas físicas ou seres humanos), que interagem com o anterior.
+sistema percebido por seus usuários, os quais também serão sistemas (máquinas
+físicas ou seres humanos), que interagem com o anterior.
 
 De acordo com \citeasnoun{laprie:1994}, dependendo das aplicações envolvidas, o
 termo dependabilidade pode ainda ser visto de acordo com suas diferentes, mas
@@ -45,22 +46,27 @@ complementares, propriedades:
 A associação da integridade com a disponibilidade e a confidencialidade leva à
 \textbf{Segurança (\textit{security})}.
 
-% ------------------------------------------------------------------------------
-\subsection{Taxonomia da dependabilidade}
-O termo dependabilidade nada mais é do que a tradução literal do termo inglês
-{\it dependability}. Entretanto, o dicionário Michaelis, traduz tal termo como
-{\it confiabilidade} ou {\it garantia de funcionamento}. Assim sendo, daqui para
-frente, utilizar-se-á a palavra {\it confiável}, ou suas variações linguísticas,
-para se referir ao termo {\it dependable}. Quando for desejado fazer referência
-a propriedade da confiabilidade de um sistema, tal intenção será claramente
-especificada pelo texto.
+Apesar do termo dependabilidade ser utilizado na maioria das vezes dessa forma,
+o dicionário Michaelis, traduz tal termo como {\it confiabilidade} ou {\it
+garantia de funcionamento}. Assim sendo, daqui para frente, utilizar-se-á a
+palavra {\it confiável}, ou suas variações linguísticas, para se referir ao
+termo {\it dependable}. Quando for desejado fazer referência a propriedade da
+confiabilidade de um sistema, tal intenção será claramente especificada pelo
+texto.
 
+% ------------------------------------------------------------------------------
+\subsection{Sistemática da dependabilidade}
 \citeasnoun{avizienis:2000} e \citeasnoun{kaanich:2002} mostram que para se
 desenvolver um Sistema Computacional Confiável (SCC, do inglês {\it Dependable
 Computing System -- DCS}), faz-se uso de diferentes técnicas, tais como as
 técnicas de: {\bf prevenção}, {\bf tolerância}, {\bf remoção} e {\bf previsão}
-de falhas. Todas essas técnicas serão brevemente explicadas na Seção
-\ref{sec:tecnicas}.
+de falhas.
+
+Além dessas técnicas, é válido também fazer referência aos termos {\bf avaria},
+{\bf erro} e {\bf falha}, conceitualmente abordados de diferentes maneiras por
+vários autores. Ao longo das Seções \ref{sec:avaria_erro_falha} e
+\ref{sec:tecnicas}, os conceitos envolvidos relativos as técnicas e a essa
+nomenclatura serão melhor explicados.
 
 \begin{comment}
 \begin{itemize}
@@ -75,16 +81,154 @@ de falhas. Todas essas técnicas serão brevemente explicadas na Seção
 \end{itemize}
 \end{comment}
 
-Além das propriedades descritas na seção anterior e das técnicas acima citadas,
-deve-se conhecer também os conceitos de {\bf defeito} (ou {\bf avaria}), {\bf
-erro} e {\bf falha}, a serem explicados na Seção \ref{sec:avaria_erro_falha}.
+Diante do que foi exposto, \citeasnoun{avizienis:2000} separa os termos acima
+relacionados em três grupos: os atributos (propriedades), as ameaças e os meios
+pelos quais a dependabilidade é atingida. Tal divisão pode ser observada na Fig.
+\ref{fig:div_avizienis}.
 
-\citeasnoun{avizienis:2000} agrupa os termos acima discutidos em três partes: os
-atributos (propriedades), as ameaças e os meios pelos quais a dependabilidade é
-atingida. Tal divisão pode ser observada na Fig. \ref{fig:div_avizienis}.
+\begin{figure}[htb]
+\centering
+\footnotesize
+\[
+\text{Dependabilidade}
+\left\{
+\begin{array}{l}
+\text{Atributos}
+    \left\{
+    \begin{array}{l}
+        \text{Disponibilidade}\\
+        \text{Confiabilidade}\\
+        \text{Proteção}\\
+        \text{Confidencialidade}\\
+        \text{Integridade}\\
+        \text{Manutenção}\\
+        \text{Segurança}
+    \end{array}
+    \right.
+\\
+\\
+\text{Ameaças}
+    \left\{
+    \begin{array}{l}
+        \text{Avaria}\\
+        \text{Erro}\\
+        \text{Falha}
+    \end{array}
+    \right.
+\\
+\\
+\text{Meios}
+    \left\{
+    \begin{array}{l}
+        \text{Prevenção}\\
+        \text{Tolerância}\\
+        \text{Remoção}
+        \text{Previsão}
+    \end{array}
+    \right.
+\end{array}
+\right.
+\]
+\caption{Taxonomia da dependabilidade}
+\label{fig:div_avizienis}
+\end{figure}
+
+O primeiro grupo, cujos elementos foram explicados na seção
+\ref{sec:propriedades}, permite expressar as propriedades esperadas de um
+sistema confiável e analisar suas qualidades. Já o segundo grupo traz os termos
+utilizados para expressar características indesejadas -- mas em princípio não
+inesperadas -- que causa ou fazem com que um sistema passe a ser não-confiável.
+Por fim, o terceiro grupo exibe os meios ou as técnicas pelas quais torna-se
+possível oferecer um serviço confiável.
+
+% ------------------------------------------------------------------------------
+\section{Avarias, erros e falhas}\label{sec:avaria_erro_falha}
+Em um processo real, todos os recursos utilizados, sejam físicos ou
+implementados em {\it software}, estão sujeitos a interrupções ou a
+comprometimentos operacionais.
+
+Em sistemas críticos, tais como as aeronaves ou as usinas nucleares, essas
+situações fazem com que pequenos ``deslizes operacionais'' representem grandes
+consequências catastróficas. Dentre os exemplos mais conhecidos, pode-se
+destacar os acidentes do {\it Airbus 320} da TAM em 2007, que não conseguiu
+parar ao aterrissar no aeroporto de Congonhas, São Paulo, no qual morreram 199
+pessoas (12 em solo e 187 no avião) e o desastre da usina nuclear de Chernobil,
+que liberou cerca de 400 vezes mais contaminação do que a bomba nuclear que foi
+lançada em de Hiroshima.
+
+Esses exemplos fazem-nos refletir sobre como os sistemas de controle podem
+evoluir para evitar que catástrofes ainda maiores venham a ocorrer. Ou seja,
+como as propriedades de um sistema de controle confiável poderão ser mantidas
+mesmo na presença de avarias, erros e falhas no processo.
+
+Segundo \citeasnoun{nelio:2002}, apesar do termo falha ser utilizado, em muitos
+dos casos, como um termo vago, abrangendo também o significado de avarias e
+erros, existe uma diferença entre esses conceitos que deve ser destacada.
+
+O termo {\bf avaria} ({\it failure}) deve ser utilizado para indicar que houve
+um desvio do comportamento no sistema, o que o torna incapaz de fornecer o
+serviço para o qual foi designado. Um {\bf erro} ({\it error}), entretanto, está
+relacionado com estado do sistema e pode levar a uma avaria. De maneira
+resumida, se há um erro no estado do sistema, então existe uma sequência de
+ações que podem ser executadas e que levarão a avarias, a não ser que medidas de
+correção venham a ser tomadas. Por fim, mas não menos importante, o termo {\bf
+falha} ({\it fault}) é a causa de um erro e está associado à noção de defeitos.
+Normalmente, diz-se que falha pode ser definida como sendo um defeito que possui
+o potencial de gerar erros \cite{nelio:2002,weber:2002}.
+
+Alguns autores nacionais costumam traduzir os termos {\it failure} como falha e
+{\it fault} como falta. Entretanto, costuma-se falar em sistemas de controle
+tolerante a ``falhas'' e não em sistemas de controle tolerantes a ``faltas''.
+Observa-se então a necessidade de um maior cuidado com relação a utilização
+dessas palavras, pois {\it failures} não podem ser toleradas.
+
+\begin{comment}
+Por esse motivo, ao longo do texto, quando for necessário se referir ao termo
+{\it failure}, será utilizada a palavra avaria. Já o termo falha será utilizado
+de maneira mais abrangente, envolvendo os conceitos de erro e de falha
+explicados anteriormente.
+\end{comment}
+
+Como em muitos dos casos os sistemas são compostos de subsistemas, é comum se
+observar que uma falha leva a um erro que por sua vez pode levar a uma avaria,
+que gera novas falhas e dá início a uma reação em cadeia, tal como a Fig.
+\ref{fig:reacao_cadeia}. Contudo, nem sempre uma falha conduz a um erro, assim
+como nem sempre um erro conduz a uma avaria, mas todos os erros resultam de
+falhas e todas as avarias resultam de erros.
+
+\begin{figure}[htb]
+\centering
+\[
+\ldots
+\quad\longrightarrow\quad
+\text{Falha} 
+\quad\longrightarrow\quad
+\text{Erro}
+\quad\longrightarrow\quad
+\text{Avaria}
+\quad\Longrightarrow\quad
+\text{Falha}
+\quad\longrightarrow\quad
+\ldots
+\]
+    \caption{Reação em cadeia das falhas, erros e avarias.}
+    \label{fig:reacao_cadeia}
+\end{figure}
+
+\citeasnoun{weber:2002} comenta que as falhas são inevitáveis, uma vez que os
+componentes físicos do sistema envelhecem e estão sempre sujeitos as
+interferências externas, ambientais e humanas. Para ela, assim como os sistemas
+físicos, os {\it softwares} também são vítimas, pois estão a mercê da alta
+complexidade dos processos e da fragilidade humana em trabalhar com grande
+volume de detalhes de especificação/operação.
 
 % ------------------------------------------------------------------------------
 \subsection{Tipos de falhas}
+
+
+% ------------------------------------------------------------------------------
+\section{Prevenção, tolerância, remoção e previsão de falhas}
+\label{sec:tecnicas}
 
 % ------------------------------------------------------------------------------
 \subsection{Detecção}
