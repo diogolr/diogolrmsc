@@ -7,6 +7,12 @@ envolvidos e as mais diversas necessidades de segurança, torna-se claro a
 importância dos sistemas de supervisão e dos sistemas de detecção e diagnóstico
 de falhas \cite{isermann:2006}.
 
+Atualmente, devido ao nível de complexidade envolvido em um processo industrial,
+os sistemas de supervisão e proteção exigem as mais avançadas técnicas
+oferecidas pela engenharia moderna e ainda assim demandam um esforço contínuo
+por parte dos pesquisadores e engenheiros, para que sejam desenvolvidas novas
+tecnologias que venham a suprir essa necessidade \cite{silva:2008}.
+
 Considerando tais aspectos, este capítulo mostrará os conceitos relacionados ao
 desenvolvimento de um sistema de detecção e diagnóstico de falhas que fará uso
 de Redes Neurais Artificiais. Inicialmente, serão mostradas as principais
@@ -19,13 +25,13 @@ simulações computacionais.
 \section{Conceitos e terminologias}\label{sec:propriedades}
 Segundo \citeasnoun{kaanich:2002}, os sistemas computacionais podem ser
 caracterizados por cinco propriedades fundamentais: funcionalidade, usabilidade,
-desempenho, custo e {\it dependabilidade}. Para \citeasnoun{kaanich:2002} {\it
-apud} \citeasnoun{laprie:1992}, o termo {\it dependabilidade}, que nada mais é
-do que a tradução literal do termo inglês {\it dependability}, está relacionado
-com a capacidade de um sistema prestar um serviço que possa ser,
-justificadamente, confiável. O serviço prestado se refere ao comportamento do
-sistema percebido por seus usuários, os quais também serão sistemas (máquinas
-físicas ou seres humanos), que interagem com o anterior.
+desempenho, custo e {\it dependabilidade}. Para \citeasnoun{laprie:1992}, o
+termo {\it dependabilidade}, que nada mais é do que a tradução literal do termo
+inglês {\it dependability}, está relacionado com a capacidade de um sistema
+prestar um serviço que possa ser, justificadamente, confiável. O serviço
+prestado se refere ao comportamento do sistema percebido por seus usuários, os
+quais também serão sistemas (máquinas físicas ou seres humanos), que interagem
+com o anterior.
 
 De acordo com \citeasnoun{laprie:1994}, dependendo das aplicações envolvidas, o
 termo dependabilidade pode ainda ser visto de acordo com suas diferentes, mas
@@ -59,14 +65,26 @@ texto.
 \citeasnoun{avizienis:2000} e \citeasnoun{kaanich:2002} mostram que para se
 desenvolver um Sistema Computacional Confiável (SCC, do inglês {\it Dependable
 Computing System -- DCS}), faz-se uso de diferentes técnicas, tais como as
-técnicas de: {\bf prevenção}, {\bf tolerância}, {\bf remoção} e {\bf previsão}
+técnicas de: {\bf prevenção}, {\bf tolerância}, {\bf supressão} e {\bf previsão}
 de falhas.
+
+O estudo sobre a {\it prevenção} de falhas envolve a seleção de metologias de
+projeto e de tecnologias adequadas para a escolha e a aplicação dos componentes
+no sistema, ou seja, busca não introduzir ou evitar que aconteçam falhas. A {\it
+tolerância} a falhas está mais relacionada com a continuidade da prestação do
+serviço quando uma falha vier a ocorrer. Algumas das técnicas mais conhecidas
+são: mascaramento de falhas, redundância de dispositivos/sistemas e a
+detecção/recuperação de falhas. A {\it supressão} das falhas procura minimizar
+as consequências relativas à presença de uma falha através de mecanismos de
+verificação, diagnóstico e correção. A {\it previsão} de falhas está relacionada
+com a estimativa que pode ser feita sobre a presença, a criação e a consequência
+que as falhas venham a causar no sistema. Para isso, faz uso de critérios
+avaliativos, técnicas de injeção de falhas e testes de resistência.
 
 Além dessas técnicas, é válido também fazer referência aos termos {\bf avaria},
 {\bf erro} e {\bf falha}, conceitualmente abordados de diferentes maneiras por
-vários autores. Ao longo das Seções \ref{sec:avaria_erro_falha} e
-\ref{sec:tecnicas}, os conceitos envolvidos relativos as técnicas e a essa
-nomenclatura serão melhor explicados.
+vários autores. Os conceitos relativos a essa nomenclatura serão melhor
+explicados na seção \ref{sec:avaria_erro_falha}.
 
 \begin{comment}
 \begin{itemize}
@@ -74,14 +92,14 @@ nomenclatura serão melhor explicados.
           falhas;
     \item {\bf Técnicas de tolerância:} Como oferecer um serviço ``correto'' na
           presença de falhas;
-    \item {\bf Técnicas de remoção:} Como reduzir o número ou atenuar a gravidade
-          das falhas;
+    \item {\bf Técnicas de supressão:} Como reduzir o número ou atenuar a
+          gravidade das falhas;
     \item {\bf Técnicas de previsão:} Como estimar o número atual, a incidência
           futura e as consequências das prováveis falhas.
 \end{itemize}
 \end{comment}
 
-Diante do que foi exposto, \citeasnoun{avizienis:2000} separa os termos acima
+A partir dessas informações, \citeasnoun{avizienis:2000} separa os termos acima
 relacionados em três grupos: os atributos (propriedades), as ameaças e os meios
 pelos quais a dependabilidade é atingida. Tal divisão pode ser observada na Fig.
 \ref{fig:div_avizienis}.
@@ -122,24 +140,24 @@ pelos quais a dependabilidade é atingida. Tal divisão pode ser observada na Fi
     \begin{array}{l}
         \text{Prevenção}\\
         \text{Tolerância}\\
-        \text{Remoção}
+        \text{Supressão}\\
         \text{Previsão}
     \end{array}
     \right.
 \end{array}
 \right.
 \]
-\caption{Taxonomia da dependabilidade}
+\caption{Classificação sistemática da dependabilidade.}
 \label{fig:div_avizienis}
 \end{figure}
 
-O primeiro grupo, cujos elementos foram explicados na seção
-\ref{sec:propriedades}, permite expressar as propriedades esperadas de um
-sistema confiável e analisar suas qualidades. Já o segundo grupo traz os termos
-utilizados para expressar características indesejadas -- mas em princípio não
-inesperadas -- que causa ou fazem com que um sistema passe a ser não-confiável.
-Por fim, o terceiro grupo exibe os meios ou as técnicas pelas quais torna-se
-possível oferecer um serviço confiável.
+O primeiro grupo, cujos elementos foram brevemente explicados na seção
+\ref{sec:propriedades}, permite expressar as propriedades esperadas e analisar a
+qualidade de um sistema confiável. Já o segundo grupo traz os termos utilizados
+para expressar características indesejadas -- mas em princípio não inesperadas
+-- que causa ou fazem com que um sistema passe a ser não-confiável. Por fim, o
+terceiro grupo exibe os meios ou as técnicas pelas quais torna-se possível
+oferecer um serviço confiável.
 
 % ------------------------------------------------------------------------------
 \section{Avarias, erros e falhas}\label{sec:avaria_erro_falha}
@@ -148,12 +166,12 @@ implementados em {\it software}, estão sujeitos a interrupções ou a
 comprometimentos operacionais.
 
 Em sistemas críticos, tais como as aeronaves ou as usinas nucleares, essas
-situações fazem com que pequenos ``deslizes operacionais'' representem grandes
-consequências catastróficas. Dentre os exemplos mais conhecidos, pode-se
-destacar os acidentes do {\it Airbus 320} da TAM em 2007, que não conseguiu
-parar ao aterrissar no aeroporto de Congonhas, São Paulo, no qual morreram 199
-pessoas (12 em solo e 187 no avião) e o desastre da usina nuclear de Chernobil,
-que liberou cerca de 400 vezes mais contaminação do que a bomba nuclear que foi
+situações fazem com que pequenos ``deslizes operacionais'' venham a trazer
+grandes e indesejáveis consequências. Dentre diversos outros exemplos, pode-se
+destacar o acidente do {\it Airbus 320} da TAM em 2007, que não conseguiu parar
+ao aterrissar no aeroporto de Congonhas, São Paulo, no qual morreram 199 pessoas
+(12 em solo e 187 no avião) e o desastre da usina nuclear de Chernobil, que
+liberou cerca de 400 vezes mais contaminação do que a bomba nuclear que foi
 lançada em de Hiroshima.
 
 Esses exemplos fazem-nos refletir sobre como os sistemas de controle podem
@@ -180,7 +198,7 @@ Alguns autores nacionais costumam traduzir os termos {\it failure} como falha e
 {\it fault} como falta. Entretanto, costuma-se falar em sistemas de controle
 tolerante a ``falhas'' e não em sistemas de controle tolerantes a ``faltas''.
 Observa-se então a necessidade de um maior cuidado com relação a utilização
-dessas palavras, pois {\it failures} não podem ser toleradas.
+dessas palavras, pois as avarias ({\it failures}) não podem ser toleradas.
 
 \begin{comment}
 Por esse motivo, ao longo do texto, quando for necessário se referir ao termo
@@ -215,32 +233,248 @@ falhas e todas as avarias resultam de erros.
     \label{fig:reacao_cadeia}
 \end{figure}
 
-\citeasnoun{weber:2002} comenta que as falhas são inevitáveis, uma vez que os
-componentes físicos do sistema envelhecem e estão sempre sujeitos as
-interferências externas, ambientais e humanas. Para ela, assim como os sistemas
-físicos, os {\it softwares} também são vítimas, pois estão a mercê da alta
-complexidade dos processos e da fragilidade humana em trabalhar com grande
+Uma outra maneira de visualizar a diferença existente entre cada um desses
+termos pode ser observada na Fig. \ref{fig:mapa_conceitos}.
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.5\textwidth]{imgs/aspectos/eps/mapa_conceitos}
+    \caption{Mapa de conceitos relacionados a avarias, erros e falhas em um
+             sistema.}
+    \label{fig:mapa_conceitos}
+\end{figure}
+
+\citeasnoun{weber:2002} afirma ainda que as falhas são inevitáveis, uma vez que
+os componentes físicos do sistema envelhecem e estão sempre sujeitos as
+interferências externas, ambientais ou humanas. Mostra também que, assim como os
+sistemas físicos, os {\it softwares} também são vítimas, pois estão a mercê da
+alta complexidade dos processos e da fragilidade humana em trabalhar com grande
 volume de detalhes de especificação/operação.
 
 % ------------------------------------------------------------------------------
 \subsection{Tipos de falhas}
 
+\begin{comment}
+\citeasnoun{laprie:1994} mostra que existem cinco classes elementares para as
+falhas, conforme Fig. \ref{fig:class_laprie}.
+
+\begin{figure}[htb]
+\centering
+\footnotesize
+\[
+\text{Falha}
+\left\{
+\begin{array}{l}
+\text{Causas fenomenológicas}
+    \left\{
+    \begin{array}{l}
+        \text{Falhas físicas}\\
+        \text{Falhas humanas}
+    \end{array}
+    \right.
+\\
+\\
+\text{Natureza}
+    \left\{
+    \begin{array}{l}
+        \text{Falhas acidentais}\\
+        \text{Falhas intencionais, não-maliciosas}\\
+        \text{Falhas intencionais, maliciosas}
+    \end{array}
+    \right.
+\\
+\\
+\text{Criação/Ocorrência}
+    \left\{
+    \begin{array}{l}
+        \text{Falhas de desenvolvimento}\\
+        \text{Falhas operacionais}
+    \end{array}
+    \right.
+\\
+\\
+\text{Limitações do sistema}
+    \left\{
+    \begin{array}{l}
+        \text{Falhas internas}\\
+        \text{Falhas externas}
+    \end{array}
+    \right.
+\\
+\\
+\text{Persistência}
+    \left\{
+    \begin{array}{l}
+        \text{Falhas permanentes}\\
+        \text{Falhas temporárias}
+    \end{array}
+    \right.
+\end{array}
+\right.
+\]
+    \caption{As cinco classes elementares das falhas.}
+    \label{fig:class_laprie}
+\end{figure}
+
+\end{comment}
+
+De acordo com \citeasnoun{silva:2008}, as falhas em um processo industrial podem
+ser classificadas em relação a vários aspectos. Em se tratando da classificação
+quanto ao tempo, as falhas podem ser abruptas, incipientes ou intermitentes, tal
+como mostra a Fig. \ref{fig:tipos_falha}.
+
+\begin{figure}[H]
+\centering
+    \includegraphics[width=0.75\textwidth]{imgs/aspectos/eps/tipos_falha}
+    \caption{Características temporais das falhas quanto a sua persistência.}
+    \label{fig:tipos_falha}
+\end{figure}
+
+\begin{comment}
+De acordo com essa classificação, percebe-se que não existirá um sistema
+que venha a falhar somente uma vez. Por mais que as falhas demorem a acontecer,
+elas são inevitáveis.
+\end{comment}
+
+As {\it falhas abruptas} surgem repentinamente, podendo ser decorrentes de
+imprevistos ou até mesmo de acidentes. Essas falhas mudam o comportamento do
+processo rapidamente, exigindo contra-ações velozes e eficazes que possam
+minimizar as consequências do ocorrido.
+
+As {\it falhas incipientes} iniciam a partir de pequenos desvios comportamentais
+do sistema, podendo ser mascaradas pelos controladores.  Muitas vezes essas
+falhas acabam passando despercebidas pelos operadores ou até mesmo pelos
+sistemas de detecção e diagnóstico de falhas.
+
+As {\it falhas intermitentes} são aquelas que ocorrem durante um certo período
+de tempo e, em seguida, desaparecem, voltando a aparecer após um novo intervalo.
+Podem ser causadas por alguma perturbação periódica ou por alguma situação que
+se repita ciclicamente.
+
+Considerando a localização das falhas, estas podem ocorrer nos sensores, nos
+atuadores ou na estrutura do sistema \cite{silva:2008}. As {\it falhas nos
+sensores} podem ser observadas através de variações específicas nas medições, as
+quais podem ser descaracterizadas como variações válidas do sistema. As {\it
+falhas nos atuadores} podem ser vistas como qualquer mau funcionamento do
+equipamento que atua no sistema. As {\it falhas na estrutura}, ou {\it falhas
+estruturais}, ocorrem quando alguma alteração do sistema muda, de alguma forma,
+a relação original de entrada e saída do processo ou quando ocorre algum
+problema com algum dos dispositivos, desde que não sejam sensores ou atuadores,
+como por exemplo, os transmissores de sinal.
+
+Considerando então um processo genérico, pode-se citar como exemplos de falhas
+aquelas exibidas pela Tab. \ref{tab:falhas}.
+
+\begin{table}[htb]
+\centering
+\caption{Exemplos de falhas para um processo genérico.}
+\label{tab:falhas}
+\vspace{0.25cm}
+\begin{tabular}{|c|c|c|}
+\hline
+{\bf Sensores} & {\bf Atuadores} & {\bf Estrutura}\\
+\hline
+\hline
+Erro de leitura & Erro de escrita & Erro de transmissão\\
+\hline
+Descalibramento & Erro de leitura & Perda de comunicação\\
+\hline
+Sensibilidade à ruído & Sensibilidade à ruído & Sensibilidade a ruído
+(transmissor)\\
+\hline
+Queima & Queima & Queima (transmissor)\\
+\hline
+- & Atraso de transporte & Atraso de propagação de sinais\\
+\hline
+\end{tabular}
+\end{table}
+
+Maiores detalhes sobre as propriedades e a classificação das falhas podem ser
+encontradas em \citeasnoun{laprie:1992}, \citeasnoun{laprie:1994},
+\citeasnoun{weber:2002} e \citeasnoun{isermann:2006}.
 
 % ------------------------------------------------------------------------------
-\section{Prevenção, tolerância, remoção e previsão de falhas}
-\label{sec:tecnicas}
+%\section{Os meios para se atingir a dependabilidade}
+%\label{sec:tecnicas}
 
 % ------------------------------------------------------------------------------
-\subsection{Detecção}
+\section{Detecção e diagnóstico de falhas}
+Segundo \citeasnoun{chiang:2001}, detectar, diagnosticar e ``remover'' uma falha
+é uma das formas de se garantir que as operações de um processo satisfaçam as
+especificações de desempenho. Essas ações estão associadas com a noção de
+supervisão e monitoramento de processos.
 
+Para eles, supervisionar e monitorar determinado processo tem por objetivo
+garantir o sucesso das operações planejadas e reconhecer as anomalias
+comportamentais. A informação a ser disponibilizada por um sistema de
+monitoramento não deve, tão somente, informar ao operador do sistema sobre o que
+está acontecendo, mas auxiliá-lo a tomar medidas corretivas com o intuito de
+sanar o problema. Como resultado disso, o tempo em que o sistema estará
+inoperante será reduzido, a proteção do sistema aumentará e os custos
+relacionados diminuirão.
+
+Uma vez que os processos industrias estão se tornando cada vez mais integrados e
+complexos, a ocorrência de falhas também passa a ser um fator de complicação. As
+falhas que antes poderiam ser detectadas facilmente por medições diretas de
+determinada variável passam a depender de um conjunto de variáveis que atuam
+simultaneamente. Além disso, se uma falha é detectada em um determinado ponto de
+um sistema sistema, a causa do problema pode estar próxima ou distante,
+dependendo do grau de complexidade envolvido. Como exemplo, uma simples falha em
+uma aeronave pode causar indicações de falha em diversos subsistemas de
+segurança \cite{vach:2006}.
+
+Para \citeasnoun{chiang:2001}, existem quatro fases envolvidos no monitoramento
+de processos: {\bf detecção}, {\bf isolamento}, {\bf diagnóstico} e {\bf
+recuperação} de falhas, conforme mostrado pela Fig.
+\ref{fig:fases_monitoramento}.
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.65\textwidth]{imgs/aspectos/eps/fases_monitoramento}
+    \caption{Fases envolvidas no monitoramento de processos.}
+    \label{fig:fases_monitoramento}
+\end{figure}
+
+A {\it detecção da falha} consiste em determinar se ocorreu ou não uma falha. A
+detecção antecipada ou precoce pode fornecer informações valiosas quanto aos
+problemas que venham a surgir. Através de ações apropriadas, pode-se evitar
+perturbações graves ao processo.
+
+A {\it identificação da falha} tem por objetivo identificar as variáveis mais
+importantes para que se realize um diagnóstico apropriado. Para isso, essa fase
+procura concentrar as atenções do operador nos subsistemas mais pertinentes à
+falha, de tal modo que o efeito desta possa ser eliminado de maneira mais
+eficiente.
+
+A fase de {\it diagnóstico da falha} determina que falha ocorreu. De acordo com
+\citeasnoun{isermann:2004}, essa fase deverá indicar o maior número de detalhes
+possíveis a respeito da falha, tais como a intensidade, a localização e o
+momento em que a falha foi detectada. Essa fase é considerada essencial para uma
+contra-ação ou eliminação da falha.
+
+A fase de {\it recuperação da falha}, também conhecida como fase de {\it
+intervenção}, tem por objetivo remover o efeito da falha para com o sistema,
+dando início a um novo ciclo de detecção e diagnóstico.
+
+Apesar de estarem explicitamente colocados como uma sequência de ações, nem
+sempre todas as fases são estritamente necessárias necessárias
+\cite{chiang:2001}.
 % ------------------------------------------------------------------------------
 \subsection{Métodos de detecção}
 
+
+
+Com a introdução das novas tecnologias de medição e o consequente aumento do
+número de instrumentos nos processos industrias, as informações e os dados
+disponíveis da operação do sistema passam a ser essenciais para as atividades de
+supervisão e controle. Como exemplo, diversas estratégias de detecção e
+diagnóstico de falhas fazem uso do histórico do processo ........ dentre essas
+estratégias... RNAs
 % ------------------------------------------------------------------------------
-\subsection{Detecção de falhas com RNAs}
+\subsection{Métodos de diagnóstico}
 
 % ------------------------------------------------------------------------------
-\section{Aplicações de detecção de falhas com RNAs}
+\subsection{Detecção e diagnóstico de falhas com RNAs}
 
 % ------------------------------------------------------------------------------
 \section{Redes neurais artificiais}
