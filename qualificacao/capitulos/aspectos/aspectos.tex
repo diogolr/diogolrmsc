@@ -457,18 +457,14 @@ dando início a um novo ciclo de detecção e diagnóstico.
 
 Apesar de estarem explicitamente colocados como uma sequência de ações, nem
 sempre todas as fases são estritamente necessárias necessárias
-\cite{chiang:2001}. Para \citeasnoun{venkatasu:2003a}, esse conjunto de
-atividades pode ser chamado de Gestão de Eventos Anormais (GEA).
+\cite{chiang:2001}. 
 
-\Glossary{GEA}{Gestão de Eventos Anormais}
-
-% ------------------------------------------------------------------------------
-\subsection{Métodos de detecção e diagnóstico}
-A automatização das formas de detecção e diagnóstico compõe o primeiro passo de
-um sistema de GEA. Ao longo de vários anos, muitas soluções vem sendo
-desenvolvidas e um grande número de técnicas já foram utilizadas. Exemplos
-dessas técnicas são as árvores de falhas, os digrafos, as abordagens analíticas,
-os sistemas especialistas e as RNAs.
+Para \citeasnoun{venkatasu:2003a}, a automatização das formas de detecção e
+diagnóstico compõe o primeiro passo de um sistema de gestão de eventos anormais
+Ao longo de vários anos, muitas soluções vem sendo desenvolvidas e um grande
+número de técnicas já foram utilizadas. Exemplos dessas técnicas são as árvores
+de falhas, os digrafos, as abordagens analíticas, os sistemas especialistas e as
+RNAs.
 
 \fussy
 Do ponto de vista de modelagem, existem métodos que exigem grande precisão com
@@ -485,7 +481,85 @@ escolhida irá considerar a classificação adotada em \citeasnoun{isermann:2006
 até então considerada a mais intuitiva.
 
 % ------------------------------------------------------------------------------
-\subsection{Detecção e diagnóstico de falhas com RNAs}
+\section{Métodos de detecção}
+Nas seções seguintes será feita uma breve análise dos métodos de detecção de
+falhas abordados em \citeasnoun{isermann:2006}. Vale salientar que existem, na
+literatura, vários outros métodos de detecção de falhas. Deseja-se aqui trazer
+alguns exemplos.
+
+% ------------------------------------------------------------------------------
+\subsection{Detecção de falhas com verificação de limites}
+Considerado como um dos métodos mais simples e intuitivos, a detecção de falhas
+com verificação de limites baseia-se na medição direta de uma determinada
+variável e a comparação de seu valor absoluto ou de sua tendência com um
+limítrofe previamente especificado.
+
+A verificação de valores absolutos, estabelece que dois limiares ou limítrofes
+fixos são estabelecidos: $Y_{max}$ e $Y_{min}$. O funcionamento normal do
+sistema consiste em verificar se a variável $Y$ está ou não contida nesse
+intervalo:
+
+\begin{equation}
+Y_{min} < Y < Y_{max}
+\end{equation}
+
+Essa abordagem considera que o processo está funcionando normalmente quando a
+variável monitorada encontra-se dentro de uma zona de tolerância. Quando a
+variável monitorada excede um dos limiares estabelecidos, deduz-se que haverá
+uma falha em algum ponto do processo.
+
+Por mais simples que pareça, este método é aplicado na maioria dos sistemas de
+automação, tais como: verificação da pressão mínima em oleodutos, da temperatura
+máxima em sistemas de refrigeração de motores, a pressão mínima de circulação de
+gás em refrigeradores.
+
+Uma outra abordagem utiliza a verificação de tendência da variável medida. Um
+exemplo simples faz uso da primeira derivada da variável $\dot{Y} = dY(t)/dt$ e
+verifica se esta tendência está ou não dentro de uma faixa pré-estabelecida:
+
+\begin{equation}
+\dot{Y}_{min} < \dot{Y} < \dot{Y}_{max}
+\end{equation}
+
+Exemplos dessas duas abordagens podem ser observados na Fig.
+\ref{fig:detec_ver_lim}.
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.85\textwidth]{imgs/aspectos/eps/detec_ver_lim}
+    \caption{Exemplo de detecção com verificação de limites.}
+    \label{fig:detec_ver_lim}
+\end{figure}
+
+% ------------------------------------------------------------------------------
+\subsection{Detecção de falhas com modelos de sinais}
+Diversos sinais medidos em um processo apresentam oscilações de natureza
+harmônica ou estocástica. Se as mudanças nesse sinal estiverem relacionadas com
+as falhas nos sensores, atuadores ou ainda com as falhas estruturais, uma
+maneira de se detectar essas falhas é o de se utilizar métodos de detecção
+baseados em modelos de sinais.
+
+Em se tratando de vibrações em máquinas, por exemplo, a medição da posição,
+da velocidade ou da aceleração permite que muitos tipos de falhas sejam
+detectadas.
+
+% ------------------------------------------------------------------------------
+\subsection{Detecção de falhas com observadores e estimadores de estado}
+
+% ------------------------------------------------------------------------------
+\subsection{Detecção de falhas com métodos de identificação}
+
+% ------------------------------------------------------------------------------
+\section{Métodos de diagnóstico}
+
+% ------------------------------------------------------------------------------
+\subsection{diagnóstico de falhas com métodos de classificação}
+
+% ------------------------------------------------------------------------------
+\subsection{diagnóstico de falhas com métodos de inferência}
+
+% ------------------------------------------------------------------------------
+\section{Detecção e diagnóstico de falhas com RNAs}
 
 Com a introdução das novas tecnologias de medição e o consequente aumento do
 número de instrumentos nos processos industrias, as informações e os dados
