@@ -4,8 +4,8 @@
 Com a demanda cada vez mais crescente com relação a eficiência, a qualidade dos
 produtos e integração dos processos no setor industrial, aliada aos altos custos
 envolvidos e as mais diversas necessidades de segurança, torna-se claro a
-importância dos sistemas de supervisão e dos sistemas de detecção e diagnóstico
-de falhas \cite{isermann:2006}.
+importância dos sistemas de supervisão e dos sistemas de DDF
+\cite{isermann:2006}.
 
 Atualmente, devido ao nível de complexidade envolvido em um processo industrial,
 os sistemas de supervisão e proteção exigem as mais avançadas técnicas
@@ -14,10 +14,9 @@ por parte dos pesquisadores e engenheiros, para que sejam desenvolvidas novas
 tecnologias que venham a suprir essa necessidade \cite{silva:2008}.
 
 Considerando tais aspectos, este capítulo mostrará os conceitos relacionados ao
-desenvolvimento de um sistema de detecção e diagnóstico de falhas que fará uso
-de Redes Neurais Artificiais. Inicialmente, serão mostradas as principais
-terminologias utilizadas na área. Em seguida a atenção será voltada para as
-Redes Neurais Artificiais e suas estruturas de identificação. Por fim, será
+desenvolvimento de um sistema de DDF que fará uso de RNAs. Inicialmente, serão
+mostradas as principais terminologias utilizadas na área. Em seguida a atenção
+será voltada para as RNAs e suas estruturas de identificação. Por fim, será
 mostrado rapidamente como o sistema será estruturado para que sejam feitas as
 simulações computacionais.
 
@@ -61,7 +60,7 @@ confiabilidade de um sistema, tal intenção será claramente especificada pelo
 texto.
 
 % ------------------------------------------------------------------------------
-\subsection{Sistemática da dependabilidade}
+\section{Sistemática da dependabilidade}
 \citeasnoun{avizienis:2000} e \citeasnoun{kaanich:2002} mostram que para se
 desenvolver um Sistema Computacional Confiável (SCC, do inglês {\it Dependable
 Computing System -- DCS}), faz-se uso de diferentes técnicas, tais como as
@@ -218,7 +217,7 @@ falhas e todas as avarias resultam de erros.
 \centering
 \[
 \ldots
-\quad\longrightarrow\quad
+\quad\Longrightarrow\quad
 \text{Falha} 
 \quad\longrightarrow\quad
 \text{Erro}
@@ -458,11 +457,35 @@ dando início a um novo ciclo de detecção e diagnóstico.
 
 Apesar de estarem explicitamente colocados como uma sequência de ações, nem
 sempre todas as fases são estritamente necessárias necessárias
-\cite{chiang:2001}.
+\cite{chiang:2001}. Para \citeasnoun{venkatasu:2003a}, esse conjunto de
+atividades pode ser chamado de Gestão de Eventos Anormais (GEA).
+
+\Glossary{GEA}{Gestão de Eventos Anormais}
+
 % ------------------------------------------------------------------------------
-\subsection{Métodos de detecção}
+\subsection{Métodos de detecção e diagnóstico}
+A automatização das formas de detecção e diagnóstico compõe o primeiro passo de
+um sistema de GEA. Ao longo de vários anos, muitas soluções vem sendo
+desenvolvidas e um grande número de técnicas já foram utilizadas. Exemplos
+dessas técnicas são as árvores de falhas, os digrafos, as abordagens analíticas,
+os sistemas especialistas e as RNAs.
 
+\fussy
+Do ponto de vista de modelagem, existem métodos que exigem grande precisão com
+relação ao modelo de processo, outros que exigem modelos semi-quantitativos ou
+ainda modelos qualitativos. Por outro lado, existem métodos que não necessitam
+de nenhuma informação do modelo, utilizando somente informações do histórico do
+processo \cite{venkatasu:2003a}.
+\sloppy
 
+Conforme mostrado no Capítulo \ref{cap:introducao}, a classificação dos métodos
+de DDF pode variar de autor para autor
+\cite{venkatasu:2003a,angeli:2004,zhang:2008,isermann:2006}. A abordagem aqui
+escolhida irá considerar a classificação adotada em \citeasnoun{isermann:2006},
+até então considerada a mais intuitiva.
+
+% ------------------------------------------------------------------------------
+\subsection{Detecção e diagnóstico de falhas com RNAs}
 
 Com a introdução das novas tecnologias de medição e o consequente aumento do
 número de instrumentos nos processos industrias, as informações e os dados
@@ -470,11 +493,6 @@ disponíveis da operação do sistema passam a ser essenciais para as atividades
 supervisão e controle. Como exemplo, diversas estratégias de detecção e
 diagnóstico de falhas fazem uso do histórico do processo ........ dentre essas
 estratégias... RNAs
-% ------------------------------------------------------------------------------
-\subsection{Métodos de diagnóstico}
-
-% ------------------------------------------------------------------------------
-\subsection{Detecção e diagnóstico de falhas com RNAs}
 
 % ------------------------------------------------------------------------------
 \section{Redes neurais artificiais}
