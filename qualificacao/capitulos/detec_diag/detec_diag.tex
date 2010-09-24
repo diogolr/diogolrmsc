@@ -1,5 +1,5 @@
-\mychapter{Aspectos de projeto}
-\label{cap:aspectos}
+\mychapter{Detecção e diagnóstico de falhas}
+\label{cap:detec_diag}
 
 Com a demanda cada vez mais crescente com relação a eficiência, a qualidade dos
 produtos e integração dos processos no setor industrial, aliada aos altos custos
@@ -9,16 +9,15 @@ importância dos sistemas de supervisão e dos sistemas de DDF
 
 Atualmente, devido ao nível de complexidade envolvido em um processo industrial,
 os sistemas de supervisão e proteção exigem as mais avançadas técnicas
-oferecidas pela engenharia moderna e ainda assim demandam um esforço contínuo
-por parte dos pesquisadores e engenheiros, para que sejam desenvolvidas novas
+oferecidas pela engenharia moderna e, ainda assim, demandam um esforço contínuo
+por parte dos pesquisadores e engenheiros para que sejam desenvolvidas novas
 tecnologias que venham a suprir essa necessidade \cite{silva:2008}.
 
 Considerando tais aspectos, este capítulo mostrará os conceitos relacionados ao
 desenvolvimento de um sistema de DDF que fará uso de RNAs. Inicialmente, serão
-mostradas as principais terminologias utilizadas na área. Em seguida a atenção
-será voltada para as RNAs e suas estruturas de identificação. Por fim, será
-mostrado rapidamente como o sistema será estruturado para que sejam feitas as
-simulações computacionais.
+mostrados os principais conceitos e terminologias utilizadas na área, destacando
+alguns métodos de DDF. Ao final do capítulo serão expostas as técnicas de DDF
+que fazem uso de RNAs.
 
 % ------------------------------------------------------------------------------
 \section{Conceitos e terminologias}\label{sec:propriedades}
@@ -237,7 +236,7 @@ termos pode ser observada na Fig. \ref{fig:mapa_conceitos}.
 
 \begin{figure}[htb]
 \centering
-    \includegraphics[width=0.5\textwidth]{imgs/aspectos/eps/mapa_conceitos}
+    \includegraphics[width=0.5\textwidth]{imgs/detec_diag/eps/mapa_conceitos}
     \caption{Mapa de conceitos relacionados a avarias, erros e falhas em um
              sistema.}
     \label{fig:mapa_conceitos}
@@ -324,7 +323,7 @@ como mostra a Fig. \ref{fig:tipos_falha}.
 
 \begin{figure}[H]
 \centering
-    \includegraphics[width=0.75\textwidth]{imgs/aspectos/eps/tipos_falha}
+    \includegraphics[width=0.75\textwidth]{imgs/detec_diag/eps/tipos_falha}
     \caption{Características temporais das falhas quanto a sua persistência.}
     \label{fig:tipos_falha}
 \end{figure}
@@ -429,7 +428,8 @@ recuperação} de falhas, conforme mostrado pela Fig.
 
 \begin{figure}[htb]
 \centering
-    \includegraphics[width=0.65\textwidth]{imgs/aspectos/eps/fases_monitoramento}
+    \includegraphics[width=0.65\textwidth]
+                    {imgs/detec_diag/eps/fases_monitoramento}
     \caption{Fases envolvidas no monitoramento de processos.}
     \label{fig:fases_monitoramento}
 \end{figure}
@@ -526,7 +526,7 @@ Exemplos dessas duas abordagens podem ser observados na Fig.
 
 \begin{figure}[htb]
 \centering
-    \includegraphics[width=0.85\textwidth]{imgs/aspectos/eps/detec_ver_lim}
+    \includegraphics[width=0.85\textwidth]{imgs/detec_diag/eps/detec_ver_lim}
     \caption{Exemplo de detecção com verificação de limites.}
     \label{fig:detec_ver_lim}
 \end{figure}
@@ -539,12 +539,28 @@ as falhas nos sensores, atuadores ou ainda com as falhas estruturais, uma
 maneira de se detectar essas falhas é o de se utilizar métodos de detecção
 baseados em modelos de sinais.
 
-Em se tratando de vibrações em máquinas, por exemplo, a medição da posição,
-da velocidade ou da aceleração permite que muitos tipos de falhas sejam
-detectadas.
+Na Fig. \ref{fig:detec_mod_sin} é exibido um diagrama esquemático que resume os
+princípios da detecção de falhas com modelos de sinais.
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.75\textwidth]{imgs/detec_diag/eps/detec_mod_sin}
+    \caption{Diagrama esquemático da detecção de falhas com modelos de sinais.}
+    \label{fig:detec_mod_sin}
+\end{figure}
+
+De maneira resumida pode-se dizer que as características do sinal medido, tais
+como amplitude, fase, espectro de frequências, dentre outras, são calculadas a
+partir de modelos matemáticos do sinal e comparadas com as características
+observadas durante o funcionamento normal. As diferenças comportamentais geradas
+pela comparação, denominadas de {\it sintomas analíticos}, são utilizadas para
+realizar a detecção das falhas.
 
 % ------------------------------------------------------------------------------
 \subsection{Detecção de falhas com observadores e estimadores de estado}
+
+% ------------------------------------------------------------------------------
+\subsection{Detecção de falhas com equações de paridade}
 
 % ------------------------------------------------------------------------------
 \subsection{Detecção de falhas com métodos de identificação}
@@ -568,17 +584,3 @@ supervisão e controle. Como exemplo, diversas estratégias de detecção e
 diagnóstico de falhas fazem uso do histórico do processo ........ dentre essas
 estratégias... RNAs
 
-% ------------------------------------------------------------------------------
-\section{Redes neurais artificiais}
-
-% ------------------------------------------------------------------------------
-\subsection{Tipos de RNAs para identificação}
-
-% ------------------------------------------------------------------------------
-\subsection{Tipos de RNAs para detecção}
-
-% ------------------------------------------------------------------------------
-\section{Simulações computacionais}
-
-% ------------------------------------------------------------------------------
-\subsection{Método de Runge-Kutta de 4\textordfeminine ordem}
