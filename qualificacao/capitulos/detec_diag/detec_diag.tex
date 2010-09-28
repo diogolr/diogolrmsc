@@ -32,7 +32,7 @@ quais também serão sistemas (máquinas físicas ou seres humanos), que interag
 com o anterior.
 
 De acordo com \citeasnoun{laprie:1994}, dependendo das aplicações envolvidas, o
-termo dependabilidade pode ainda ser visto de acordo com suas diferentes, mas
+termo dependabilidade pode ainda ser visto a partir de suas diferentes, mas
 complementares, propriedades:
 
 \begin{itemize}
@@ -68,21 +68,22 @@ de falhas.
 
 O estudo sobre a {\it prevenção} de falhas envolve a seleção de metologias de
 projeto e de tecnologias adequadas para a escolha e a aplicação dos componentes
-no sistema, ou seja, busca não introduzir ou evitar que aconteçam falhas. A {\it
-tolerância} a falhas está mais relacionada com a continuidade da prestação do
-serviço quando uma falha vier a ocorrer. Algumas das técnicas mais conhecidas
+no sistema, ou seja, busca não introduzir ou evitar que as falhas aconteçam. A
+{\it tolerância} a falhas está mais relacionada com a continuidade da prestação
+do serviço quando uma falha vier a ocorrer. Algumas das técnicas mais conhecidas
 são: mascaramento de falhas, redundância de dispositivos/sistemas e a
 detecção/recuperação de falhas. A {\it supressão} das falhas procura minimizar
 as consequências relativas à presença de uma falha através de mecanismos de
 verificação, diagnóstico e correção. A {\it previsão} de falhas está relacionada
 com a estimativa que pode ser feita sobre a presença, a criação e a consequência
-que as falhas venham a causar no sistema. Para isso, faz uso de critérios
-avaliativos, técnicas de injeção de falhas e testes de resistência.
+que as falhas venham a causar no sistema. Para isso, tal técnica faz uso de
+critérios avaliativos, técnicas de injeção de falhas e testes de resistência.
 
-Além dessas técnicas, é válido também fazer referência aos termos {\bf avaria},
-{\bf erro} e {\bf falha}, conceitualmente abordados de diferentes maneiras por
-vários autores. Os conceitos relativos a essa nomenclatura serão melhor
-explicados na seção \ref{sec:avaria_erro_falha}.
+Além dessas técnicas, é válido também fazer referência aos termos {\bf avaria}
+({\it failure}), {\bf erro} ({\it error}) e {\bf falha} ({\it fault}),
+conceitualmente abordados de diferentes maneiras por vários autores. Os
+conceitos relativos a essa nomenclatura serão melhor explicados na seção
+\ref{sec:avaria_erro_falha}.
 
 \begin{comment}
 \begin{itemize}
@@ -97,10 +98,10 @@ explicados na seção \ref{sec:avaria_erro_falha}.
 \end{itemize}
 \end{comment}
 
-A partir dessas informações, \citeasnoun{avizienis:2000} separa os termos acima
-relacionados em três grupos: os atributos (propriedades), as ameaças e os meios
-pelos quais a dependabilidade é atingida. Tal divisão pode ser observada na Fig.
-\ref{fig:div_avizienis}.
+A partir dessas informações, \citeasnoun{avizienis:2000} classifica os termos
+acima relacionados em três grupos: os atributos (propriedades), as ameaças e os
+meios pelos quais a dependabilidade é atingida, conforme pode ser observado
+na Fig. \ref{fig:div_avizienis}.
 
 \begin{figure}[htb]
 \centering
@@ -126,9 +127,9 @@ pelos quais a dependabilidade é atingida. Tal divisão pode ser observada na Fi
 \text{Ameaças}
     \left\{
     \begin{array}{l}
-        \text{Avaria}\\
-        \text{Erro}\\
-        \text{Falha}
+        \text{Avaria ({\it failure})}\\
+        \text{Erro ({\it error})}\\
+        \text{Falha ({\it fault})}
     \end{array}
     \right.
 \\
@@ -153,9 +154,13 @@ O primeiro grupo, cujos elementos foram brevemente explicados na seção
 \ref{sec:propriedades}, permite expressar as propriedades esperadas e analisar a
 qualidade de um sistema confiável. Já o segundo grupo traz os termos utilizados
 para expressar características indesejadas -- mas em princípio não inesperadas
--- que causa ou fazem com que um sistema passe a ser não-confiável. Por fim, o
+-- que causam ou fazem com que um sistema passe a ser não-confiável. Por fim, o
 terceiro grupo exibe os meios ou as técnicas pelas quais torna-se possível
 oferecer um serviço confiável.
+
+De posse dessas informações e sabendo que muitas vezes os autores utilizam
+traduções diferentes para {\it failure}, {\it error} e {\it fault}, a seção
+seguinte tentará esclarecer o significado de cada um desses termos.
 
 % ------------------------------------------------------------------------------
 \section{Avarias, erros e falhas}\label{sec:avaria_erro_falha}
@@ -165,7 +170,7 @@ comprometimentos operacionais.
 
 Em sistemas críticos, tais como as aeronaves ou as usinas nucleares, essas
 situações fazem com que pequenos ``deslizes operacionais'' venham a trazer
-grandes e indesejáveis consequências. Dentre diversos outros exemplos, pode-se
+grandes e indesejáveis consequências. Como exemplo dessas consequências, pode-se
 destacar o acidente do {\it Airbus 320} da TAM em 2007, que não conseguiu parar
 ao aterrissar no aeroporto de Congonhas, São Paulo, no qual morreram 199 pessoas
 (12 em solo e 187 no avião) e o desastre da usina nuclear de Chernobil, que
@@ -179,24 +184,26 @@ mesmo na presença de avarias, erros e falhas no processo.
 
 Segundo \citeasnoun{nelio:2002}, apesar do termo falha ser utilizado, em muitos
 dos casos, como um termo vago, abrangendo também o significado de avarias e
-erros, existe uma diferença entre esses conceitos que deve ser destacada.
+erros, existem certas diferenças conceituais que devem ser observadas.
 
 O termo {\bf avaria} ({\it failure}) deve ser utilizado para indicar que houve
 um desvio do comportamento no sistema, o que o torna incapaz de fornecer o
 serviço para o qual foi designado. Um {\bf erro} ({\it error}), entretanto, está
 relacionado com estado do sistema e pode levar a uma avaria. De maneira
 resumida, se há um erro no estado do sistema, então existe uma sequência de
-ações que podem ser executadas e que levarão a avarias, a não ser que medidas de
-correção venham a ser tomadas. Por fim, mas não menos importante, o termo {\bf
+ações que podem ser executadas e que levarão as avarias, a não ser que medidas
+corretivas venham a ser tomadas. Por fim, mas não menos importante, o termo {\bf
 falha} ({\it fault}) é a causa de um erro e está associado à noção de defeitos.
 Normalmente, diz-se que falha pode ser definida como sendo um defeito que possui
 o potencial de gerar erros \cite{nelio:2002,weber:2002}.
 
-Alguns autores nacionais costumam traduzir os termos {\it failure} como falha e
-{\it fault} como falta. Entretanto, costuma-se falar em sistemas de controle
-tolerante a ``falhas'' e não em sistemas de controle tolerantes a ``faltas''.
-Observa-se então a necessidade de um maior cuidado com relação a utilização
-dessas palavras, pois as avarias ({\it failures}) não podem ser toleradas.
+Conforme dito anteriormente, alguns autores costumam traduzir os termos {\it
+failure}, {\it error} e {\it fault} de maneira diferente. Como exemplo, o termo
+{\it failure} também é traduzido como falha e o termo {\it fault} como falta.
+Entretanto, como é mais comum se referir a sistemas de controle tolerante a
+``falhas'' ao invés de sistemas de controle tolerantes a ``faltas'', preferiu-se
+aqui traduzir o termo {\it failure} como avaria e o termo {\it fault} como
+falha, até mesmo porque as avarias ({\it failures}) não podem ser toleradas.
 
 \begin{comment}
 Por esse motivo, ao longo do texto, quando for necessário se referir ao termo
@@ -205,9 +212,11 @@ de maneira mais abrangente, envolvendo os conceitos de erro e de falha
 explicados anteriormente.
 \end{comment}
 
-Como em muitos dos casos os sistemas são compostos de subsistemas, é comum se
-observar que uma falha leva a um erro que por sua vez pode levar a uma avaria,
-que gera novas falhas e dá início a uma reação em cadeia, tal como a Fig.
+Tendo conhecido o significado de cada um desses termos, pode-se mostrar que
+existe uma certa relação entre eles. Considerando que os sistemas reais são
+normalmente compostos por subsistemas, é comum se observar que uma falha leva a
+um erro, que por sua vez pode levar a uma avaria, podendo vir a gerar novas
+falhas e dar início a uma reação em cadeia, tal como mostra a Fig.
 \ref{fig:reacao_cadeia}. Contudo, nem sempre uma falha conduz a um erro, assim
 como nem sempre um erro conduz a uma avaria, mas todos os erros resultam de
 falhas e todas as avarias resultam de erros.
@@ -231,7 +240,7 @@ falhas e todas as avarias resultam de erros.
     \label{fig:reacao_cadeia}
 \end{figure}
 
-Uma outra maneira de visualizar a diferença existente entre cada um desses
+Uma outra maneira de visualizar as relações existentes entre cada um desses
 termos pode ser observada na Fig. \ref{fig:mapa_conceitos}.
 
 \begin{figure}[htb]
@@ -242,12 +251,12 @@ termos pode ser observada na Fig. \ref{fig:mapa_conceitos}.
     \label{fig:mapa_conceitos}
 \end{figure}
 
-\citeasnoun{weber:2002} afirma ainda que as falhas são inevitáveis, uma vez que
-os componentes físicos do sistema envelhecem e estão sempre sujeitos as
-interferências externas, ambientais ou humanas. Mostra também que, assim como os
-sistemas físicos, os {\it softwares} também são vítimas, pois estão a mercê da
-alta complexidade dos processos e da fragilidade humana em trabalhar com grande
-volume de detalhes de especificação/operação.
+\citeasnoun{weber:2002} afirma que as falhas são inevitáveis, uma vez que os
+componentes físicos do sistema envelhecem e estão sempre sujeitos as
+interferências externas, ambientais ou humanas. Mostra ainda que os {\it
+softwares}, assim como os sistemas físicos, também são vítimas de falhas, pois
+estão a mercê da alta complexidade dos processos e da fragilidade humana em
+trabalhar com grande volume de detalhes de especificação/operação.
 
 % ------------------------------------------------------------------------------
 \subsection{Tipos de falhas}
@@ -340,7 +349,7 @@ processo rapidamente, exigindo contra-ações velozes e eficazes que possam
 minimizar as consequências do ocorrido.
 
 As {\it falhas incipientes} iniciam a partir de pequenos desvios comportamentais
-do sistema, podendo ser mascaradas pelos controladores.  Muitas vezes essas
+do sistema, podendo ser mascaradas pelos controladores. Muitas vezes essas
 falhas acabam passando despercebidas pelos operadores ou até mesmo pelos
 sistemas de detecção e diagnóstico de falhas.
 
@@ -349,19 +358,18 @@ de tempo e, em seguida, desaparecem, voltando a aparecer após um novo intervalo
 Podem ser causadas por alguma perturbação periódica ou por alguma situação que
 se repita ciclicamente.
 
-Considerando a localização das falhas, estas podem ocorrer nos sensores, nos
+Com relação a localização das falhas, estas podem ocorrer nos sensores, nos
 atuadores ou na estrutura do sistema \cite{silva:2008}. As {\it falhas nos
-sensores} podem ser observadas através de variações específicas nas medições, as
-quais podem ser descaracterizadas como variações válidas do sistema. As {\it
-falhas nos atuadores} podem ser vistas como qualquer mau funcionamento do
-equipamento que atua no sistema. As {\it falhas na estrutura}, ou {\it falhas
-estruturais}, ocorrem quando alguma alteração do sistema muda, de alguma forma,
-a relação original de entrada e saída do processo ou quando ocorre algum
-problema com algum dos dispositivos, desde que não sejam sensores ou atuadores,
-como por exemplo, os transmissores de sinal.
-
-Considerando então um processo genérico, pode-se citar como exemplos de falhas
-aquelas exibidas pela Tab. \ref{tab:falhas}.
+sensores} são observadas através de variações específicas nas medições, as quais
+podem ser descaracterizadas como variações válidas do sistema. As {\it falhas
+nos atuadores} podem ser vistas como qualquer mau funcionamento do equipamento
+que atua no sistema. As {\it falhas na estrutura}, ou {\it falhas estruturais},
+ocorrem quando alguma alteração do sistema muda, de alguma forma, a relação
+original de entrada e saída do processo ou quando ocorre algum problema com
+algum dos dispositivos, desde que não sejam sensores ou atuadores, como por
+exemplo, os transmissores de sinal. Considerando então um processo genérico,
+pode-se citar como exemplos de falhas aquelas exibidas pela Tab.
+\ref{tab:falhas}.
 
 \begin{table}[htb]
 \centering
@@ -397,47 +405,51 @@ encontradas em \citeasnoun{laprie:1992}, \citeasnoun{laprie:1994},
 
 % ------------------------------------------------------------------------------
 \section{Detecção e diagnóstico de falhas}
-Segundo \citeasnoun{chiang:2001}, detectar, diagnosticar e ``remover'' uma falha
-é uma das formas de se garantir que as operações de um processo satisfaçam as
-especificações de desempenho. Essas ações estão associadas com a noção de
-supervisão e monitoramento de processos.
-
-Para eles, supervisionar e monitorar determinado processo tem por objetivo
-garantir o sucesso das operações planejadas e reconhecer as anomalias
-comportamentais. A informação a ser disponibilizada por um sistema de
-monitoramento não deve, tão somente, informar ao operador do sistema sobre o que
-está acontecendo, mas auxiliá-lo a tomar medidas corretivas com o intuito de
-sanar o problema. Como resultado disso, o tempo em que o sistema estará
-inoperante será reduzido, a proteção do sistema aumentará e os custos
-relacionados diminuirão.
-
-Uma vez que os processos industrias estão se tornando cada vez mais integrados e
-complexos, a ocorrência de falhas também passa a ser um fator de complicação. As
+Considerando que os processos industrias estão se tornando cada vez mais integrados e
+complexos, a ocorrência de falhas passa a ser mais um fator de complicação. As
 falhas que antes poderiam ser detectadas facilmente por medições diretas de
-determinada variável passam a depender de um conjunto de variáveis que atuam
-simultaneamente. Além disso, se uma falha é detectada em um determinado ponto de
-um sistema sistema, a causa do problema pode estar próxima ou distante,
-dependendo do grau de complexidade envolvido. Como exemplo, uma simples falha em
-uma aeronave pode causar indicações de falha em diversos subsistemas de
-segurança \cite{vach:2006}.
+determinada variável dependem agora de um conjunto de variáveis que atuam
+simultaneamente no sistema. 
 
-Para \citeasnoun{chiang:2001}, existem quatro fases envolvidos no monitoramento
+Além disso, se uma falha é detectada em um determinado ponto de um sistema
+sistema, a causa do problema pode estar próxima ou distante, dependendo do grau
+de complexidade envolvido. Como exemplo, uma simples falha em uma aeronave pode
+causar indicações de falha em diversos subsistemas de segurança
+\cite{vach:2006}. Dessa maneira, processar as informações disponíveis pode vir a
+contribuir de maneira significativa para o processo de detecção e diagnóstico de
+falhas.
+
+Com o intuito de garantir o sucesso das operações planejadas e reconhecer as
+anomalias comportamentais dos processos, muitos sistemas de supervisão e
+monitoramento estão sendo desenvolvidos. Para \citeasnoun{chiang:2001},
+dentre diversas outras funções, esses sistemas podem auxiliar nas atividades de
+detectar, diagnosticar e suprimir falhas, garantindo que as operações do
+processo satisfaçam as especificações de desempenho.
+
+De maneira complementar, destaca-se que a informação a ser disponibilizada por
+um sistema de monitoramento não deve, tão somente, informar ao operador do
+sistema sobre o que está acontecendo, mas auxiliá-lo a tomar medidas corretivas
+com o intuito de sanar o problema. Como resultado disso, o tempo em que o
+sistema estará inoperante será reduzido, a proteção do sistema aumentará e os
+custos relacionados diminuirão.
+
+Para \citeasnoun{chiang:2001}, existem quatro fases envolvidas no monitoramento
 de processos: {\bf detecção}, {\bf isolamento}, {\bf diagnóstico} e {\bf
 recuperação} de falhas, conforme mostrado pela Fig.
 \ref{fig:fases_monitoramento}.
 
 \begin{figure}[htb]
 \centering
-    \includegraphics[width=0.65\textwidth]
+    \includegraphics[width=0.7\textwidth]
                     {imgs/detec_diag/eps/fases_monitoramento}
     \caption{Fases envolvidas no monitoramento de processos.}
     \label{fig:fases_monitoramento}
 \end{figure}
 
-A {\it detecção da falha} consiste em determinar se ocorreu ou não uma falha. A
-detecção antecipada ou precoce pode fornecer informações valiosas quanto aos
-problemas que venham a surgir. Através de ações apropriadas, pode-se evitar
-perturbações graves ao processo.
+A {\it detecção da falha} se resume a determinar se ocorreu ou não uma falha.
+Quando realizada de maneira antecipada, a detecção de falhas pode fornecer
+informações valiosas com relação aos problemas que estão por acontecer.  Assim,
+através de ações apropriadas, pode-se evitar grandes perturbações no processo.
 
 A {\it identificação da falha} tem por objetivo identificar as variáveis mais
 importantes para que se realize um diagnóstico apropriado. Para isso, essa fase
@@ -451,41 +463,43 @@ possíveis a respeito da falha, tais como a intensidade, a localização e o
 momento em que a falha foi detectada. Essa fase é considerada essencial para uma
 contra-ação ou eliminação da falha.
 
-A fase de {\it recuperação da falha}, também conhecida como fase de {\it
-intervenção}, tem por objetivo remover o efeito da falha para com o sistema,
-dando início a um novo ciclo de detecção e diagnóstico.
+Por fim, a fase de {\it recuperação da falha}, também conhecida como fase de
+{\it intervenção}, tem por objetivo remover o efeito da falha para com o
+sistema, dando início a um novo ciclo de detecção e diagnóstico.
 
 Apesar de estarem explicitamente colocados como uma sequência de ações, nem
 sempre todas as fases são estritamente necessárias necessárias
-\cite{chiang:2001}. 
+\cite{chiang:2001}. Os sistemas automatizados fazem com que a mudança de uma
+fase para outra seja transparente para operador, exibindo apenas as informações
+cruciais para que se possa tomar as medidas cabíveis.
 
-Para \citeasnoun{venkatasu:2003a}, a automatização das formas de detecção e
-diagnóstico compõe o primeiro passo de um sistema de gestão de eventos anormais
-Ao longo de vários anos, muitas soluções vem sendo desenvolvidas e um grande
-número de técnicas já foram utilizadas. Exemplos dessas técnicas são as árvores
-de falhas, os digrafos, as abordagens analíticas, os sistemas especialistas e as
-RNAs.
+\citeasnoun{venkatasu:2003a} mostram que a automatização das formas de detecção
+e diagnóstico é o primeiro passo a ser tomado para a elaboração de um sistema de
+gestão de eventos anormais. Afirmam também que ao longo de vários anos muitas
+soluções vem sendo desenvolvidas e que um grande número de técnicas já foram
+utilizadas. Para isso, citam como exemplos as técnicas que utilizam árvores de
+falhas, digrafos, abordagens analíticas, sistemas especialistas e RNAs.
 
 \fussy
 Do ponto de vista de modelagem, existem métodos que exigem grande precisão com
 relação ao modelo de processo, outros que exigem modelos semi-quantitativos ou
 ainda modelos qualitativos. Por outro lado, existem métodos que não necessitam
-de nenhuma informação do modelo, utilizando somente informações do histórico do
-processo \cite{venkatasu:2003a}.
+de nenhuma informação do modelo, os quais utilizam somente as informações de
+histórico do processo \cite{venkatasu:2003a}.
 \sloppy
 
 Conforme mostrado no Capítulo \ref{cap:introducao}, a classificação dos métodos
 de DDF pode variar de autor para autor
 \cite{venkatasu:2003a,angeli:2004,zhang:2008,isermann:2006}. A abordagem aqui
 escolhida irá considerar a classificação adotada em \citeasnoun{isermann:2006},
-até então considerada a mais intuitiva.
+até então considerada mais intuitiva.
 
 % ------------------------------------------------------------------------------
 \section{Métodos de detecção}
 Nas seções seguintes será feita uma breve análise dos métodos de detecção de
-falhas abordados em \citeasnoun{isermann:2006}. Vale salientar que existem, na
-literatura, vários outros métodos de detecção de falhas. Deseja-se aqui trazer
-alguns exemplos.
+falhas abordados em \citeasnoun{isermann:2006}. Vale salientar que existem na
+literatura vários outros métodos de detecção de falhas. Deseja-se aqui,
+entretanto, apenas trazer alguns exemplos.
 
 % ------------------------------------------------------------------------------
 \subsection{Detecção de falhas com verificação de limites}
@@ -494,9 +508,9 @@ com verificação de limites baseia-se na medição direta de uma determinada
 variável e a comparação de seu valor absoluto ou de sua tendência com um
 limítrofe previamente especificado.
 
-A verificação de valores absolutos, estabelece que dois limiares ou limítrofes
-fixos são estabelecidos: $Y_{max}$ e $Y_{min}$. O funcionamento normal do
-sistema consiste em verificar se a variável $Y$ está ou não contida nesse
+A verificação de valores absolutos baseia-se na utilização de dois limiares ou
+limítrofes fixos, denominados $Y_{min}$ e $Y_{max}$. O funcionamento normal do
+sistema consiste em verificar se a variável $Y$ está ou não contida no
 intervalo:
 
 \begin{equation}
@@ -506,16 +520,13 @@ Y_{min} < Y < Y_{max}
 Essa abordagem considera que o processo está funcionando normalmente quando a
 variável monitorada encontra-se dentro de uma zona de tolerância. Quando a
 variável monitorada excede um dos limiares estabelecidos, deduz-se que haverá
-uma falha em algum ponto do processo.
+uma falha em algum ponto do processo. Por mais simples que pareça, este método é
+aplicado na maioria dos sistemas de automação
 
-Por mais simples que pareça, este método é aplicado na maioria dos sistemas de
-automação, tais como: verificação da pressão mínima em oleodutos, da temperatura
-máxima em sistemas de refrigeração de motores, a pressão mínima de circulação de
-gás em refrigeradores.
-
-Uma outra abordagem utiliza a verificação de tendência da variável medida. Um
-exemplo simples faz uso da primeira derivada da variável $\dot{Y} = dY(t)/dt$ e
-verifica se esta tendência está ou não dentro de uma faixa pré-estabelecida:
+A outra abordagem utiliza a tendência da variável medida para detectar as
+falhas. Como exemplo, um dos métodos mais conhecidos faz uso da primeira
+derivada da variável ($\dot{Y} = dY(t)/dt$) e testa se a variação observada está
+ou não dentro de uma faixa pré-estabelecida:
 
 \begin{equation}
 \dot{Y}_{min} < \dot{Y} < \dot{Y}_{max}
@@ -535,9 +546,15 @@ Exemplos dessas duas abordagens podem ser observados na Fig.
 \subsection{Detecção de falhas com modelos de sinais}
 Diversos sinais medidos em um processo apresentam oscilações de natureza
 harmônica ou estocástica. Se as mudanças nesse sinal estiverem relacionadas com
-as falhas nos sensores, atuadores ou ainda com as falhas estruturais, uma
-maneira de se detectar essas falhas é o de se utilizar métodos de detecção
-baseados em modelos de sinais.
+as falhas nos sensores, atuadores ou ainda  com a estrutura do processo, uma
+maneira de se detectar essas falhas faz uso de modelos de sinais.
+
+De maneira resumida pode-se dizer que as características do sinal medido, tais
+como amplitude, fase, espectro de frequências, dentre outras, são calculadas a
+partir de modelos matemáticos do sinal e comparadas com as características
+observadas durante o funcionamento normal. As diferenças comportamentais geradas
+pela comparação, denominadas de {\it sintomas analíticos}, são utilizadas para
+realizar a detecção das falhas.
 
 Na Fig. \ref{fig:detec_mod_sin} é exibido um diagrama esquemático que resume os
 princípios da detecção de falhas com modelos de sinais.
@@ -548,13 +565,6 @@ princípios da detecção de falhas com modelos de sinais.
     \caption{Diagrama esquemático da detecção de falhas com modelos de sinais.}
     \label{fig:detec_mod_sin}
 \end{figure}
-
-De maneira resumida pode-se dizer que as características do sinal medido, tais
-como amplitude, fase, espectro de frequências, dentre outras, são calculadas a
-partir de modelos matemáticos do sinal e comparadas com as características
-observadas durante o funcionamento normal. As diferenças comportamentais geradas
-pela comparação, denominadas de {\it sintomas analíticos}, são utilizadas para
-realizar a detecção das falhas.
 
 % ------------------------------------------------------------------------------
 \subsection{Detecção de falhas com observadores e estimadores de estado}
