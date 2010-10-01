@@ -561,20 +561,78 @@ princípios da detecção de falhas com modelos de sinais.
 
 \begin{figure}[htb]
 \centering
-    \includegraphics[width=0.75\textwidth]{imgs/detec_diag/eps/detec_mod_sin}
+    \includegraphics[width=0.95\textwidth]{imgs/detec_diag/eps/detec_mod_sin}
     \caption{Diagrama esquemático da detecção de falhas com modelos de sinais.}
     \label{fig:detec_mod_sin}
 \end{figure}
 
 % ------------------------------------------------------------------------------
-\subsection{Detecção de falhas com observadores e estimadores de estado}
+\subsection{Detecção de falhas com equações de paridade}
+Uma das formas de se detectar falhas de maneira direta em um processo baseia-se
+na comparação do comportamento real com o comportamento nominal. A diferença
+entre os sinais de saída do processo real e os sinais de saída do modelo
+matemático que descreve sua dinâmica geram os {\it resíduos} utilizados para
+detecção da falha. De acordo com \citeasnoun{silva:2008}, os resíduos são a base
+de várias abordagens de sistemas de Detecção e Isolamento de Falhas (DIF). A
+Fig. \ref{fig:residuos} e a Eq. \ref{eq:residuos} mostram como os resíduos são
+obtidos para um sistema MIMO.
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.6\textwidth]{imgs/detec_diag/eps/residuos}
+    \caption{Obtenção dos resíduos para um sistema MIMO.}
+    \label{fig:residuos}
+\end{figure}
+
+\begin{eqnarray}\label{eq:residuos}
+e(s) & = & y_p(s) - y_m(s) = y_p(s) - G_m(s)u(s)\nonumber\\
+& = & G_p(s)\left[u(s) + f_u(s)\right] + n(s) + f_y(s) - G_m(s)u(s)\nonumber\\
+& = & \left[G_p(s) - G_m(s)\right]u(s) + G_p(s)f_u(s) + n(s) + f_y(s)\nonumber\\
+& = & \Delta G_m(s) u(s) + G_p(s)f_u(s) + n(s) + f_y(s)
+\end{eqnarray}
+
+Nessa equação, $f_u$ corresponde às falhas aditivas na entrada, $f_y$ às falhas
+aditivas na saída, $n$ aos ruídos, $y_p$ à saída do processo, $y_m$ à saída do
+modelo, $G_p$ à função de transferência do processo, $G_m$ à função de
+transferência do modelo e $u$ à entrada.
+
+\Glossary{DIF}{Detecção e Isolamento de Falhas}
+
+Apesar da capacidade em indicar anormalidades no processo através das
+discrepâncias, essa abordagem possui a desvantagem de ser necessário se ter o
+conhecimento prévio das equações que regem a dinâmica do processo. Devido a
+dificuldade existente em se utilizar um modelo fenomenológico preciso que leve
+em consideração, inclusive, os ruídos naturalmente presentes no processo, esse
+método não é muito utilizado.
 
 % ------------------------------------------------------------------------------
-\subsection{Detecção de falhas com equações de paridade}
+\subsection{Detecção de falhas com observadores e estimadores de estado}
+Considerando que os observadores de estado utilizam o erro de saída, dado pela
+diferença entre a medição da variável no processo e o modelo ajustável, pode-se
+dizer que eles são bons candidatos à sistemas de detecção baseados em modelos.
+Assume-se que, assim como no caso das abordagem que utiliza equações de
+paridade, a estrutura e os parâmetros do modelo precisão ser conhecidos. Dessa
+forma, os observadores de estado poderão ajustar as variáveis do modelo de
+acordo com as condições iniciais e com a evolução do processo considerando os
+sinais medidos das variáveis de entrada e saída.
+
+Um tipo de abordagem proposta para sistemas MIMO leva em consideração um
+conjunto de observadores de estado tal como mostra a Fig.
+\ref{fig:conj_obs_est}. De acordo com \citeasnoun{isermann:2006}, este esquema
+pode ser utilizado para detectar falhas aditivas em sensores. Outras abordagens
+fazem uso do Filtro de Kalman (estimador de estados) e de observadores de saída. 
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.325\textwidth]{imgs/detec_diag/eps/conj_obs_est}
+    \caption{Detecção de falhas através de um conjunto de observadores de
+             estado.}
+    \label{fig:conj_obs_est}
+\end{figure}
 
 % ------------------------------------------------------------------------------
 \subsection{Detecção de falhas com métodos de identificação}
-
+ 
 % ------------------------------------------------------------------------------
 \section{Métodos de diagnóstico}
 
