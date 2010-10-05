@@ -2,7 +2,7 @@
 clear;
 clc;
 
-for N = 1 : 4
+for N = 1 : 1
     %% Valores fixos
     a1_peq = 0.079173043608984;
     a2_peq = 0.079173043608984;
@@ -14,7 +14,7 @@ for N = 1 : 4
     %% Parametros
     % Tempo de simulacao em segundos
     % tempo_seg = 60 * 10; % 10 minutos (Identificacao)
-    tempo_seg = 60 * 20; % 20 minutos (Deteccao de falhas)
+    tempo_seg = 60 * 1.5; % 20 minutos (Deteccao de falhas)
 
     % Periodo de amostragem em segundos
     periodo_amost = 0.1;
@@ -46,7 +46,7 @@ for N = 1 : 4
     porcent_ruido_atuador_t1 = 0.0;
     porcent_ruido_atuador_t2 = 0.0;
 
-    % Area do orifício de vazamento
+    % Area do orifï¿½cio de vazamento
     area_orif_vazamento_t1 = 0.0; %a1_med / 10;
     area_orif_vazamento_t2 = 0.0; %a2_med / 10;
 
@@ -75,34 +75,39 @@ for N = 1 : 4
 
     num_amostras = length( t );
 
-    ref_t1 = zeros( num_amostras, 1 );
-    ref_t2 = zeros( num_amostras, 1 );
-
-    ref_t1( 1 ) = random( 0, 30 );
-    ref_t2( 1 ) = random( 0, 30 );
-
-    for i = 2 : num_amostras
-        if mod( i, tempo_var_milisegundos ) == 0
-            sorteio = rand();
-
-            % Variar somente referencia do tanque 1
-            if sorteio < 1/3
-                ref_t1( i ) = random( 0, 30 );
-                ref_t2( i ) = ref_t2( i - 1 );
-            % Variar somente referencia do tanque 2
-            elseif sorteio > 1/3 && sorteio < 2/3
-                ref_t1( i ) = ref_t1( i - 1 );
-                ref_t2( i ) = random( 0, 30 );
-            % Variar referencia dos 2 tanques
-            else
-                ref_t1( i ) = random( 0, 30 );
-                ref_t2( i ) = random( 0, 30 );
-            end
-        else
-            ref_t1( i ) = ref_t1( i - 1 );
-            ref_t2( i ) = ref_t2( i - 1 );
-        end
-    end
+% COMENTADO PARA GERAR OS GRAFICOS DE RESULTADOS ==========================
+%     ref_t1 = zeros( num_amostras, 1 );
+%     ref_t2 = zeros( num_amostras, 1 );
+    
+    ref_t1 = 15*ones( num_amostras, 1 );
+    ref_t2 = 20*ones( num_amostras, 1 );
+    
+% COMENTADO PARA GERAR OS GRAFICOS DE RESULTADOS ==========================
+%     ref_t1( 1 ) = random( 0, 30 );
+%     ref_t2( 1 ) = random( 0, 30 );
+% 
+%     for i = 2 : num_amostras
+%         if mod( i, tempo_var_milisegundos ) == 0
+%             sorteio = rand();
+% 
+%             % Variar somente referencia do tanque 1
+%             if sorteio < 1/3
+%                 ref_t1( i ) = random( 0, 30 );
+%                 ref_t2( i ) = ref_t2( i - 1 );
+%             % Variar somente referencia do tanque 2
+%             elseif sorteio > 1/3 && sorteio < 2/3
+%                 ref_t1( i ) = ref_t1( i - 1 );
+%                 ref_t2( i ) = random( 0, 30 );
+%             % Variar referencia dos 2 tanques
+%             else
+%                 ref_t1( i ) = random( 0, 30 );
+%                 ref_t2( i ) = random( 0, 30 );
+%             end
+%         else
+%             ref_t1( i ) = ref_t1( i - 1 );
+%             ref_t2( i ) = ref_t2( i - 1 );
+%         end
+%     end
 
     %% Composicao da matriz
 
@@ -193,7 +198,8 @@ for N = 1 : 4
     % Nome da falha
     nome_falha = 'FSeDG';
 
-    % Colunas a serem modificadas para as falhas no tanque 1 e 2
+    % Colunas a serem modificadas para as falhas no tanque 1 e 2 (olhar
+    % acima)
     cols = [2 3];
 
     % Valor a ser modificado
@@ -201,12 +207,14 @@ for N = 1 : 4
 
     % Porcentagens minima e maxima de alteracao
     min = 0.8;
-    max = 1.2;
+    max = 0.8;
 
     for i = 1 : size( linhas, 1 )
         for j = linhas( i, 1 ) : linhas( i, 2 )
+            % Falha somente no tanque 1 ou somente no tanque 2
             if i == 1 || i == 2
                 M( j, cols( i ) ) = valor_param * random( min, max );
+            % Falha nos dois tanques
             else
                 M( j, cols( 1 ) ) = valor_param * random( min, max );
                 M( j, cols( 2 ) ) = valor_param * random( min, max );
@@ -217,14 +225,18 @@ for N = 1 : 4
     % Saida para arquivo
     % nome_arq_saida = strcat( 'config_', ...
     %                          strcat( num2str( num_amostras ), '.cfg' ) );
+    
+    nome_arq_saida = strcat( '../simulacao_tanques_cpp/entradas/', ...
+                              nome_falha, '/qualificacao.cfg' );
 
-    if N == 1
-        nome_arq_saida = strcat( '..\simulacao_tanques_cpp\entradas\', ...
-                                 nome_falha, '\treinamento.cfg' );
-    else
-        nome_arq_saida = strcat( '..\simulacao_tanques_cpp\entradas\', ...
-                                 nome_falha, '\v', num2str( N-1 ), '.cfg' );
-    end
+% COMENTADO PARA GERAR OS GRAFICOS DE RESULTADOS ==========================
+%     if N == 1
+%         nome_arq_saida = strcat( '..\simulacao_tanques_cpp\entradas\', ...
+%                                  nome_falha, '\qualificacao.cfg' );
+%     else
+%         nome_arq_saida = strcat( '..\simulacao_tanques_cpp\entradas\', ...
+%                                  nome_falha, '\v', num2str( N-1 ), '.cfg' );
+%     end
 
     dlmwrite( nome_arq_saida, M, 'delimiter', '\t' );
     
