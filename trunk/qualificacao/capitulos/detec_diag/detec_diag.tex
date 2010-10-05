@@ -606,6 +606,26 @@ em consideração, inclusive, os ruídos naturalmente presentes no processo, ess
 método não é muito utilizado.
 
 % ------------------------------------------------------------------------------
+\subsection{Detecção de falhas com métodos de identificação}
+Os modelos matemáticos de processos descrevem uma relação entre os sinais de
+entrada $u(t)$ e os sinais de saída $y(t)$. Em muitos dos casos não se conhece o
+processo por completo, o que inviabiliza a elaboração de um modelo preciso que
+leve em consideração os desvios comportamentais. Dessa forma, os métodos de
+identificação de processos precisam ser frequentemente aplicados antes da
+utilização de qualquer técnica de detecção de falhas.
+
+Conforme mostra a Fig. \ref{fig:metodos_identificacao}, existem diversos métodos
+de identificação de processos dinâmicos. A opção pela utilização de cada um
+deles varia de acordo com a aplicação.
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=\textwidth]{imgs/detec_diag/eps/metodos_identificacao}
+    \caption{Árvore de métodos de identificação de processos dinâmicos.}
+    \label{fig:metodos_identificacao}
+\end{figure}
+
+% ------------------------------------------------------------------------------
 \subsection{Detecção de falhas com observadores e estimadores de estado}
 Considerando que os observadores de estado utilizam o erro de saída, dado pela
 diferença entre a medição da variável no processo e o modelo ajustável, pode-se
@@ -629,26 +649,77 @@ fazem uso do Filtro de Kalman (estimador de estados) e de observadores de saída
              estado.}
     \label{fig:conj_obs_est}
 \end{figure}
-
-% ------------------------------------------------------------------------------
-\subsection{Detecção de falhas com métodos de identificação}
  
 % ------------------------------------------------------------------------------
 \section{Métodos de diagnóstico}
+Para \citeasnoun{silva:2008} e \citeasnoun{isermann:2006} a tarefa de
+diagnosticar uma falha consiste em determinar que uma falha ocorreu, indicando o
+maior número de detalhes possíveis, tais como o momento de detecção, o tipo, a
+localização e a intensidade da falha. Este procedimento de diagnóstico baseia-se
+nos sintomas analíticos e heurísticos, além dos conhecimentos heurísticos do
+processo.
+
+A Fig. \ref{fig:diagnostico} sintetiza os passos necessários para o diagnóstico
+de falhas tanto para variáveis medidas de maneira automática quanto para
+variáveis observadas pelos operadores do processo. Em ambos os casos a extração
+de características relativas as alterações comportamentais sobre o processo são
+necessárias. Os sintomas analíticos e heurísticos devem ser representados de
+maneira unificada a fim de se realizar o diagnóstico de maneira adequada.
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.9\textwidth]{imgs/detec_diag/eps/diagnostico}
+    \caption{Sequências de passos que levam ao diagnóstico de falhas.}
+    \label{fig:diagnostico}
+\end{figure}
+
+Vale observar que as {\it características} são os valores obtidos a partir dos
+sinais ou de modelos de sinais do processo, os quais descrevem o seu estado
+atual. Já os {\it sintomas} são as possíveis alterações das características com
+relação à seus valores normais.
+
+As relações entre uma falha e seus sintomas seguem normalmente as relações
+físicas de causa e efeito. De maneira geral, pode-se dizer que uma falha produz
+alguns ``eventos'' que por sua vez geram os sintomas, conforme observado na Fig.
+\ref{fig:falha_sintoma}. O diagnóstico de falhas normalmente é realizado de
+maneira inversa, pois o sistema deve indicar as falhas a partir dos sintomas
+observados.
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=\textwidth]{imgs/detec_diag/eps/falha_sintoma}
+    \caption{Relações de falhas e sintomas.}
+    \label{fig:falha_sintoma}
+\end{figure}
+
+\begin{comment}
+% ------------------------------------------------------------------------------
+\subsection{Diagnóstico de falhas com métodos de classificação}
 
 % ------------------------------------------------------------------------------
-\subsection{diagnóstico de falhas com métodos de classificação}
-
-% ------------------------------------------------------------------------------
-\subsection{diagnóstico de falhas com métodos de inferência}
+\subsection{Diagnóstico de falhas com métodos de inferência}
+\end{comment}
 
 % ------------------------------------------------------------------------------
 \section{Detecção e diagnóstico de falhas com RNAs}
-
 Com a introdução das novas tecnologias de medição e o consequente aumento do
-número de instrumentos nos processos industrias, as informações e os dados
-disponíveis da operação do sistema passam a ser essenciais para as atividades de
-supervisão e controle. Como exemplo, diversas estratégias de detecção e
-diagnóstico de falhas fazem uso do histórico do processo ........ dentre essas
-estratégias... RNAs
+número de instrumentos nos processos industrias, o número de informações
+disponíveis para um dado sistema pode vir a crescer demasiadamente. Tal situação
+acaba por aumentar ainda mais a complexidade de processamento, tendo em vista
+que cada vez mais os procedimentos de DDF utilizam dados de histórico do
+processo. Dentre os exemplos desses métodos que fazem uso de histórico do
+processo estão aqueles que fazem uso de RNAs.
 
+De acordo com a Fig. \ref{fig:metodos_identificacao}, as RNAs estão
+classificadas como sendo estimadores de parâmetros de características gerais,
+utilizadas para a identificação de sistemas dinâmicos baseados em modelos de
+processos não-lineares. Já na Fig. \ref{fig:arvore_diagnostico}, as RNAs
+aparecem como métodos de inferência que aproximam o raciocínio humano através de
+múltiplos sinais e modelos.
+
+Unindo essas características com aquelas expostas no Cap. \ref{cap:rnas}, serão
+utilizadas nesse trabalho duas estruturas neurais com o objetivo de identificar
+o processo de estudo de caso e realizar a detecção e o diagnóstico de falhas a
+partir de seu histórico. As estruturas propostas serão apresentadas no Cap.
+\ref{cap:sistema}, no momento em que forem mostrados maiores detalhes sobre o
+estudo de caso.
