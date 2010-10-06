@@ -1,5 +1,5 @@
 #all: clean script apres principal
-all: clean principal
+all: clean script principal
 
 #apres: apresentacao/Makefile
 #	cd apresentacao && make
@@ -14,6 +14,7 @@ principal: principal.tex
 	latex principal
 	latex principal
 	dvipdf principal
+	mv *.eps scripts
 	evince principal.pdf&
 
 clean: 

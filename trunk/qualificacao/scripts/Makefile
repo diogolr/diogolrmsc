@@ -1,11 +1,10 @@
-all: rna_validacao
+all: resultados
 
-rna_validacao: rna_validacao.gp
-	@echo Imagens RNA - Validacao...
-	gnuplot rna_validacao.gp
-	#mv *.eps ../imgs/rna/validacao
-	@echo 
+resultados: resultados.gp
+	@echo Gerando os graficos...
+	gnuplot resultados.gp
+	mv *.eps ..
 
 clean:
 	@echo Removendo arquivos...
-	#-rm ../imgs/rna/validacao/*.eps
+	-rm *.eps *.tex
