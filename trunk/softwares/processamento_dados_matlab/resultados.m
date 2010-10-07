@@ -6,6 +6,12 @@ close all;
 falhas = { 'FSeDG' 'FSeDO' 'FSeSR' 'FSeQ' 'FADG' 'FADO' 'FASR' 'FAVK' ...
            'FAQ' 'FSiVzT' 'FSiVrOS' 'FSiVrGMP' 'FSiEOS' };
 
+% saida_tikz = input( 'Gerar saida para tikz-timing [0 ou 1]: ' );
+saida_tikz = 1;
+
+% saida_gnuplot = input( 'Gerar saida para gnuplot [0 ou 1]: ' );
+saida_gnuplot = 1;
+
 % Melhores redes para as deteccoes de falha
 % Cada linha contem [ORDEM NCO TREINAMENTO]
 melhores = [ 4 28 2 ; ... % FSeDG
@@ -24,12 +30,13 @@ melhores = [ 4 28 2 ; ... % FSeDG
            ];
 
 for i = 1 : length( falhas )
-    disp( falhas{i} );
+    disp( strcat( falhas{i}, ' .................' ) );
     
     falha = falhas{i};
     
     % pasta_valid = input( 'Pasta dos arquivos de validacao: ' );
-    pasta_valid = strcat( '../simulacao_tanques_cpp/saidas/', falha, '/' );
+    pasta_saidas = strcat( '../simulacao_tanques_cpp/saidas/', ...
+                           falha, '/' );
 
     % pasta_rnas = input( 'Pasta dos arquivos das redes treinadas: ' );
     pasta_rnas = strcat( '../../dados/deteccao/', falha, '/' );
@@ -53,25 +60,59 @@ for i = 1 : length( falhas )
     
     regressores = ordem - 1;
     
-    % Validacoes
-    for v = 1 : 3
-        disp( strcat( 'Validacao ', num2str( v ), '...........' ) );
-        
-        % Lendo o arquivo de validacao ------------------------------------
-        arq_niveis = strcat( pasta_saidas, 'niveis_qual.dat' );
-        arq_erro_sc = strcat( pasta_saidas, 'erro_sc_qual.dat' );
+    % Lendo o arquivo de validacao ------------------------------------
+    arq_niveis = strcat( pasta_saidas, 'niveis_qualif.dat' );
+    arq_erro_sc = strcat( pasta_saidas, 'erro_sc_qualif.dat' );
 
-        [entrada saida residuos] = config_ent_sai_valid( arq_niveis, ...
-                                                         arq_erro_sc,
-                                                         regressores );
-        
-        % Determinando o nome do arquivo final e chamando o metodo para 
-        % gerar a saida
-        nome_final = strcat( nome_arq_sem_ext, '_v', num2str( v ) );
-        
-        gerar_saida_tikz( rede_detec, entrada, saida, nome_final );
+    [entrada saida residuos] = config_ent_sai_valid( arq_niveis, ...
+                                                     arq_erro_sc, ...
+                                                     regressores );
+
+    % Determinando o nome do arquivo final e chamando o metodo para 
+    % gerar a saida
+    nome_final = strcat( '../../dados/qualificacao/', falhas{i} );
+
+    % Capturando as palavras de saida geradas para o tikz
+    palavras = deteccao_tikz( rede_detec, entrada, saida, ...
+                              nome_final, saida_tikz );
+
+    % Determinando as sequencias de deteccao
+    sequencias = { contar_sequencia( find( palavras{1,1} == 'H' ) ) ...
+                   contar_sequencia( find( palavras{1,2} == 'H' ) );...
+                   contar_sequencia( find( palavras{2,1} == 'H' ) ) ...
+                   contar_sequencia( find( palavras{2,2} == 'H' ) ) };
+               
+    % Eliminando as deteccoes que nao formem uma sequencia, como por
+    % exemplo aquelas em que foi detectada a falha no somente no instante X
+    % e não em X ate X + kT, onde T e o periodo de amostragem. Isso somente
+    % se aplica as deteccoes das redes neurais, pois as saidas desejadas
+    % passadas como parametro do metodo deteccao_tikz sao sempre em
+    % sequencia
+     
+    linhas_com_colunas_identicas = sequencias{1,2}( :, 1 ) - ...
+                                   sequencias{1,2}( :, 2 ) == 0;
+                                      
+    sequencias{1,2}( linhas_com_colunas_identicas, : ) = [];
+    
+    linhas_com_colunas_identicas = sequencias{2,2}( :, 1 ) - ...
+                                   sequencias{2,2}( :, 2 ) == 0;
+                                      
+    sequencias{2,2}( linhas_com_colunas_identicas, : ) = [];
+    
+    % Escrevendo a saida para o gnuplot
+    if saida_gnuplot
+        % Multiplica-se pelo periodo de amostragem para se ter os instantes
+        % corretos em que as falhas foram detectadas
+        matriz_saida_t1 = [ sequencias{1,2}*0.1 ];
+        matriz_saida_t2 = [ sequencias{2,2}*0.1 ];
+                
+        dlmwrite( strcat( nome_final, '_t1.dat' ), matriz_saida_t1, ...
+                  'delimiter', '\t' );
+        dlmwrite( strcat( nome_final, '_t2.dat' ), matriz_saida_t2, ...
+                  'delimiter', '\t' );
     end
-      
+
     % Limpando as variaveis de ambiente carregadas com o load
-    clear rede rede_detec arq_config lim_ent lim_sai tempo_treinamento;
+    clear rede rede_detec arq_config lim_ent lim_sai tempo_treinamento ...
+          linhas_com_colunas_identicas;
 end

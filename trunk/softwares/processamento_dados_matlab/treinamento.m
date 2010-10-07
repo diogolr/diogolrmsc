@@ -1,4 +1,4 @@
-% Arquivo de Treinamento das RNAs que detectam as falhas
+% Arquivo de Treinamento das RNAs
 
 clear;
 clc;
@@ -24,15 +24,15 @@ mat_erro_sc = dlmread( arq_erro_sc, '\t' );
 num_amostras = size( mat_niveis, 1 );
 
 % Determinando se sera treinada uma RNA para identificacao do sistema ou
-% para deteccao de falha --------------------------------------------------
+% para deteccao de falha -------------------------------------------------------
 % falha = input( 'RNA para deteccao de falha [0 ou 1]: ' );
 falha = 1;
 
-% Determinando o numero de redes a serem treinadas ------------------------
+% Determinando o numero de redes a serem treinadas -----------------------------
 % n_treinamentos = input( 'Numero de treinamentos: ' );
 n_treinamentos = 6;
 
-% Determinando o numero de regressores de acordo com a ordem do modelo ----
+% Determinando o numero de regressores de acordo com a ordem do modelo ---------
 ordem = input( 'Ordem do modelo: ' );
 % ordem = 2;
 
@@ -40,13 +40,13 @@ regressores = ordem - 1;
 
 ncos_deteccao = [ 8 12 16 ; 14 18 22 ; 20 24 28 ];
 
-% Ajustanto os dados das matrizes de entrada e saida ----------------------
+% Ajustanto os dados das matrizes de entrada e saida ---------------------------
 [entrada_pad saida_pad] = ajustar_dados( mat_niveis, mat_erro_sc );
 
 clear mat_niveis mat_erro_sc;
 
 if falha
-    % Determinando o numero de neuronios nas camadas ocultas --------------
+    % Determinando o numero de neuronios nas camadas ocultas -------------------
     % Para compor o vetor/matriz do numero de neuronios das camadas ocultas
     % deve-se considerar que cada rede so tera uma camada oculta. Logo, se
     % foram realizados os treinamentos com 8, 10 e 12 neuronios, o 
@@ -56,7 +56,7 @@ if falha
 %     nco = input( 'Neuronios das camadas ocultas [vetor]: ' );
     nco = ncos_deteccao( ordem - 1, : );
 else
-    % Determinando a proposta para adequar a saida da rede ----------------
+    % Determinando a proposta para adequar a saida da rede ---------------------
     % disp( ' ' );
     % disp( 'Propostas: ');
     % disp( '[1] RNA para identificacao global' );
@@ -66,11 +66,11 @@ else
     % disp( ' ' );
     proposta = 1;
 
-    % Determinando o numero de neuronios nas camadas ocultas --------------
+    % Determinando o numero de neuronios nas camadas ocultas -------------------
     % Para compor o vetor/matriz do numero de neuronios das camadas ocultas
-    % deve-se considerar que cada rede so tera uma camada oculta. Logo, se
-    % foram realizados os treinamentos com 8, 10 e 12 neuronios, o 
-    % vetor/matriz nco sera:
+    % deve-se considerar que cada rede so tera uma camada oculta. Logo, se foram
+    % realizados os treinamentos com 8, 10 e 12 neuronios, o vetor/matriz nco
+    % sera:
     %
     % Proposta 1
     % nco = [8 10 12]; 
@@ -88,7 +88,7 @@ else
     end
 end
     
-% Determinando os parametros de treinamento -------------------------------
+% Determinando os parametros de treinamento ------------------------------------
 % normalizar = input( 'Normalizar dados [0 ou 1]: ' );
 normalizar = 0;
 
@@ -103,7 +103,7 @@ tol = 1e-3;
 min = -1;
 max = 1;
 
-% Determinando a(s) entradas/saidas da(s) RNA(s) --------------------------
+% Determinando a(s) entradas/saidas da(s) RNA(s) -------------------------------
 % Deteccao de falha
 if falha == 1    
     entrada = entrada_pad;
@@ -119,7 +119,7 @@ if falha == 1
     regressores_melhor_rede = ordem_melhor_rede - 1;
     
     entrada_melhor_rede = adicionar_regressores( entrada, ...
-                                           regressores_melhor_rede*vetor );
+                                                regressores_melhor_rede*vetor );
     
     % Entrada para rede atual com regressores
     entrada = adicionar_regressores( entrada, regressores*vetor );
