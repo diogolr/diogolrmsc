@@ -6,29 +6,80 @@ set encoding utf8
 # excluindo o titulo
 unset label
 
-# ajustando a margem inferior
-set bmargin 4
+# ajustando as margens
+#set bmargin 4
 
 # ajustando os tics dos eixos
 set xtic auto border nomirror out
 set ytic auto border nomirror out
+set mxtics
 
 # determinando o formato de exibicao
 #set format y "%0.2f"
 #set format x "%0.0f"
 
 # configuracao das linhas ######################################################
-set style line 1 linetype 1 linecolor rgb "#FF0000" linewidth 2 # Vermelho
-set style line 2 linetype 1 linecolor rgb "#00FF00" linewidth 2 # Verde
-set style line 3 linetype 1 linecolor rgb "#0000FF" linewidth 2 # Azul
-set style line 4 linetype 1 linecolor rgb "#000000" linewidth 2 # Preto
-set style line 5 linetype 2 linecolor rgb "#8B8B8B" linewidth 1 # Cinza (Grid)
+set style line 1  linetype 2 linecolor rgb "#A00000" linewidth 2 # Verm. escuro
+set style line 2  linetype 1 linecolor rgb "#FF0000" linewidth 3 # Vermelho
+set style line 3  linetype 2 linecolor rgb "#008000" linewidth 2 # Verde escuro
+set style line 4  linetype 1 linecolor rgb "#00FF00" linewidth 2 # Verde
+set style line 5  linetype 2 linecolor rgb "#000080" linewidth 2 # Azul escuro
+set style line 6  linetype 1 linecolor rgb "#0088AA" linewidth 2 # Azul médio
+set style line 7  linetype 1 linecolor rgb "#0000FF" linewidth 3 # Azul
+set style line 8  linetype 1 linecolor rgb "#5500D4" linewidth 2 # Roxo
+set style line 9  linetype 1 linecolor rgb "#008080" linewidth 2 # Ciano escuro
+set style line 10 linetype 1 linecolor rgb "#00FFCC" linewidth 2 # Ciano
+set style line 11 linetype 1 linecolor rgb "#FF0066" linewidth 2 # Magenta esc.
+set style line 12 linetype 1 linecolor rgb "#AA00AA" linewidth 2 # Magenta
+set style line 13 linetype 1 linecolor rgb "#FF6600" linewidth 2 # Laranja
+set style line 14 linetype 1 linecolor rgb "#000000" linewidth 2 # Preto
+set style line 15 linetype 2 linecolor rgb "#ADADAD" linewidth 1 # Cinza (Grid)
 
 set style function lines
 
-set grid ls 5
+# configurando o grid
+set grid ls 15
 
 # inicio dos plots #############################################################
+set xlabel 'Tempo [s]'
+set ylabel 'Nível [cm]'
+
+set xrange [0:105]
+
+set key autotitle column nobox samplen 1
+
+set style rect fc lt -1 fs solid 0.15 noborder
+
+# FSeDG ........................................................................
+set output "fsedg.tex"
+
+set obj rect from 15, graph 0 to 30, graph 1
+plot "../../softwares/simulacao_tanques_cpp/saidas/FSeDG/niveis_qualif.dat" \
+     using 1:2 title 'Ref. $T_1$' ls 1 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FSeDG/niveis_qualif.dat" \
+     using 1:4 title 'Saída $T_1$' ls 2 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FSeDG/niveis_qualif.dat" \
+     using 1:3 title 'Ref. $T_2$' ls 5 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FSeDG/niveis_qualif.dat" \
+     using 1:5 title 'Saída $T_2$' ls 7 with lines
+unset obj
+
+# FSeDO ........................................................................
+# FSeSR ........................................................................
+# FSeQ  ........................................................................
+
+# FADG .........................................................................
+# FADO .........................................................................
+# FASR .........................................................................
+# FAVK .........................................................................
+# FAQ  .........................................................................
+
+# FSiVzT   .....................................................................
+# FSiVrOS  .....................................................................
+# FSiVrGMP .....................................................................
+# FSiEOS .......................................................................
+
+# Outros .......................................................................
 set xlabel 'ads $\displaystyle\int_ a^b l_i di$'
 set ylabel 'Este é o eixo $y$ e teste $\Delta$'
 

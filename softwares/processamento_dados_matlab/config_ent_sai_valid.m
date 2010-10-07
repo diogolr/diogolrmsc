@@ -6,7 +6,7 @@ function [entrada saida erros] = config_ent_sai_valid( arq_niveis, ...
     mat_niveis = dlmread( arq_niveis, '\t' );
     mat_erro_sc = dlmread( arq_erro_sc, '\t' );
 
-    % Ajustanto os dados das matrizes de entrada e saida --------------
+    % Ajustanto os dados das matrizes de entrada e saida -----------------------
     [entrada saida] = ajustar_dados( mat_niveis, mat_erro_sc );
 
     clear mat_niveis;
@@ -22,7 +22,7 @@ function [entrada saida erros] = config_ent_sai_valid( arq_niveis, ...
     regressores_melhor_rede = ordem_melhor_rede - 1;
 
     entrada_melhor_rede = adicionar_regressores( entrada, ...
-                                           regressores_melhor_rede*vetor );
+                                                regressores_melhor_rede*vetor );
 
     % Entrada para rede atual com regressores
     entrada = adicionar_regressores( entrada, regressores*vetor );
@@ -49,21 +49,26 @@ function [entrada saida erros] = config_ent_sai_valid( arq_niveis, ...
     % Configurando a nova saida
     saida = zeros( num_amostras, 2 );
 
-    % Dentro do tempo total, sera simulado um periodo sem falha, um 
-    % periodo com falha somente no tanque 1, um periodo com falha 
-    % somente no tanque 2 e um ultimo periodo com falha nos dois 
-    % tanques. Por esse motivo o numero de amostras e dividido por 
-    % quatro.
+    % Dentro do tempo total, sera simulado um periodo sem falha, um periodo com
+    % falha somente no tanque 1, um periodo com falha somente no tanque 2 e um
+    % ultimo periodo com falha nos dois tanques. Por esse motivo o numero de
+    % amostras e dividido por quatro.
     %
     % EXEMPLO
     % No primeiro intervalo nao sera simulada nenhuma falha, logo so ha
-    % necessidade de modificar os intervalos 2 a 4. Portanto, para um 
-    % caso com 12000 amstras as linhas a serem modificadas serao da 
-    % 3001 ate a 6000, da 6001 ate a 9000 e da 9001 ate a 12000
-    div = num_amostras / 4;
+    % necessidade de modificar os intervalos 2 a 4. Portanto, para um caso com
+    % 12000 amstras as linhas a serem modificadas serao da 3001 ate a 6000, da
+    % 6001 ate a 9000 e da 9001 ate a 12000
+    
+    % Para validacao ===========================================================
+%     div = num_amostras / 4;
+%     linhas = [div+1 2*div; 2*div+1 3*div; 3*div+1 4*div];
 
-    linhas = [div+1 2*div; 2*div+1 3*div; 3*div+1 4*div];
+    % Para os resultados da qualificacao =======================================
+    div = num_amostras / 7;
 
+    linhas = [  div+1 2*div ; 3*div+1 4*div ; 5*div+1 6*div ];
+    
     % Falha T1
     saida( linhas( 1, 1 ) : linhas( 1, 2 ), 1 ) = -1.0;
     % Falha T2
