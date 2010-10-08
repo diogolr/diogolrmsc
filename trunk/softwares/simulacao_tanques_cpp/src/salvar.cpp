@@ -88,9 +88,11 @@ void Salvar :: inicializar()
             ui->end_real_erro_sc->setText( pasta_corrente + 
                                            "real_erro_sc.dat" );
             ui->end_sim_niveis->setText( pasta_corrente + 
-                                         "sim_niveis.dat" );
+                                         //"sim_niveis.dat" );
+                                         "niveis_qualif.dat" );
             ui->end_sim_erro_sc->setText( pasta_corrente + 
-                                          "sim_erro_sc.dat" );
+                                         //"sim_erro_sc.dat" );
+                                          "erro_sc_qualif.dat" );
 
             extensoes = "Arquivo de dados (*.dat)";
             break;

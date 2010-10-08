@@ -2,7 +2,8 @@
 
 function [entrada saida erros] = config_ent_sai_valid( arq_niveis, ...
                                                        arq_erro_sc, ...
-                                                       regressores )       
+                                                       regressores, ...
+                                                       validacao )       
     mat_niveis = dlmread( arq_niveis, '\t' );
     mat_erro_sc = dlmread( arq_erro_sc, '\t' );
 
@@ -61,14 +62,15 @@ function [entrada saida erros] = config_ent_sai_valid( arq_niveis, ...
     % 6001 ate a 9000 e da 9001 ate a 12000
     
     % Para validacao ===========================================================
-%     div = num_amostras / 4;
-%     linhas = [div+1 2*div; 2*div+1 3*div; 3*div+1 4*div];
-
+    if validacao
+        div = num_amostras / 4;
+        linhas = [div+1 2*div; 2*div+1 3*div; 3*div+1 4*div];
     % Para os resultados da qualificacao =======================================
-    div = num_amostras / 7;
-
-    linhas = [  div+1 2*div ; 3*div+1 4*div ; 5*div+1 6*div ];
-    
+    else
+        div = num_amostras / 7;
+        linhas = [  div+1 2*div ; 3*div+1 4*div ; 5*div+1 6*div ];
+    end
+        
     % Falha T1
     saida( linhas( 1, 1 ) : linhas( 1, 2 ), 1 ) = -1.0;
     % Falha T2
