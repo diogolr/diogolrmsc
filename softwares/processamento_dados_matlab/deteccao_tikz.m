@@ -1,5 +1,5 @@
 function [palavras] = deteccao_tikz ( rede, entrada, saida_desejada, ...
-                                      nome_arq, salvar )
+                                      nome_arq, salvar, validacao )
 
 	saida_rna = sim( rede, entrada );
 
@@ -56,63 +56,62 @@ function [palavras] = deteccao_tikz ( rede, entrada, saida_desejada, ...
                 palavra_t2_desej palavra_t2_rna };
     
     % Salvar em arquivo
-    if salvar
-        % Separadores
-        
+    if salvar       
         % Para as validacoes ===================================================
-%         div = num_amostras / 4;
-% 
-%         linhas = [div+1 2*div; 2*div+1 3*div; 3*div+1 4*div];
-%
-%         % Saida para tikz-timing - Tanques 1 e 2
-%         fid = fopen( strcat( nome_arq, '.tikz' ), 'w' );
-% 
-%         fprintf( fid, '\\begin{tikztimingtable}\n' );
-%         fprintf( fid, 'Desejado & ' );
-%         fprintf( fid, strcat( num2str( div ), 'U' ) );
-%         fprintf( fid, strcat( num2str( div ), 'D{Falha T1}' ) );
-%         fprintf( fid, strcat( num2str( div ), 'D{Falha T2}' ) );
-%         fprintf( fid, strcat( num2str( div ), 'D{Falha T1 + T2}\\\\\n' ) );
-%         fprintf( fid, 'Detecção T1 & %s%s%s\\\\\n', ...
-%                       palavra_t1_rna( linhas( 1,1 ) : linhas( 1,2 ) ), ...
-%                       palavra_t1_rna( linhas( 2,1 ) : linhas( 2,2 ) ), ...
-%                       palavra_t1_rna( linhas( 3,1 ) : linhas( 3,2 ) ) );
-% 
-%         fprintf( fid, 'Detecção T2 & %s%s%s\\\\\n', ...
-%                       palavra_t2_rna( linhas( 1,1 ) : linhas( 1,2 ) ), ...
-%                       palavra_t2_rna( linhas( 2,1 ) : linhas( 2,2 ) ), ...
-%                       palavra_t2_rna( linhas( 3,1 ) : linhas( 3,2 ) ) );
-%         fprintf( fid, '\\end{tikztimingtable}\n' );
-% 
-%         fclose( fid );
-        
+        if validacao
+            div = num_amostras / 4;
+
+            linhas = [div+1 2*div; 2*div+1 3*div; 3*div+1 4*div];
+
+            % Saida para tikz-timing - Tanques 1 e 2
+            fid = fopen( strcat( nome_arq, '.tikz' ), 'w' );
+
+            fprintf( fid, '\\begin{tikztimingtable}\n' );
+            fprintf( fid, 'Desejado & ' );
+            fprintf( fid, strcat( num2str( div ), 'U' ) );
+            fprintf( fid, strcat( num2str( div ), 'D{Falha T1}' ) );
+            fprintf( fid, strcat( num2str( div ), 'D{Falha T2}' ) );
+            fprintf( fid, strcat( num2str( div ), 'D{Falha T1 + T2}\\\\\n' ) );
+            fprintf( fid, 'Detecção T1 & %s%s%s\\\\\n', ...
+                          palavra_t1_rna( linhas( 1,1 ) : linhas( 1,2 ) ), ...
+                          palavra_t1_rna( linhas( 2,1 ) : linhas( 2,2 ) ), ...
+                          palavra_t1_rna( linhas( 3,1 ) : linhas( 3,2 ) ) );
+
+            fprintf( fid, 'Detecção T2 & %s%s%s\\\\\n', ...
+                          palavra_t2_rna( linhas( 1,1 ) : linhas( 1,2 ) ), ...
+                          palavra_t2_rna( linhas( 2,1 ) : linhas( 2,2 ) ), ...
+                          palavra_t2_rna( linhas( 3,1 ) : linhas( 3,2 ) ) );
+            fprintf( fid, '\\end{tikztimingtable}\n' );
+
+            fclose( fid );
         % Para os resultados da qualificacao ===================================
-        div = num_amostras / 7;
+        else
+            div = num_amostras / 7;
+            linhas = [  div+1 2*div ; 3*div+1 4*div ; 5*div+1 6*div ];
 
-        linhas = [  div+1 2*div ; 3*div+1 4*div ; 5*div+1 6*div ];
-        
-        % Saida para tikz-timing - Tanques 1 e 2
-        fid = fopen( strcat( nome_arq, '.tikz' ), 'w' );
+            % Saida para tikz-timing - Tanques 1 e 2
+            fid = fopen( strcat( nome_arq, '.tikz' ), 'w' );
 
-        fprintf( fid, '\\begin{tikztimingtable}\n' );
-        fprintf( fid, 'Desejado & ' );
-        fprintf( fid, strcat( num2str( div ), 'U' ) );
-        fprintf( fid, strcat( num2str( div ), 'D{Falha T1}' ) );
-        fprintf( fid, strcat( num2str( div ), 'U' ) );
-        fprintf( fid, strcat( num2str( div ), 'D{Falha T2}' ) );
-        fprintf( fid, strcat( num2str( div ), 'U' ) );
-        fprintf( fid, strcat( num2str( div ), 'D{Falha T1 + T2}\\\\\n' ) );
-        fprintf( fid, 'Detecção T1 & %s%s%s\\\\\n', ...
-                      palavra_t1_rna( linhas( 1,1 ) : linhas( 1,2 ) ), ...
-                      palavra_t1_rna( linhas( 2,1 ) : linhas( 2,2 ) ), ...
-                      palavra_t1_rna( linhas( 3,1 ) : linhas( 3,2 ) ) );
+            fprintf( fid, '\\begin{tikztimingtable}\n' );
+            fprintf( fid, 'Desejado & ' );
+            fprintf( fid, strcat( num2str( div ), 'U' ) );
+            fprintf( fid, strcat( num2str( div ), 'D{Falha T1}' ) );
+            fprintf( fid, strcat( num2str( div ), 'U' ) );
+            fprintf( fid, strcat( num2str( div ), 'D{Falha T2}' ) );
+            fprintf( fid, strcat( num2str( div ), 'U' ) );
+            fprintf( fid, strcat( num2str( div ), 'D{Falha T1 + T2}\\\\\n' ) );
+            fprintf( fid, 'Detecção T1 & %s%s%s\\\\\n', ...
+                          palavra_t1_rna( linhas( 1,1 ) : linhas( 1,2 ) ), ...
+                          palavra_t1_rna( linhas( 2,1 ) : linhas( 2,2 ) ), ...
+                          palavra_t1_rna( linhas( 3,1 ) : linhas( 3,2 ) ) );
 
-        fprintf( fid, 'Detecção T2 & %s%s%s\\\\\n', ...
-                      palavra_t2_rna( linhas( 1,1 ) : linhas( 1,2 ) ), ...
-                      palavra_t2_rna( linhas( 2,1 ) : linhas( 2,2 ) ), ...
-                      palavra_t2_rna( linhas( 3,1 ) : linhas( 3,2 ) ) );
-        fprintf( fid, '\\end{tikztimingtable}\n' );
+            fprintf( fid, 'Detecção T2 & %s%s%s\\\\\n', ...
+                          palavra_t2_rna( linhas( 1,1 ) : linhas( 1,2 ) ), ...
+                          palavra_t2_rna( linhas( 2,1 ) : linhas( 2,2 ) ), ...
+                          palavra_t2_rna( linhas( 3,1 ) : linhas( 3,2 ) ) );
+            fprintf( fid, '\\end{tikztimingtable}\n' );
 
-        fclose( fid );
+            fclose( fid );
+        end
     end
 end

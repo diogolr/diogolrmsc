@@ -8,7 +8,7 @@ function [matriz] = contar_sequencia( vetor )
     
     contador = 1;
     
-    inicio = 1;
+    inicio = vetor( 1 );
     fim = 0;
     
     linha = 1;

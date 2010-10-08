@@ -12,6 +12,9 @@ saida_tikz = 1;
 % saida_gnuplot = input( 'Gerar saida para gnuplot [0 ou 1]: ' );
 saida_gnuplot = 1;
 
+% Analisar arquivos de validacao
+validacao = 0;
+
 % Melhores redes para as deteccoes de falha
 % Cada linha contem [ORDEM NCO TREINAMENTO]
 melhores = [ 4 28 2 ; ... % FSeDG
@@ -66,7 +69,8 @@ for i = 1 : length( falhas )
 
     [entrada saida residuos] = config_ent_sai_valid( arq_niveis, ...
                                                      arq_erro_sc, ...
-                                                     regressores );
+                                                     regressores, ...
+                                                     validacao );
 
     % Determinando o nome do arquivo final e chamando o metodo para 
     % gerar a saida
@@ -74,7 +78,7 @@ for i = 1 : length( falhas )
 
     % Capturando as palavras de saida geradas para o tikz
     palavras = deteccao_tikz( rede_detec, entrada, saida, ...
-                              nome_final, saida_tikz );
+                              nome_final, saida_tikz, validacao );
 
     % Determinando as sequencias de deteccao
     sequencias = { contar_sequencia( find( palavras{1,1} == 'H' ) ) ...
@@ -105,11 +109,9 @@ for i = 1 : length( falhas )
         % corretos em que as falhas foram detectadas
         matriz_saida_t1 = [ sequencias{1,2}*0.1 ];
         matriz_saida_t2 = [ sequencias{2,2}*0.1 ];
-                
-        dlmwrite( strcat( nome_final, '_t1.dat' ), matriz_saida_t1, ...
-                  'delimiter', '\t' );
-        dlmwrite( strcat( nome_final, '_t2.dat' ), matriz_saida_t2, ...
-                  'delimiter', '\t' );
+        
+        deteccao_gnuplot( strcat( nome_final, '_t1.gp' ), matriz_saida_t1, 1 );
+        deteccao_gnuplot( strcat( nome_final, '_t2.gp' ), matriz_saida_t2, 2 );
     end
 
     % Limpando as variaveis de ambiente carregadas com o load

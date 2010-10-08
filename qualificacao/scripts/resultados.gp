@@ -38,7 +38,7 @@ set style line 15 linetype 2 linecolor rgb "#ADADAD" linewidth 1 # Cinza (Grid)
 set style function lines
 
 # configurando o grid
-set grid ls 15
+# set grid ls 15
 
 # inicio dos plots #############################################################
 set xlabel 'Tempo [s]'
@@ -46,25 +46,43 @@ set ylabel 'Nível [cm]'
 
 set xrange [0:105]
 
-set key autotitle column nobox samplen 1
-
-set style rect fc lt -1 fs solid 0.15 noborder
+# Legenda
+set key inside left top vertical Left reverse enhanced autotitles nobox
+set key noinvert samplen 1 spacing 1 width 0 height 0
 
 # FSeDG ........................................................................
-set output "fsedg.tex"
-
-set obj rect from 15, graph 0 to 30, graph 1
+set output "fsedg_t1.tex"
+load "../../dados/qualificacao/FSeDG_t1.gp"
 plot "../../softwares/simulacao_tanques_cpp/saidas/FSeDG/niveis_qualif.dat" \
      using 1:2 title 'Ref. $T_1$' ls 1 with lines,\
      "../../softwares/simulacao_tanques_cpp/saidas/FSeDG/niveis_qualif.dat" \
-     using 1:4 title 'Saída $T_1$' ls 2 with lines,\
-     "../../softwares/simulacao_tanques_cpp/saidas/FSeDG/niveis_qualif.dat" \
+     using 1:4 title 'Saída $T_1$' ls 2 with lines
+
+unset obj
+
+set output "fsedg_t2.tex"
+load "../../dados/qualificacao/FSeDG_t2.gp"
+plot "../../softwares/simulacao_tanques_cpp/saidas/FSeDG/niveis_qualif.dat" \
      using 1:3 title 'Ref. $T_2$' ls 5 with lines,\
      "../../softwares/simulacao_tanques_cpp/saidas/FSeDG/niveis_qualif.dat" \
      using 1:5 title 'Saída $T_2$' ls 7 with lines
+
 unset obj
 
 # FSeDO ........................................................................
+set output "fsedo.tex"
+load "../../dados/qualificacao/FSeDO_t1.gp"
+load "../../dados/qualificacao/FSeDO_t2.gp"
+plot "../../softwares/simulacao_tanques_cpp/saidas/FSeDO/niveis_qualif.dat" \
+     using 1:2 title 'Ref. $T_1$' ls 1 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FSeDO/niveis_qualif.dat" \
+     using 1:4 title 'Saída $T_1$' ls 2 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FSeDO/niveis_qualif.dat" \
+     using 1:3 title 'Ref. $T_2$' ls 5 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FSeDO/niveis_qualif.dat" \
+     using 1:5 title 'Saída $T_2$' ls 7 with lines
+unset obj
+
 # FSeSR ........................................................................
 # FSeQ  ........................................................................
 
@@ -72,6 +90,23 @@ unset obj
 # FADO .........................................................................
 # FASR .........................................................................
 # FAVK .........................................................................
+set output "favk_t1.tex"
+load "../../dados/qualificacao/FAVK_t1.gp"
+plot "../../softwares/simulacao_tanques_cpp/saidas/FAVK/niveis_qualif.dat" \
+     using 1:2 title 'Ref. $T_1$' ls 1 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FAVK/niveis_qualif.dat" \
+     using 1:4 title 'Saída $T_1$' ls 2 with lines
+
+unset obj
+
+set output "favk_t2.tex"
+load "../../dados/qualificacao/FAVK_t2.gp"
+plot "../../softwares/simulacao_tanques_cpp/saidas/FAVK/niveis_qualif.dat" \
+     using 1:3 title 'Ref. $T_2$' ls 5 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FAVK/niveis_qualif.dat" \
+     using 1:5 title 'Saída $T_2$' ls 7 with lines
+
+unset obj
 # FAQ  .........................................................................
 
 # FSiVzT   .....................................................................
