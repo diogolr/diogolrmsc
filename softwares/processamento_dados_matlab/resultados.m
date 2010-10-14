@@ -75,6 +75,11 @@ for i = 1 : length( falhas )
     % Determinando o nome do arquivo final e chamando o metodo para 
     % gerar a saida
     nome_final = strcat( '../../dados/qualificacao/', falhas{i} );
+    
+    % Salvando os residuos
+    dlmwrite( strcat( nome_final, '_residuos.dat' ), ...
+              [(0.1:0.1:size(entrada,2)*0.1)' residuos'], ...
+              'delimiter', '\t' );
 
     % Capturando as palavras de saida geradas para o tikz
     palavras = deteccao_tikz( rede_detec, entrada, saida, ...

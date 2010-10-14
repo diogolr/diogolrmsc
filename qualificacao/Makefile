@@ -8,13 +8,12 @@ script: scripts/Makefile
 	cd scripts && make
 
 principal: principal.tex
-	latex principal
+	latex -shell-escape principal
 	makeindex -s makeglo.ist -o principal.gls principal.glo
-	bibtex principal
-	latex principal
-	latex principal
+	bibtex principal 
+	latex -shell-escape principal
+	latex -shell-escape principal
 	dvipdf principal
-	mv *.eps scripts
 	evince principal.pdf&
 
 clean: 
