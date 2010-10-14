@@ -1,8 +1,333 @@
 \mychapter{Sistema proposto}
 \label{cap:sistema}
 
+Uma vez que se abordou o conhecimento teórico relativo ao sistema proposto ao
+longo dos capítulos anteriores, pode-se agora mostrar como esse sistema será
+constituído.
+
+Assim sendo, a primeira parte do capítulo descreverá em detalhes o modelo de
+estudo de caso escolhido para ser simulado, mostrando suas características e
+limitações. Em seguida a atenção será voltada para as estruturas neurais de
+identificação do modelo e de detecção das falhas, mostrando ao final como serão
+realizadas as simulações.
+
 % ------------------------------------------------------------------------------
 \section{Estudo de caso}
+Ao final do Cap. \ref{cap:introducao}, após ter-se comentado sobre a utilização
+das RNAs em sistemas de DDF, propôs-se que será desenvolvido um sistema para
+realizar a detecçao e o diagnóstico de falhas em um processo dinâmico. Para que
+isso seja possível serão utilizadas estruturas neurais que farão uso de
+determinados valores obtidos a partir das medições realizadas no processo.
+
+O processo em questão, ao qual se refere o parágrafo anterior, é formado por um
+sistema de tanques acoplados desenvolvidos pela Quanser\reg, representado
+esquematicamente na Fig. \ref{fig:tanques}.
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.7\textwidth]{imgs/sistema/eps/tanques}
+    \caption{Sistema de tanques acoplados da Quanser\reg.}
+    \label{fig:tanques}
+\end{figure}
+
+O sistema original consiste de uma bomba de água de corrente contínua e dois
+tanques acoplados. A alimentação de água pela bomba se dá de forma vertical
+através de dois orifícios com conectores normalmente fechados, de diferentes
+diâmetros, denominados {\it Out 1} e {\it Out 2}. Para facilitar o entendimento
+e evitar confusões com relação aos orifícios de saída dos tanques ($a_1$ e
+$a_2$), esses orifícios serão tratados como orifícios de entrada.
+
+\Glossary{$a_i$}{Orifício de saída $i$}
+
+Os tanques ($T_1$ e $T_2$) são montados na parte frontal do suporte de base e
+posicionados de tal forma que a água flui do tanque superior ($T_1$) para o
+tanque inferior ($T_2$) através do orifício $a_1$, e do tanque inferior para o
+reservatório através do orifício $a_2$. As vazões de saída dos tanques variam de
+acordo com a mudança desses orifícios, disponibilizados em três diâmetros
+diferentes pelo fabricante.
+
+\Glossary{$T_1$}{Tanque superior}
+\Glossary{$T_2$}{Tanque inferior}
+
+Além dos diferentes orifícios de saída, o fabricante também disponibiliza um
+conjunto de mangueiras, tornando possível a utilização dos dois orifícios de
+entrada, bombeando água para os dois tanques simultaneamente. As dimensões de
+cada um dos orifícios e os demais parâmetros do sistema podem ser visualizadas
+na Tab. \ref{tab:dimensoes}.
+
+\begin{table}[!htb]
+\centering
+\caption{Dimensões e parâmetros do sistema de tanques.}
+\label{tab:dimensoes}
+\vspace{0.25cm}
+\begin{tabular}{|l|c|c|c|}
+\hline
+{\bf Nome} & {\bf Símbolo} & {\bf Valor} & {\bf Unidade}\\
+\hline
+\hline
+\multicolumn{4}{|l|}{{\bf Bomba}}\\
+\hline
+\hline
+Constante de fluxo & $K_m$ & 4,6 & (cm${}^3$/s)/V\\
+\hline
+Limites de Tensão & $V_{p_{\text{\tiny MIN/MAX}}}$ & $\pm 15$ & Volts\\
+\hline
+Orifício de entrada 1 & {\it Out 1} & 0,635 & cm\\
+\hline
+Orifício de entrada 2 & {\it Out 2} & 0,4763 & cm\\
+\hline
+\multicolumn{4}{|l|}{{\bf Tanque 1/Tanque 2}}\\
+\hline
+\hline
+Altura & $H_1$/$H_2$ & 30 & cm\\
+\hline
+Diâmetro interno & -- & 4,445 & cm\\
+\hline
+Área de secção transversal & $A_1$/$A_2$ & 15,517916547 & cm${}^2$\\
+\hline
+Sensibilidade do sensor & -- & 5 & cm/V \\
+\hline
+\multicolumn{4}{|l|}{{\bf Orifícios de saída -- Diâmetros}}\\
+\hline
+\hline
+Orifício pequeno & $a_{i_{\text{\tiny PEQ}}}$ & 0,3175 & cm\\
+\hline
+Orifício médio & $a_{i_{\text{\tiny MED}}}$ & 0,47625 & cm\\
+\hline
+Orifício grande & $a_{i_{\text{\tiny GDE}}}$ & 0,555625 & cm\\
+\hline
+\multicolumn{4}{|l|}{{\bf Orifícios de saída -- Áreas}}\\
+\hline
+\hline
+Orifício pequeno & $a_{i_{\text{\tiny PEQ}}}$ & 0,079173044 & cm${}^2$\\
+\hline
+Orifício médio & $a_{i_{\text{\tiny MED}}}$ & 0,178139348 & cm${}^2$\\
+\hline
+Orifício grande & $a_{i_{\text{\tiny GDE}}}$ & 0,242467446 & cm${}^2$\\
+\hline
+\multicolumn{4}{|l|}{{\bf Sensores}}\\
+\hline
+\hline
+{\it Range} de pressão & -- & 0 - 1 & PSI\\
+\hline
+{\it Range} de nível & -- & 0 - 30 & cm\\
+\hline
+Constante de sensibilidade & $K_s$ & $6,25\times$ & cm/V\\
+\hline
+\end{tabular}
+\end{table}
+
+Dentre as várias combinações possíveis obtidas a partir da mudança dos orifícios
+de entrada e saída, as três configurações sugeridas pelo manual do fabricante
+encontram-se representadas na Fig. \ref{fig:config_fab}. Cada uma dessas
+configurações modifica a dinâmica do processo, permitindo que sejam projetados e
+analisados diferentes tipos de controladores.
+
+\begin{figure}[!htb]
+\centering
+\subfigure[Configuração 1]
+{
+    \includegraphics[width=0.31\textwidth]{imgs/sistema/eps/config_fab_1}
+    \label{fig:config_fab_1}
+}
+\subfigure[Configuração 2]
+{
+    \includegraphics[width=0.31\textwidth]{imgs/sistema/eps/config_fab_2}
+    \label{fig:config_fab_2}
+}
+\subfigure[Configuração 3]
+{
+    \includegraphics[width=0.31\textwidth]{imgs/sistema/eps/config_fab_3}
+    \label{fig:config_fab_3}
+}
+\caption{Configurações sugeridas pelo fabricante.}
+\label{fig:config_fab}
+\end{figure}
+
+Na primeira configuração deseja-se controlar o nível de $T_1$ ($L_1$) através de
+uma alimentação direta, não fazendo uso do segundo tanque. Na segunda
+configuração deseja-se controlar o nível de $T_2$ ($L_2$) a partir de uma
+alimentação indireta em $T_1$. Assim, $T_2$ é alimentado a partir da água que
+escoa de $T_1$ pelo orifício $a_1$. Por fim, na terceira configuração, deseja-se
+controlar o nível de $T_2$ a partir da alimentação indireta de $T_1$ e da
+alimentação direta de $T_2$. Para isso, faz-se uso dos dois orifícios de
+entrada.
+
+\Glossary{$L_1$}{Nível do tanque superior}
+\Glossary{$L_2$}{Nível do tanque inferior}
+
+Em todos os casos pode-se perceber que o sistema se comporta como um sistema de
+uma única entrada, que é a tensão de alimentação da bomba, e uma única saída
+({\it Single Input and Single Output} -- SISO), que pode ser $L_1$ ou $L_2$,
+dependendo da configuração.
+
+\Glossary{SISO}{{\it Single Input and Single Output}}
+
+% TODO O controlador atua enviando um sinal de tensão para bomba... -3 a 3 =>
+%Amplificador => -15 a 15
+
+\subsection{Modelo matemático}
+
+Como os dois tanques possuem mesma área de secção transversal ($A_1 = A_2$), a
+dinâmica dos dois tanques será semelhante. Entretanto, encontrar um modelo
+matemático que descreva adequadamente a dinâmica desses tanques não é algo tão
+simples, visto que as equações gerais de movimento e energia que descrevem o
+escoamento de fluidos são bastante complicadas \cite{dorf:2009}.
+
+Assim sendo, é preciso que sejam feitas algumas hipóteses fundamentais.
+Admite-se que a água no tanque é incompressível e que o escoamento é
+não-viscoso, não-rotacional e regular. Cada uma dessas características serão
+descritas a seguir baseadas na argumentação exposta em \citeasnoun{dorf:2009}.
+
+Diz-se que um fluido é incompressível quando este possui uma massa específica
+constante. Entretanto, sabe-se que todo fluido é compressível em certo grau e
+que o fator de compressibilidade $k$ é uma medida de sua compressibilidade.
+Quanto menor o valor de $k$, menor é a compressibilidade indicada para aquele
+fluido. O ar, que é um fluido compressível, possui um fator de compressibilidade
+$k_{\text{ar}} = 0,98\ \text{m}^2/\text{N}$, enquanto que a água tem um fator de
+compressibilidade de $k_{\text{H}_2\text{O}} = 4,9 \times 10^{-10}\
+\text{m}^2/\text{N} = 50 \times 10^{-6}\ \text{atm}^{-1}$. Em outras palavras,
+um dado volume de água diminui em 50 milionésimos de seu volume original para um
+aumento de uma atmosfera na pressão. Desse modo, a hipótese de que a água é
+incompressível é valida para o sistema em questão.
+
+Já a viscosidade de um fluido é dada pelo seu coeficiente de viscosidade $\mu\
+(\text{N}\cdotp \text{s}/\text{m}^2)$. Quanto maior esse coeficiente, mais
+viscoso é o fluido. Como exemplo, o coeficiente de viscosidade em condições
+normais à 20\textdegree C para o ar é $\mu_{\text{ar}} = 0,178 \times 10^{-4}\
+\text{N}\cdotp \text{s}/\text{m}^2$ enquanto que para a água
+$\mu_{\text{H}_2\text{O}} = 1,054 \times 10^{-3}\ \text{N}\cdotp
+\text{s}/\text{m}^2$. Assim, a água é cerca de 60 vezes mais viscosa que o ar.
+Vale salientar que a viscosidade depende principalmente da temperatura e não da
+pressão. Para efeitos de comparação, a água à 0\textdegree C é 2 vezes mais
+viscosa que a água à 20\textdegree C. Com fluidos de baixa viscosidade como o ar
+e a água, os efeitos do atrito são importantes apenas nas camadas de fronteira e
+em uma fina camada adjacente à parede do reservatório e da tubulação de saída.
+Assim, pode-se desprezar a viscosidade no desenvolvimento do modelo.
+
+\Glossary{$\mu_{\text{ar}}$}{Coeficiente de viscosidade do ar}
+\Glossary{$\mu_{\text{H}_2\text{O}}$}{Coeficiente de viscosidade da água}
+
+Se cada elemento do fluido em cada ponto do escoamento não tem velocidade
+angular com relação a esse ponto, o fluxo é denominado não-rotacional. Admita
+que a água no tanque é não-rotacional. Logo, para um fluido não-viscoso, um
+fluxo inicialmente não-rotacional permanece não-rotacional.
+
+Por fim, o fluxo de água é dito regular se a velocidade em cada ponto é
+constante com o tempo. Isso não implica necessariamente que a velocidade seja a
+mesma em cada ponto, mas sim que em qualquer ponto a velocidade não mude com o
+tempo. Condições de regime regular podem ser atingidas em velocidades baixas do
+fluido. Admita então que há condições de fluxo regular. Observa-se entretanto
+que se a área de abertura de saída fosse muito grande, o fluxo através do
+reservatório não seria lento o suficiente para o estabelecimento das
+condições de regime regular o que faria com que o modelo não conseguisse
+predizer o fluxo do fluido de maneira exata.
+
+Tendo esclarecido essas condições, para se obter o modelo matemático do fluido
+dentro do reservatório emprega-se os princípios básicos da ciência e da
+engenharia, como o princípio da conservação da massa. Assim, a massa de água em
+qualquer instante de tempo é dada pela Eq. \ref{eq:conserv}.
+
+\begin{equation}\label{eq:conserv}
+m = \rhoagua\ AL
+\end{equation}
+
+\noindent em que $\rho_{\tiny \text{\tiny H}_2\text{\tiny O}}$ é a massa
+específica da água, $A$ a área de secção transversal do reservatório e $L$ a
+altura de água no reservatório. Tomando a derivada temporal de $m$ na Eq.
+\ref{eq:conserv}, tem-se:
+
+\begin{equation}
+\dot{m} = \rhoagua\ A\dot{L}
+\end{equation}
+
+\noindent na qual utilizou-se o fato do fluido ser incompressível (ou seja,
+$\dot{\rho} = 0$). Como a área de secção transversal não varia com o tempo, a
+mudança de massa no reservatório é igual a massa que entra menos a massa que
+deixa o tanque, logo:
+ 
+\begin{equation}\label{eq:mudanca_massa}
+\dot{m} = \rhoagua\ A\dot{L} = 
+            Q_{\text{\tiny IN}} - 
+\underbrace{\rhoagua\ a\upsilon_{\text{\tiny OUT}}}_
+           {Q_{\text{\tiny OUT}}}
+\end{equation}
+
+\noindent em que $Q_{\text{\tiny IN}}$ é a vazão de entrada de massa em regime
+permanente, $a$ é a área do orifício de saída e $\upsilon_{\text{\tiny OUT}}$ é
+a velocidade de saída do fluido, que é uma função da altura da água. Da equação
+de Bernoulli \cite{houghton:2002}, tem-se:
+
+\begin{equation}
+P_{\text{\tiny IN}} + 
+\frac{1}{2}\rhoagua\ {\upsilon_{\text{\tiny IN}}}^2 +
+\rhoagua\ gL
+=
+\frac{1}{2}\rhoagua\ {\upsilon_{\text{\tiny OUT}}}^2 +
+P_{\text{\tiny OUT}}
+\end{equation}
+
+\noindent em que $\upsilon_{\text{\tiny IN}}$ é a velocidade da água na entrada
+do reservatório e $P_{\text{\tiny IN}}$ e $P_{\text{\tiny OUT}}$ são as pressões
+na entrada e na saída, respectivamente. Mas $P_{\text{\tiny IN}}$ e
+$P_{\text{\tiny OUT}}$ são iguais à pressão atmosférica e a área de $a$ é
+suficientemente pequena ($a \approx A/85$, considerando o orifício de saída
+médio) para que a água escoe vagarosamente e a velocidade $\upsilon_{\text{\tiny
+IN}}$ seja desprezível. Assim, a equação de Bernoulli fica reduzida a:
+
+\begin{equation}\label{eq:bernoulli_red}
+\upsilon_{\text{\tiny OUT}} = \sqrt{2gL}
+\end{equation}
+
+Além disso, segundo \citeasnoun{apkarian:1999}, a vazão de entrada
+$Q_{\text{\tiny IN}}$ depende apenas da constante da bomba e da tensão à ela
+aplicada, podendo ser positiva, quando a água é sugada do reservatório e
+injetada no tanque, ou negativa quando a água é sugada do tanque e devolvida ao
+reservatório. Assim:
+
+\begin{equation}\label{eq:vazao_ent}
+Q_{\text{\tiny IN}} = K_mV_p
+\end{equation}
+
+Substituindo então as Eqs. \ref{eq:bernoulli_red} e \ref{eq:vazao_ent} na Eq.
+\ref{eq:mudanca_massa} e resolvendo para $\dot{L}$, tem-se:
+
+\begin{equation}\label{eq:}
+\dot{L} = -\left[\frac{a}{A}\sqrt{2g}\right]\sqrt{L} + 
+          \frac{1}{\rhoagua\ A}K_mV_p
+\end{equation}
+
+% Continuar a partir do Dorf (eq 4.3 daqui do texto para obter Q_out)
+
+\begin{comment}
+ , exceto pelo fato de que a vazão de
+entrada de $T_2$ irá depender apenas da vazão de entrada e da vazão de saída
+de cada tanque. Entretanto, a vazão de saída da bomba
+
+ Assim, as configurações
+são estabelecidas de acordo com os orifícios de saída dos tanques e dos
+orifícios de saída das bomba.
+
+Mas, para isso, algumas considerações devem ser
+feitas conforme demonstrado a seguir.
+
+% TODO mostrar características expostas no dorf
+
+Com o intuito de tornar a aplicação mais genérica, o sistema
+original foi modificado introduzindo uma nova bomba, possibilitando novas
+configurações, tais como aquelas representadas pela Fig.
+\ref{fig:configuracoes}. 
+
+Na primeira configuração (Fig. \ref{configuracoes_a}) as saídas duas bombas
+estão dispostas de maneira individual com relação aos tanques. Já na segunda
+configuração, as saídas estão posicionadas no tanque superior.
+
+%Tal modificação faz com que o sistema se torne do tipo MIMO ({\it Multiple
+%Input and Multiple Output})
+
+Dessa forma, o sistema passa a ser composto por dois tanques e duas bombas, no
+qual a água que sai do primeiro tanque é despejada no segundo tanque
+\end{comment}
 
 % ------------------------------------------------------------------------------
 \section{Limitações do processo}

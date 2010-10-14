@@ -6,80 +6,43 @@
 % Valores utilizados => Observar folha
 
 \begin{figure}[htb]
-\small
+\footnotesize
 \centering
-\subfigure
-{
-\scalebox{0.57}{\input{scripts/fsedg_t1}}
-}
-\subfigure
-{
-\scalebox{0.57}{\input{scripts/fsedg_t2}}
-}
+\input{scripts/fsedg}
+\vspace{1cm}
 \caption{FSeDG (80\%)}
 \label{fig:fsedg}
 \end{figure}
 
-\begin{figure}[htb]
-\small
-\centering
-\subfigure
-{
-\scalebox{0.57}{\input{scripts/favk_t1}}
-}
-\subfigure
-{
-\scalebox{0.57}{\input{scripts/favk_t2}}
-}
-\caption{FAVK (75\%)}
-\label{fig:favk}
-\end{figure}
-
-
-\begin{tikzpicture}
-\scriptsize
-\begin{axis}
-\addplot+[const plot] coordinates
-{(0,0.1)    (0.1,0.15)  (0.2,0.5)   (0.3,0.62)
- (0.4,0.56) (0.5,0.58)  (0.6,0.65)  (0.7,0.6)
- (0.8,0.58) (0.9,0.55)  (1,0.52)};
-\end{axis}
-\end{tikzpicture}
-
-\begin{pgfpicture}
-  \pgfsetlinewidth{5mm}
-  \color{red}
-  \pgfpathcircle{\pgfpoint{0cm}{0cm}}{10mm} \pgfusepath{stroke}
-  \color{black}
-  \pgfsetstrokeopacity{0.5}
-  \pgfpathcircle{\pgfpoint{1cm}{0cm}}{10mm} \pgfusepath{stroke}
-\end{pgfpicture}
-
-\begin{comment}
-\begin{figure}
-\centering
-\input{../dados/deteccao/FSeDG/O4/N28/O4N28T2_qualif.tikz}
-\caption{lalala}
-\end{figure}
-\end{comment}
 
 \begin{figure}[htb]
-\centering
 \footnotesize
-\input{scripts/teste}
-\caption{Lalala teste $\alpha$}
-\label{fig:teste}
+\centering
+\input{scripts/fsedo}
+\vspace{1cm}
+\caption{FSeDO (-2 cm)}
+\label{fig:fsedg}
 \end{figure}
+
 
 \begin{figure}[htb]
+\footnotesize
 \centering
-\scalebox{0.6}{\input{scripts/teste2}}
-\scalebox{0.6}{\input{scripts/teste2}}
-\caption{Lalala teste 2}
-\label{fig:teste2}
+\input{scripts/fsesr}
+\vspace{1cm}
+\caption{FSeSR ($\pm 3\%$)}
+\label{fig:fsedg}
 \end{figure}
 
-Este é um texto bem legal \ldots
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{scripts/fseq}
+\vspace{1cm}
+\caption{FSeQ}
+\label{fig:fsedg}
+\end{figure}
 
 % ------------------------------------------------------------------------------
 \section{Coleta dos dados}
