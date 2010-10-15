@@ -125,17 +125,17 @@ analisados diferentes tipos de controladores.
 
 \begin{figure}[!htb]
 \centering
-\subfigure[Configuração 1]
+\subfigure[Configuração 1.]
 {
     \includegraphics[width=0.31\textwidth]{imgs/sistema/eps/config_fab_1}
     \label{fig:config_fab_1}
 }
-\subfigure[Configuração 2]
+\subfigure[Configuração 2.]
 {
     \includegraphics[width=0.31\textwidth]{imgs/sistema/eps/config_fab_2}
     \label{fig:config_fab_2}
 }
-\subfigure[Configuração 3]
+\subfigure[Configuração 3.]
 {
     \includegraphics[width=0.31\textwidth]{imgs/sistema/eps/config_fab_3}
     \label{fig:config_fab_3}
@@ -233,8 +233,8 @@ m = \rhoagua\ AL
 \end{equation}
 
 \noindent em que $\rho_{\tiny \text{\tiny H}_2\text{\tiny O}}$ é a massa
-específica da água, $A$ a área de secção transversal do reservatório e $L$ a
-altura de água no reservatório. Tomando a derivada temporal de $m$ na Eq.
+específica da água, $A$ a área de secção transversal do reservatório e $L$ o
+nível de água no reservatório. Tomando a derivada temporal de $m$ na Eq.
 \ref{eq:conserv}, tem-se:
 
 \begin{equation}
@@ -292,42 +292,105 @@ Q_{\text{\tiny IN}} = K_mV_p
 Substituindo então as Eqs. \ref{eq:bernoulli_red} e \ref{eq:vazao_ent} na Eq.
 \ref{eq:mudanca_massa} e resolvendo para $\dot{L}$, tem-se:
 
-\begin{equation}\label{eq:}
+\begin{equation}\label{eq:l_ponto}
 \dot{L} = -\left[\frac{a}{A}\sqrt{2g}\right]\sqrt{L} + 
           \frac{1}{\rhoagua\ A}K_mV_p
 \end{equation}
 
-% Continuar a partir do Dorf (eq 4.3 daqui do texto para obter Q_out)
+Considerando que a massa específica da água é $\rhoagua \approx 1,0$ à
+20\textdegree C, então a Eq. \ref{eq:l_ponto} passa a ser:
 
-\begin{comment}
- , exceto pelo fato de que a vazão de
-entrada de $T_2$ irá depender apenas da vazão de entrada e da vazão de saída
-de cada tanque. Entretanto, a vazão de saída da bomba
+\begin{equation}\label{eq:l_ponto_final}
+\dot{L} = -\left[\frac{a}{A}\sqrt{2g}\right]\sqrt{L} + 
+          \frac{K_m}{A}V_p
+\end{equation}
 
- Assim, as configurações
-são estabelecidas de acordo com os orifícios de saída dos tanques e dos
-orifícios de saída das bomba.
+Assim, as duas únicas variáveis do modelo serão o nível $L$ do tanque e a tensão
+$V_p$ aplicada à bomba. Perceba que essa é uma equação diferencial ordinária
+não-linear.
 
-Mas, para isso, algumas considerações devem ser
-feitas conforme demonstrado a seguir.
+\subsection{Modificações do modelo}
+Observa-se que Eq. \ref{eq:l_ponto_final} representa adequadamente a dinâmica do
+tanque superior, contudo, a dinâmica do tanque inferior age um pouco diferente.
+Em primeiro lugar, dependendo da configuração escolhida $T_2$ poderá ou não
+receber uma alimentação direta. Considerando, por exemplo, a primeira
+configuração sugerida pelo manual do fabricante (Fig. \ref{fig:config_fab_1}), a
+dinâmica de $T_2$ irá depender apenas da vazão de água que escoa de $T_1$ e da
+vazão de água que retorna ao reservatório. Assim sendo, a dinâmica dos dois
+tanques pode ser representada pelas Eqs. \ref{eq:l1_ponto} e \ref{eq:l2_ponto}:
 
-% TODO mostrar características expostas no dorf
+\begin{eqnarray}
+\dot{L_1} & = & \frac{K_m}{A}V_p -
+                \left[\frac{a_1}{A}\sqrt{2g}\right]\sqrt{L_1}
+                \label{eq:l1_ponto}\\
+\dot{L_2} & = & \left[\frac{a_1}{A}\sqrt{2g}\right]\sqrt{L_1} -
+                \left[\frac{a_2}{A}\sqrt{2g}\right]\sqrt{L_2}
+                \label{eq:l2_ponto}
+\end{eqnarray}
 
-Com o intuito de tornar a aplicação mais genérica, o sistema
-original foi modificado introduzindo uma nova bomba, possibilitando novas
-configurações, tais como aquelas representadas pela Fig.
-\ref{fig:configuracoes}. 
+\noindent em que $a_1$ representa o orifício de saída de $T_1$, $a_2$ o orifício
+de saída de $T_2$, $L_1$ o nível de água em $T_1$ e $L_2$ o nível e água em
+$T_2$. Perceba que não há necessidade em se discriminar a área de secção
+transversão através de um subíndice, pois $A_1 = A_2 = A$.
 
-Na primeira configuração (Fig. \ref{configuracoes_a}) as saídas duas bombas
-estão dispostas de maneira individual com relação aos tanques. Já na segunda
-configuração, as saídas estão posicionadas no tanque superior.
+Com o intuito de deixar o sistema proposto com um caráter mais genérico e
+possibilitar estudos futuros com relação à tolerância a falhas, optou-se por
+modificar o sistema de tanques original introduzindo uma outra bomba com as
+mesmas características da primeira. Dessa forma, pôde-se obter novas
+configurações, dentre as quais destaca-se aquelas expostas pela Fig.
+\ref{fig:novas_config}.
 
-%Tal modificação faz com que o sistema se torne do tipo MIMO ({\it Multiple
-%Input and Multiple Output})
+\begin{figure}[htb]
+\centering
+\subfigure[Nova configuração 1.]
+{
+    \includegraphics[width=0.45\textwidth]{imgs/sistema/eps/nova_config_1}
+    \label{fig:nova_config_1}
+}
+\subfigure[Nova configuração 2.]
+{
+    \includegraphics[width=0.45\textwidth]{imgs/sistema/eps/nova_config_2}
+    \label{fig:nova_config_2}
+}
+\caption{Novas configurações sugeridas após a modificação do modelo.}
+\label{fig:novas_config}
+\end{figure}
 
-Dessa forma, o sistema passa a ser composto por dois tanques e duas bombas, no
-qual a água que sai do primeiro tanque é despejada no segundo tanque
-\end{comment}
+Na configuração exposta pela Fig. \ref{fig:nova_config_1}, pode-se controlar o
+nível dos dois tanques de maneira individual através das duas bombas de água.
+Para isso, pode-se implementar dois controladores cada um com sua referência e a
+leitura do respectivo sensor ou um único controlador que receberá as duas
+referências e as leituras dos dois sensores.
+
+Já na configuração exposta pela Fig. \ref{fig:nova_config_2}, a segunda bomba
+está sendo utilizada para garantir que o processo continue funcionando
+normalmente quando a primeira bomba vier a falhar. Ou seja, possui-se dois
+atuadores com um deles em {\it standby}.  Ademais, ressalta-se que essa última
+configuração pode ser adaptada para qualquer uma das três anteriores sugeridas
+pelo fabricante.
+
+Percebe-se que no primeiro caso (Fig. \ref{fig:nova_config_1}) o sistema deixa
+de ser SISO e passa a ter múltiplas entradas e múltiplas saídas ({\it Multiple
+Input and Multiple Output} -- MIMO). Por esse motivo, esse sistema será o
+utilizado como modelo de estudo de caso no trabalho. A única modificação
+existente nas equações que regem a dinâmica do modelo é a introdução de uma nova
+variável na equação do segundo tanque em virtude da adição da segunda bomba.
+Assim, as equações finais do modelo de estudo de caso serão:
+
+\begin{eqnarray}
+\dot{L_1} & = & \frac{K_m}{A}V_{p_{\tiny 1}} -
+                \left[\frac{a_1}{A}\sqrt{2g}\right]\sqrt{L_1}
+                \label{eq:l1_ponto}\\
+\dot{L_2} & = & \frac{K_m}{A}V_{p_{\tiny 2}} +
+                \left[\frac{a_1}{A}\sqrt{2g}\right]\sqrt{L_1} -
+                \left[\frac{a_2}{A}\sqrt{2g}\right]\sqrt{L_2}
+                \label{eq:l2_ponto}
+\end{eqnarray}
+
+\noindent em que $V_{p_{\tiny 1}}$ se refere à tensão aplicada na Bomba 1
+($B_1$) e $V_{p_{\tiny 2}}$ à tensão aplicada na Bomba 2 ($B_2$).
+
+\Glossary{$B_i$}{Bomba $i$}
 
 % ------------------------------------------------------------------------------
 \section{Limitações do processo}
