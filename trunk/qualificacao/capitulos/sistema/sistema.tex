@@ -1,9 +1,17 @@
 \mychapter{Sistema proposto}
 \label{cap:sistema}
+Existem diversos métodos consolidados para detecção e isolamento de falhas,
+sendo alguns deles baseados em redundância física de componentes de hardware,
+como sensores, atuadores e controladores. Entretanto, a duplicação de
+componentes de hardware nem sempre é possível, uma vez que os custos
+relacionados com a adição de novos componentes componente podem elevar o
+orçamento do processo demasiadamente.
 
-Uma vez que se abordou o conhecimento teórico relativo ao sistema proposto ao
-longo dos capítulos anteriores, pode-se agora mostrar como esse sistema será
-constituído.
+Devido a esse elevado custo, existe uma fronteira clara e inerente à aplicação
+de técnicas de tolerância a falhas. A escolha adequada dos dispositivos físicos
+e dos {\it softwares} devem então levar em consideração as exigências
+específicas de cada sistema de maneira individual, de tal maneira que se possa
+contornar o custo associado ao emprego dessas técnicas \cite{weber:2002}.
 
 Assim sendo, a primeira parte do capítulo descreverá em detalhes o modelo de
 estudo de caso escolhido para ser simulado, mostrando suas características e
@@ -70,7 +78,7 @@ na Tab. \ref{tab:dimensoes}.
 \hline
 Constante de fluxo & $K_m$ & 4,6 & (cm${}^3$/s)/V\\
 \hline
-Limites de Tensão & $V_{p_{\text{\tiny MIN/MAX}}}$ & $\pm 15$ & Volts\\
+Limites de Tensão & $V_{p_{\text{\tiny MAX/MIN}}}$ & $\pm 15$ & Volts\\
 \hline
 Orifício de entrada 1 & {\it Out 1} & 0,635 & cm\\
 \hline
@@ -163,9 +171,11 @@ dependendo da configuração.
 
 \Glossary{SISO}{{\it Single Input and Single Output}}
 
-% TODO O controlador atua enviando um sinal de tensão para bomba... -3 a 3 =>
-%Amplificador => -15 a 15
+Além dessas observações, deve-se destacar ainda que a planta em questão se trata
+de um modelo desenvolvido para fins acadêmicos e que, por esse motivo, existem
+alguns restrições quanto as interfaces e aos padrões de comunicação.
 
+% ------------------------------------------------------------------------------
 \subsection{Modelo matemático}
 
 Como os dois tanques possuem mesma área de secção transversal ($A_1 = A_2$), a
@@ -185,28 +195,29 @@ que o fator de compressibilidade $k$ é uma medida de sua compressibilidade.
 Quanto menor o valor de $k$, menor é a compressibilidade indicada para aquele
 fluido. O ar, que é um fluido compressível, possui um fator de compressibilidade
 $k_{\text{ar}} = 0,98\ \text{m}^2/\text{N}$, enquanto que a água tem um fator de
-compressibilidade de $k_{\text{H}_2\text{O}} = 4,9 \times 10^{-10}\
-\text{m}^2/\text{N} = 50 \times 10^{-6}\ \text{atm}^{-1}$. Em outras palavras,
-um dado volume de água diminui em 50 milionésimos de seu volume original para um
-aumento de uma atmosfera na pressão. Desse modo, a hipótese de que a água é
-incompressível é valida para o sistema em questão.
+compressibilidade de $k_{\tiny \text{\tiny H}_2\text{\tiny O}} = 4,9 \times
+10^{-10}\ \text{m}^2/\text{N} = 50 \times 10^{-6}\ \text{atm}^{-1}$. Em outras
+palavras, um dado volume de água diminui em 50 milionésimos de seu volume
+original para um aumento de uma atmosfera na pressão. Desse modo, a hipótese de
+que a água é incompressível é valida para o sistema em questão.
 
 Já a viscosidade de um fluido é dada pelo seu coeficiente de viscosidade $\mu\
 (\text{N}\cdotp \text{s}/\text{m}^2)$. Quanto maior esse coeficiente, mais
 viscoso é o fluido. Como exemplo, o coeficiente de viscosidade em condições
 normais à 20\textdegree C para o ar é $\mu_{\text{ar}} = 0,178 \times 10^{-4}\
 \text{N}\cdotp \text{s}/\text{m}^2$ enquanto que para a água
-$\mu_{\text{H}_2\text{O}} = 1,054 \times 10^{-3}\ \text{N}\cdotp
-\text{s}/\text{m}^2$. Assim, a água é cerca de 60 vezes mais viscosa que o ar.
-Vale salientar que a viscosidade depende principalmente da temperatura e não da
-pressão. Para efeitos de comparação, a água à 0\textdegree C é 2 vezes mais
-viscosa que a água à 20\textdegree C. Com fluidos de baixa viscosidade como o ar
-e a água, os efeitos do atrito são importantes apenas nas camadas de fronteira e
-em uma fina camada adjacente à parede do reservatório e da tubulação de saída.
-Assim, pode-se desprezar a viscosidade no desenvolvimento do modelo.
+$\mu_{\tiny \text{\tiny H}_2\text{\tiny O}} = 1,054 \times 10^{-3}\
+\text{N}\cdotp \text{s}/\text{m}^2$. Assim, a água é cerca de 60 vezes mais
+viscosa que o ar.  Vale salientar que a viscosidade depende principalmente da
+temperatura e não da pressão. Para efeitos de comparação, a água à 0\textdegree
+C é 2 vezes mais viscosa que a água à 20\textdegree C. Com fluidos de baixa
+viscosidade como o ar e a água, os efeitos do atrito são importantes apenas nas
+camadas de fronteira e em uma fina camada adjacente à parede do reservatório e
+da tubulação de saída.  Assim, pode-se desprezar a viscosidade no
+desenvolvimento do modelo.
 
 \Glossary{$\mu_{\text{ar}}$}{Coeficiente de viscosidade do ar}
-\Glossary{$\mu_{\text{H}_2\text{O}}$}{Coeficiente de viscosidade da água}
+\Glossary{$\mu_{\tiny \text{\tiny H}_2\text{\tiny O}}$}{Coeficiente de viscosidade da água}
 
 Se cada elemento do fluido em cada ponto do escoamento não tem velocidade
 angular com relação a esse ponto, o fluxo é denominado não-rotacional. Admita
@@ -309,6 +320,7 @@ Assim, as duas únicas variáveis do modelo serão o nível $L$ do tanque e a te
 $V_p$ aplicada à bomba. Perceba que essa é uma equação diferencial ordinária
 não-linear.
 
+% ------------------------------------------------------------------------------
 \subsection{Modificações do modelo}
 Observa-se que Eq. \ref{eq:l_ponto_final} representa adequadamente a dinâmica do
 tanque superior, contudo, a dinâmica do tanque inferior age um pouco diferente.
@@ -393,13 +405,219 @@ Assim, as equações finais do modelo de estudo de caso serão:
 \Glossary{$B_i$}{Bomba $i$}
 
 % ------------------------------------------------------------------------------
-\section{Limitações do processo}
+\section{Limitações do processo}\label{sec:limitacoes}
+Conforme dito anteriormente, a planta do estudo de caso foi desenvolvida para
+fins acadêmicos e possui algumas limitações com relação as interfaces e aos
+padrões de comunicação. Por causa dessas limitações a planta é normalmente
+controlada por um sistema desenvolvido computacionalmente em que a comunicação
+se dá através de um barramento ISA ({\it Industry Standard Architecture}). Tal
+sistema deve calcular as ações de controle proporcional, integral e derivativa e
+produzir um sinal de controle em Volts que será enviado aos atuadores.
+
+\Glossary{ISA}{{\it Industry Standard Architecture}}
+
+Entretanto, devido aos baixos níveis de tensão intrínsecos à esse tipo de
+barramento, faz-se necessário utilizar um amplificador, também fornecido pela
+Quanser\reg, com um fator de amplificação de cinco vezes. Assim, para que a
+bomba não venha a queimar, os sistemas de controle devem implementar uma rotina
+de segurança que garanta que o sinal de controle não supere os limites de $\pm
+3$ Volts. A representação esquemática do funcionamento do sistema como um todo
+está representada na Fig. \ref{fig:func_sistema}.
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.8\textwidth]{imgs/sistema/eps/func_sistema}
+    \caption{Diagrama esquemático de funcionamento do sistema proposto.}
+    \label{fig:func_sistema}
+\end{figure}
+
+A partir dessa representação esquemática, percebe-se facilmente que as únicas
+variáveis disponíveis são os níveis dos tanques ($L_1$ e $L_2$ e as tensões das
+bombas ($V_{p_{\tiny 1}}$ e $V_{p_{\tiny 2}}$).
+
+Além das limitações físicas relacionadas aos sinais enviados ou recebidos pelo
+processo, destaca-se ainda o fato de se tratar de uma planta real em que todos
+os dispositivos físicos e mecânicos estão sujeitos a deteriorações relacionadas
+ao tempo de uso. Assim sendo, não se considera uma boa prática estimular ou
+induzir falhas no sistema real. Logo, todas as falhas a serem analisadas serão
+induzidas através do modelo matemático simulado em um sistema computacional.
 
 % ------------------------------------------------------------------------------
-\section{Simulações de falhas}
+\section{Simulações do sistema e das falhas}
+Considerando os fatores expostos ao final da seção \ref{sec:limitacoes}, o
+sistema de tanques será simulado a partir das Eqs. \ref{eq:l1_ponto} e
+\ref{eq:l2_ponto}, utilizando o método de Runge-Kutta de 4\textordfeminine\
+ordem (RK4).
+
+\Glossary{RK4}{Método de Runge-Kutta de 4\textordfeminine\ ordem}
+
+De maneira resumida, pode-se dizer que o RK4 faz parte de uma família de métodos
+interativos para a aproximação numérica de soluções de equações diferenciais
+ordinárias. O funcionamento do método pode esclarecido conforme explicação a
+seguir. 
+
+Seja um problema de valor inicial dado por:
+
+\begin{equation}\label{eq:}
+y' = f(t,y) \qquad y(t_0) = y_0
+\end{equation}
+
+Então o método RK4 para este problema é dado pelas seguintes equações:
+
+\begin{eqnarray}
+y_{n+1} & = & y_n + \frac{h}{6}\left(k_1 + 2k_2 + 2k_3 + k_4\right)\\
+t_{n+1} & = & t_n + h
+\end{eqnarray}
+
+\noindent em que $y_{n+1}$ é a aproximação por RK4 de $y(t_{n + 1})$, e:
+
+\begin{eqnarray}
+k_1 & = & f\left(t_n,y_n\right)\\
+k_2 & = & f\left(t_n+\frac{h}{2},y_n+\frac{h}{2}k_1\right)\\
+k_3 & = & f\left(t_n+\frac{h}{2},y_n+\frac{h}{2}k_2\right)\\
+k_4 & = & f\left(t_n+h,y_n+hk_3\right)
+\end{eqnarray}
+
+Assim, o próximo valor ($y_{n+1}$) é determinado a partir do valor atual ($y_n$)
+somado com o produto do tamanho do intervalo ($h$) e uma inclinação estimada,
+obtida a partir da média ponderada das inclinações $k_i$. Percebe-se ainda que a
+média ponderada dá um maior peso para as inclinações no ponto médio.
+
+\begin{comment}
+\begin{itemize}
+    \item $k_1$ é a inclinação no início do intervalo;
+    \item $k_2$ é a inclinação no ponto médio do intervalo, usando $k_1$ para
+determinar o valor de $y$ no ponto $t_n + h/2$ através do método de Euler;
+    \item $k_3$ é novamente a inclinação no ponto médio do intervalo, usando
+entretanto a inclinação $k_2$ para determinar o valor de $y$;
+    \item $k_4$ é a inclinação no final do intervalo, com seu valor de $y$
+determinado a partir de $k_3$.
+\end{itemize}
+\end{comment}
+
+O método de RK4 permite que sejam determinados os valores de $L_1$ e $L_2$ para
+cada instante da simulação e, consequentemente, que a dinâmica do processo seja
+observada. As falhas induzidas no processo serão então computadas a partir de
+alterações feitas sobre os valores de $L_1$ e $L_2$ obtidos. Dependendo do tipo
+de falha, a alteração pode ocorrer antes, durante ou após a execução do método
+de RK4.
+
+% ------------------------------------------------------------------------------
+\subsection{Falhas simuladas}
+Dentre as diversas falhas que podem ser simuladas, algumas foram selecionadas e
+classificadas. Na Tab. \ref{tab:selecao_falhas} são mostrados alguns exemplos de
+falhas que podem ocorrer no sistema de tanques, enquanto que nas Tabs.
+\ref{tab:grupos_falhas} e \ref{tab:classificacao_falhas} as falhas são agrupadas
+e classificadas de acordo com suas similaridades. As falhas a serem testadas no
+sistema são aquelas exibidas pela Tab. \ref{tab:classificacao_falhas}.
+
+\begin{table}[htb]
+\centering
+\caption{Exemplos de falhas que podem ocorrer no sistema de tanques.}
+\label{tab:selecao_falhas}
+\vspace{0.25cm}
+\begin{tabular}{|c|c|c|}
+\hline
+{\bf Sensores} & {\bf Atuadores} & {\bf Estruturais}\\
+\hline
+\hline
+Erro de leitura & Erro de escrita & Erro de transmissão\\
+\hline
+Descalibramento & Erro de leitura & Perda de comunicação\\
+\hline
+Sensibilidade à ruído & Sensibilidade à ruído & Sensibilidade à ruído\\
+\hline
+Queima do sensor & Queima do atuador & Queima do transmissor\\
+\hline
+-- & Atraso de transporte & Atraso de propagação\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[htb]
+\centering
+\caption{Grupos de falhas.}
+\label{tab:grupos_falhas}
+\vspace{0.25cm}
+\begin{tabular}{|c|c|c|}
+\hline
+{\bf Grupo} & {\bf Tipo de falha} & {\bf Sigla}\\
+\hline
+\hline
+0 & Não há falhas & SF\\
+\hline
+1 & Falha do sensor & FSe\\
+\hline
+2 & Falha do atuador & FA\\
+\hline
+\multirow{2}{*}{3} & 
+Falha estrutural ou & 
+\multirow{2}{*}{FSi}\\
+&
+Falha do sistema & 
+\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[htb]
+\centering
+\caption{Classificação das falhas selecionadas.}
+\label{tab:classificacao_falhas}
+\vspace{0.25cm}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{\bf Grupo} & {\bf Classe} & {\bf Denominação} & {\bf Variante} & {\bf Sigla}\\
+\hline
+1 & 1 & Descalibramento & Ganho & FSeDG\\
+\hline
+1 & 1 & Descalibramento & Nível DC ({\it offset}) & FSeDO\\
+\hline
+1 & 2 & Sensibilidade & Ruído & FSeSR\\
+\hline
+1 & 3 & Queima & -- & FSeQ\\
+\hline
+\hline
+2 & 1 & Descalibramento & Ganho & FADG\\
+\hline
+2 & 1 & Descalibramento & Nível DC ({\it offset}) & FADO\\
+\hline
+2 & 2 & Sensibilidade & Ruído & FASR\\
+\hline
+2 & 3 & Variação & Constante da bomba ($K_m$) & FAVK\\
+\hline
+2 & 4 & Queima & -- & FAQ\\
+\hline
+\hline
+3 & 1 & Entupimento & Orifício de saída & FSiEOS\\
+\hline
+3 & 2 & Variação & Ganho do módulo de potência & FSiVrGMP\\
+\hline
+3 & 2 & Variação & Orifício de saída & FSiVrOS\\
+\hline
+3 & 3 & Vazamento & Tanque & FSiVzT\\
+\hline
+\end{tabular}
+\end{table}
+
+As siglas expostas nessas tabelas foram introduzidas com o intuito de facilitar
+tanto o processo automático\footnote{O processo de treinamento e validação se
+deu através de {\it scripts} (rotinas) do {\it software} matemático MATLAB\reg.}
+de treinamento e validação da estrutura neural de DDF, quanto a referenciação
+textual.
+
+% cada uma foi simulada de uma maneira
+% diferente fazendo alteracoes sobre os valores finais calculados pelo sistema
+% (sensor, controlador... olhar arquivo simulacao.cpp)
 
 % ------------------------------------------------------------------------------
 \section{Estruturas neurais escolhidas}
+Cada uma das falhas escolhidas, exibidas na Tab.
+\ref{tab:classificacao_falhas}, pode acontecer de maneira isolada, ou seja, em
+um dos tanques, ou de maneira conjunta, atuando simultaneamente na dinâmica dos
+dois tanques. Assim sendo, a estrutura neural escolhida deverá ser capaz de
+identificar que tipo de falha está acontecendo, e em que tanque(s) esta estará
+agindo.
 
 % ------------------------------------------------------------------------------
 \section{Esquemas de identificação}
