@@ -504,12 +504,18 @@ de RK4.
 
 % ------------------------------------------------------------------------------
 \subsection{Falhas simuladas}
-Dentre as diversas falhas que podem ser simuladas, algumas foram selecionadas e
-classificadas. Na Tab. \ref{tab:selecao_falhas} são mostrados alguns exemplos de
-falhas que podem ocorrer no sistema de tanques, enquanto que nas Tabs.
-\ref{tab:grupos_falhas} e \ref{tab:classificacao_falhas} as falhas são agrupadas
-e classificadas de acordo com suas similaridades. As falhas a serem testadas no
-sistema são aquelas exibidas pela Tab. \ref{tab:classificacao_falhas}.
+Conforme dito anteriormente, devido à integração inter processos e ao elevado
+grau de complexidade envolvido em cada um destes, as falhas que antes poderiam
+ser detectadas através de medições diretas de determinadas variáveis, passam a
+depender de um conjunto de variáveis que atuam simultaneamente no sistema.
+Ademais, as causas das falhas podem nem sempre estar próximas dos locais em que
+foram identificadas.
+
+Considerando tais aspectos, foram selecionadas somente algumas das falhas que
+podem ocorrer no processo do estudo de caso. Alguns exemplos de falhas desse
+sistema podem ser observados na Tab. \ref{tab:selecao_falhas}. O agrupamento e a
+classificação das falhas escolhidas se deu conforme Tabs.
+\ref{tab:grupos_falhas} e \ref{tab:classificacao_falhas}.
 
 \begin{table}[htb]
 \centering
@@ -603,8 +609,7 @@ Falha do sistema &
 As siglas expostas nessas tabelas foram introduzidas com o intuito de facilitar
 tanto o processo automático\footnote{O processo de treinamento e validação se
 deu através de {\it scripts} (rotinas) do {\it software} matemático MATLAB\reg.}
-de treinamento e validação da estrutura neural de DDF, quanto a referenciação
-textual.
+de treinamento e validação da estrutura neural, quanto a referenciação textual.
 
 % cada uma foi simulada de uma maneira
 % diferente fazendo alteracoes sobre os valores finais calculados pelo sistema
