@@ -504,20 +504,19 @@ de RK4.
 
 % ------------------------------------------------------------------------------
 \subsection{Falhas simuladas}
-Conforme dito anteriormente, devido à integração inter processos e ao elevado
-grau de complexidade envolvido em cada um destes, as falhas que antes poderiam
-ser detectadas através de medições diretas de determinadas variáveis, passam a
-depender de um conjunto de variáveis que atuam simultaneamente no sistema.
-Ademais, as causas das falhas podem nem sempre estar próximas dos locais em que
-foram identificadas.
+Assim como já foi visto, devido ao elevado grau de complexidade e à integração
+inter processos, as falhas que antes poderiam ser detectadas através de medições
+diretas de determinadas variáveis, passam a depender de um conjunto de variáveis
+que atuam simultaneamente no sistema.  Ademais, as causas das falhas podem nem
+sempre estar próximas dos locais em que foram identificadas.
 
-Considerando tais aspectos, foram selecionadas somente algumas das falhas que
-podem ocorrer no processo do estudo de caso. Alguns exemplos de falhas desse
+Considerando tais aspectos, foram selecionadas somente algumas falhas dentre
+aquelas que podem ocorrer no processo em estudo. Alguns exemplos de falhas desse
 sistema podem ser observados na Tab. \ref{tab:selecao_falhas}. O agrupamento e a
 classificação das falhas escolhidas se deu conforme Tabs.
 \ref{tab:grupos_falhas} e \ref{tab:classificacao_falhas}.
 
-\begin{table}[htb]
+\begin{table}[!htb]
 \centering
 \caption{Exemplos de falhas que podem ocorrer no sistema de tanques.}
 \label{tab:selecao_falhas}
@@ -540,7 +539,7 @@ Queima do sensor & Queima do atuador & Queima do transmissor\\
 \end{tabular}
 \end{table}
 
-\begin{table}[htb]
+\begin{table}[!htb]
 \centering
 \caption{Grupos de falhas.}
 \label{tab:grupos_falhas}
@@ -566,7 +565,7 @@ Falha do sistema &
 \end{tabular}
 \end{table}
 
-\begin{table}[htb]
+\begin{table}[!htb]
 \centering
 \caption{Classificação das falhas selecionadas.}
 \label{tab:classificacao_falhas}
@@ -595,49 +594,137 @@ Falha do sistema &
 2 & 4 & Queima & -- & FAQ\\
 \hline
 \hline
-3 & 1 & Entupimento & Orifício de saída & FSiEOS\\
-\hline
-3 & 2 & Variação & Ganho do módulo de potência & FSiVrGMP\\
+3 & 3 & Vazamento & Tanque & FSiVzT\\
 \hline
 3 & 2 & Variação & Orifício de saída & FSiVrOS\\
 \hline
-3 & 3 & Vazamento & Tanque & FSiVzT\\
+3 & 2 & Variação & Ganho do módulo de potência & FSiVrGMP\\
+\hline
+3 & 1 & Entupimento & Orifício de saída & FSiEOS\\
 \hline
 \end{tabular}
 \end{table}
 
-As siglas expostas nessas tabelas foram introduzidas com o intuito de facilitar
-tanto o processo automático\footnote{O processo de treinamento e validação se
-deu através de {\it scripts} (rotinas) do {\it software} matemático MATLAB\reg.}
-de treinamento e validação da estrutura neural, quanto a referenciação textual.
+\Glossary{FSeDG}{Falha do Sensor por Descalibramento de Ganho}
+\Glossary{FSeDO}{Falha do Sensor por Descalibramento de {\it Offset}}
+\Glossary{FSeSR}{Falha do Sensor por Sensibilidade à Ruído}
+\Glossary{FSeQ}{Falha do Sensor por Queima}
+\Glossary{FADG}{Falha do Atuador por Descalibramento de Ganho}
+\Glossary{FADO}{Falha do Atuador por Descalibramento de {\it Offset}}
+\Glossary{FASR}{Falha do Atuador por Sensibilidade à Ruído}
+\Glossary{FAVK}{Falha do Atuador por Variação da Constante da Bomba ($K_m$)}
+\Glossary{FAQ}{Falha do por Queima}
+\Glossary{FSiVzT}{Falha do Sistema por Vazamento do Tanque}
+\Glossary{FSiVrOS}{Falha do Sistema por Variação do Orifício de Saída}
+\Glossary{FSiVrGMP}{Falha do Sistema por Variação do Ganho do Módulo de 
+                    Potência}
+\Glossary{FSiEOS}{Falha do Sistema por Entupimento do Orifício de Saída}
 
-% cada uma foi simulada de uma maneira
-% diferente fazendo alteracoes sobre os valores finais calculados pelo sistema
-% (sensor, controlador... olhar arquivo simulacao.cpp)
+As siglas expostas nessas tabelas foram introduzidas com o intuito de facilitar
+tanto o processo automático de treinamento e validação da estrutura neural,
+quanto a referenciação textual.
+
+As falhas expostas na Tab. \ref{tab:classificacao_falhas} são induzidas de
+diferentes maneiras na simulação. Na FSeDG, por exemplo, o ganho do sensor é
+alterado de 1,0 para qualquer outro valor a juízo do usuário no momento em que é
+realizada a leitura dos níveis.
+
+Para dar mais liberdade de configuração à simulação, foi desenvolvido um sistema
+em C++, que implementa o método de RK4 e possui a capacidade de configurar todos
+os parâmetros referentes a cada uma dessas falhas a partir de um arquivo de
+texto. Cada um dos parâmetros do arquivo de entrada deve ser especificado em uma
+coluna e o número de linhas equivale ao número de amostras a serem simuladas. O
+período de amostragem utilizado na simulação do sistema é de 100
+milissegundos, o mesmo que é utilizado na planta real.
+
+Além disso, o sistema possui a implementação de dois controladores que podem ser
+configurados para operarem como controladores P, PI, PD, PID ou PI-D. Os ganhos
+proporcionais, integrais e derivativos são introduzidos na interface do usuário.
+
+Esse mesmo sistema pode ainda ser utilizado para operar com a planta real,
+fazendo aquisições dos dados através da rede (local ou remota), utilizando {\it
+sockets} TCP, se comunicando com um servidor implementado conforme mostrado em
+\citeasnoun{oliveira:2008}. A configuração do endereço IP e da porta de
+comunicação também é realizada a partir da interface do usuário. A Fig.
+\ref{fig:captura} mostra uma captura de tela ({\it screenshot}) do sistema em
+funcionamento.
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.75\textwidth]{imgs/sistema/eps/captura}
+    \caption{Captura de tela do sistema de simulação em funcionamento.}
+    \label{fig:captura}
+\end{figure}
 
 % ------------------------------------------------------------------------------
 \section{Estruturas neurais escolhidas}
-Cada uma das falhas escolhidas, exibidas na Tab.
-\ref{tab:classificacao_falhas}, pode acontecer de maneira isolada, ou seja, em
-um dos tanques, ou de maneira conjunta, atuando simultaneamente na dinâmica dos
-dois tanques. Assim sendo, a estrutura neural escolhida deverá ser capaz de
-identificar que tipo de falha está acontecendo, e em que tanque(s) esta estará
-agindo.
+Tanto para a identificação do modelo quanto para a detecção e o diagnóstico das
+falhas, deve-se ter bastante cuidado ao se escolher a estrutura e a arquitetura
+das redes neurais. Em ambos os casos, uma escolha inadequada pode fazer com que
+o sistema não se comporte de maneira adequada e não realize a função para o qual
+foi designado. 
+
+Assim sendo, para que fosse realizada uma análise comparativa, foram propostas
+duas estruturas neurais para o processo de identificação do modelo e duas outras
+estruturas para a detecção e o diagnóstico das falhas. Nos quatro casos foram
+utilizados modelos NNARX em que o número de regressores e o número de neurônios
+na camada oculta serão determinados posteriormente, no Cap.
+\ref{cap:resultados}.  Maiores detalhes sobre cada uma das estruturas propostas
+são esclarecidos nas próximas seções.
 
 % ------------------------------------------------------------------------------
-\section{Esquemas de identificação}
+\subsection{Propostas de identificação}
+
+A primeira estrutura de identificação busca representar a dinâmica do sistema de
+tanques através de uma única rede neural, a qual receberia como entrada os
+valores passados dos níveis, $L_1(k-1)$ e $L_2(k-1)$, além dos valores de tensão
+a serem aplicados, $V_{p_{\tiny 1}}(k)$ e $V_{p_{\tiny 2}}(k)$, gerando uma
+estimativa dos níveis em sua saída. A Fig.  \ref{fig:ident_proposta_1}
+representa um diagrama esquemático do funcionamento dessa primeira proposta.
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.4\textwidth]{imgs/sistema/eps/ident_proposta_1}
+    \caption{Proposta de identificação global.}
+    \label{fig:ident_proposta_1}
+\end{figure}
+
+Já a segunda estrutura de identificação leva em consideração que cada tanque
+possui uma dinâmica diferente, tendo em vista que o $T_1$ age de maneira
+independente, enquanto que a dinâmica de $T_2$ depende de $T_1$, conforme Eqs.
+\ref{eq:l1_ponto} e \ref{eq:l2_ponto}. Assim, optou-se por utilizar duas redes
+neurais, como mostrado na Fig. \ref{fig:ident_proposta_2}.
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.4\textwidth]{imgs/sistema/eps/ident_proposta_2}
+    \caption{Proposta de identificação individual.}
+    \label{fig:ident_proposta_2}
+\end{figure}
+
+A primeira rede seria a responsável pela identificação de $T_1$, recebendo como
+entrada o nível anterior, $L_1(k-1)$, e a tensão a ser aplicada, $V_{p_{\tiny
+1}}(k)$, gerando uma estimativa de $L_1$ em sua saída. Já a segunda rede seria a
+responsável pela identificação da dinâmica de $T_2$ e receberia como entrada as
+mesmas variáveis da primeira proposta, ou seja, $L_1(k-1)$, $L_2(k-1)$,
+$V_{p_{\tiny 1}}(k)$ e $V_{p_{\tiny 2}}(k)$. A saída da segunda rede seria,
+portanto, a estimativa do nível de $T_2$.
+
+Independentemente da proposta, pode-se visualizar o sistema de identificação do
+modelo como uma única estrutura neural (simples ou composta), que possui como
+entrada os níveis anteriores e as tensões a serem aplicadas e gera em sua saída
+as estimativas dos níveis dos dois tanques. A Fig. \ref{fig:sist_ident} mostra
+como o sistema de identificação pode ser visto.
+
+\begin{figure}[!htb]
+\centering
+    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/sist_ident}
+    \caption{Visão geral do sistema de identificação.}
+    \label{fig:sist_ident}
+\end{figure}
 
 % ------------------------------------------------------------------------------
-\subsection{Proposta 1 -- Identificação global}
+\subsection{Propostas de detecção}
 
 % ------------------------------------------------------------------------------
-\subsection{Proposta 2 -- Identificação individual}
-
-% ------------------------------------------------------------------------------
-\section{Esquemas de detecção}
-
-% ------------------------------------------------------------------------------
-\subsection{Proposta 1 -- Comitê de especialistas}
-
-% ------------------------------------------------------------------------------
-\subsection{Proposta 2 -- Detecção global}
+\section{Composição do sistema}

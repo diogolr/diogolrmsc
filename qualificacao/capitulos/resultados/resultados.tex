@@ -5,6 +5,36 @@
 % Tempo de simulação de 105 segundos (totalizando 00:01:45)
 % Valores utilizados => Observar folha
 
+
+% Montar tabela com os valores dos parametros alterados para o treinamento e
+% para a validação das falhas. Exemplo:
+% 
+% FAVK => km_treinamento = (0.7 a 1.1)*km_original (PRBS)
+%         km_validacao = (0.75 a 1.05)*km_original (PRBS) => nao precisa
+%                                                            especificar o valor
+%                                                            exato, mas dizer
+%                                                            que estava dentro
+%                                                            da faixa do
+%                                                            treinamento
+%         km_resultado = (0.75)*km_original (Fixo)
+%
+% FSeDG => ganho_treinamento = (1 +- 0.2)*ganho_original (PRBS)
+%          ganho_validacao = (1 +- 0.15)*ganho_original (PRBS)
+%          ganho_resultado = 0.8*ganho_original (fixo)
+%
+
+
+% Mostrar que foram feitos 3 conjuntos de validacao e depois foram escolhidas as
+% melhores redes => Mostrar tabelas com Falso positivo e falso negativo
+
+
+% Quando for falar sobre o número de regressores escolhidos => Dizer que
+% considere que os regressores estão representados internamente ao "sistema de
+% identificação" e ao "sistema de DDF" na figura da composição do sistema (final
+% do cap:sistema)
+
+
+% Falhas nos sensores ..........................................................
 \begin{figure}[htb]
 \footnotesize
 \centering
@@ -14,36 +44,115 @@
 \label{fig:fsedg}
 \end{figure}
 
-
 \begin{figure}[htb]
 \footnotesize
 \centering
 \input{scripts/fsedo}
 \vspace{1cm}
 \caption{FSeDO (-2 cm)}
-\label{fig:fsedg}
+\label{fig:fsedo}
 \end{figure}
-
 
 \begin{figure}[htb]
 \footnotesize
 \centering
 \input{scripts/fsesr}
 \vspace{1cm}
-\caption{FSeSR ($\pm 3\%$)}
-\label{fig:fsedg}
+\caption{FSeSR ($\pm 2\%$)}
+\label{fig:fsesr}
 \end{figure}
-
 
 \begin{figure}[htb]
 \footnotesize
 \centering
 \input{scripts/fseq}
 \vspace{1cm}
-\caption{FSeQ}
-\label{fig:fsedg}
+\caption{FSeQ (Ganho = 0)}
+\label{fig:fseq}
 \end{figure}
 
+% Falhas nos atuadores .........................................................
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{scripts/fadg}
+\vspace{1cm}
+\caption{FADG (80\%)}
+\label{fig:fadg}
+\end{figure}
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{scripts/fado}
+\vspace{1cm}
+\caption{FADO (-0,5 Volts)}
+\label{fig:fado}
+\end{figure}
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{scripts/fasr}
+\vspace{1cm}
+\caption{FASR ($\pm 2\%$)}
+\label{fig:fasr}
+\end{figure}
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{scripts/favk}
+\vspace{1cm}
+\caption{FAVK (75\%)}
+\label{fig:favk}
+\end{figure}
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{scripts/faq}
+\vspace{1cm}
+\caption{FAQ (Ganho = 0)}
+\label{fig:faq}
+\end{figure}
+
+% Falhas no sistema ............................................................
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{scripts/fsivzt}
+\vspace{1cm}
+\caption{FSiVzT ($a_{\tiny VZ} = \frac{a_{\tiny MED}}{2}$)}
+\label{fig:fsivzt}
+\end{figure}
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{scripts/fsivros}
+\vspace{1cm}
+\caption{FSiVrOS ($a' = \frac{a_{\tiny MED}}{2}$)}
+\label{fig:fsivros}
+\end{figure}
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{scripts/fsivrgmp}
+\vspace{1cm}
+\caption{FSiVrGMP (90\%)}
+\label{fig:fsivrgmp}
+\end{figure}
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{scripts/fsieos}
+\vspace{1cm}
+\caption{FSiEOS (25\%)}
+\label{fig:fsieos}
+\end{figure}
 % ------------------------------------------------------------------------------
 \section{Coleta dos dados}
 

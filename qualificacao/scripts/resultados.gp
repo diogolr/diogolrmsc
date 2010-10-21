@@ -144,6 +144,7 @@ plot "../../softwares/simulacao_tanques_cpp/saidas/FSeSR/niveis_qualif.dat" \
      using 1:5 title 'Saída $T_2$' ls 7 with lines
 unset obj
 unset multiplot
+
 # FSeQ  ........................................................................
 set output "fseq.tex"
 set multiplot layout 2,1
@@ -175,10 +176,106 @@ unset obj
 unset multiplot
 
 # FADG .........................................................................
+set output "fadg.tex"
+set multiplot layout 2,1
+
+unset xlabel
+set format x ""
+set bmargin 0
+set tmargin 0
+
+set ytics 5,5
+set size 1,0.5
+load "../../dados/qualificacao/FADG_t1.gp"
+plot "../../softwares/simulacao_tanques_cpp/saidas/FADG/niveis_qualif.dat" \
+     using 1:2 title 'Ref. $T_1$' ls 1 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FADG/niveis_qualif.dat" \
+     using 1:4 title 'Saída $T_1$' ls 2 with lines
+unset obj
+
+set ytics 0,10
+set size 1,0.5
+set format x "%g"
+set xlabel 'Tempo [s]'
+load "../../dados/qualificacao/FADG_t2.gp"
+plot "../../softwares/simulacao_tanques_cpp/saidas/FADG/niveis_qualif.dat" \
+     using 1:3 title 'Ref. $T_2$' ls 5 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FADG/niveis_qualif.dat" \
+     using 1:5 title 'Saída $T_2$' ls 7 with lines
+unset obj
+unset multiplot
+
 # FADO .........................................................................
+set output "fado.tex"
+set multiplot layout 2,1
+
+unset xlabel
+set format x ""
+set bmargin 0
+set tmargin 0
+
+set ytics 5,5
+set size 1,0.5
+load "../../dados/qualificacao/FADO_t1.gp"
+plot "../../softwares/simulacao_tanques_cpp/saidas/FADO/niveis_qualif.dat" \
+     using 1:2 title 'Ref. $T_1$' ls 1 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FADO/niveis_qualif.dat" \
+     using 1:4 title 'Saída $T_1$' ls 2 with lines
+unset obj
+
+set ytics 0,10
+set size 1,0.5
+set format x "%g"
+set xlabel 'Tempo [s]'
+load "../../dados/qualificacao/FADO_t2.gp"
+plot "../../softwares/simulacao_tanques_cpp/saidas/FADO/niveis_qualif.dat" \
+     using 1:3 title 'Ref. $T_2$' ls 5 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FADO/niveis_qualif.dat" \
+     using 1:5 title 'Saída $T_2$' ls 7 with lines
+unset obj
+unset multiplot
+
 # FASR .........................................................................
+set output "fasr.tex"
+set multiplot layout 2,1
+
+unset xlabel
+set format x ""
+set bmargin 0
+set tmargin 0
+
+set ytics 5,5
+set size 1,0.5
+load "../../dados/qualificacao/FASR_t1.gp"
+plot "../../softwares/simulacao_tanques_cpp/saidas/FASR/niveis_qualif.dat" \
+     using 1:2 title 'Ref. $T_1$' ls 1 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FASR/niveis_qualif.dat" \
+     using 1:4 title 'Saída $T_1$' ls 2 with lines
+unset obj
+
+set ytics 0,10
+set size 1,0.5
+set format x "%g"
+set xlabel 'Tempo [s]'
+load "../../dados/qualificacao/FASR_t2.gp"
+plot "../../softwares/simulacao_tanques_cpp/saidas/FASR/niveis_qualif.dat" \
+     using 1:3 title 'Ref. $T_2$' ls 5 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FASR/niveis_qualif.dat" \
+     using 1:5 title 'Saída $T_2$' ls 7 with lines
+unset obj
+unset multiplot
+
 # FAVK .........................................................................
-set output "favk_t1.tex"
+set output "favk.tex"
+set multiplot layout 2,1
+
+unset xlabel
+set format x ""
+set bmargin 0
+set tmargin 0
+
+set ytics 5,5
+set size 1,0.5
 load "../../dados/qualificacao/FAVK_t1.gp"
 plot "../../softwares/simulacao_tanques_cpp/saidas/FAVK/niveis_qualif.dat" \
      using 1:2 title 'Ref. $T_1$' ls 1 with lines,\
@@ -186,59 +283,166 @@ plot "../../softwares/simulacao_tanques_cpp/saidas/FAVK/niveis_qualif.dat" \
      using 1:4 title 'Saída $T_1$' ls 2 with lines
 unset obj
 
-set output "favk_t1_resid_sc.tex"
-load "../../dados/qualificacao/FAVK_t1.gp"
-plot "../../softwares/simulacao_tanques_cpp/saidas/FSeDG/erro_sc_qualif.dat" \
-     using 1:4 title 'Sin. Cont. $T_1$' ls 2 with lines,\
-     "../../softwares/simulacao_tanques_cpp/saidas/FSeDG/erro_sc_qualif.dat" \
-     using 1:2 title 'Erro $T_1$' ls 3 with lines,\
-     "../../dados/qualificacao/FAVK_residuos.dat" \
-     using 1:2 title 'Resíduo $T_1$' ls 4 with lines
-unset obj
-
-set output "favk_t2.tex"
+set ytics 0,10
+set size 1,0.5
+set format x "%g"
+set xlabel 'Tempo [s]'
 load "../../dados/qualificacao/FAVK_t2.gp"
 plot "../../softwares/simulacao_tanques_cpp/saidas/FAVK/niveis_qualif.dat" \
      using 1:3 title 'Ref. $T_2$' ls 5 with lines,\
      "../../softwares/simulacao_tanques_cpp/saidas/FAVK/niveis_qualif.dat" \
      using 1:5 title 'Saída $T_2$' ls 7 with lines
 unset obj
+unset multiplot
 
-set output "favk_t2_resid_sc.tex"
-load "../../dados/qualificacao/FAVK_t2.gp"
-plot "../../softwares/simulacao_tanques_cpp/saidas/FSeDG/erro_sc_qualif.dat" \
-     using 1:5 title 'Sin. Cont. $T_2$' ls 2 with lines,\
-     "../../softwares/simulacao_tanques_cpp/saidas/FSeDG/erro_sc_qualif.dat" \
-     using 1:3 title 'Erro $T_2$' ls 3 with lines,\
-     "../../dados/qualificacao/FAVK_residuos.dat" \
-     using 1:3 title 'Resíduo $T_2$' ls 4 with lines
-unset obj
 
 # FAQ  .........................................................................
+set output "faq.tex"
+set multiplot layout 2,1
 
-# FSiVzT   .....................................................................
-# FSiVrOS  .....................................................................
-# FSiVrGMP .....................................................................
-# FSiEOS .......................................................................
+unset xlabel
+set format x ""
+set bmargin 0
+set tmargin 0
 
-# Outros .......................................................................
-set xlabel 'ads $\displaystyle\int_ a^b l_i di$'
-set ylabel 'Este é o eixo $y$ e teste $\Delta$'
-
-set xrange [0:1]
-set style rect fc lt -1 fs solid 0.1 noborder
-set obj rect from 0.5, graph 0 to 0.55, graph 1
-set output "teste.tex"
-plot sin(x)
+set ytics 5,5
+set size 1,0.5
+load "../../dados/qualificacao/FAQ_t1.gp"
+plot "../../softwares/simulacao_tanques_cpp/saidas/FAQ/niveis_qualif.dat" \
+     using 1:2 title 'Ref. $T_1$' ls 1 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FAQ/niveis_qualif.dat" \
+     using 1:4 title 'Saída $T_1$' ls 2 with lines
 unset obj
 
-set xrange [-10:10]
-set xlabel 'Teste final $\alpha$'
-set ylabel 'Este é o eixo $y$'
-set output "teste2.tex"
-plot sin(x) title '$\alpha$ e $\beta$ como título' ls 3 with lines
+set ytics 0,10
+set size 1,0.5
+set format x "%g"
+set xlabel 'Tempo [s]'
+load "../../dados/qualificacao/FAQ_t2.gp"
+plot "../../softwares/simulacao_tanques_cpp/saidas/FAQ/niveis_qualif.dat" \
+     using 1:3 title 'Ref. $T_2$' ls 5 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FAQ/niveis_qualif.dat" \
+     using 1:5 title 'Saída $T_2$' ls 7 with lines
+unset obj
+unset multiplot
 
-#plot "../dados/acp/completo/ordem_2/validacao_1/O2N10R2V1A_DADOS.dat" \
-#     using 1:2 title 'simulado' ls 1 with lines,\
-#     "../dados/acp/completo/ordem_2/validacao_1/O2N10R2V1A_DADOS.dat" \
-#     using 1:5 title 'estimado' ls 2 with lines
+# FSiVzT   .....................................................................
+set output "fsivzt.tex"
+set multiplot layout 2,1
+
+unset xlabel
+set format x ""
+set bmargin 0
+set tmargin 0
+
+set ytics 5,5
+set size 1,0.5
+load "../../dados/qualificacao/FSiVzT_t1.gp"
+plot "../../softwares/simulacao_tanques_cpp/saidas/FSiVzT/niveis_qualif.dat" \
+     using 1:2 title 'Ref. $T_1$' ls 1 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FSiVzT/niveis_qualif.dat" \
+     using 1:4 title 'Saída $T_1$' ls 2 with lines
+unset obj
+
+set ytics 0,10
+set size 1,0.5
+set format x "%g"
+set xlabel 'Tempo [s]'
+load "../../dados/qualificacao/FSiVzT_t2.gp"
+plot "../../softwares/simulacao_tanques_cpp/saidas/FSiVzT/niveis_qualif.dat" \
+     using 1:3 title 'Ref. $T_2$' ls 5 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FSiVzT/niveis_qualif.dat" \
+     using 1:5 title 'Saída $T_2$' ls 7 with lines
+unset obj
+unset multiplot
+
+# FSiVrOS  .....................................................................
+set output "fsivros.tex"
+set multiplot layout 2,1
+
+unset xlabel
+set format x ""
+set bmargin 0
+set tmargin 0
+
+set ytics 5,5
+set size 1,0.5
+load "../../dados/qualificacao/FSiVrOS_t1.gp"
+plot "../../softwares/simulacao_tanques_cpp/saidas/FSiVrOS/niveis_qualif.dat" \
+     using 1:2 title 'Ref. $T_1$' ls 1 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FSiVrOS/niveis_qualif.dat" \
+     using 1:4 title 'Saída $T_1$' ls 2 with lines
+unset obj
+
+set ytics 0,10
+set size 1,0.5
+set format x "%g"
+set xlabel 'Tempo [s]'
+load "../../dados/qualificacao/FSiVrOS_t2.gp"
+plot "../../softwares/simulacao_tanques_cpp/saidas/FSiVrOS/niveis_qualif.dat" \
+     using 1:3 title 'Ref. $T_2$' ls 5 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FSiVrOS/niveis_qualif.dat" \
+     using 1:5 title 'Saída $T_2$' ls 7 with lines
+unset obj
+unset multiplot
+
+# FSiVrGMP .....................................................................
+set output "fsivrgmp.tex"
+set multiplot layout 2,1
+
+unset xlabel
+set format x ""
+set bmargin 0
+set tmargin 0
+
+set ytics 5,5
+set size 1,0.5
+load "../../dados/qualificacao/FSiVrGMP_t1.gp"
+plot "../../softwares/simulacao_tanques_cpp/saidas/FSiVrGMP/niveis_qualif.dat" \
+     using 1:2 title 'Ref. $T_1$' ls 1 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FSiVrGMP/niveis_qualif.dat" \
+     using 1:4 title 'Saída $T_1$' ls 2 with lines
+unset obj
+
+set ytics 0,10
+set size 1,0.5
+set format x "%g"
+set xlabel 'Tempo [s]'
+load "../../dados/qualificacao/FSiVrGMP_t2.gp"
+plot "../../softwares/simulacao_tanques_cpp/saidas/FSiVrGMP/niveis_qualif.dat" \
+     using 1:3 title 'Ref. $T_2$' ls 5 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FSiVrGMP/niveis_qualif.dat" \
+     using 1:5 title 'Saída $T_2$' ls 7 with lines
+unset obj
+unset multiplot
+
+# FSiEOS .......................................................................
+set output "fsieos.tex"
+set multiplot layout 2,1
+
+unset xlabel
+set format x ""
+set bmargin 0
+set tmargin 0
+
+set ytics 5,5
+set size 1,0.5
+load "../../dados/qualificacao/FSiEOS_t1.gp"
+plot "../../softwares/simulacao_tanques_cpp/saidas/FSiEOS/niveis_qualif.dat" \
+     using 1:2 title 'Ref. $T_1$' ls 1 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FSiEOS/niveis_qualif.dat" \
+     using 1:4 title 'Saída $T_1$' ls 2 with lines
+unset obj
+
+set ytics 0,10
+set size 1,0.5
+set format x "%g"
+set xlabel 'Tempo [s]'
+load "../../dados/qualificacao/FSiEOS_t2.gp"
+plot "../../softwares/simulacao_tanques_cpp/saidas/FSiEOS/niveis_qualif.dat" \
+     using 1:3 title 'Ref. $T_2$' ls 5 with lines,\
+     "../../softwares/simulacao_tanques_cpp/saidas/FSiEOS/niveis_qualif.dat" \
+     using 1:5 title 'Saída $T_2$' ls 7 with lines
+unset obj
+unset multiplot
+
