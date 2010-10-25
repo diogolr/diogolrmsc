@@ -735,14 +735,12 @@ seria decodificada a partir de uma tabela previamente estabelecida. Nessa tabela
 cada falha teria uma palavra binária correspondente. A Fig.
 \ref{fig:detec_prop_1} representa um diagrama esquemático dessa proposta.
 
-\begin{comment}
-\begin{figure}[htb]
+\begin{figure}[!htb]
 \centering
-    \includegraphics[width=\textwidth]{imgs/sistema/eps/detec_prop_1}
+    \includegraphics[width=0.38\textwidth]{imgs/sistema/eps/detec_prop_1}
     \caption{Proposta de detecção através de uma única rede neural.}
     \label{fig:detec_prop_1}
 \end{figure}
-\end{comment}
 
 Na segunda proposta, a estrutura de DDF seria composta por várias redes neurais,
 em que cada uma destas estaria associada a uma única falha, formando um conjunto
@@ -754,15 +752,13 @@ apenas 2 bits, indicando se aquela falha estaria sendo detectada cada em $T_1$
 em $T_2$ ou em $T_1$ e $T_2$ simultaneamente. A Fig. \ref{fig:detec_prop_2}
 representa um diagrama esquemático dessa proposta.
 
-\begin{comment}
-\begin{figure}[htb]
+\begin{figure}[!htb]
 \centering
-    \includegraphics[width=\textwidth]{imgs/sistema/eps/detec_prop_2}
+    \includegraphics[width=0.725\textwidth]{imgs/sistema/eps/detec_prop_2}
     \caption{Proposta de detecção através de um conjunto de redes
              especialistas.}
     \label{fig:detec_prop_2}
 \end{figure}
-\end{comment}
 
 Existem diversas vantagens em se utilizar a segunda proposta ao invés da
 primeira, como por exemplo, a de se utilizar entradas diferentes para cada uma
@@ -774,23 +770,18 @@ de detecção.
 
 Modificar a estrutura das entradas na primeira proposta faria com que a rede
 precisasse ser treinada novamente. Por se tratar, provavelmente, de uma
-estrutura mais complexa, o treinamento poderia ter um grande custo com relação
-ao tempo e ao processamento. Na segunda proposta apenas uma das redes seria
-retreinada, o que poderia reduzir consideravelmente esse tempo de treinamento e
-processamento. Além disso, se o treinamento fosse realizado em tempo real, não
-haveria necessidade de se parar o sistema de detecção como um todo, mas somente
-de uma parte deste. 
+estrutura mais complexa, o treinamento poderia ter um grande custo relacionado
+ao tempo e ao processamento. Já na segunda proposta apenas uma das redes seria
+retreinada, o que iria reduzir esse custo de maneira considerável. Além disso,
+se o treinamento fosse realizado em tempo real, não haveria necessidade de se
+parar o sistema de detecção como um todo, mas somente uma parte deste. 
 
-Uma outra vantagem estaria relacionada com o pós processamento da informação. Em
-um primeiro momento ao se utilizar a segunda proposta não seria necessário que
-fosse realizada uma decodificação da saída como acontece na primeira. Conforme
-dito anteriormente, a palavra gerada na saída das redes especialistas indica se
-aquela falha está ou não acontecendo em $T_1$, $T_2$ ou em $T_1$ e $T_2$
-simultaneamente. 
-
+Uma outra vantagem estaria relacionada com o pós processamento da informação. Ao
+se utilizar a segunda proposta percebe-se que não será realizar uma
+decodificação da saída cada vez que uma entrada for introduzida na rede.
 Considerando que o tempo gasto para se decodificar a palavra gerada na saída da
 primeira proposta, é diretamente proporcional ao tamanho da palavra que, por sua
-vez, está diretamente relacionado com o número de falhas a serem identificadas,
+vez, está diretamente relacionado ao número de falhas a serem identificadas,
 pode-se dizer que quanto maior for o número de falhas a serem identificadas
 maior será esse tempo de decodificação.
 
@@ -798,8 +789,8 @@ Além desse fator, vale ainda salientar que as falhas podem acontecer de maneira
 simultânea e independente, o que iria produzir um grande número de combinações
 de falhas. Para um conjunto de 13 (treze) falhas, por exemplo, considerando que
 somente 2 (duas) destas poderiam atuar simultaneamente, teria-se um total de 78
-(setenta e oito) combinações distintas. Se fossem consideradas todas as
-possibilidades esse número cresceria consideravelmente.
+(setenta e oito) combinações distintas. Se todas as combinações fossem
+consideradas esse número cresceria de maneira exorbitante.
 
 Como cada uma dessas combinações deve ser identificada de maneira única pelo
 sistema, há então a necessidade de se representar as combinações dentre as
@@ -810,11 +801,25 @@ consequentemente o tempo de decodificação.
 
 Um último ponto que pode ser destacado é que ao se utilizar a segunda proposta,
 torna-se mais fácil realizar o acoplamento do sistema de DDF com um sistema de
-monitoramento e geração de alarme. Se cada saída da ...
+monitoramento e geração de alarme, pois cada falha seria acionada de maneira
+individual. Assim, os sinais de acionamento poderiam conter informações
+pertinentes para que os respectivos alarmes fossem gerados de maneira mais
+precisa.
 
 Apesar dessas vantagens, será feita uma análise comparativa dos resultados
 dessas estruturas. Dessa forma pode-se determinar qual das duas propostas melhor
 se adaptaria para o estudo de caso.
 
+Assim como o sistema de identificação, o sistema de detecção também pode ser
+visto como uma única estrutura neural. A única observação a ser feita é que a
+saída dessa estrutura poderá ser uma palavra binária de $p$ bits, tal que $2^p
+\geq n$, em que $n$ representa o número de palavras a serem identificadas; ou
+$n$ palavras binárias de 2 bits.
+
 % ------------------------------------------------------------------------------
 \section{Composição do sistema}
+Tendo conhecido todos os subsistemas a serem utilizados, pode-se observar na
+Fig. \ref{fig:composicao} a estrutura do sistema de DDF proposto. Deve-se
+destacar entretanto que o trabalho aqui proposto não incorpora o desenvolvimento
+de um sistema de supervisão e monitoramento completo, mas somente o sistema de
+DDF.
