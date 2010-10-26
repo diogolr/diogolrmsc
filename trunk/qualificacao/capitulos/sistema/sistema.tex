@@ -776,7 +776,7 @@ retreinada, o que iria reduzir esse custo de maneira considerável. Além disso,
 se o treinamento fosse realizado em tempo real, não haveria necessidade de se
 parar o sistema de detecção como um todo, mas somente uma parte deste. 
 
-Uma outra vantagem estaria relacionada com o pós processamento da informação. Ao
+Uma outra vantagem estaria relacionada com o pós-processamento da informação. Ao
 se utilizar a segunda proposta percebe-se que não será realizar uma
 decodificação da saída cada vez que uma entrada for introduzida na rede.
 Considerando que o tempo gasto para se decodificar a palavra gerada na saída da
@@ -799,7 +799,7 @@ das falhas, precisariam existir as palavras binárias que representariam as
 combinações de cada uma dessas, aumentando ainda mais o número de bits e,
 consequentemente o tempo de decodificação.
 
-Um último ponto que pode ser destacado é que ao se utilizar a segunda proposta,
+Um outro ponto que pode ser destacado é que ao se utilizar a segunda proposta,
 torna-se mais fácil realizar o acoplamento do sistema de DDF com um sistema de
 monitoramento e geração de alarme, pois cada falha seria acionada de maneira
 individual. Assim, os sinais de acionamento poderiam conter informações
@@ -814,7 +814,9 @@ Assim como o sistema de identificação, o sistema de detecção também pode se
 visto como uma única estrutura neural. A única observação a ser feita é que a
 saída dessa estrutura poderá ser uma palavra binária de $p$ bits, tal que $2^p
 \geq n$, em que $n$ representa o número de palavras a serem identificadas; ou
-$n$ palavras binárias de 2 bits.
+$n$ palavras binárias de 2 bits. Nesse último caso $n$ representa simplesmente o
+número de falhas a serem identificadas, pois as combinações de falhas são
+obtidas a partir das saídas ativas de cada uma das redes.
 
 % ------------------------------------------------------------------------------
 \section{Composição do sistema}
@@ -823,3 +825,14 @@ Fig. \ref{fig:composicao} a estrutura do sistema de DDF proposto. Deve-se
 destacar entretanto que o trabalho aqui proposto não incorpora o desenvolvimento
 de um sistema de supervisão e monitoramento completo, mas somente o sistema de
 DDF.
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao}
+    \caption{Composição do sistema proposto.}
+    \label{fig:composicao}
+\end{figure}
+
+Acoplar tal sistema à um ambiente de monitoramento e supervisão, ou ainda
+associá-lo à técnicas de controle tolerante à falhas, consiste simplesmente em
+processar as informações disponíveis na interface de saída do módulo de DDF.
