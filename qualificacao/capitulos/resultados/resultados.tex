@@ -48,15 +48,162 @@ uma análise um pouco mais detalhada acerca da detecção das falhas.
 
 % ------------------------------------------------------------------------------
 \section{Coleta dos dados}
+Tanto para o processo de identificação quanto para o processo de detecção, o
+primeiro passo a ser dado é a obtenção das amostras experimentais para o
+treinamento supervisionado das redes neurais de inferência e de detecção.
 
-% ------------------------------------------------------------------------------
-\subsection{Simulações computacionais}
+Dessa maneira, realizou-se a coleta dos dados a partir da estimulação do sistema
+simulado através da aplicação de sinais binários pseudo aleatórios ({Pseudo
+Random Binary Signals} -- PRBS) à referência de cada um dos tanques e aos
+parâmetros do sistema que simulam as falhas. Para a identificação, a faixa de
+valores aplicados se deu do nível mínimo (zero) ao máximo (trinta). Já para a
+detecção das falhas, os valores foram aplicados conforme Tab.
+\ref{tab:valores_treinamento}. Nessa tabela os valores mínimos e máximos são
+multiplicados pelo valor padrão e aplicados ao modelo. A última coluna mostra
+qual será a representatividade da mudança dos valores.
 
-% ------------------------------------------------------------------------------
-%\subsection{Método de Runge-Kutta de 4\textordfeminine ordem}
+\begin{table}[htb]
+\caption{Valores aplicados para o treinamento das redes neurais de detecção.}
+\label{tab:valores_treinamento}
+\vspace{0.25cm}
+\centering
+\begin{threeparttable}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{\bf Falha} & {\bf Valor padrão} & {\bf Mínimo} & {\bf Máximo} & 
+{\bf Representatividade}\\
+\hline
+\hline
+FSeDG & 0,16\tnote{$*$} & 
+0,8 & 1,2 & Até $\pm 6$ cm\\
+\hline
+FSeDO & 1,0 & -3,0 & 3,0 & Até $\pm 3$ cm\\
+\hline
+FSeSR & 1,0 & -0,03 & 0,03 & Até $\pm 9$ cm\\
+\hline
+FSeQ & 1,0 & 0,0 & 0,0 & -- \\
+\hline
+\hline
+FADG & 1,0 & 0,8 & 1,0 & Até -3 Volts\\
+\hline
+FADO & 1,0 & -1,0 & 0,0 & Até -1 Volts\\
+\hline
+FASR & 1,0 & -0,03 & 0,03 & Até $\pm 0,45$ Volts\\
+\hline
+FAVK & $K_m$ & 0,7 & 1,1 & --\\
+\hline
+FAQ & 1,0 & 0,0 & 0,0 & --\\
+\hline
+\hline
+FSiVzT & $a_{i_{\text{\tiny MED}}}$ & 
+0,25 & 0,75 & 25 a 75\% de $a_{i_{\text{\tiny MED}}}$\\
+\hline
+FSiVrOS & $a_{i_{\text{\tiny MED}}}$ & 
+0,75 & 1,25 & $\pm 25\%$ de $a_{i_{\text{\tiny MED}}}$\\
+\hline
+FSiVrGMP & 5,0\tnote{$*$} & 
+0,8 & 1,0 & Até -3 Volts\\
+\hline
+FSiEOS & $a_{i_{\text{\tiny MED}}}$ & 
+0,0 & 0,5 & --\\
+\hline
+\end{tabular}
+\begin{tablenotes}
+\item [$*$] Estabelecido pelo manual do fabricante.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+Perceba que nas falhas dos atuadores, as tensões a serem aplicadas podem vir a
+danificar a bomba. Por esse motivo não seria viável obter as amostras do
+processo real, mas sim a partir de uma simulação.
+
+Os sinais pseudo aleatórios gerados se mantiveram dentro dos limites
+estabelecidos durante todo o intervalo de tempo da simulação. Para o processo de
+identificação foram obtidas 6000 (seis mil) amostras, equivalentes à 10 (dez)
+minutos de simulação. Já para a detecção o processo foi simulado durante 20
+(vinte) minutos, o que correspondeu a obtenção de 12000 (doze mil) amostras.
+
+De posse dos valores obtidos, iniciou-se a fase de treinamento das RNAs. Todas
+as redes foram treinadas de modo {\it offline} com o {\it toolbox} de redes
+neurais do {\it software} matemático Matlab\reg\ utilizando o algoritmo LMA. Ao
+final de cada etapa de treinamento as redes eram submetidas à testes de
+validação para que se fosse possível avaliar a capacidade de generalização.
 
 % ------------------------------------------------------------------------------
 \section{Análise das RNAs}
+Para que se fossem estabelecidos critérios avaliativos significantes, ou seja,
+para que existisse um número representativo, diversas redes neurais foram
+treinadas com diferentes configurações considerando o número de neurônios na
+camada oculta e a ordem do modelo. O número de redes treinadas corresponde
+aquele especificado no final da Tab. \ref{tab:treinamentos}. 
+
+\begin{table}[htb]
+\centering
+\caption[Número de redes neurais treinadas]{Número de redes neurais treinadas de
+acordo com a ordem do modelo e o número de neurônios na camada oculta.}
+\label{tab:treinamentos}
+\vspace{0.25cm}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+% Linha 1
+\multirow{2}{*}{\bf Proposta} & 
+\multirow{2}{*}{\bf Ordem} & 
+{\bf Neurônios na} & 
+{\bf Número de} & 
+\multirow{2}{*}{\bf Total}\\
+% Linha 2
+& & {\bf camada oculta} & {\bf redes treinadas} &\\
+\hline
+\hline
+\multicolumn{5}{|l|}{{\bf Identificação}}\\
+\hline
+\hline
+\multirow{3}{*}{1} & 2 & 6/8/10 & \multirow{3}{*}{6} & \multirow{3}{*}{54}\\
+\cline{2-3}
+& 3 & 8/12/16 & &\\
+\cline{2-3}
+& 4 & 10/16/22 & &\\
+\hline
+\multirow{3}{*}{2} & 2 & 2/4/6 -- 6/8/10 & 
+\multirow{3}{*}{6} & \multirow{3}{*}{108}\\
+\cline{2-3}
+& 3 & 4/6/8 -- 8/12/16 & & \\
+\cline{2-3}
+& 4 & 6/8/10 -- 10/16/22 & & \\
+\hline
+\multicolumn{5}{|l|}{{\bf Detecção}}\\
+\hline
+\hline
+\multirow{3}{*}{2} & 2 & 8/12/16 & 
+\multirow{3}{*}{6/falha} &
+\multirow{3}{*}{702}\\
+\cline{2-3}
+& 3 & 14/18/22 & &\\
+\cline{2-3}
+& 4 & 20/24/28 & &\\
+\hline
+\hline
+\multicolumn{4}{|r|}{{\bf Total}} & 864\\
+\hline
+\end{tabular}
+\end{table}
+
+Pode-se compreender essa tabela facilmente a partir de um exemplo: na primeira
+proposta de identificação, considerando a linha de ordem igual 2, foram
+treinadas 6 redes neurais cada vez que o número de neurônios na camada oculta
+era alterado (6, 8 ou 10 neurônios). Assim, para cada ordem eram treinadas 18
+redes neurais. Como foram testadas três ordens distintas, tem-se um total de 54
+redes para a primeira proposta.
+
+As únicas observações a serem feitas são que, na segunda proposta de
+identificação existiam duas redes neurais a serem treinadas em cada etapa de
+treinamento, conforme Fig. \ref{fig:ident_proposta_2}, e que a segunda proposta
+de detecção considera-se um conjunto de 13 (treze) redes especialistas, sendo
+uma para cada falha, conforme Fig. \ref{fig:detec_prop_2}. Em virtude desses
+aspectos, o número de redes treinadas dobra da primeira para a segunda proposta
+de identificação e é multiplicado por um fator de treze para a segunda proposta
+de detecção.
 
 % ------------------------------------------------------------------------------
 \subsection{Identificação}

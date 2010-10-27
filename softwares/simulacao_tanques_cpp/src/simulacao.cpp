@@ -83,7 +83,7 @@ void Simulacao :: escrever( const int &canal, const double &valor )
         // Nivel DC ------------------------------------------------------------
         tensao_bomba_1 += dc_atuador_t1;
 
-        if ( tensao_bomba_1 > 15.0 )
+        if ( tensao_bomba_1 > 15.0 || tensao_bomba_1 < -15.0 )
         {
             emit erro( "[Erro Simulação]: Bomba 1 danificada" );
         }
@@ -104,7 +104,7 @@ void Simulacao :: escrever( const int &canal, const double &valor )
         // Nivel DC ------------------------------------------------------------
         tensao_bomba_2 += dc_atuador_t2;
         
-        if ( tensao_bomba_2 > 15.0 )
+        if ( tensao_bomba_2 > 15.0 || tensao_bomba_2 < -15.0 )
         {
             emit erro( "[Erro Simulação]: Bomba 2 danificada" );
         }
