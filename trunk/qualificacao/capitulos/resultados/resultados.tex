@@ -63,6 +63,7 @@ multiplicados pelo valor padrão e aplicados ao modelo. A última coluna mostra
 qual será a representatividade da mudança dos valores.
 
 \begin{table}[htb]
+\small
 \caption{Valores aplicados para o treinamento das redes neurais de detecção.}
 \label{tab:valores_treinamento}
 \vspace{0.25cm}
@@ -139,6 +140,7 @@ da ordem do modelo. O número de redes treinadas corresponde aquele especificado
 no final da Tab. \ref{tab:treinamentos}. 
 
 \begin{table}[htb]
+\small
 \centering
 \caption[Número de redes neurais treinadas]{Número de redes neurais treinadas de
 acordo com a ordem do modelo e o número de neurônios na camada oculta.}
@@ -217,6 +219,7 @@ Utilizando o EMQ estabelecido pela Eq. \ref{eq:emq}, foram obtidos os resultados
 exibidos pela Tab. \ref{tab:melhores_rnas_ident}.
 
 \begin{table}[htb]
+\small
 \centering
 \caption{Melhores redes treinadas para a identificação do modelo.}
 \label{tab:melhores_rnas_ident}
@@ -279,17 +282,134 @@ melhor rede para uma determinada falha seria aquela em que a soma dos erros de
 tipo I com os erros de tipo II fosse a menor possível.
 
 Os resultados obtidos para cada uma das falhas podem ser observados da Tab.
-\ref{tab:fsedg} a Tab. \ref{tab:fsieos}. A última coluna de cada uma dessas
-tabelas representa o percentual de erro total\footnote{O percentual de erro
+\ref{tab:fsedg} a Tab. \ref{tab:fsieos}. Como dito anteriormente, as colunas dos
+erros se referem a média obtida a partir das três validações. Já a última coluna
+representa o percentual de erro médio total\footnote{O percentual de erro médio
 total é obtido a partir da soma da quantidade de erros de tipo I com os erros de
-tipo II, dividido pelo número total de amostras.} sobre todas as amostras. Assim
-como na proposta de identificação, as melhores redes estão destacadas em cinza.
+tipo II, dividido pelo número total de amostras.} sobre todas as amostras. 
+
+Deve-se observar ainda que apesar do treinamento ter sido feito com 12000 (doze
+mil) amostras, a rede deve acertar 24000 (vinte e quatro mil) vezes, pois para
+cada ponto a rede deve mostrar se está ou não havendo aquela falha em $T_1$ e em
+$T_2$. Portanto, para cada ponto de treinamento haverão dois acertos a serem
+realizados. Ademais, assim como na proposta de identificação, as melhores redes
+estão destacadas em cinza.
+
+\begin{center}
+%\small
+\tablefirsthead
+{
+\hline
+\multirow{2}{*}{\bf Ordem} &
+\multirow{2}{*}{\bf NCO} &
+\multirow{2}{*}{\bf Treinamento} &
+\multirow{2}{*}{\bf Acertos} &
+{\bf Erros de} & {\bf Erros de} & {\bf Total de}\\
+& & & & {\bf tipo I} & {\bf tipo II} & {\bf erros}\\
+\hline
+}
+% Demais cabeçalhos
+\tablehead
+{
+\hline
+\multicolumn{7}{|l|}{\scriptsize\it Continuação da página anterior}\\
+\hline
+\multirow{2}{*}{\bf Ordem} &
+\multirow{2}{*}{\bf NCO} &
+\multirow{2}{*}{\bf Treinamento} &
+\multirow{2}{*}{\bf Acertos} &
+{\bf Erros de} & {\bf Erros de} & {\bf Total de}\\
+& & & & {\bf tipo I} & {\bf tipo II} & {\bf erros}\\
+\hline
+}
+% Final da tabela em cada página
+\tabletail
+{
+\hline
+\multicolumn{7}{|r|}{\scriptsize\it Continua na página seguinte}\\
+\hline
+}
+% Último final da tabela
+\tablelasttail
+{
+\hline
+}
+\tablecaption{Melhores redes}
+\label{tab:melhores_redes_detec}
+\begin{supertabular}{|c|c|c|c|c|c|c|}
+% Cabeçalho inicial
+2 & 16 & 1 & 23430 & 133,66 & 436,33 & 2,37\%\\
+3 & 22 & 6 & 23456,33 & 176 & 367,66 & 2,26\%\\
+4 & 28 & 2 & 23491,33 & 203,33 & 305,33 & 2,12\%\\
+\hline
+2 & 16 & 3 & 23872 & 4,33 & 123,66 & 0,53\%\\
+3 & 14 & 6 & 23876,33 & 23,66 & 100 & 0,51\%\\
+4 & 28 & 5 & 23890,33 & 8,66 & 101 & 0,46\%\\
+\hline
+2 & 8 & 2 & 23306,33 & 201 & 492,66 & 2,89\%\\
+3 & 14 & 5 & 23313,66 & 419 & 267,33 & 2,86\%\\
+4 & 20 & 3 & 23317 & 324,66 & 358,33 & 2,84\%\\
+\hline
+2 & 12 & 5 & 23972 & 21 & 7 & 0,12\%\\
+3 & 18 & 4 & 23993 & 1,33 & 5,66 & 0,03\%\\
+4 & 20 & 4 & 23994 & 0,66 & 5,33 & 0,02\%\\
+\hline
+2 & 8 & 3 & 20710,33 & 1626,66 & 1663 & 13,7\%\\
+3 & 14 & 6 & 20465 & 1734 & 1801 & 14,73\%\\
+4 & 20 & 2 & 20116 & 2075,66 & 1808,33 & 16,18\%\\
+\hline
+2 & 12 & 2 & 22827,66 & 612 & 560,33 & 4,88\%\\
+3 & 22 & 6 & 22903,33 & 606,33 & 490,33 & 4,57\%\\
+4 & 28 & 3 & 23075,33 & 635,66 & 289 & 3,85\%\\
+\hline
+2 & 8 & 6 & 14153,33 & 3407 & 6439,66 & 41,03\%\\
+3 & 14 & 6 & 13977,33 & 4064 & 5958,66 & 41,76\%\\
+4 & 20 & 3 & 13578,33 & 4393,66 & 6028 & 43,42\%\\
+\hline
+2 & 8 & 5 & 20764,66 & 1551,33 & 1684 & 13,48\%\\
+3 & 14 & 5 & 20701,66 & 1336 & 1962,33 & 13,74\%\\
+4 & 20 & 4 & 20489,33 & 1640,66 & 1870 & 14,63\%\\
+\hline
+2 & 12 & 6 & 23976 & 0,66 & 23,33 & 0,1\%\\
+3 & 18 & 2 & 23979,33 & 2,66 & 18 & 0,086\%\\
+4 & 28 & 6 & 23980 & 2,33 & 17,66 & 0,083\%\\
+\hline
+2 & 16 & 6 & 23623,66 & 173,66 & 202,66 & 1,57\%\\
+3 & 22 & 2 & 23742,33 & 95 & 162,66 & 1,07\%\\
+4 & 24 & 1 & 23774,33 & 74 & 151,66 & 0,94\%\\
+\hline
+2 & 8 & 3 & 22465,33 & 437 & 1097,66 & 6,39\%\\
+3 & 14 & 4 & 22274 & 763,66 & 962,33 & 7,19\%\\
+4 & 20 & 3 & 21781,66 & 1164,66 & 1053,66 & 9,24\%\\
+\hline
+2 & 16 & 1 & 20629,33 & 1862,66 & 1508 & 14,04\%\\
+3 & 18 & 3 & 20847 & 2135,33 & 1017,66 & 13,14\%\\
+4 & 20 & 2 & 20905,66 & 1979,66 & 1114,66 & 12,89\%\\
+\hline
+2 & 12 & 4 & 23995,66 & 1 & 3,33 & 0,018\%\\
+3 & 14 & 5 & 23995 & 2 & 3 & 0,021\%\\
+4 & 20 & 2 & 23995 & 2 & 3 & 0,021\%\\
+\end{supertabular}
+\end{center}
+
+Analisando os valores exibidos nessas tabelas, percebe-se que as redes
+especialistas possuem uma certa dificuldade em identificar as falhas dos
+atuadores e algumas falhas do sistema, chegando, em alguns casos, a ter mais de
+43\% de erro nos pontos de validação.
 
 % ------------------------------------------------------------------------------
 \section{Detecções}
 Tendo selecionado a melhor rede de identificação do modelo e as melhores redes
 de detecção, pode-se então compor o sistema final conforme Fig.
 \ref{fig:composicao}.
+
+...
+
+Apesar do número de acertos obtidos em algumas falhas durante o processo de
+validação, utilizando um sinal de excitação pseudo aleatório, percebeu-se que em
+casos mais simples, tais como a modificação do parâmetro para um valor
+constante, nem sempre o percentual de acerto era mantido. Um exemplo desse fato
+ocorre com a FSeDG, em que o percentual de erro salta de 2,12\% para X\%.
 
 % ------------------------------------------------------------------------------
 % TODO Dissertação

@@ -39,6 +39,8 @@
 % Notas de rodapé em tabelas (Pode-se usar o ambiente longtable também -
 % Pesquisar exemplo com longtable)
 \usepackage{threeparttable}
+% Tabelas grandes
+\usepackage{supertabular}
 
 % Glossário --------------------------------------------------------------------
 \usepackage[portuguese,noprefix]{nomencl}
@@ -59,6 +61,10 @@
 % utilitários matemáticos
 \usepackage{amsmath}
 \usepackage{icomma}
+
+% Evita o problema "too many unprocessed floats", colocando os campos
+% 'flutuantes' em suas respectivas seções
+\usepackage[section]{placeins}
 
 % Referências ------------------------------------------------------------------
 \usepackage[abbr]{harvard}	% As chamadas são sempre abreviadas
