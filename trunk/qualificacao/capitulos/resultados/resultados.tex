@@ -281,9 +281,9 @@ número de incidência de cada um desses erros. Estabeleceu-se portanto que a
 melhor rede para uma determinada falha seria aquela em que a soma dos erros de
 tipo I com os erros de tipo II fosse a menor possível.
 
-Os resultados obtidos para cada uma das falhas podem ser observados da Tab.
-\ref{tab:fsedg} a Tab. \ref{tab:fsieos}. Como dito anteriormente, as colunas dos
-erros se referem a média obtida a partir das três validações. Já a última coluna
+Os resultados obtidos para cada uma das falhas podem ser observados na Tab.
+\ref{tab:melhores_redes_detec}. Como dito anteriormente, as colunas dos erros se
+referem a média obtida a partir das três validações. Já a última coluna
 representa o percentual de erro médio total\footnote{O percentual de erro médio
 total é obtido a partir da soma da quantidade de erros de tipo I com os erros de
 tipo II, dividido pelo número total de amostras.} sobre todas as amostras. 
@@ -296,37 +296,41 @@ realizados. Ademais, assim como na proposta de identificação, as melhores rede
 estão destacadas em cinza.
 
 \begin{center}
-%\small
+\small
 \tablefirsthead
 {
 \hline
+\multirow{2}{*}{\bf Falha} &
 \multirow{2}{*}{\bf Ordem} &
 \multirow{2}{*}{\bf NCO} &
 \multirow{2}{*}{\bf Treinamento} &
 \multirow{2}{*}{\bf Acertos} &
 {\bf Erros de} & {\bf Erros de} & {\bf Total de}\\
-& & & & {\bf tipo I} & {\bf tipo II} & {\bf erros}\\
+& & & & & {\bf tipo I} & {\bf tipo II} & {\bf erros}\\
+\hline
 \hline
 }
 % Demais cabeçalhos
 \tablehead
 {
 \hline
-\multicolumn{7}{|l|}{\scriptsize\it Continuação da página anterior}\\
+\multicolumn{8}{|l|}{\scriptsize\it Continuação da página anterior}\\
 \hline
+\multirow{2}{*}{\bf Falha} &
 \multirow{2}{*}{\bf Ordem} &
 \multirow{2}{*}{\bf NCO} &
 \multirow{2}{*}{\bf Treinamento} &
 \multirow{2}{*}{\bf Acertos} &
 {\bf Erros de} & {\bf Erros de} & {\bf Total de}\\
-& & & & {\bf tipo I} & {\bf tipo II} & {\bf erros}\\
+& & & & & {\bf tipo I} & {\bf tipo II} & {\bf erros}\\
+\hline
 \hline
 }
 % Final da tabela em cada página
 \tabletail
 {
 \hline
-\multicolumn{7}{|r|}{\scriptsize\it Continua na página seguinte}\\
+\multicolumn{8}{|r|}{\scriptsize\it Continua na página seguinte}\\
 \hline
 }
 % Último final da tabela
@@ -334,82 +338,260 @@ estão destacadas em cinza.
 {
 \hline
 }
-\tablecaption{Melhores redes}
+\tablecaption{Melhores redes treinadas para a detecção de falhas.}
 \label{tab:melhores_redes_detec}
-\begin{supertabular}{|c|c|c|c|c|c|c|}
-% Cabeçalho inicial
+\begin{supertabular}{|c|c|c|c|c|c|c|c|}
+\multirow{3}{*}{FSeDG} &
 2 & 16 & 1 & 23430 & 133,66 & 436,33 & 2,37\%\\
-3 & 22 & 6 & 23456,33 & 176 & 367,66 & 2,26\%\\
-4 & 28 & 2 & 23491,33 & 203,33 & 305,33 & 2,12\%\\
+\cline{2-8}
+& 3 & 22 & 6 & 23456,33 & 176 & 367,66 & 2,26\%\\
+\cline{2-8}
+& 
+\cellcolor[gray]{0.9}4 & 
+\cellcolor[gray]{0.9}28 & 
+\cellcolor[gray]{0.9}2 &
+\cellcolor[gray]{0.9}23491,33 & 
+\cellcolor[gray]{0.9}203,33 & 
+\cellcolor[gray]{0.9}305,33 & 
+\cellcolor[gray]{0.9}2,12\%\\
 \hline
+\multirow{3}{*}{FSeDO} &
 2 & 16 & 3 & 23872 & 4,33 & 123,66 & 0,53\%\\
-3 & 14 & 6 & 23876,33 & 23,66 & 100 & 0,51\%\\
-4 & 28 & 5 & 23890,33 & 8,66 & 101 & 0,46\%\\
+\cline{2-8}
+& 3 & 14 & 6 & 23876,33 & 23,66 & 100 & 0,51\%\\
+\cline{2-8}
+& 
+\cellcolor[gray]{0.9}4 & 
+\cellcolor[gray]{0.9}28 & 
+\cellcolor[gray]{0.9}5 & 
+\cellcolor[gray]{0.9}23890,33 & 
+\cellcolor[gray]{0.9}8,66 & 
+\cellcolor[gray]{0.9}101 & 
+\cellcolor[gray]{0.9}0,46\%\\
 \hline
+\multirow{3}{*}{FSeSR} &
 2 & 8 & 2 & 23306,33 & 201 & 492,66 & 2,89\%\\
-3 & 14 & 5 & 23313,66 & 419 & 267,33 & 2,86\%\\
-4 & 20 & 3 & 23317 & 324,66 & 358,33 & 2,84\%\\
+\cline{2-8}
+& 3 & 14 & 5 & 23313,66 & 419 & 267,33 & 2,86\%\\
+\cline{2-8}
+& 
+\cellcolor[gray]{0.9}4 & 
+\cellcolor[gray]{0.9}20 & 
+\cellcolor[gray]{0.9}3 & 
+\cellcolor[gray]{0.9}23317 & 
+\cellcolor[gray]{0.9}324,66 & 
+\cellcolor[gray]{0.9}358,33 & 
+\cellcolor[gray]{0.9}2,84\%\\
 \hline
+\multirow{3}{*}{FSeQ} &
 2 & 12 & 5 & 23972 & 21 & 7 & 0,12\%\\
-3 & 18 & 4 & 23993 & 1,33 & 5,66 & 0,03\%\\
-4 & 20 & 4 & 23994 & 0,66 & 5,33 & 0,02\%\\
+\cline{2-8}
+& 3 & 18 & 4 & 23993 & 1,33 & 5,66 & 0,03\%\\
+\cline{2-8}
+& 
+\cellcolor[gray]{0.9}4 & 
+\cellcolor[gray]{0.9}20 & 
+\cellcolor[gray]{0.9}4 & 
+\cellcolor[gray]{0.9}23994 & 
+\cellcolor[gray]{0.9}0,66 & 
+\cellcolor[gray]{0.9}5,33 & 
+\cellcolor[gray]{0.9}0,02\%\\
 \hline
-2 & 8 & 3 & 20710,33 & 1626,66 & 1663 & 13,7\%\\
-3 & 14 & 6 & 20465 & 1734 & 1801 & 14,73\%\\
-4 & 20 & 2 & 20116 & 2075,66 & 1808,33 & 16,18\%\\
+\multirow{3}{*}{FADG} &
+\cellcolor[gray]{0.9}2 & 
+\cellcolor[gray]{0.9}8 & 
+\cellcolor[gray]{0.9}3 & 
+\cellcolor[gray]{0.9}20710,33 & 
+\cellcolor[gray]{0.9}1626,66 & 
+\cellcolor[gray]{0.9}1663 & 
+\cellcolor[gray]{0.9}13,7\%\\
+\cline{2-8}
+& 3 & 14 & 6 & 20465 & 1734 & 1801 & 14,73\%\\
+\cline{2-8}
+& 4 & 20 & 2 & 20116 & 2075,66 & 1808,33 & 16,18\%\\
 \hline
+\multirow{1}{*}{FADO} &
 2 & 12 & 2 & 22827,66 & 612 & 560,33 & 4,88\%\\
+\multirow{2}{*}{FADO} &
 3 & 22 & 6 & 22903,33 & 606,33 & 490,33 & 4,57\%\\
-4 & 28 & 3 & 23075,33 & 635,66 & 289 & 3,85\%\\
+\cline{2-8}
+& 
+\cellcolor[gray]{0.9}4 & 
+\cellcolor[gray]{0.9}28 & 
+\cellcolor[gray]{0.9}3 & 
+\cellcolor[gray]{0.9}23075,33 & 
+\cellcolor[gray]{0.9}635,66 & 
+\cellcolor[gray]{0.9}289 & 
+\cellcolor[gray]{0.9}3,85\%\\
 \hline
-2 & 8 & 6 & 14153,33 & 3407 & 6439,66 & 41,03\%\\
-3 & 14 & 6 & 13977,33 & 4064 & 5958,66 & 41,76\%\\
-4 & 20 & 3 & 13578,33 & 4393,66 & 6028 & 43,42\%\\
+\multirow{3}{*}{FASR} &
+\cellcolor[gray]{0.9}2 & 
+\cellcolor[gray]{0.9}8 & 
+\cellcolor[gray]{0.9}6 & 
+\cellcolor[gray]{0.9}14153,33 & 
+\cellcolor[gray]{0.9}3407 & 
+\cellcolor[gray]{0.9}6439,66 & 
+\cellcolor[gray]{0.9}41,03\%\\
+\cline{2-8}
+& 3 & 14 & 6 & 13977,33 & 4064 & 5958,66 & 41,76\%\\
+\cline{2-8}
+& 4 & 20 & 3 & 13578,33 & 4393,66 & 6028 & 43,42\%\\
 \hline
-2 & 8 & 5 & 20764,66 & 1551,33 & 1684 & 13,48\%\\
-3 & 14 & 5 & 20701,66 & 1336 & 1962,33 & 13,74\%\\
-4 & 20 & 4 & 20489,33 & 1640,66 & 1870 & 14,63\%\\
+\multirow{3}{*}{FAVK} &
+\cellcolor[gray]{0.9}2 & 
+\cellcolor[gray]{0.9}8 & 
+\cellcolor[gray]{0.9}5 & 
+\cellcolor[gray]{0.9}20764,66 & 
+\cellcolor[gray]{0.9}1551,33 & 
+\cellcolor[gray]{0.9}1684 & 
+\cellcolor[gray]{0.9}13,48\%\\
+\cline{2-8}
+& 3 & 14 & 5 & 20701,66 & 1336 & 1962,33 & 13,74\%\\
+\cline{2-8}
+& 4 & 20 & 4 & 20489,33 & 1640,66 & 1870 & 14,63\%\\
 \hline
+\multirow{3}{*}{FAQ} &
 2 & 12 & 6 & 23976 & 0,66 & 23,33 & 0,1\%\\
-3 & 18 & 2 & 23979,33 & 2,66 & 18 & 0,086\%\\
-4 & 28 & 6 & 23980 & 2,33 & 17,66 & 0,083\%\\
+\cline{2-8}
+& 3 & 18 & 2 & 23979,33 & 2,66 & 18 & 0,086\%\\
+\cline{2-8}
+& 
+\cellcolor[gray]{0.9}4 & 
+\cellcolor[gray]{0.9}28 & 
+\cellcolor[gray]{0.9}6 & 
+\cellcolor[gray]{0.9}23980 & 
+\cellcolor[gray]{0.9}2,33 & 
+\cellcolor[gray]{0.9}17,66 & 
+\cellcolor[gray]{0.9}0,083\%\\
 \hline
+\multirow{3}{*}{FSiVzT} &
 2 & 16 & 6 & 23623,66 & 173,66 & 202,66 & 1,57\%\\
-3 & 22 & 2 & 23742,33 & 95 & 162,66 & 1,07\%\\
-4 & 24 & 1 & 23774,33 & 74 & 151,66 & 0,94\%\\
+\cline{2-8}
+& 3 & 22 & 2 & 23742,33 & 95 & 162,66 & 1,07\%\\
+\cline{2-8}
+& 
+\cellcolor[gray]{0.9}4 & 
+\cellcolor[gray]{0.9}24 & 
+\cellcolor[gray]{0.9}1 & 
+\cellcolor[gray]{0.9}23774,33 & 
+\cellcolor[gray]{0.9}74 & 
+\cellcolor[gray]{0.9}151,66 & 
+\cellcolor[gray]{0.9}0,94\%\\
 \hline
-2 & 8 & 3 & 22465,33 & 437 & 1097,66 & 6,39\%\\
-3 & 14 & 4 & 22274 & 763,66 & 962,33 & 7,19\%\\
-4 & 20 & 3 & 21781,66 & 1164,66 & 1053,66 & 9,24\%\\
+\multirow{3}{*}{FSiVrOS} &
+\cellcolor[gray]{0.9}2 & 
+\cellcolor[gray]{0.9}8 & 
+\cellcolor[gray]{0.9}3 & 
+\cellcolor[gray]{0.9}22465,33 & 
+\cellcolor[gray]{0.9}437 & 
+\cellcolor[gray]{0.9}1097,66 & 
+\cellcolor[gray]{0.9}6,39\%\\
+\cline{2-8}
+& 3 & 14 & 4 & 22274 & 763,66 & 962,33 & 7,19\%\\
+\cline{2-8}
+& 4 & 20 & 3 & 21781,66 & 1164,66 & 1053,66 & 9,24\%\\
 \hline
+\multirow{3}{*}{FSiVrGMP} &
 2 & 16 & 1 & 20629,33 & 1862,66 & 1508 & 14,04\%\\
-3 & 18 & 3 & 20847 & 2135,33 & 1017,66 & 13,14\%\\
-4 & 20 & 2 & 20905,66 & 1979,66 & 1114,66 & 12,89\%\\
+\cline{2-8}
+& 3 & 18 & 3 & 20847 & 2135,33 & 1017,66 & 13,14\%\\
+\cline{2-8}
+& 
+\cellcolor[gray]{0.9}4 & 
+\cellcolor[gray]{0.9}20 & 
+\cellcolor[gray]{0.9}2 & 
+\cellcolor[gray]{0.9}20905,66 & 
+\cellcolor[gray]{0.9}1979,66 & 
+\cellcolor[gray]{0.9}1114,66 & 
+\cellcolor[gray]{0.9}12,89\%\\
 \hline
-2 & 12 & 4 & 23995,66 & 1 & 3,33 & 0,018\%\\
-3 & 14 & 5 & 23995 & 2 & 3 & 0,021\%\\
-4 & 20 & 2 & 23995 & 2 & 3 & 0,021\%\\
+\multirow{3}{*}{FSiEOS} &
+\cellcolor[gray]{0.9}2 & 
+\cellcolor[gray]{0.9}12 & 
+\cellcolor[gray]{0.9}4 & 
+\cellcolor[gray]{0.9}23995,66 & 
+\cellcolor[gray]{0.9}1 & 
+\cellcolor[gray]{0.9}3,33 & 
+\cellcolor[gray]{0.9}0,018\%\\
+\cline{2-8}
+& 3 & 14 & 5 & 23995 & 2 & 3 & 0,021\%\\
+\cline{2-8}
+& 4 & 20 & 2 & 23995 & 2 & 3 & 0,021\%\\
 \end{supertabular}
 \end{center}
 
 Analisando os valores exibidos nessas tabelas, percebe-se que as redes
 especialistas possuem uma certa dificuldade em identificar as falhas dos
 atuadores e algumas falhas do sistema, chegando, em alguns casos, a ter mais de
-43\% de erro nos pontos de validação.
+43\% de erro nos pontos de validação. Entretanto, a maioria desses valores podem
+ser considerados aceitáveis para a aplicação.
 
 % ------------------------------------------------------------------------------
 \section{Detecções}
-Tendo selecionado a melhor rede de identificação do modelo e as melhores redes
-de detecção, pode-se então compor o sistema final conforme Fig.
-\ref{fig:composicao}.
+Tendo selecionado a melhor rede de identificação e as melhores redes de
+detecção, pôde-se compor o sistema final, conforme Fig. \ref{fig:composicao}.
+Com o intuito de avaliar o desempenho desse sistema foram realizadas treze
+simulações, variando cada um dos parâmetros das possíveis falhas
+individualmente.
 
-...
+Cada simulação teve uma duração de um 1 (um) minuto e 45 (quarenta e cinco)
+segundos, tendo sido dividida em 7 (sete) intervalos de 15 (quinze) segundos, de
+acordo com a Fig. \ref{fig:intervalos}. As referências utilizadas para os
+tanques foram fixadas em 15 (quinze) e 20 (vinte) centímetros para $T_1$ e
+$T_2$, respectivamente. Os controladores foram configurados para atuarem como
+PIDs, cujos ganhos também foram mantidos fixos, com valores $K_{\tiny P} = 2,0$,
+$K_{\tiny I} = 0,5$ e $K_{\tiny D} = 0,05$.
 
-Apesar do número de acertos obtidos em algumas falhas durante o processo de
-validação, utilizando um sinal de excitação pseudo aleatório, percebeu-se que em
-casos mais simples, tais como a modificação do parâmetro para um valor
-constante, nem sempre o percentual de acerto era mantido. Um exemplo desse fato
-ocorre com a FSeDG, em que o percentual de erro salta de 2,12\% para X\%.
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.8\textwidth]{imgs/resultados/eps/intervalos}
+    \caption{Intervalos de simulação do sistema proposto.}
+    \label{fig:intervalos}
+\end{figure}
+
+Ao contrário do que aconteceu durante o período de treinamento e validação das
+redes, os valores de cada um dos parâmetros das falhas foram mantidos fixos
+durante os intervalos em que aquela falha estava agindo sobre o sistema. Os
+valores utilizados podem ser observados na Tab. \ref{tab:valores_parametros}.
+
+Os resultados obtidos para cada uma das falhas podem ser vistos da Fig.
+\ref{fig:fsedg} a \ref{fig:fsieos}. Nessas figuras, as áreas hachuradas em
+vermelho representam os intervalos em que o sistema detectou a falha em $T_1$,
+enquanto que as falhas hachuradas em azul representam os intervalos em que a
+falha foi detectada em $T_2$.
+
+Seguindo a ordem exposta pela Tab. \ref{tab:valores_treinamento}, a primeira
+falha a ser simulada foi a FSeDG. Nessa simulação o valor do ganho do sensor foi
+reduzido a 80\% do valor original.
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{imgs/resultados/eps/fsedg}
+\vspace{1cm}
+\caption{Simulação da FSeDG com o ganho reduzido a 80\% do valor original.}
+\label{fig:fsedg}
+\end{figure}
+
+Observa-se nesta figura que o sistema consegue identificar a presença da falha
+assim que o valor do parâmetro é modificado. Após esse período, os controladores
+conseguem ``compensar'' a falha, enviando mais tensão para a bomba e,
+consequentemente, fazendo com que o nível retorne à referência. Observa-se,
+entretanto, que essa ``compensação'' se dá de maneira inadequada, tendo em vista
+que a leitura do nível estará com um erro de 20\%. 
+
+Dessa forma, quando o valor lido pelos sensores for de 24 cm, o tanque estará
+prestes a transbordar, atingindo, na verdade, o limite superior de 30 cm. Em uma
+aplicação acadêmica tal situação pode não representar nenhum risco aos
+equipamentos além daqueles que a água venha a causar. Por outro lado, em
+aplicações críticas essa ``compensação'' pode vir a causar diversos prejuízos.
+
+% TODO CONCLUSAO?
+%Apesar do número de acertos obtidos em algumas falhas durante o processo de
+%validação, utilizando um sinal de excitação pseudo aleatório, percebeu-se que em
+%casos mais simples, tais como a modificação do parâmetro para um valor
+%constante, nem sempre o percentual de acerto era mantido. Um exemplo desse fato
+%ocorre com a FSeDG, em que o percentual de erro salta de 2,12\% para X\%.
 
 % ------------------------------------------------------------------------------
 % TODO Dissertação
@@ -419,16 +601,7 @@ ocorre com a FSeDG, em que o percentual de erro salta de 2,12\% para X\%.
 \begin{figure}[htb]
 \footnotesize
 \centering
-\input{scripts/fsedg}
-\vspace{1cm}
-\caption{FSeDG (80\%)}
-\label{fig:fsedg}
-\end{figure}
-
-\begin{figure}[htb]
-\footnotesize
-\centering
-\input{scripts/fsedo}
+\input{imgs/resultados/eps/fsedo}
 \vspace{1cm}
 \caption{FSeDO (-2 cm)}
 \label{fig:fsedo}
@@ -437,7 +610,7 @@ ocorre com a FSeDG, em que o percentual de erro salta de 2,12\% para X\%.
 \begin{figure}[htb]
 \footnotesize
 \centering
-\input{scripts/fsesr}
+\input{imgs/resultados/eps/fsesr}
 \vspace{1cm}
 \caption{FSeSR ($\pm 2\%$)}
 \label{fig:fsesr}
@@ -446,7 +619,7 @@ ocorre com a FSeDG, em que o percentual de erro salta de 2,12\% para X\%.
 \begin{figure}[htb]
 \footnotesize
 \centering
-\input{scripts/fseq}
+\input{imgs/resultados/eps/fseq}
 \vspace{1cm}
 \caption{FSeQ (Ganho = 0)}
 \label{fig:fseq}
@@ -456,7 +629,7 @@ ocorre com a FSeDG, em que o percentual de erro salta de 2,12\% para X\%.
 \begin{figure}[htb]
 \footnotesize
 \centering
-\input{scripts/fadg}
+\input{imgs/resultados/eps/fadg}
 \vspace{1cm}
 \caption{FADG (80\%)}
 \label{fig:fadg}
@@ -465,7 +638,7 @@ ocorre com a FSeDG, em que o percentual de erro salta de 2,12\% para X\%.
 \begin{figure}[htb]
 \footnotesize
 \centering
-\input{scripts/fado}
+\input{imgs/resultados/eps/fado}
 \vspace{1cm}
 \caption{FADO (-0,5 Volts)}
 \label{fig:fado}
@@ -474,7 +647,7 @@ ocorre com a FSeDG, em que o percentual de erro salta de 2,12\% para X\%.
 \begin{figure}[htb]
 \footnotesize
 \centering
-\input{scripts/fasr}
+\input{imgs/resultados/eps/fasr}
 \vspace{1cm}
 \caption{FASR ($\pm 2\%$)}
 \label{fig:fasr}
@@ -483,7 +656,7 @@ ocorre com a FSeDG, em que o percentual de erro salta de 2,12\% para X\%.
 \begin{figure}[htb]
 \footnotesize
 \centering
-\input{scripts/favk}
+\input{imgs/resultados/eps/favk}
 \vspace{1cm}
 \caption{FAVK (75\%)}
 \label{fig:favk}
@@ -492,7 +665,7 @@ ocorre com a FSeDG, em que o percentual de erro salta de 2,12\% para X\%.
 \begin{figure}[htb]
 \footnotesize
 \centering
-\input{scripts/faq}
+\input{imgs/resultados/eps/faq}
 \vspace{1cm}
 \caption{FAQ (Ganho = 0)}
 \label{fig:faq}
@@ -502,7 +675,7 @@ ocorre com a FSeDG, em que o percentual de erro salta de 2,12\% para X\%.
 \begin{figure}[htb]
 \footnotesize
 \centering
-\input{scripts/fsivzt}
+\input{imgs/resultados/eps/fsivzt}
 \vspace{1cm}
 \caption{FSiVzT ($a_{\tiny VZ} = \frac{a_{\tiny MED}}{2}$)}
 \label{fig:fsivzt}
@@ -511,7 +684,7 @@ ocorre com a FSeDG, em que o percentual de erro salta de 2,12\% para X\%.
 \begin{figure}[htb]
 \footnotesize
 \centering
-\input{scripts/fsivros}
+\input{imgs/resultados/eps/fsivros}
 \vspace{1cm}
 \caption{FSiVrOS ($a' = \frac{a_{\tiny MED}}{2}$)}
 \label{fig:fsivros}
@@ -520,7 +693,7 @@ ocorre com a FSeDG, em que o percentual de erro salta de 2,12\% para X\%.
 \begin{figure}[htb]
 \footnotesize
 \centering
-\input{scripts/fsivrgmp}
+\input{imgs/resultados/eps/fsivrgmp}
 \vspace{1cm}
 \caption{FSiVrGMP (90\%)}
 \label{fig:fsivrgmp}
@@ -529,7 +702,7 @@ ocorre com a FSeDG, em que o percentual de erro salta de 2,12\% para X\%.
 \begin{figure}[htb]
 \footnotesize
 \centering
-\input{scripts/fsieos}
+\input{imgs/resultados/eps/fsieos}
 \vspace{1cm}
 \caption{FSiEOS (25\%)}
 \label{fig:fsieos}
