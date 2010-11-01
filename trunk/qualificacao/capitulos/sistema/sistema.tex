@@ -625,9 +625,12 @@ tanto o processo automático de treinamento e validação da estrutura neural,
 quanto a referenciação textual.
 
 As falhas expostas na Tab. \ref{tab:classificacao_falhas} são induzidas de
-diferentes maneiras na simulação. Na FSeDG, por exemplo, o ganho do sensor é
+diferentes maneiras na simulação. Na FADG, por exemplo, o ganho do atuador é
 alterado de 1,0 para qualquer outro valor a juízo do usuário no momento em que é
-realizada a leitura dos níveis.
+realizada a leitura dos níveis. Já na FSiVzT, por questões de simplicidade,
+adiciona-se um outro orifício ao lado do orifício de saída do tanque. Esse
+orifício, de área arbitrária, terá a mesma dinâmica do orifício de saída do
+tanque, exceto que para $T_1$ a água que por ele escoa não irá cair em $T_2$.
 
 Para dar mais liberdade de configuração à simulação, foi desenvolvido um sistema
 em C++, que implementa o método de RK4 e possui a capacidade de configurar todos

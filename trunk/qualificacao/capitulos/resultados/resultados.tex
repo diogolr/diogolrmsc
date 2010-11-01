@@ -554,15 +554,56 @@ redes, os valores de cada um dos parâmetros das falhas foram mantidos fixos
 durante os intervalos em que aquela falha estava agindo sobre o sistema. Os
 valores utilizados podem ser observados na Tab. \ref{tab:valores_parametros}.
 
+\begin{table}[htb]
+\centering
+\caption{Valores dos parâmetros modificados para a simulação das falhas.}
+\label{tab:valores_parametros}
+\vspace{0.25cm}
+\begin{tabular}{|c|c|c|c|}
+\hline
+{\bf Falha} & {\bf Valor modificado}\\
+\hline
+\hline
+FSeDG & $\text{Ganho} = 0,128$\\
+\hline
+FSeDO & -2,0\ cm\\
+\hline
+FSeSR & $\pm 2\%$\\
+\hline
+FSeQ & $\text{Ganho} = 0,0$\\
+\hline
+\hline
+FADG & $\text{Ganho} = 0,8$\\
+\hline
+FADO & -0,5 Volts\\
+\hline
+FASR & $\pm 2\%$\\
+\hline
+FAVK & $K_m = 3,45$\\ 
+\hline
+FAQ & $\text{Ganho} = 0,0$\\
+\hline
+\hline
+FSiVzT & $a_{\tiny VZ} = \frac{a_{\tiny MED}}{2}$\\
+\hline
+FSiVrOS & $a_i = \frac{a_{\tiny MED}}{2}$\\
+\hline
+FSiVrGMP & $\text{Ganho} = 4,5$\\
+\hline
+FSiEOS & $a_i' = \frac{a_{\tiny MED}}{4}$\\
+\hline
+\end{tabular}
+\end{table}
+
 Os resultados obtidos para cada uma das falhas podem ser vistos da Fig.
 \ref{fig:fsedg} a \ref{fig:fsieos}. Nessas figuras, as áreas hachuradas em
 vermelho representam os intervalos em que o sistema detectou a falha em $T_1$,
 enquanto que as falhas hachuradas em azul representam os intervalos em que a
 falha foi detectada em $T_2$.
 
-Seguindo a ordem exposta pela Tab. \ref{tab:valores_treinamento}, a primeira
-falha a ser simulada foi a FSeDG. Nessa simulação o valor do ganho do sensor foi
-reduzido a 80\% do valor original.
+A primeira falha a ser simulada foi a FSeDG, cujo resultado da detecção pode ser
+observado na Fig. \ref{fig:fsedg}. Nessa simulação o valor do ganho do sensor
+foi reduzido para 80\% do valor original.
 
 \begin{figure}[htb]
 \footnotesize
@@ -580,11 +621,163 @@ consequentemente, fazendo com que o nível retorne à referência. Observa-se,
 entretanto, que essa ``compensação'' se dá de maneira inadequada, tendo em vista
 que a leitura do nível estará com um erro de 20\%. 
 
-Dessa forma, quando o valor lido pelos sensores for de 24 cm, o tanque estará
-prestes a transbordar, atingindo, na verdade, o limite superior de 30 cm. Em uma
-aplicação acadêmica tal situação pode não representar nenhum risco aos
+Dessa forma, quando o valor lido pelos sensores for de 24\ cm, o tanque estará
+prestes a transbordar, atingindo, na verdade, o limite superior de 30\ cm. Em
+uma aplicação acadêmica tal situação pode não representar nenhum risco aos
 equipamentos além daqueles que a água venha a causar. Por outro lado, em
 aplicações críticas essa ``compensação'' pode vir a causar diversos prejuízos.
+
+O sistema se comportou de maneira semelhante na FSeDO e na FSiVzT, conforme
+observado nas Figs. \ref{fig:fsedo} e \ref{fig:fsivzt}. Essa semelhança pode vir
+a dificultar a identificação dessas falhas quando as redes estiverem agindo
+paralelamente. Por outro lado, o sistema composto por uma única rede pode
+conseguir diferenciar cada uma dessas falhas de maneira mais eficiente. 
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{imgs/resultados/eps/fsedo}
+\vspace{1cm}
+\caption{Simulação da FSeDO com {\it offset} de -2\ cm.}
+\label{fig:fsedo}
+\end{figure}
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{imgs/resultados/eps/fsivzt}
+\vspace{1cm}
+\caption{Simulação da FSiVzT com $a_{\tiny VZ} = a_{\tiny MED}/2$.}
+\label{fig:fsivzt}
+\end{figure}
+
+Os resultados obtidos para essas falhas não estão condizentes com a Tab.
+\ref{tab:melhores_redes_detec}. Tal fato pode acontecer porque as redes
+identificaram uma dinâmica para variações rápidas através de sinais de excitação
+pseudo aleatórios, não conseguindo identificar variações bruscas e continuadas.
+
+Assim, uma possível alternativa para contornar esse problema de detecção, seria
+a de se utilizar {\it flags} binárias, ativadas no momento em que fosse
+detectada a primeira variação e desativadas na detecção seguinte. Essas {\it
+flags} indicariam para o sistema que a falha está agindo durante todo o
+intervalo de tempo em que estivessem ativas.
+
+Uma outra simulação mostrou que a FSeSR foi facilmente identificada pelo
+sistema, como pode ser visto na Fig. \ref{fig:fsesr}. Observa-se entretanto que,
+por se tratar de um ruído com distribuição uniforme ($\pm 2\%$), o sistema não
+consegue identificar a falha em alguns pontos. Nesses pontos, pode-se observar
+que o valor gerado pela função {\tt rand} mantém o sinal próximo à referência.
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{imgs/resultados/eps/fsesr}
+\vspace{1cm}
+\caption{Simulação da FSeSR com ruído de distribuição uniforme ($\pm 2\%$).}
+\label{fig:fsesr}
+\end{figure}
+
+Ao contrário da FSeSR, a FASR entretanto não foi tão facilmente identificada. Os
+resultados obtidos para $T_1$ podem até ser considerados razoáveis, contudo, os
+resultados para $T_2$ são inaceitáveis, tendo em vista que nenhum dos pontos em
+que a falha deveria ter sido identificada foram reconhecidos pela rede. Apesar
+disso, observa-se que os resultados estão condizentes com a Tab.
+\ref{tab:melhores_redes_detec}, em que o total de erros de detecção supera 40\%.
+A simulação da FASR pode ser observada na Fig. \ref{fig:fasr}.
+
+\begin{figure}[htb] \footnotesize \centering \input{imgs/resultados/eps/fasr}
+\vspace{1cm} \caption{Simulação da FSeSR com ruído de distribuição uniforme
+($\pm 2\%$).} \label{fig:fasr} \end{figure}
+
+Com exceção da FSiVrGMP, todas as falhas restantes também foram facilmente
+identificadas pelo sistema, como pode ser observado nas Figs. \ref{fig:fseq} a
+\ref{fig:fsieos}. Nessa primeira, o sistema não consegue quando a falha acontece
+somente em $T_1$, como pode ser visto no intervalo de 15 (quinze) a 30 (trinta)
+segundos da Fig. \ref{fig:fsivrgmp}. Todavia, as falhas em $T_2$ são
+identificadas corretamente. Tal fato justifica a quantidade de erros expostos
+pela Tab. \ref{tab:melhores_redes_detec}.
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{imgs/resultados/eps/fsivrgmp}
+\vspace{1cm}
+\caption{Simulação da FSiVrGMP com o ganho reduzido a 90\% do valor original.}
+\label{fig:fsivrgmp}
+\end{figure}
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{imgs/resultados/eps/fseq}
+\vspace{1cm}
+\caption{Simulação da FSeQ (Ganho = 0).}
+\label{fig:fseq}
+\end{figure}
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{imgs/resultados/eps/fadg}
+\vspace{1cm}
+\caption{Simulação da FADG com o ganho reduzido a 80\% do valor original.}
+\label{fig:fadg}
+\end{figure}
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{imgs/resultados/eps/fado}
+\vspace{1cm}
+\caption{Simulação da FADO com {\it offset} de -0,5 Volts.}
+\label{fig:fado}
+\end{figure}
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{imgs/resultados/eps/favk}
+\vspace{1cm}
+\caption{Simulação da FAVK com $K_m$ reduzido a 75\% do valor original.}
+\label{fig:favk}
+\end{figure}
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{imgs/resultados/eps/faq}
+\vspace{1cm}
+\caption{Simulação da FAQ (Ganho = 0).}
+\label{fig:faq}
+\end{figure}
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{imgs/resultados/eps/fsivros}
+\vspace{1cm}
+\caption{Simulação da FSiVrOS com $a_i = a_{\tiny MED}/2$.}
+\label{fig:fsivros}
+\end{figure}
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\input{imgs/resultados/eps/fsieos}
+\vspace{1cm}
+\caption{Simulação da FSiEOS com $a_i = a_{\tiny MED}/4$.}
+\label{fig:fsieos}
+\end{figure}
+
+Uma última observação pode ser feita a respeito da FSeQ, em que há a detecção da
+falha em $T_1$ em um pequeno intervalo no final da simulação. Essa detecção
+entretanto não comprometeu o funcionamento do sistema nos intervalos em que a
+falha deveria realmente ser detectada. Trata-se, portanto, de um falso positivo.
+
+Como dito anteriormente, as situações adversas podem ter ocorrido no sistema em
+virtude do treinamento ter sido realizado co valores constantes para os
+parâmetros. Por esse motivo os resultados obtidos nem sempre estão de acordo com
+os valores da Tab. \ref{tab:melhores_redes_detec}.
 
 % TODO CONCLUSAO?
 %Apesar do número de acertos obtidos em algumas falhas durante o processo de
@@ -597,113 +790,3 @@ aplicações críticas essa ``compensação'' pode vir a causar diversos prejuí
 % TODO Dissertação
 % \section{Comparação das propostas de detecção}
 
-% Falhas nos sensores ..........................................................
-\begin{figure}[htb]
-\footnotesize
-\centering
-\input{imgs/resultados/eps/fsedo}
-\vspace{1cm}
-\caption{FSeDO (-2 cm)}
-\label{fig:fsedo}
-\end{figure}
-
-\begin{figure}[htb]
-\footnotesize
-\centering
-\input{imgs/resultados/eps/fsesr}
-\vspace{1cm}
-\caption{FSeSR ($\pm 2\%$)}
-\label{fig:fsesr}
-\end{figure}
-
-\begin{figure}[htb]
-\footnotesize
-\centering
-\input{imgs/resultados/eps/fseq}
-\vspace{1cm}
-\caption{FSeQ (Ganho = 0)}
-\label{fig:fseq}
-\end{figure}
-
-% Falhas nos atuadores .........................................................
-\begin{figure}[htb]
-\footnotesize
-\centering
-\input{imgs/resultados/eps/fadg}
-\vspace{1cm}
-\caption{FADG (80\%)}
-\label{fig:fadg}
-\end{figure}
-
-\begin{figure}[htb]
-\footnotesize
-\centering
-\input{imgs/resultados/eps/fado}
-\vspace{1cm}
-\caption{FADO (-0,5 Volts)}
-\label{fig:fado}
-\end{figure}
-
-\begin{figure}[htb]
-\footnotesize
-\centering
-\input{imgs/resultados/eps/fasr}
-\vspace{1cm}
-\caption{FASR ($\pm 2\%$)}
-\label{fig:fasr}
-\end{figure}
-
-\begin{figure}[htb]
-\footnotesize
-\centering
-\input{imgs/resultados/eps/favk}
-\vspace{1cm}
-\caption{FAVK (75\%)}
-\label{fig:favk}
-\end{figure}
-
-\begin{figure}[htb]
-\footnotesize
-\centering
-\input{imgs/resultados/eps/faq}
-\vspace{1cm}
-\caption{FAQ (Ganho = 0)}
-\label{fig:faq}
-\end{figure}
-
-% Falhas no sistema ............................................................
-\begin{figure}[htb]
-\footnotesize
-\centering
-\input{imgs/resultados/eps/fsivzt}
-\vspace{1cm}
-\caption{FSiVzT ($a_{\tiny VZ} = \frac{a_{\tiny MED}}{2}$)}
-\label{fig:fsivzt}
-\end{figure}
-
-\begin{figure}[htb]
-\footnotesize
-\centering
-\input{imgs/resultados/eps/fsivros}
-\vspace{1cm}
-\caption{FSiVrOS ($a' = \frac{a_{\tiny MED}}{2}$)}
-\label{fig:fsivros}
-\end{figure}
-
-\begin{figure}[htb]
-\footnotesize
-\centering
-\input{imgs/resultados/eps/fsivrgmp}
-\vspace{1cm}
-\caption{FSiVrGMP (90\%)}
-\label{fig:fsivrgmp}
-\end{figure}
-
-\begin{figure}[htb]
-\footnotesize
-\centering
-\input{imgs/resultados/eps/fsieos}
-\vspace{1cm}
-\caption{FSiEOS (25\%)}
-\label{fig:fsieos}
-\end{figure}
