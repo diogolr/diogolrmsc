@@ -4,32 +4,32 @@ Existem diversos métodos consolidados para detecção e isolamento de falhas,
 sendo alguns deles baseados em redundância física de componentes de hardware,
 como sensores, atuadores e controladores. Entretanto, a duplicação de
 componentes de hardware nem sempre é possível, uma vez que os custos
-relacionados com a adição de novos componentes componente podem elevar o
-orçamento do processo demasiadamente.
+relacionados com a adição de novos componentes podem elevar o orçamento
+demasiadamente.
 
 Devido a esse elevado custo, existe uma fronteira clara e inerente à aplicação
 de técnicas de tolerância a falhas. A escolha adequada dos dispositivos físicos
-e dos {\it softwares} devem então levar em consideração as exigências
-específicas de cada sistema de maneira individual, de tal maneira que se possa
-contornar o custo associado ao emprego dessas técnicas \cite{weber:2002}.
+e dos {\it softwares} devem levar em consideração as exigências específicas de
+cada sistema, de tal maneira que se possa contornar o custo associado ao emprego
+dessas técnicas \cite{weber:2002}.
 
-Assim sendo, a primeira parte do capítulo descreverá em detalhes o modelo de
-estudo de caso escolhido para ser simulado, mostrando suas características e
-limitações. Em seguida a atenção será voltada para as estruturas neurais de
-identificação do modelo e de detecção das falhas, mostrando ao final como serão
-realizadas as simulações.
+Assim sendo, a primeira parte deste capítulo descreverá em detalhes o modelo de
+estudo de caso escolhido, mostrando suas características e limitações.  Em
+seguida a atenção será voltada para as estruturas neurais de identificação do
+modelo e de detecção das falhas, mostrando ao final como serão realizadas as
+simulações.
 
 % ------------------------------------------------------------------------------
 \section{Estudo de caso}
-Ao final do Cap. \ref{cap:introducao}, após ter-se comentado sobre a utilização
-das RNAs em sistemas de DDF, propôs-se que será desenvolvido um sistema para
-realizar a detecçao e o diagnóstico de falhas em um processo dinâmico. Para que
-isso seja possível serão utilizadas estruturas neurais que farão uso de
-determinados valores obtidos a partir das medições realizadas no processo.
+Ao final do Cap. \ref{cap:introducao}, propôs-se que seria desenvolvido um
+sistema para realizar a DDF em um processo dinâmico. Para que isso fosse
+possível seriam utilizadas estruturas neurais que fariam uso de determinados
+valores, obtidos a partir das medições realizadas no processo e de seu histórico
+de funcionamento.
 
-O processo em questão, ao qual se refere o parágrafo anterior, é formado por um
-sistema de tanques acoplados desenvolvidos pela Quanser\reg, representado
-esquematicamente na Fig. \ref{fig:tanques}.
+O processo em questão, é formado por um sistema de tanques acoplados
+desenvolvidos pela Quanser\reg, representado esquematicamente na Fig.
+\ref{fig:tanques}.
 
 \begin{figure}[htb]
 \centering
@@ -58,10 +58,10 @@ diferentes pelo fabricante.
 \Glossary{$T_2$}{Tanque inferior}
 
 Além dos diferentes orifícios de saída, o fabricante também disponibiliza um
-conjunto de mangueiras, tornando possível a utilização dos dois orifícios de
-entrada, bombeando água para os dois tanques simultaneamente. As dimensões de
-cada um dos orifícios e os demais parâmetros do sistema podem ser visualizadas
-na Tab. \ref{tab:dimensoes}.
+conjunto de mangueiras, permitindo a utilização dos dois orifícios de entrada e
+o bombeio de água para os dois tanques simultaneamente. As dimensões de cada um
+dos orifícios e os demais parâmetros do sistema podem ser visualizados na Tab.
+\ref{tab:dimensoes}.
 
 \begin{table}[!htb]
 \small
@@ -153,7 +153,7 @@ uma alimentação direta, não fazendo uso do segundo tanque. Na segunda
 configuração deseja-se controlar o nível de $T_2$ ($L_2$) a partir de uma
 alimentação indireta em $T_1$. Assim, $T_2$ é alimentado a partir da água que
 escoa de $T_1$ pelo orifício $a_1$. Por fim, na terceira configuração, deseja-se
-controlar o nível de $T_2$ a partir da alimentação indireta de $T_1$ e da
+controlar o nível de $T_2$ a partir de uma alimentação indireta em $T_1$ e da
 alimentação direta de $T_2$. Para isso, faz-se uso dos dois orifícios de
 entrada.
 
@@ -167,18 +167,18 @@ dependendo da configuração.
 
 \Glossary{SISO}{{\it Single Input and Single Output}}
 
-Além dessas observações, deve-se destacar ainda que a planta em questão se trata
-de um modelo desenvolvido para fins acadêmicos e que, por esse motivo, existem
-alguns restrições quanto as interfaces e aos padrões de comunicação.
+Além dessas observações, deve-se destacar ainda que a planta em questão faz
+parte de um modelo desenvolvido para fins acadêmicos e que, por esse motivo,
+existem algumas restrições quanto as interfaces e aos padrões de comunicação.
 
 % ------------------------------------------------------------------------------
 \subsection{Modelo matemático}
 
-Como os dois tanques possuem mesma área de secção transversal ($A_1 = A_2$), a
-dinâmica dos dois tanques será semelhante. Entretanto, encontrar um modelo
-matemático que descreva adequadamente a dinâmica desses tanques não é algo tão
-simples, visto que as equações gerais de movimento e energia que descrevem o
-escoamento de fluidos são bastante complicadas \cite{dorf:2009}.
+Como os dois tanques possuem mesma área de secção transversal ($A_1 = A_2$),
+suas dinâmicas serão semelhantes. Entretanto, encontrar um modelo matemático que
+descreva adequadamente a dinâmica desses tanques não é algo tão simples, visto
+que as equações gerais de movimento e energia que descrevem o escoamento de
+fluidos são bastante complicadas \cite{dorf:2009}.
 
 Assim sendo, é preciso que sejam feitas algumas hipóteses fundamentais.
 Admite-se que a água no tanque é incompressível e que o escoamento é
@@ -194,7 +194,7 @@ $k_{\text{ar}} = 0,98\ \text{m}^2/\text{N}$, enquanto que a água tem um fator d
 compressibilidade de $k_{\tiny \text{\tiny H}_2\text{\tiny O}} = 4,9 \times
 10^{-10}\ \text{m}^2/\text{N} = 50 \times 10^{-6}\ \text{atm}^{-1}$. Em outras
 palavras, um dado volume de água diminui em 50 milionésimos de seu volume
-original para um aumento de uma atmosfera na pressão. Desse modo, a hipótese de
+original para um aumento de uma atmosfera de pressão. Desse modo, a hipótese de
 que a água é incompressível é valida para o sistema em questão.
 
 Já a viscosidade de um fluido é dada pelo seu coeficiente de viscosidade $\mu\
@@ -220,7 +220,7 @@ angular com relação a esse ponto, o fluxo é denominado não-rotacional. Admit
 que a água no tanque é não-rotacional. Logo, para um fluido não-viscoso, um
 fluxo inicialmente não-rotacional permanece não-rotacional.
 
-Por fim, o fluxo de água é dito regular se a velocidade em cada ponto é
+Por fim, o fluxo de água é dito regular se sua velocidade em cada ponto é
 constante com o tempo. Isso não implica necessariamente que a velocidade seja a
 mesma em cada ponto, mas sim que em qualquer ponto a velocidade não mude com o
 tempo. Condições de regime regular podem ser atingidas em velocidades baixas do
@@ -322,18 +322,19 @@ Observa-se que Eq. \ref{eq:l_ponto_final} representa adequadamente a dinâmica d
 tanque superior, contudo, a dinâmica do tanque inferior age um pouco diferente.
 Em primeiro lugar, dependendo da configuração escolhida $T_2$ poderá ou não
 receber uma alimentação direta. Considerando, por exemplo, a primeira
-configuração sugerida pelo manual do fabricante (Fig. \ref{fig:config_fab_1}), a
-dinâmica de $T_2$ irá depender apenas da vazão de água que escoa de $T_1$ e da
-vazão de água que retorna ao reservatório. Assim sendo, a dinâmica dos dois
-tanques pode ser representada pelas Eqs. \ref{eq:l1_ponto} e \ref{eq:l2_ponto}:
+configuração sugerida pelo manual do fabricante, mostrada na Fig.
+\ref{fig:config_fab_1}, a dinâmica de $T_2$ irá depender apenas da vazão de água
+que escoa de $T_1$ e da vazão de água que retorna ao reservatório. Assim sendo,
+a dinâmica dos dois tanques pode ser representada pelas Eqs.
+\ref{eq:l1_ponto_tmp} e \ref{eq:l2_ponto_tmp}:
 
 \begin{eqnarray}
 \dot{L_1} & = & \frac{K_m}{A}V_p -
                 \left[\frac{a_1}{A}\sqrt{2g}\right]\sqrt{L_1}
-                \label{eq:l1_ponto}\\
+                \label{eq:l1_ponto_tmp}\\
 \dot{L_2} & = & \left[\frac{a_1}{A}\sqrt{2g}\right]\sqrt{L_1} -
                 \left[\frac{a_2}{A}\sqrt{2g}\right]\sqrt{L_2}
-                \label{eq:l2_ponto}
+                \label{eq:l2_ponto_tmp}
 \end{eqnarray}
 
 \noindent em que $a_1$ representa o orifício de saída de $T_1$, $a_2$ o orifício
@@ -342,11 +343,11 @@ $T_2$. Perceba que não há necessidade em se discriminar a área de secção
 transversão através de um subíndice, pois $A_1 = A_2 = A$.
 
 Com o intuito de deixar o sistema proposto com um caráter mais genérico e
-possibilitar estudos futuros com relação à tolerância a falhas, optou-se por
-modificar o sistema de tanques original introduzindo uma outra bomba com as
-mesmas características da primeira. Dessa forma, pôde-se obter novas
-configurações, dentre as quais destaca-se aquelas expostas pela Fig.
-\ref{fig:novas_config}.
+possibilitar que sejam realizados novos estudos relacionados com o tema de
+tolerância à falhas, optou-se por modificar o sistema de tanques original
+introduzindo uma outra bomba com as mesmas características da primeira. Dessa
+forma, pôde-se obter novas configurações, dentre as quais destacam-se aquelas
+expostas pela Fig. \ref{fig:novas_config}.
 
 \begin{figure}[htb]
 \centering
@@ -366,24 +367,25 @@ configurações, dentre as quais destaca-se aquelas expostas pela Fig.
 
 Na configuração exposta pela Fig. \ref{fig:nova_config_1}, pode-se controlar o
 nível dos dois tanques de maneira individual através das duas bombas de água.
+\begin{comment}
 Para isso, pode-se implementar dois controladores cada um com sua referência e a
 leitura do respectivo sensor ou um único controlador que receberá as duas
 referências e as leituras dos dois sensores.
-
+\end{comment}
 Já na configuração exposta pela Fig. \ref{fig:nova_config_2}, a segunda bomba
 está sendo utilizada para garantir que o processo continue funcionando
 normalmente quando a primeira bomba vier a falhar. Ou seja, possui-se dois
-atuadores com um deles em {\it standby}.  Ademais, ressalta-se que essa última
-configuração pode ser adaptada para qualquer uma das três anteriores sugeridas
-pelo fabricante.
+atuadores com um deles em {\it standby}. Ademais, é válido ressaltar que essa
+última configuração pode ser facilmente adaptada para qualquer uma das três
+anteriores sugeridas pelo fabricante.
 
-Percebe-se que no primeiro caso (Fig. \ref{fig:nova_config_1}) o sistema deixa
-de ser SISO e passa a ter múltiplas entradas e múltiplas saídas ({\it Multiple
-Input and Multiple Output} -- MIMO). Por esse motivo, esse sistema será o
-utilizado como modelo de estudo de caso no trabalho. A única modificação
-existente nas equações que regem a dinâmica do modelo é a introdução de uma nova
-variável na equação do segundo tanque em virtude da adição da segunda bomba.
-Assim, as equações finais do modelo de estudo de caso serão:
+É evidente que, no caso da Fig. \ref{fig:nova_config_1}, o sistema deixa de ser
+SISO e passa a ter múltiplas entradas e múltiplas saídas ({\it Multiple Input
+and Multiple Output} -- MIMO). Por esse motivo, esse sistema será o utilizado
+como modelo de estudo de caso no trabalho. A única modificação existente nas
+equações que regem a dinâmica do modelo é a introdução de uma nova variável na
+equação do segundo tanque, em virtude da adição da segunda bomba. Assim, as
+equações finais do modelo de estudo de caso serão:
 
 \begin{eqnarray}
 \dot{L_1} & = & \frac{K_m}{A}V_{p_{\tiny 1}} -
@@ -414,7 +416,7 @@ produzir um sinal de controle em Volts que será enviado aos atuadores.
 
 Entretanto, devido aos baixos níveis de tensão intrínsecos à esse tipo de
 barramento, faz-se necessário utilizar um amplificador, também fornecido pela
-Quanser\reg, com um fator de amplificação de cinco vezes. Assim, para que a
+Quanser\reg, cujo fator de amplificação é de cinco vezes. Assim, para que a
 bomba não venha a queimar, os sistemas de controle devem implementar uma rotina
 de segurança que garanta que o sinal de controle não supere os limites de $\pm
 3$ Volts. A representação esquemática do funcionamento do sistema como um todo
@@ -458,7 +460,7 @@ Seja um problema de valor inicial dado por:
 y' = f(t,y) \qquad y(t_0) = y_0
 \end{equation}
 
-Então o método RK4 para este problema é dado pelas seguintes equações:
+Então, o método RK4 para este problema é dado pelas seguintes equações:
 
 \begin{eqnarray}
 y_{n+1} & = & y_n + \frac{h}{6}\left(k_1 + 2k_2 + 2k_3 + k_4\right)\\
@@ -620,27 +622,27 @@ Falha do sistema &
                     Potência}
 \Glossary{FSiEOS}{Falha do Sistema por Entupimento do Orifício de Saída}
 
-As siglas expostas nessas tabelas foram introduzidas com o intuito de facilitar
+As siglas expostas nessas tabelas foram introduzidas com o intuito de facilitar,
 tanto o processo automático de treinamento e validação da estrutura neural,
 quanto a referenciação textual.
 
 As falhas expostas na Tab. \ref{tab:classificacao_falhas} são induzidas de
 diferentes maneiras na simulação. Na FADG, por exemplo, o ganho do atuador é
-alterado de 1,0 para qualquer outro valor a juízo do usuário no momento em que é
+alterado de 1,0 para qualquer outro valor a juízo do usuário, no momento em que é
 realizada a leitura dos níveis. Já na FSiVzT, por questões de simplicidade,
 adiciona-se um outro orifício ao lado do orifício de saída do tanque. Esse
 orifício, de área arbitrária, terá a mesma dinâmica do orifício de saída do
 tanque, exceto que para $T_1$ a água que por ele escoa não irá cair em $T_2$.
 
 Para dar mais liberdade de configuração à simulação, foi desenvolvido um sistema
-em C++, que implementa o método de RK4 e possui a capacidade de configurar todos
-os parâmetros referentes a cada uma dessas falhas a partir de um arquivo de
-texto. Cada um dos parâmetros do arquivo de entrada deve ser especificado em uma
-coluna e o número de linhas equivale ao número de amostras a serem simuladas. O
-período de amostragem utilizado na simulação do sistema é de 100
-milissegundos, o mesmo que é utilizado na planta real.
+em C++, que implementa o método de RK4 e que possui a capacidade de configurar
+todos os parâmetros referentes a cada uma dessas falhas a partir de um arquivo
+de texto. Cada um dos parâmetros do arquivo de entrada deve ser especificado em
+uma coluna e o número de linhas equivale ao número de amostras a serem
+simuladas. O período de amostragem utilizado na simulação do sistema é de 100
+(cem) milissegundos, o mesmo utilizado na planta real.
 
-Além disso, o sistema possui a implementação de dois controladores que podem ser
+Além disso, o sistema implementa as rotinas de dois controladores que podem ser
 configurados para operarem como controladores P, PI, PD, PID ou PI-D. Os ganhos
 proporcionais, integrais e derivativos são introduzidos na interface do usuário.
 
@@ -655,7 +657,7 @@ funcionamento.
 \begin{figure}[htb]
 \centering
     \includegraphics[width=0.75\textwidth]{imgs/sistema/eps/captura}
-    \caption{Captura de tela do sistema de simulação em funcionamento.}
+    \caption{Captura de tela do sistema em funcionamento.}
     \label{fig:captura}
 \end{figure}
 
@@ -680,27 +682,28 @@ seções.
 \subsection{Propostas de identificação}
 A primeira estrutura de identificação busca representar a dinâmica do sistema de
 tanques através de uma única rede neural, a qual receberia como entrada os
-valores passados dos níveis, $L_1(k-1)$ e $L_2(k-1)$, além dos valores de tensão
-a serem aplicados, $V_{p_{\tiny 1}}(k)$ e $V_{p_{\tiny 2}}(k)$, gerando uma
-estimativa dos níveis em sua saída. A Fig.  \ref{fig:ident_proposta_1}
-representa um diagrama esquemático do funcionamento dessa primeira proposta.
+valores passados dos níveis, $L_1(k-1)$ e $L_2(k-1)$, e os valores de tensão a
+serem aplicados, $V_{p_{\tiny 1}}(k)$ e $V_{p_{\tiny 2}}(k)$, gerando uma
+estimativa dos níveis em sua saída, denominadas $\widehat{L_1}$ e
+$\widehat{L_2}$.  A Fig. \ref{fig:ident_proposta_1} representa um diagrama
+esquemático do funcionamento dessa primeira proposta.
 
 \begin{figure}[htb]
 \centering
-    \includegraphics[width=0.4\textwidth]{imgs/sistema/eps/ident_proposta_1}
+    \includegraphics[width=0.38\textwidth]{imgs/sistema/eps/ident_proposta_1}
     \caption{Proposta de identificação global.}
     \label{fig:ident_proposta_1}
 \end{figure}
 
 Já a segunda estrutura de identificação leva em consideração que cada tanque
 possui uma dinâmica diferente, tendo em vista que o $T_1$ age de maneira
-independente, enquanto que a dinâmica de $T_2$ depende de $T_1$, conforme Eqs.
-\ref{eq:l1_ponto} e \ref{eq:l2_ponto}. Assim, optou-se por utilizar duas redes
-neurais, como mostrado na Fig. \ref{fig:ident_proposta_2}.
+independente, enquanto que a dinâmica de $T_2$ depende de $T_1$. Assim, optou-se
+por utilizar duas redes neurais, como mostrado na Fig.
+\ref{fig:ident_proposta_2}.
 
 \begin{figure}[htb]
 \centering
-    \includegraphics[width=0.4\textwidth]{imgs/sistema/eps/ident_proposta_2}
+    \includegraphics[width=0.38\textwidth]{imgs/sistema/eps/ident_proposta_2}
     \caption{Proposta de identificação individual.}
     \label{fig:ident_proposta_2}
 \end{figure}
@@ -715,13 +718,13 @@ portanto, a estimativa do nível de $T_2$.
 
 Independentemente da proposta, pode-se visualizar o sistema de identificação do
 modelo como uma única estrutura neural (simples ou composta), que possui como
-entrada os níveis anteriores e as tensões a serem aplicadas, que produz em sua
+entrada os níveis anteriores e as tensões a serem aplicadas, e que produz em sua
 saída as estimativas dos níveis dos dois tanques. A Fig. \ref{fig:sist_ident}
 mostra como o sistema de identificação pode ser visto.
 
 \begin{figure}[!htb]
 \centering
-    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/sist_ident}
+    \includegraphics[width=0.875\textwidth]{imgs/sistema/eps/sist_ident}
     \caption{Visão geral do sistema de identificação.}
     \label{fig:sist_ident}
 \end{figure}
@@ -729,32 +732,33 @@ mostra como o sistema de identificação pode ser visto.
 % ------------------------------------------------------------------------------
 \subsection{Propostas de detecção}
 As estruturas neurais de DDF seguiram o mesmo raciocínio adotado para as
-estruturas de identificação. No primeiro caso, buscou-se desenvolver uma
-única rede neural que fosse capaz de detectar e identificar cada das falhas
-listas pela Tab. \ref{tab:classificacao_falhas}. Essa rede receberia como
-entrada os mesmos sinais das redes de identificação além dos resíduos produzidos
-pela diferença dos níveis entre o modelo simulado ($L_i$) e o modelo
-identificado ($\widehat{L_i}$). A saída da rede formaria uma palavra binária que
-seria decodificada a partir de uma tabela previamente estabelecida. Nessa tabela
-cada falha teria uma palavra binária correspondente. A Fig.
-\ref{fig:detec_prop_1} representa um diagrama esquemático dessa proposta.
+estruturas de identificação. No primeiro caso, buscou-se desenvolver uma única
+rede neural que fosse capaz de detectar e identificar cada das falhas listas
+pela Tab. \ref{tab:classificacao_falhas}. Essa rede receberia como entrada os
+mesmos sinais das redes de identificação e os resíduos $e_i$, produzidos pela
+diferença dos níveis entre o modelo simulado ($L_i$) e o modelo identificado
+($\widehat{L_i}$). A saída da rede formaria uma palavra binária que seria
+decodificada a partir de uma tabela previamente estabelecida. Nessa tabela cada
+falha teria uma palavra binária correspondente.  A Fig. \ref{fig:detec_prop_1}
+representa um diagrama esquemático dessa proposta.
 
 \begin{figure}[!htb]
 \centering
-    \includegraphics[width=0.38\textwidth]{imgs/sistema/eps/detec_prop_1}
+    \includegraphics[width=0.37\textwidth]{imgs/sistema/eps/detec_prop_1}
     \caption{Proposta de detecção através de uma única rede neural.}
     \label{fig:detec_prop_1}
 \end{figure}
 
 Na segunda proposta, a estrutura de DDF seria composta por várias redes neurais,
 em que cada uma destas estaria associada a uma única falha, formando um conjunto
-de ``especialistas''. Não se trata entretanto de uma máquina de comitê de
-especialistas por não existir uma outra rede que realizaria a tomada de
-decisões. Inicialmente, as entradas de cada uma das redes seriam as mesmas da
-primeira proposta. As saídas, por sua vez, seriam compostas por uma palavra de
-apenas 2 bits, indicando se aquela falha estaria sendo detectada cada em $T_1$
-em $T_2$ ou em $T_1$ e $T_2$ simultaneamente. A Fig. \ref{fig:detec_prop_2}
-representa um diagrama esquemático dessa proposta.
+de ``especialistas''. Não se trata, entretanto, de uma máquina de comitê de
+especialistas, uma vez que não existe uma rede que realiza a tomada de decisões. 
+
+Inicialmente, as entradas de cada uma das redes seriam as mesmas da primeira
+proposta. As saídas, por sua vez, seriam compostas por uma palavra de apenas 2
+bits, indicando se aquela falha estaria sendo detectada cada em $T_1$ em $T_2$
+ou em $T_1$ e $T_2$ simultaneamente. A Fig. \ref{fig:detec_prop_2} representa um
+diagrama esquemático dessa proposta.
 
 \begin{figure}[!htb]
 \centering
@@ -768,9 +772,9 @@ Existem diversas vantagens em se utilizar a segunda proposta ao invés da
 primeira, como por exemplo, a de se utilizar entradas diferentes para cada uma
 das redes especialistas. Essa situação poderia ocorrer se fosse percebido que
 uma determinada entrada, ao ser adicionada, fizesse com que aquela falha fosse
-detectada de maneira mais precisa e rápida. Ou então na situação inversa, em que
-uma determinada entrada não estivesse fazendo diferença com relação ao processo
-de detecção.
+detectada de maneira mais precisa ou mais rápida. Essa vantagem também é
+percebida na situação inversa, em que uma determinada entrada pode estar sendo
+indiferente com relação ao processo de detecção.
 
 Modificar a estrutura das entradas na primeira proposta faria com que a rede
 precisasse ser treinada novamente. Por se tratar, provavelmente, de uma
@@ -781,15 +785,15 @@ se o treinamento fosse realizado em tempo real, não haveria necessidade de se
 parar o sistema de detecção como um todo, mas somente uma parte deste. 
 
 Uma outra vantagem estaria relacionada com o pós-processamento da informação. Ao
-se utilizar a segunda proposta percebe-se que não será realizar uma
-decodificação da saída cada vez que uma entrada for introduzida na rede.
-Considerando que o tempo gasto para se decodificar a palavra gerada na saída da
-primeira proposta, é diretamente proporcional ao tamanho da palavra que, por sua
-vez, está diretamente relacionado ao número de falhas a serem identificadas,
+se utilizar a segunda proposta percebe-se que não é necessário realizar uma
+decodificação da saída a cada vez que uma entrada é introduzida na rede.
+Considerando que o tempo gasto para decodificar a palavra na saída da primeira
+proposta, é diretamente proporcional ao tamanho da palavra e que este, por sua
+vez, está diretamente relacionado com número de falhas a serem identificadas,
 pode-se dizer que quanto maior for o número de falhas a serem identificadas
 maior será esse tempo de decodificação.
 
-Além desse fator, vale ainda salientar que as falhas podem acontecer de maneira
+Além disso, vale ainda salientar que as falhas podem acontecer de maneira
 simultânea e independente, o que iria produzir um grande número de combinações
 de falhas. Para um conjunto de 13 (treze) falhas, por exemplo, considerando que
 somente 2 (duas) destas poderiam atuar simultaneamente, teria-se um total de 78
@@ -806,13 +810,13 @@ consequentemente o tempo de decodificação.
 Um outro ponto que pode ser destacado é que ao se utilizar a segunda proposta,
 torna-se mais fácil realizar o acoplamento do sistema de DDF com um sistema de
 monitoramento e geração de alarme, pois cada falha seria acionada de maneira
-individual. Assim, os sinais de acionamento poderiam conter informações
+individual. Dessa forma, os sinais de acionamento poderiam conter informações
 pertinentes para que os respectivos alarmes fossem gerados de maneira mais
 precisa.
 
 Apesar dessas vantagens, será feita uma análise comparativa dos resultados
-dessas estruturas. Dessa forma pode-se determinar qual das duas propostas melhor
-se adaptaria para o estudo de caso.
+dessas estruturas, determinando qual das duas propostas melhor se adapta ao
+estudo de caso.
 
 Assim como o sistema de identificação, o sistema de detecção também pode ser
 visto como uma única estrutura neural. A única observação a ser feita é que a
@@ -825,10 +829,10 @@ obtidas a partir das saídas ativas de cada uma das redes.
 % ------------------------------------------------------------------------------
 \section{Composição do sistema}
 Tendo conhecido todos os subsistemas a serem utilizados, pode-se observar na
-Fig. \ref{fig:composicao} a estrutura do sistema de DDF proposto. Deve-se
-destacar entretanto que o trabalho aqui proposto não incorpora o desenvolvimento
-de um sistema de supervisão e monitoramento completo, mas somente o sistema de
-DDF.
+Fig. \ref{fig:composicao} a estrutura do sistema de DDF. Deve-se destacar
+entretanto que o trabalho aqui proposto não incorpora o desenvolvimento de um
+sistema de supervisão e monitoramento completo, mas somente o desenvolvimento do
+sistema de DDF.
 
 \begin{figure}[htb]
 \centering
