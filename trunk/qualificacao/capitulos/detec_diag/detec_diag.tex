@@ -3,7 +3,7 @@
 
 Com a demanda cada vez mais crescente com relação a eficiência, a qualidade dos
 produtos e integração dos processos no setor industrial, aliada aos altos custos
-envolvidos e as mais diversas necessidades de segurança, torna-se claro a
+envolvidos e as mais diversas necessidades de segurança, torna-se evidente a
 importância dos sistemas de supervisão e dos sistemas de DDF
 \cite{isermann:2006}.
 
@@ -11,13 +11,12 @@ Atualmente, devido ao nível de complexidade envolvido em um processo industrial
 os sistemas de supervisão e proteção exigem as mais avançadas técnicas
 oferecidas pela engenharia moderna e, ainda assim, demandam um esforço contínuo
 por parte dos pesquisadores e engenheiros para que sejam desenvolvidas novas
-tecnologias que venham a suprir essa necessidade \cite{silva:2008}.
+tecnologias que venham a suprir suas necessidades \cite{silva:2008}.
 
 Considerando tais aspectos, este capítulo mostrará os conceitos relacionados ao
 desenvolvimento de um sistema de DDF que fará uso de RNAs. Inicialmente, serão
 mostrados os principais conceitos e terminologias utilizadas na área, destacando
-alguns métodos de DDF. Ao final do capítulo serão expostas as técnicas de DDF
-que fazem uso de RNAs.
+alguns métodos de DDF.
 
 % ------------------------------------------------------------------------------
 \section{Conceitos e terminologias}\label{sec:propriedades}
@@ -54,7 +53,7 @@ Apesar do termo dependabilidade ser utilizado na maioria das vezes dessa forma,
 o dicionário Michaelis, traduz tal termo como {\it confiabilidade} ou {\it
 garantia de funcionamento}. Assim sendo, daqui para frente, utilizar-se-á a
 palavra {\it confiável}, ou suas variações linguísticas, para se referir ao
-termo {\it dependable}. Quando for desejado fazer referência a propriedade da
+termo {\it dependable}. Se for necessário fazer referência a propriedade da
 confiabilidade de um sistema, tal intenção será claramente especificada pelo
 texto.
 
@@ -62,7 +61,7 @@ texto.
 \section{Sistemática da dependabilidade}
 \citeasnoun{avizienis:2000} e \citeasnoun{kaanich:2002} mostram que para se
 desenvolver um Sistema Computacional Confiável (SCC, do inglês {\it Dependable
-Computing System -- DCS}), faz-se uso de diferentes técnicas, tais como as
+Computing System} -- DCS), faz-se uso de diferentes técnicas, tais como as
 técnicas de: {\bf prevenção}, {\bf tolerância}, {\bf supressão} e {\bf previsão}
 de falhas.
 
@@ -70,8 +69,8 @@ O estudo sobre a {\it prevenção} de falhas envolve a seleção de metologias d
 projeto e de tecnologias adequadas para a escolha e a aplicação dos componentes
 no sistema, ou seja, busca não introduzir ou evitar que as falhas aconteçam. A
 {\it tolerância} a falhas está mais relacionada com a continuidade da prestação
-do serviço quando uma falha vier a ocorrer. Algumas das técnicas mais conhecidas
-são: mascaramento de falhas, redundância de dispositivos/sistemas e a
+do serviço quando uma falha vier a ocorrer. Algumas das aplicações mais
+conhecidas são: mascaramento de falhas, redundância de dispositivos/sistemas e a
 detecção/recuperação de falhas. A {\it supressão} das falhas procura minimizar
 as consequências relativas à presença de uma falha através de mecanismos de
 verificação, diagnóstico e correção. A {\it previsão} de falhas está relacionada
@@ -99,8 +98,8 @@ conceitos relativos a essa nomenclatura serão melhor explicados na seção
 \end{comment}
 
 A partir dessas informações, \citeasnoun{avizienis:2000} classifica os termos
-acima relacionados em três grupos: os atributos (propriedades), as ameaças e os
-meios pelos quais a dependabilidade é atingida, conforme pode ser observado
+acima relacionados em três grupos, denominados atributos (propriedades), ameaças
+e meios pelos quais a dependabilidade é atingida, conforme pode ser observado
 na Fig. \ref{fig:div_avizienis}.
 
 \begin{figure}[htb]
@@ -177,7 +176,7 @@ ao aterrissar no aeroporto de Congonhas, São Paulo, no qual morreram 199 pessoa
 liberou cerca de 400 vezes mais contaminação do que a bomba nuclear que foi
 lançada em de Hiroshima.
 
-Esses exemplos fazem-nos refletir sobre como os sistemas de controle podem
+Esses exemplos fazem com que se reflita sobre como os sistemas de controle podem
 evoluir para evitar que catástrofes ainda maiores venham a ocorrer. Ou seja,
 como as propriedades de um sistema de controle confiável poderão ser mantidas
 mesmo na presença de avarias, erros e falhas no processo.
@@ -194,12 +193,12 @@ resumida, se há um erro no estado do sistema, então existe uma sequência de
 ações que podem ser executadas e que levarão as avarias, a não ser que medidas
 corretivas venham a ser tomadas. Por fim, mas não menos importante, o termo {\bf
 falha} ({\it fault}) é a causa de um erro e está associado à noção de defeitos.
-Normalmente, diz-se que falha pode ser definida como sendo um defeito que possui
-o potencial de gerar erros \cite{nelio:2002,weber:2002}.
+Normalmente, diz-se que o termo falha pode ser definido como sendo um defeito
+que possui o potencial de gerar erros \cite{nelio:2002,weber:2002}.
 
 Conforme dito anteriormente, alguns autores costumam traduzir os termos {\it
-failure}, {\it error} e {\it fault} de maneira diferente. Como exemplo, o termo
-{\it failure} também é traduzido como falha e o termo {\it fault} como falta.
+failure}, {\it error} e {\it fault} de maneira diferente. O termo {\it failure},
+por exemplo, também é traduzido como falha e o termo {\it fault} como falta.
 Entretanto, como é mais comum se referir a sistemas de controle tolerante a
 ``falhas'' ao invés de sistemas de controle tolerantes a ``faltas'', preferiu-se
 aqui traduzir o termo {\it failure} como avaria e o termo {\it fault} como
@@ -256,7 +255,7 @@ componentes físicos do sistema envelhecem e estão sempre sujeitos as
 interferências externas, ambientais ou humanas. Mostra ainda que os {\it
 softwares}, assim como os sistemas físicos, também são vítimas de falhas, pois
 estão a mercê da alta complexidade dos processos e da fragilidade humana em
-trabalhar com grande volume de detalhes de especificação/operação.
+trabalhar com grande volume de detalhes de especificação e operação.
 
 % ------------------------------------------------------------------------------
 \subsection{Tipos de falhas}
@@ -435,7 +434,7 @@ sistema estará inoperante será reduzido, a proteção do sistema aumentará e 
 custos relacionados diminuirão.
 
 Para \citeasnoun{chiang:2001}, existem quatro fases envolvidas no monitoramento
-de processos: {\bf detecção}, {\bf isolamento}, {\bf diagnóstico} e {\bf
+dos processos: {\bf detecção}, {\bf isolamento}, {\bf diagnóstico} e {\bf
 recuperação} de falhas, conforme mostrado pela Fig.
 \ref{fig:fases_monitoramento}.
 
@@ -469,10 +468,10 @@ Por fim, a fase de {\it recuperação da falha}, também conhecida como fase de
 sistema, dando início a um novo ciclo de detecção e diagnóstico.
 
 Apesar de estarem explicitamente colocados como uma sequência de ações, nem
-sempre todas as fases são estritamente necessárias necessárias
-\cite{chiang:2001}. Os sistemas automatizados fazem com que a mudança de uma
-fase para outra seja transparente para operador, exibindo apenas as informações
-cruciais para que se possa tomar as medidas cabíveis.
+sempre todas as fases são estritamente necessárias \cite{chiang:2001}. Os
+sistemas automatizados fazem com que a mudança de uma fase para outra seja
+transparente para operador, exibindo apenas as informações cruciais para que se
+possa tomar as medidas cabíveis.
 
 \citeasnoun{venkatasu:2003a} mostram que a automatização das formas de detecção
 e diagnóstico é o primeiro passo a ser tomado para a elaboração de um sistema de
@@ -499,8 +498,8 @@ até então considerada mais intuitiva.
 \section{Métodos de detecção}
 Nas seções seguintes será feita uma breve análise dos métodos de detecção de
 falhas abordados em \citeasnoun{isermann:2006}. Vale salientar que existem na
-literatura vários outros métodos de detecção de falhas. Deseja-se aqui,
-entretanto, apenas trazer alguns exemplos.
+literatura vários outros métodos de detecção de falhas. Deseja-se aqui apenas
+trazer alguns exemplos.
 
 % ------------------------------------------------------------------------------
 \subsection{Detecção de falhas com verificação de limites}
@@ -527,7 +526,7 @@ aplicado na maioria dos sistemas de automação
 A outra abordagem utiliza a tendência da variável medida para detectar as
 falhas. Como exemplo, um dos métodos mais conhecidos faz uso da primeira
 derivada da variável ($\dot{Y} = dY(t)/dt$) e testa se a variação observada está
-ou não dentro de uma faixa pré-estabelecida:
+ou não dentro de uma faixa previamente estabelecida:
 
 \begin{equation}
 \dot{Y}_{min} < \dot{Y} < \dot{Y}_{max}
@@ -547,14 +546,14 @@ Exemplos dessas duas abordagens podem ser observados na Fig.
 \subsection{Detecção de falhas com modelos de sinais}
 Diversos sinais medidos em um processo apresentam oscilações de natureza
 harmônica ou estocástica. Se as mudanças nesse sinal estiverem relacionadas com
-as falhas nos sensores, atuadores ou ainda  com a estrutura do processo, uma
-maneira de se detectar essas falhas faz uso de modelos de sinais.
+as falhas nos sensores, atuadores ou estruturais, pode-se detectar essas falhas
+através do uso de modelos de sinais.
 
-De maneira resumida pode-se dizer que as características do sinal medido, tais
-como amplitude, fase, espectro de frequências, dentre outras, são calculadas a
-partir de modelos matemáticos do sinal e comparadas com as características
-observadas durante o funcionamento normal. As diferenças comportamentais geradas
-pela comparação, denominadas de {\it sintomas analíticos}, são utilizadas para
+Considera-se, portanto, que as características do sinal medido, tais como
+amplitude, fase, espectro de frequências, dentre outras, são calculadas a partir
+de modelos matemáticos do sinal e comparadas com as características observadas
+durante o funcionamento normal. As diferenças comportamentais geradas pela
+comparação, denominadas de {\it sintomas analíticos}, são utilizadas para
 realizar a detecção das falhas.
 
 Na Fig. \ref{fig:detec_mod_sin} é exibido um diagrama esquemático que resume os
@@ -595,14 +594,14 @@ e(s) & = & y_p(s) - y_m(s) = y_p(s) - G_m(s)u(s)\nonumber\\
 Nessa equação, $f_u$ corresponde às falhas aditivas na entrada, $f_y$ às falhas
 aditivas na saída, $n$ aos ruídos, $y_p$ à saída do processo, $y_m$ à saída do
 modelo, $G_p$ à função de transferência do processo, $G_m$ à função de
-transferência do modelo e $u$ à entrada.
+transferência do modelo, $u$ às entradas e $e$ aos resíduos.
 
 \Glossary{DIF}{Detecção e Isolamento de Falhas}
 
 Apesar da capacidade em indicar anormalidades no processo através das
 discrepâncias, essa abordagem possui a desvantagem de ser necessário se ter o
 conhecimento prévio das equações que regem a dinâmica do processo. Devido a
-dificuldade existente em se utilizar um modelo fenomenológico preciso que leve
+dificuldade existente em se utilizar um modelo fenomenológico preciso, que leve
 em consideração, inclusive, os ruídos naturalmente presentes no processo, esse
 método não é muito utilizado.
 
@@ -632,12 +631,12 @@ Considerando que os observadores de estado utilizam o erro de saída, dado pela
 diferença entre a medição da variável no processo e o modelo ajustável, pode-se
 dizer que eles são bons candidatos à sistemas de detecção baseados em modelos.
 Assume-se que, assim como no caso das abordagem que utiliza equações de
-paridade, a estrutura e os parâmetros do modelo precisão ser conhecidos. Dessa
+paridade, a estrutura e os parâmetros do modelo precisam ser conhecidos. Dessa
 forma, os observadores de estado poderão ajustar as variáveis do modelo de
-acordo com as condições iniciais e com a evolução do processo considerando os
+acordo com as condições iniciais e com a evolução do processo, considerando os
 sinais medidos das variáveis de entrada e saída.
 
-Um tipo de abordagem proposta para sistemas MIMO leva em consideração um
+Um tipo de abordagem proposta para sistemas MIMO, leva em consideração um
 conjunto de observadores de estado tal como mostra a Fig.
 \ref{fig:conj_obs_est}. De acordo com \citeasnoun{isermann:2006}, este esquema
 pode ser utilizado para detectar falhas aditivas em sensores. Outras abordagens
@@ -645,7 +644,7 @@ fazem uso do Filtro de Kalman (estimador de estados) e de observadores de saída
 
 \begin{figure}[htb]
 \centering
-    \includegraphics[width=0.325\textwidth]{imgs/detec_diag/eps/conj_obs_est}
+    \includegraphics[width=0.345\textwidth]{imgs/detec_diag/eps/conj_obs_est}
     \caption{Detecção de falhas através de um conjunto de observadores de
              estado.}
     \label{fig:conj_obs_est}
@@ -657,12 +656,11 @@ Para \citeasnoun{silva:2008} e \citeasnoun{isermann:2006} a tarefa de
 diagnosticar uma falha consiste em determinar que uma falha ocorreu, indicando o
 maior número de detalhes possíveis, tais como o momento de detecção, o tipo, a
 localização e a intensidade da falha. Este procedimento de diagnóstico baseia-se
-nos sintomas analíticos e heurísticos, além dos conhecimentos heurísticos do
-processo.
+nos sintomas analíticos e nos conhecimentos heurísticos do processo.
 
 A Fig. \ref{fig:diagnostico} sintetiza os passos necessários para o diagnóstico
-de falhas tanto para variáveis medidas de maneira automática quanto para
-variáveis observadas pelos operadores do processo. Em ambos os casos a extração
+de falhas, tanto para variáveis medidas de maneira automática, quanto para
+variáveis observadas pelos operadores do processo. Em ambos os casos, a extração
 de características relativas as alterações comportamentais sobre o processo são
 necessárias. Os sintomas analíticos e heurísticos devem ser representados de
 maneira unificada a fim de se realizar o diagnóstico de maneira adequada.
@@ -677,11 +675,11 @@ maneira unificada a fim de se realizar o diagnóstico de maneira adequada.
 Vale observar que as {\it características} são os valores obtidos a partir dos
 sinais ou de modelos de sinais do processo, os quais descrevem o seu estado
 atual. Já os {\it sintomas} são as possíveis alterações das características com
-relação à seus valores normais.
+relação a seus valores normais.
 
 As relações entre uma falha e seus sintomas seguem normalmente as relações
 físicas de causa e efeito. De maneira geral, pode-se dizer que uma falha produz
-alguns ``eventos'' que por sua vez geram os sintomas, conforme observado na Fig.
+``eventos'' que por sua vez geram sintomas, conforme observado na Fig.
 \ref{fig:falha_sintoma}. O diagnóstico de falhas normalmente é realizado de
 maneira inversa, pois o sistema deve indicar as falhas a partir dos sintomas
 observados.
@@ -705,22 +703,21 @@ observados.
 \section{Detecção e diagnóstico de falhas com RNAs}
 Com a introdução das novas tecnologias de medição e o consequente aumento do
 número de instrumentos nos processos industrias, o número de informações
-disponíveis para um dado sistema pode vir a crescer demasiadamente. Tal situação
+disponíveis para um dado sistema tornou-se demasiadamente grande. Tal situação
 acaba por aumentar ainda mais a complexidade de processamento, tendo em vista
 que cada vez mais os procedimentos de DDF utilizam dados de histórico do
 processo. Dentre os exemplos desses métodos que fazem uso de histórico do
-processo estão aqueles que fazem uso de RNAs.
+processo estão aqueles são baseados em RNAs.
 
 De acordo com a Fig. \ref{fig:metodos_identificacao}, as RNAs estão
 classificadas como sendo estimadores de parâmetros de características gerais,
 utilizadas para a identificação de sistemas dinâmicos baseados em modelos de
 processos não-lineares. Já na Fig. \ref{fig:arvore_diagnostico}, as RNAs
-aparecem como métodos de inferência que aproximam o raciocínio humano através de
-múltiplos sinais e modelos.
+aparecem como métodos de inferência que aproximam o raciocínio humano.
 
 Unindo essas características com aquelas expostas no Cap. \ref{cap:rnas}, serão
 utilizadas nesse trabalho duas estruturas neurais com o objetivo de identificar
 o processo de estudo de caso e realizar a detecção e o diagnóstico de falhas a
 partir de seu histórico. As estruturas propostas serão apresentadas no Cap.
 \ref{cap:sistema}, no momento em que forem mostrados maiores detalhes sobre o
-estudo de caso.
+processo em questão.

@@ -15,7 +15,7 @@
    height="119.10217"
    id="svg3503"
    version="1.1"
-   inkscape:version="0.47 r22583"
+   inkscape:version="0.48.0 r9654"
    sodipodi:docname="residuos.svg">
   <sodipodi:namedview
      id="base"
@@ -25,7 +25,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.3682086"
-     inkscape:cx="135.97733"
+     inkscape:cx="97.232699"
      inkscape:cy="59.551085"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -1170,7 +1170,7 @@
     <g
        ns0:text="$-$"
        ns0:preamble="/home/diogo/.inkscape/extensions/preambulo_inkscape.tex"
-       transform="translate(227.44299,457.08697)"
+       transform="translate(208.26594,457.08697)"
        style="display:inline"
        id="g9891">
       <defs
@@ -1184,7 +1184,8 @@
             <path
                style="stroke:none"
                d=""
-               id="path9898" />
+               id="path9898"
+               inkscape:connector-curvature="0" />
           </symbol>
           <symbol
              style="overflow:visible"
@@ -1193,7 +1194,8 @@
             <path
                style="stroke:none"
                d="m 6.5625,-2.296875 c 0.171875,0 0.359375,0 0.359375,-0.203125 0,-0.1875 -0.1875,-0.1875 -0.359375,-0.1875 l -5.390625,0 c -0.171875,0 -0.34375,0 -0.34375,0.1875 0,0.203125 0.171875,0.203125 0.34375,0.203125 l 5.390625,0 z m 0,0"
-               id="path9901" />
+               id="path9901"
+               inkscape:connector-curvature="0" />
           </symbol>
         </g>
       </defs>

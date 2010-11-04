@@ -12,10 +12,9 @@ híbridos, os quais combinam outras características de sistemas inteligentes,
 tais como técnicas {\it Fuzzy} ou Algoritmos Genéticos.
 
 Neste capítulo serão mostrados, de maneira resumida, os conceitos que envolvem
-as RNAs, destacando algumas de suas propriedades e atributos. Em seguida a
-atenção será voltada para o modelo que utilizado para a identificação da
-dinâmica do processo e das falhas, exibindo, por fim, a estrutura neural
-escolhida.
+as RNAs, destacando algumas de suas propriedades e atributos. Por fim a atenção
+será voltada para o modelo que será utilizado para a identificação da dinâmica
+do processo e das falhas.
 
 % ------------------------------------------------------------------------------
 \section{Conceitos fundamentais}
@@ -28,17 +27,17 @@ sinápticos, que existe entre os neurônios. São essas conexões que armazenam 
 conhecimentos adquiridos pela rede.
 
 Dentre as diversas aplicações das RNAs, podem ser citados exemplos para a
-classificação de padrões, filtragem de sinais, análise de imagens e
-controle/identificação de sistemas dinâmicos. De acordo com
-\citeasnoun{haykin:2000}, algumas das justificativas para a utilização
-dessas estruturas são: sua característica intrínseca de não-linearidade, sua
-capacidade de generalização e adaptabilidade, a tolerância à falhas e a
-facilidade para realizar o mapeamento de relações entrada-saída.
+classificação de padrões, filtragem de sinais, análise de imagens, identificação
+e controle de sistemas dinâmicos. De acordo com \citeasnoun{haykin:2000},
+algumas das justificativas para a utilização dessas estruturas são: sua
+característica intrínseca de não-linearidade, sua capacidade de generalização e
+adaptabilidade, a tolerância à falhas e a facilidade para realizar o mapeamento
+de relações entrada-saída.
 
 Devido a grande complexidade existente em muitos problemas físicos reais,
 desenvolver um modelo matemático que represente adequadamente a dinâmica do
 processo é uma tarefa praticamente impossível. Para \citeasnoun{reboucas:2009},
-as RNAs, através de seus processos de aprendizagem e de suas capacidades de
+as RNAs, através de seu processo de aprendizagem e de sua capacidade de
 aproximação universal, conseguem representar a função correspondente à dinâmica
 do sistema com relativa simplicidade.
 
@@ -47,11 +46,11 @@ um sistema de inferência, que nada mais é do que um modelo capaz de reproduzir
 as relações dinâmicas existentes entre as variáveis primárias e as variáveis
 secundárias de um processo.
 
-Apesar de se conhecer as equações que regem a dinâmica do processo do estudo de
-caso deste trabalho, conforme será mostrado no Capítulo \ref{cap:sistema},
-justifica-se desde já a utilização de RNAs para identificação do modelo em
-virtude da simulação das falhas realizada. Maiores detalhes serão esclarecidos
-ao longo do texto do referido capítulo.
+Apesar de se conhecer as equações que regem a dinâmica do processo escolhido
+como estudo de caso neste trabalho, conforme será mostrado no Capítulo
+\ref{cap:sistema}, justifica-se desde já a utilização de RNAs para identificação
+do modelo em virtude da necessidade de simulação das falhas. Maiores detalhes
+serão esclarecidos ao longo do texto do referido capítulo.
 
 % ------------------------------------------------------------------------------
 \section{Arquitetura das redes}
@@ -73,7 +72,7 @@ Fig. \ref{fig:pmc} representa um modelo esquemático de uma rede PMC.
 \Glossary{LMA}{Levenberg-Marquardt}
 
 Segundo \citeasnoun{norgaard:2000}, uma rede PMC básica possui seus neurônios
-dispostos em camadas recebendo como entrada as saídas dos neurônios da camada
+dispostos em camadas, recebendo como entrada as saídas dos neurônios da camada
 imediatamente anterior ou, no caso da primeira camada, as entradas da rede. Por
 possuir essa configuração essas redes são conhecidas como redes {\it
 feedforward}.
@@ -87,7 +86,7 @@ aproximada por uma rede neural PMC que possua uma camada oculta com funções de
 ativação sigmoidal ou tangente hiperbólica.
 
 A Eq. \ref{eq:func_rede_pmc} expressa matematicamente o funcionamento de uma
-rede neural PMC em que $\delta_i$ representa a saída $i$ da rede.
+rede neural PMC em que $\delta_i$ representa a $i$-ésima saída da rede.
 
 \begin{equation}\label{eq:func_rede_pmc}
 \delta_i(t) = g_i[\phi,\theta] =
@@ -109,11 +108,11 @@ rede neural PMC em que $\delta_i$ representa a saída $i$ da rede.
 \Glossary{$n_\phi$}{Número de entradas da rede}
 
 O vetor de parâmetros $\theta$ contém os pesos sinápticos e {\it biases}
-($\omega_{j,l}$, $\rho_{i,j}$). Os neurônios da camada escondida e o número de
-entradas da rede são, respectivamente, $n_h$ e $n_\phi$, enquanto que $F_i$ e
-$f_j$ são as funções de ativação dos neurônios das camadas de saída e escondida,
-respectivamente. As funções de ativação mais comumente utilizadas são mostradas
-nas equações \ref{eq:lin}, \ref{eq:sig} e \ref{eq:tan}.
+($\omega_{j,l}$, $\rho_{i,j}$). O número de neurônios da camada oculta e o
+número de entradas da rede são, respectivamente, $n_h$ e $n_\phi$, enquanto que
+$F_i$ e $f_j$ são as funções de ativação dos neurônios das camadas de saída e
+oculta, respectivamente. As funções de ativação mais comumente utilizadas são
+mostradas nas equações \ref{eq:lin}, \ref{eq:sig} e \ref{eq:tan}.
 
 \begin{equation}
 \label{eq:lin}
@@ -143,10 +142,10 @@ pode ser vista como um problema de identificação, uma vez que a rede neural
 treinada deve ser capaz de representar, satisfatoriamente, a dinâmica existente
 entre as variáveis secundárias e primárias do processo.
 
-As estruturas de modelo baseadas em rede neural apropriadas para a identificação
-de sistemas não-lineares, são generalizações de modelos lineares. Para
-\citeasnoun{lucena:2005}, essas estruturas são caracterizadas por seu vetor de
-regressão, que nada mais é do que um vetor que contém as variáveis utilizadas
+As estruturas de modelo baseadas em redes neurais, apropriadas para a
+identificação de sistemas não-lineares, são generalizações de modelos lineares.
+Para \citeasnoun{lucena:2005}, essas estruturas são caracterizadas por seu vetor
+de regressão, que nada mais é do que um vetor que contém as variáveis utilizadas
 para estimar a saída do sistema. Dependendo da escolha do vetor de regressão,
 diferentes estruturas de modelo neural podem surgir. Estruturas FIR ({\it Finite
 Impulse Response}), ARX ({\it AutoRegressive eXternal input}), ARMAX ({\it
