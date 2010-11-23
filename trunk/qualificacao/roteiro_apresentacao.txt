@@ -1,0 +1,21 @@
+A história dos sistemas de controle teve início por volta de 300 a.C a 250 a.C.
+com o surgimento das primeiras boias flutuadores e do relógio de água de
+Ktesíbios (controle de nível de líquidos)
+
+Já com relação ao controle automático, pode-se dizer que seus primeiros passos
+aconteceram em meados do século XVIII quando James Watt inventou o regulador de
+esferas. Esse regulador, representado por essa figura, controlava a velocidade
+de um motor a vapor a partir da abertura e fechamento de uma válvula. O
+funcionamento do dispositivo era bem simples: quanto mais veloz o motor
+estivesse, maior seria a força centrífuga que agiria sobre as esferas, fazendo
+com que as hastes se movimentassem de modo a fechar a válvula e fornecer menos
+vapor ao motor, diminuindo então sua velocidade.
+
+A introdução dessas ideias na industria se deu durante a segunda guerra quando
+se percebeu a necessidade de se desenvolver ... Entretanto, até esse período os
+sistemas de controle eram ajustados a partir de métodos de tentativa e erro, não
+havendo um padrão. Após a publicação do artigo de Ziegler e Nichols (1942),
+houve então uma disseminação dos controladores PID nas indústrias. 
+
+Com o surgimento dos CLPs e a popularização dos sistemas de controle o foco se
+voltou para as questões de ... 

@@ -213,7 +213,8 @@ da tubulação de saída.  Assim, pode-se desprezar a viscosidade no
 desenvolvimento do modelo.
 
 \Glossary{$\mu_{\text{ar}}$}{Coeficiente de viscosidade do ar}
-\Glossary{$\mu_{\tiny \text{\tiny H}_2\text{\tiny O}}$}{Coeficiente de viscosidade da água}
+\Glossary{$\mu_{\tiny \text{\tiny H}_2\text{\tiny O}}$}
+         {Coeficiente de viscosidade da água}
 
 Se cada elemento do fluido em cada ponto do escoamento não tem velocidade
 angular com relação a esse ponto, o fluxo é denominado não-rotacional. Admita
@@ -380,12 +381,11 @@ atuadores com um deles em {\it standby}. Ademais, é válido ressaltar que essa
 anteriores sugeridas pelo fabricante.
 
 É evidente que, no caso da Fig. \ref{fig:nova_config_1}, o sistema deixa de ser
-SISO e passa a ter múltiplas entradas e múltiplas saídas ({\it Multiple Input
-and Multiple Output} -- MIMO). Por esse motivo, esse sistema será o utilizado
-como modelo de estudo de caso no trabalho. A única modificação existente nas
-equações que regem a dinâmica do modelo é a introdução de uma nova variável na
-equação do segundo tanque, em virtude da adição da segunda bomba. Assim, as
-equações finais do modelo de estudo de caso serão:
+SISO e passa a ser MIMO. Por esse motivo, esse sistema será o utilizado como
+modelo de estudo de caso no trabalho. A única modificação existente nas equações
+que regem a dinâmica do modelo é a introdução de uma nova variável na equação do
+segundo tanque, em virtude da adição da segunda bomba. Assim, as equações finais
+do modelo de estudo de caso serão:
 
 \begin{eqnarray}
 \dot{L_1} & = & \frac{K_m}{A}V_{p_{\tiny 1}} -

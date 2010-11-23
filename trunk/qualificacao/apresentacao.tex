@@ -1,0 +1,169 @@
+% ==============================================================================
+% Universidade Federal do Rio Grande do Norte
+% Programa de Pós-Graduação em Engenharia Elétrica e de Computação
+% Qualificação de mestrado
+% Autor: Diogo Leite Rebouças <diogolr@gmail.com>
+% ==============================================================================
+
+\documentclass{beamer}
+
+% Temas ========================================================================
+\mode<presentation>
+{
+%\usetheme[blue,noshadow]{Trondheim}
+%\usetheme[blue,minimal]{Trondheim}
+\usetheme[blue,compress,numbers,nonav]{Trondheim}
+%\usetheme[sand,compress,numbers,nonav,innovation]{Trondheim}
+%\usetheme{default}
+
+% Inner ........................................................................
+%\useinnertheme{default}
+%\useinnertheme{rounded}
+%\useinnertheme{inmargin}
+%\useinnertheme{rectangles}
+\useinnertheme{circles}
+
+% Outer ........................................................................
+%\useoutertheme{default}
+%\useoutertheme{infolines}
+%\useoutertheme{miniframes}
+%\useoutertheme{ntnu}
+%\useoutertheme{shadow}
+%\useoutertheme{sidebar}
+%\useoutertheme{smoothbars}
+%\useoutertheme{smoothtree}
+%\useoutertheme{split}
+%\useoutertheme{tree}
+
+% Color ........................................................................
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{default}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{ntnublue}
+%\usecolortheme{ntnuold}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{sidebartab}
+%\usecolortheme{structure}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+}
+
+% Pacotes ======================================================================
+\input{configs/pacotes.tex}
+
+% Comandos =====================================================================
+\input{configs/comandos_apres.tex}
+
+% Configuração da página inicial ===============================================
+\title[Exame de Qualificação de Mestrado]
+{
+    Exame de Qualificação de Mestrado
+}
+\subtitle{\titulo}
+\author[Diogo Leite Rebouças]
+{
+    \autor\\
+    \emailautor
+}
+\institute
+{
+    Universidade Federal do Rio Grande do Norte\\
+    Programa de Pós-Graduação em Engenharia Elétrica e Computação
+}
+%\date{\today}
+\date{26 de junho de 2009}
+\pgfdeclareimage[width=3cm,interpolate=true]
+                {ntnulogotext}{imgs/outras/eps/ufrn_trad}
+
+% Inicio do documento ==========================================================
+\begin{document}
+
+\maketitle
+%\compressedtitle
+
+% Logo somente após a capa
+\logo{\includegraphics[width=2cm]{imgs/outras/eps/ufrn_trad}}
+
+% Sumário ......................................................................
+\begin{frame}
+    \frametitle{Sumário}
+    \small
+    \tableofcontents
+%    \begin{columns}
+%        \column{0.45\textwidth}
+%            \tableofcontents[sections=1]
+%            \vspace{0.25cm}
+%            \tableofcontents[sections=2]
+%            \vspace{0.25cm}
+%            \tableofcontents[sections=3]
+%        \column{0.45\textwidth}
+%            \tableofcontents[sections=4]
+%            \vspace{0.25cm}
+%            \tableofcontents[sections=5]
+%    \end{columns}
+\end{frame}
+
+% Introdução ...................................................................
+\section{Introdução}
+\subsection{Aspectos históricos}
+\begin{frame}
+    \frametitle{Aspectos históricos}
+    História dos sistemas de controle \implica 300 a.C. a 250 a.C. \implica
+    primeiras boias flutuadoras e o relógio de água de Ktesíbios
+
+    \vspace{0.25cm}
+
+    Controle automático \implica James Watt, em 1769
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.75\textwidth]{imgs/introducao/eps/regulador_esferas}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Aspectos históricos}
+
+    Introdução desse assunto na indústria se deu durante a 2\textordfeminine\
+    guerra \implica necessidade em se projetar e construir, por exemplo:
+
+\begin{itemize}
+    \item Pilotos automáticos para aeronaves
+    \item Sistemas de posicionamento de armas
+    \item Sistemas de controle para antenas e radares
+\end{itemize}
+
+    Ajustar os ganhos dos controladores \implica tentativa e erro
+
+    \vspace{0.25cm}
+
+    Publicação do artigo de Ziegler e Nichols (1942) \implica Disseminação dos
+    controladores PID nas indústrias
+\end{frame}
+
+\begin{frame}
+    \frametitle{Aspectos históricos}
+
+    Com o surgimento dos CLPs, foco:
+
+\begin{itemize}
+    \item Desempenho do processo
+    \item Qualidade dos produtos 
+    \item Independência de funcionamento da planta para com os operadores
+          humanos
+\end{itemize}
+
+    
+    
+\end{frame}
+
+\end{document}
