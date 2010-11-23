@@ -10,9 +10,9 @@ escolhida para que seja feita uma análise mais detalhada dos resultados.
 Neste capítulo serão analisados os resultados parciais obtidos a partir da
 implementação da segunda proposta do sistema de DDF. Para isso, em um primeiro
 momento será mostrado como se deu a coleta dos dados de treinamento e validação
-das redes especialistas e em seguida será feita uma comparação de desempenho. Ao
-final do capítulo as melhores estruturas serão selecionadas para que se realize
-uma análise um pouco mais detalhada acerca da detecção das falhas.
+das redes especialistas e em seguida será feita uma comparação de desempenho
+entre as redes treinadas. Ao final do capítulo as melhores estruturas serão
+selecionadas para que se possa realizar uma análise um pouco mais detalhada.
 
 % ------------------------------------------------------------------------------
 \section{Coleta dos dados}
@@ -26,9 +26,9 @@ Random Binary Signals} -- PRBS) à referência de cada um dos tanques e aos
 parâmetros do sistema que simulam as falhas. Para a identificação, a faixa de
 valores aplicados se deu do nível mínimo (zero) ao máximo (trinta). Já para a
 detecção das falhas, os valores foram aplicados conforme Tab.
-\ref{tab:valores_treinamento}. Nessa tabela os valores mínimos e máximos são
-multiplicados pelo valor padrão e aplicados ao modelo. A última coluna mostra
-qual será a representatividade da mudança dos valores.
+\ref{tab:valores_treinamento}. Nessa tabela, os valores gerados no
+intervalo determinado pelos mínimos e máximos de cada parâmetro eram
+multiplicados pelos respectivos valores padrão e aplicados ao modelo.
 
 \begin{table}[htb]
 \small
@@ -88,24 +88,24 @@ danificar a bomba. Por esse motivo não seria viável obter as amostras do
 processo real, mas sim a partir de uma simulação.
 
 Os sinais pseudo aleatórios gerados se mantiveram dentro dos limites
-estabelecidos durante todo o intervalo de tempo da simulação. Para o processo de
+estabelecidos durante todo o tempo da simulação. Para o processo de
 identificação foram obtidas 6000 (seis mil) amostras, equivalentes à 10 (dez)
 minutos de simulação. Já para a detecção o processo foi simulado durante 20
 (vinte) minutos, o que correspondeu a obtenção de 12000 (doze mil) amostras.
 
 De posse dos valores obtidos, iniciou-se a fase de treinamento das RNAs. Todas
 as redes foram treinadas de modo {\it offline} com o {\it toolbox} de redes
-neurais do {\it software} matemático Matlab\reg\ utilizando o algoritmo LMA. Ao
-final de cada etapa de treinamento as redes eram submetidas à testes de
-validação para que se fosse possível avaliar a capacidade de generalização.
+neurais do {\it software} matemático Matlab\reg, utilizando o algoritmo LMA. Ao
+final de cada etapa de treinamento as redes eram submetidas aos testes de
+validação com o intuito de avaliar suas capacidades de generalização.
 
 % ------------------------------------------------------------------------------
 \section{Análise das RNAs}
-Para que se fossem estabelecidos critérios avaliativos significantes, ou seja,
-para que existisse um número representativo, diversas redes neurais foram
-treinadas com diferentes configurações do número de neurônios na camada oculta e
-da ordem do modelo. O número de redes treinadas corresponde aquele especificado
-no final da Tab. \ref{tab:treinamentos}. 
+Para que fossem estabelecidos critérios avaliativos significantes, diversas
+redes neurais foram treinadas com diferentes configurações. Cada uma dessas
+configurações levava em consideração o número de neurônios na camada oculta e da
+ordem do modelo. O número de redes treinadas corresponde aquele especificado no
+final da Tab. \ref{tab:treinamentos}. 
 
 \begin{table}[htb]
 \small
@@ -157,14 +157,14 @@ acordo com a ordem do modelo e o número de neurônios na camada oculta.}
 \end{tabular}
 \end{table}
 
-Na primeira proposta de identificação, de segunda ordem, foram treinadas 6
-(seis) redes neurais cada vez que o número de neurônios na camada oculta era
-alterado. Ou seja, para cada ordem eram treinadas 18 (dezoito) redes neurais.
-Como foram testadas três ordens distintas em cada proposta, tem-se um total de
-54 (cinquenta e quatro) redes para a primeira proposta.
+Na primeira proposta de identificação foram treinadas 6 (seis) redes neurais a
+cada vez que o número de neurônios na camada oculta era alterado. Ou seja, para
+cada ordem eram treinadas 18 (dezoito) redes neurais.  Como foram testadas três
+ordens distintas, tem-se um total de 54 (cinquenta e quatro) redes para a
+primeira proposta.
 
-Observa-se entretanto que, na segunda proposta de identificação existiam duas
-redes neurais a serem treinadas em cada etapa de treinamento, conforme Fig.
+Observa-se entretanto que, na segunda proposta de identificação, existiam duas
+redes a serem treinadas em cada etapa de treinamento, conforme Fig.
 \ref{fig:ident_proposta_2}, e que a segunda proposta de detecção considera-se um
 conjunto de 13 (treze) redes especialistas, sendo uma para cada falha, conforme
 Fig. \ref{fig:detec_prop_2}. Em virtude desses aspectos, o número de redes
@@ -233,19 +233,18 @@ exibidos pela Tab. \ref{tab:melhores_rnas_ident}.
 Assim, a melhor rede de identificação, escolhida para estimar os valores de
 $L_1$ e $L_2$, foi a rede de segunda ordem, com oito neurônios na camada oculta,
 obtida no segundo treinamento. Essa rede, cuja soma dos EMQs foi de $3,73 \times
-10^{-6}$, será utilizada para gerar os valores dos resíduos ($e_i = L_i -
-\widehat{L_i}$) que compõem a entrada das redes de detecção.
+10^{-6}$, será utilizada para gerar os valores dos resíduos $e_i$
+que compõem a entrada das redes de detecção.
 
 % ------------------------------------------------------------------------------
 \subsection{Redes para detecção de falhas}
-De maneira simplificada, pode-se dizer que os erros de tipo I, também conhecidos
-como {\it falsos positivos}, ocorrem quando o sistema reconhece uma falha que,
-na verdade, não houve, enquanto que os erros de tipo II, também conhecidos como
-{\it falsos negativos}, ocorrem quando o sistema deixa de reconhecer uma falha
-que aconteceu.
+Os erros de tipo I, também conhecidos como {\it falsos positivos}, ocorrem
+quando o sistema reconhece uma falha que, na verdade, não houve, enquanto que os
+erros de tipo II, também conhecidos como {\it falsos negativos}, ocorrem quando
+o sistema deixa de reconhecer uma falha que aconteceu.
 
 Dessa maneira, a escolha das melhores redes de detecção se deu a partir do
-número de incidência de cada um desses erros. Estabeleceu-se portanto que a
+número de incidência de cada um desses erros. Estabeleceu-se, portanto, que a
 melhor rede para uma determinada falha seria aquela em que a soma dos erros de
 tipo I com os erros de tipo II fosse a menor possível.
 
@@ -254,14 +253,15 @@ Os resultados obtidos para cada uma das falhas podem ser observados na Tab.
 referem a média obtida a partir das três validações. Já a última coluna
 representa o percentual de erro médio total\footnote{O percentual de erro médio
 total é obtido a partir da soma da quantidade de erros de tipo I com os erros de
-tipo II, dividido pelo número total de amostras.} sobre todas as amostras. 
+tipo II, dividido pelo número total de amostras.} sobre todas as amostras.
+Assim como na proposta de identificação, as melhores redes estão destacadas em
+cinza.
 
 Deve-se observar ainda que apesar do treinamento ter sido feito com 12000 (doze
 mil) amostras, a rede deve acertar 24000 (vinte e quatro mil) vezes, pois para
 cada ponto a rede deve mostrar se está ou não havendo aquela falha em $T_1$ e em
 $T_2$. Portanto, para cada ponto de treinamento haverão dois acertos a serem
-realizados. Ademais, assim como na proposta de identificação, as melhores redes
-estão destacadas em cinza.
+realizados. 
 
 \begin{center}
 \small
@@ -489,10 +489,10 @@ estão destacadas em cinza.
 \end{center}
 
 Analisando os valores exibidos nessas tabelas, percebe-se que as redes
-especialistas possuem uma certa dificuldade em identificar as falhas dos
-atuadores e algumas falhas do sistema, chegando, em alguns casos, a ter mais de
-43\% de erro nos pontos de validação. Entretanto, a maioria desses valores podem
-ser considerados aceitáveis para a aplicação.
+especialistas possuem uma certa dificuldade em identificar a maioria das falhas
+dos atuadores e algumas falhas do sistema, chegando, em alguns casos, a ter mais
+de 43\% de erro nos pontos de validação. %Entretanto, a maioria desses valores
+%podem ser considerados aceitáveis para a aplicação.
 
 % ------------------------------------------------------------------------------
 \section{Detecções}
@@ -520,45 +520,46 @@ $K_{\tiny I} = 0,5$ e $K_{\tiny D} = 0,05$.
 Ao contrário do que aconteceu durante o período de treinamento e validação das
 redes, os valores de cada um dos parâmetros das falhas foram mantidos fixos
 durante os intervalos em que aquela falha estava agindo sobre o sistema. Os
-valores utilizados podem ser observados na Tab. \ref{tab:valores_parametros}.
+valores utilizados em cada uma das treze simulações podem ser observados na Tab.
+\ref{tab:valores_parametros}.
 
 \begin{table}[htb]
 \centering
 \caption{Valores dos parâmetros modificados para a simulação das falhas.}
 \label{tab:valores_parametros}
 \vspace{0.25cm}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c|c|c|}
 \hline
-{\bf Falha} & {\bf Valor modificado}\\
-\hline
-\hline
-FSeDG & $\text{Ganho} = 0,128$\\
-\hline
-FSeDO & -2,0\ cm\\
-\hline
-FSeSR & $\pm 2\%$\\
-\hline
-FSeQ & $\text{Ganho} = 0,0$\\
+{\bf Simulação} & {\bf Falha} & {\bf Valor modificado}\\
 \hline
 \hline
-FADG & $\text{Ganho} = 0,8$\\
+1 & FSeDG & $\text{Ganho} = 0,128$\\
 \hline
-FADO & -0,5 Volts\\
+2 & FSeDO & -2,0\ cm\\
 \hline
-FASR & $\pm 2\%$\\
+3 & FSeSR & $\pm 2\%$\\
 \hline
-FAVK & $K_m = 3,45$\\ 
-\hline
-FAQ & $\text{Ganho} = 0,0$\\
+4 & FSeQ & $\text{Ganho} = 0,0$\\
 \hline
 \hline
-FSiVzT & $a_{\tiny VZ} = \frac{a_{\tiny MED}}{2}$\\
+5 & FADG & $\text{Ganho} = 0,8$\\
 \hline
-FSiVrOS & $a_i = \frac{a_{\tiny MED}}{2}$\\
+6 & FADO & -0,5 Volts\\
 \hline
-FSiVrGMP & $\text{Ganho} = 4,5$\\
+7 & FASR & $\pm 2\%$\\
 \hline
-FSiEOS & $a_i' = \frac{a_{\tiny MED}}{4}$\\
+8 & FAVK & $K_m = 3,45$\\ 
+\hline
+9 & FAQ & $\text{Ganho} = 0,0$\\
+\hline
+\hline
+10 & FSiVzT & $a_{\tiny VZ} = \frac{a_{\tiny MED}}{2}$\\
+\hline
+11 & FSiVrOS & $a_i = \frac{a_{\tiny MED}}{2}$\\
+\hline
+12 & FSiVrGMP & $\text{Ganho} = 4,5$\\
+\hline
+13 & FSiEOS & ${a_i}' = \frac{a_{\tiny MED}}{4}$\\
 \hline
 \end{tabular}
 \end{table}
@@ -582,7 +583,7 @@ foi reduzido para 80\% do valor original.
 \label{fig:fsedg}
 \end{figure}
 
-Observa-se nesta figura que o sistema consegue identificar a presença da falha
+Observa-se nessa figura que o sistema consegue identificar a presença da falha
 assim que o valor do parâmetro é modificado. Após esse período, os controladores
 conseguem ``compensar'' a falha, enviando mais tensão para a bomba e,
 consequentemente, fazendo com que o nível retorne à referência. Observa-se,
@@ -592,13 +593,13 @@ que a leitura do nível estará com um erro de 20\%.
 Dessa forma, quando o valor lido pelos sensores for de 24\ cm, o tanque estará
 prestes a transbordar, atingindo, na verdade, o limite superior de 30\ cm. Em
 uma aplicação acadêmica tal situação pode não representar nenhum risco aos
-equipamentos além daqueles que a água venha a causar. Por outro lado, em
+equipamentos além daqueles em que a água venha a causar. Por outro lado, em
 aplicações críticas essa ``compensação'' pode vir a causar diversos prejuízos.
 
-O sistema se comportou de maneira semelhante na FSeDO e na FSiVzT, conforme
-observado nas Figs. \ref{fig:fsedo} e \ref{fig:fsivzt}. Essa semelhança pode vir
-a dificultar a identificação dessas falhas quando as redes estiverem agindo
-paralelamente. Por outro lado, o sistema composto por uma única rede pode
+O sistema se comportou de maneira semelhante à essa na FSeDO e na FSiVzT,
+conforme observado nas Figs. \ref{fig:fsedo} e \ref{fig:fsivzt}. Essa semelhança
+pode vir a dificultar a identificação dessas falhas quando as redes estiverem
+agindo paralelamente. Por outro lado, o sistema composto por uma única rede pode
 conseguir diferenciar cada uma dessas falhas de maneira mais eficiente. 
 
 \begin{figure}[htb]
@@ -620,20 +621,21 @@ conseguir diferenciar cada uma dessas falhas de maneira mais eficiente.
 \end{figure}
 
 Os resultados obtidos para essas falhas não estão condizentes com a Tab.
-\ref{tab:melhores_redes_detec}. Tal fato pode acontecer porque as redes
-identificaram uma dinâmica para variações rápidas através de sinais de excitação
-pseudo aleatórios, não conseguindo identificar variações bruscas e continuadas.
+\ref{tab:melhores_redes_detec}. Tal situação pode estar acontecendo porque as
+redes identificaram uma dinâmica para variações rápidas através de sinais de
+excitação pseudo aleatórios, não conseguindo identificar variações bruscas e
+continuadas.
 
-Assim, uma possível alternativa para contornar esse problema de detecção, seria
-a de se utilizar {\it flags} binárias, ativadas no momento em que fosse
-detectada a primeira variação e desativadas na detecção seguinte. Essas {\it
-flags} indicariam para o sistema que a falha está agindo durante todo o
-intervalo de tempo em que estivessem ativas.
+Assim, uma possível alternativa para contornar esse problema, seria a de se
+utilizar {\it flags} binárias, ativadas no momento em que fosse detectada a
+primeira variação e desativadas na detecção seguinte. Essas {\it flags}
+indicariam para o sistema que a falha está agindo durante todo o intervalo de
+tempo em que estivessem ativas.
 
 Uma outra simulação mostrou que a FSeSR foi facilmente identificada pelo
 sistema, como pode ser visto na Fig. \ref{fig:fsesr}. Observa-se entretanto que,
 por se tratar de um ruído com distribuição uniforme ($\pm 2\%$), o sistema não
-consegue identificar a falha em alguns pontos. Nesses pontos, pode-se observar
+consegue identificar a falha em alguns pontos. Nesses pontos, pode-se perceber
 que o valor gerado pela função {\tt rand} mantém o sinal próximo à referência.
 
 \begin{figure}[htb]
@@ -645,25 +647,30 @@ que o valor gerado pela função {\tt rand} mantém o sinal próximo à referên
 \label{fig:fsesr}
 \end{figure}
 
-Ao contrário da FSeSR, a FASR entretanto não foi tão facilmente identificada. Os
-resultados obtidos para $T_1$ podem até ser considerados razoáveis, contudo, os
-resultados para $T_2$ são inaceitáveis, tendo em vista que nenhum dos pontos em
-que a falha deveria ter sido identificada foram reconhecidos pela rede. Apesar
+Ao contrário da FSeSR, a simulação realizada para a FASR não foi tão facilmente
+identificada, como pode ser visto na Fig. \ref{fig:fasr}. Os resultados obtidos
+para $T_1$ podem até ser considerados razoáveis, enquanto que os resultados para
+$T_2$ são visivelmente inaceitáveis, tendo em vista que nenhum dos pontos em que
+a falha deveria ter sido identificada foram reconhecidos pela rede. Apesar
 disso, observa-se que os resultados estão condizentes com a Tab.
 \ref{tab:melhores_redes_detec}, em que o total de erros de detecção supera 40\%.
-A simulação da FASR pode ser observada na Fig. \ref{fig:fasr}.
 
-\begin{figure}[htb] \footnotesize \centering \input{imgs/resultados/eps/fasr}
-\vspace{1cm} \caption{Simulação da FSeSR com ruído de distribuição uniforme
-($\pm 2\%$).} \label{fig:fasr} \end{figure}
+\begin{figure}[htb] 
+\footnotesize 
+\centering 
+\input{imgs/resultados/eps/fasr}
+\vspace{1cm} 
+\caption{Simulação da FASR com ruído de distribuição uniforme ($\pm 2\%$).} 
+\label{fig:fasr} 
+\end{figure}
 
-Com exceção da FSiVrGMP, todas as falhas restantes também foram facilmente
-identificadas pelo sistema, como pode ser observado nas Figs. \ref{fig:fseq} a
-\ref{fig:fsieos}. No caso da FSiVrGMP, o sistema não consegue detectar quando a
-falha acontece somente em $T_1$, como pode ser visto no intervalo de 15 (quinze)
-a 30 (trinta) segundos da Fig. \ref{fig:fsivrgmp}. Todavia, as falhas em $T_2$
-são identificadas corretamente. Tal fato justifica a quantidade de erros
-expostos pela Tab. \ref{tab:melhores_redes_detec}.
+Com exceção da FSiVrGMP, todas as demais falhas restantes também foram
+facilmente identificadas pelo sistema, como pode ser observado nas Figs.
+\ref{fig:fseq} a \ref{fig:fsieos}. No caso da FSiVrGMP, o sistema não consegue
+detectar quando a falha acontece somente em $T_1$, como pode ser visto no
+intervalo de 15 (quinze) a 30 (trinta) segundos da Fig. \ref{fig:fsivrgmp}.
+Todavia, as falhas em $T_2$ são identificadas corretamente. Tal fato justifica a
+quantidade de erros expostos pela Tab. \ref{tab:melhores_redes_detec}.
 
 \begin{figure}[htb]
 \footnotesize
@@ -737,15 +744,16 @@ expostos pela Tab. \ref{tab:melhores_redes_detec}.
 \label{fig:fsieos}
 \end{figure}
 
-Uma última observação pode ser feita a respeito da FSeQ, em que há a detecção da
-falha em $T_1$ em um pequeno intervalo no final da simulação. Essa detecção
-entretanto não comprometeu o funcionamento do sistema nos intervalos em que a
-falha deveria realmente ser detectada. Trata-se, portanto, de um falso positivo.
+Uma última observação pode ser feita a respeito da Fig. \ref{fig:fseq}, em que
+há a detecção da falha em $T_1$ em um pequeno intervalo no final da simulação.
+Contudo, isso não veio a comprometer o funcionamento do sistema nos intervalos
+em que a falha deveria realmente ser detectada. Trata-se, portanto, de um falso
+positivo.
 
-Como dito anteriormente, as situações adversas podem ter ocorrido no sistema em
-virtude do treinamento ter sido realizado co valores constantes para os
-parâmetros. Por esse motivo os resultados obtidos nem sempre estão de acordo com
-os valores da Tab. \ref{tab:melhores_redes_detec}.
+Ressalta-se por fim que as situações adversas podem ter ocorrido no sistema em
+virtude do treinamento ter sido realizado com valores constantes para a variação
+dos parâmetros. Por esse motivo os resultados obtidos nem sempre estão de acordo
+com os valores da Tab. \ref{tab:melhores_redes_detec}.
 
 % TODO CONCLUSAO?
 %Apesar do número de acertos obtidos em algumas falhas durante o processo de
