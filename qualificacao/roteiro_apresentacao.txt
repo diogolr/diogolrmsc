@@ -12,10 +12,36 @@ com que as hastes se movimentassem de modo a fechar a válvula e fornecer menos
 vapor ao motor, diminuindo então sua velocidade.
 
 A introdução dessas ideias na industria se deu durante a segunda guerra quando
-se percebeu a necessidade de se desenvolver ... Entretanto, até esse período os
-sistemas de controle eram ajustados a partir de métodos de tentativa e erro, não
-havendo um padrão. Após a publicação do artigo de Ziegler e Nichols (1942),
+se percebeu a necessidade de se desenvolver (...) Entretanto, até esse período
+os sistemas de controle eram ajustados a partir de métodos de tentativa e erro,
+não havendo um padrão. Após a publicação do artigo de Ziegler e Nichols (1942),
 houve então uma disseminação dos controladores PID nas indústrias. 
 
-Com o surgimento dos CLPs e a popularização dos sistemas de controle o foco se
-voltou para as questões de ... 
+Com o surgimento dos CLPs e a popularização do controle automático nas
+indústrias, o foco se voltou para as questões de (...) Essa evolução se deu de
+tal forma que os processos hoje são divididos em várias camadas, cada uma com
+uma finalidade específica (mostrar Esquema de Unidade de Automação de dois
+processos acoplados).
+
+Em uma estrutura como essa, quanto mais eficiente forem as estratégias de
+controle (...), mas os operadores que são removidos do processo não se limitam
+a controlar o processo mudando suas referências em horários pré-determinados.
+Eles realizam também uma atividade de supervisão, especialmente quando em
+contato direto com o processo. Por esse motivo, com a evolução das estratégias
+de controle, deve-se melhorar as estratégias de supervisão no nível
+intermediário.
+
+Surgiram então os primeiros sistemas de supervisão, os quais verificavam se
+determinadas variáveis ultrapassavam limites preestabelecidos, gerando um alarme
+de notificação para o operador. Este, por sua vez, agia rapidamente de maneira a
+corrigir o problema.
+
+Em alguns casos o problema também poderia ser corrigido de maneira automática.
+Mas, muitas vezes o próprio processo de detecção das falhas/erros levava um
+certo tempo, o que impossibilitava a obtenção de um diagnóstico detalhado sobre
+o ocorrido.
+
+Os desafios das estratégias de supervisão estão em se utilizar uma variedade de
+técnicas (...) com o objetivo de se desenvolver um sistema capaz de detectar e
+diagnosticar as falhas em um processo. Para isso, muitos aspectos devem ser
+considerados (...)
