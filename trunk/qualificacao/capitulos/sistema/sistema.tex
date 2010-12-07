@@ -186,8 +186,8 @@ não-viscoso, não-rotacional e regular. Cada uma dessas características serão
 descritas a seguir baseadas na argumentação exposta em \citeasnoun{dorf:2009}.
 
 Diz-se que um fluido é incompressível quando este possui uma massa específica
-constante. Entretanto, sabe-se que todo fluido é compressível em certo grau e
-que o fator de compressibilidade $k$ é uma medida de sua compressibilidade.
+constante. Entretanto, sabe-se que todo fluido é compressível em certo grau, e
+que, o fator de compressibilidade $k$ é uma medida de tal característica.
 Quanto menor o valor de $k$, menor é a compressibilidade indicada para aquele
 fluido. O ar, que é um fluido compressível, possui um fator de compressibilidade
 $k_{\text{ar}} = 0,98\ \text{m}^2/\text{N}$, enquanto que a água tem um fator de
@@ -430,7 +430,7 @@ está representada na Fig. \ref{fig:func_sistema}.
 \end{figure}
 
 A partir dessa representação esquemática, percebe-se facilmente que as únicas
-variáveis disponíveis são os níveis dos tanques ($L_1$ e $L_2$ e as tensões das
+variáveis disponíveis são os níveis dos tanques ($L_1$ e $L_2$) e as tensões das
 bombas ($V_{p_{\tiny 1}}$ e $V_{p_{\tiny 2}}$).
 
 Além das limitações físicas relacionadas aos sinais enviados ou recebidos pelo
@@ -451,7 +451,7 @@ ordem (RK4).
 
 De maneira resumida, pode-se dizer que o RK4 faz parte de uma família de métodos
 interativos para a aproximação numérica de soluções de equações diferenciais
-ordinárias. O funcionamento do método pode esclarecido conforme explicação a
+ordinárias. O funcionamento do método pode ser esclarecido conforme explicação a
 seguir. 
 
 Seja um problema de valor inicial dado por:
@@ -615,7 +615,7 @@ Falha do sistema &
 \Glossary{FADO}{Falha do Atuador por Descalibramento de {\it Offset}}
 \Glossary{FASR}{Falha do Atuador por Sensibilidade à Ruído}
 \Glossary{FAVK}{Falha do Atuador por Variação da Constante da Bomba ($K_m$)}
-\Glossary{FAQ}{Falha do por Queima}
+\Glossary{FAQ}{Falha do Atuador por Queima}
 \Glossary{FSiVzT}{Falha do Sistema por Vazamento do Tanque}
 \Glossary{FSiVrOS}{Falha do Sistema por Variação do Orifício de Saída}
 \Glossary{FSiVrGMP}{Falha do Sistema por Variação do Ganho do Módulo de 
@@ -640,7 +640,7 @@ todos os parâmetros referentes a cada uma dessas falhas a partir de um arquivo
 de texto. Cada um dos parâmetros do arquivo de entrada deve ser especificado em
 uma coluna e o número de linhas equivale ao número de amostras a serem
 simuladas. O período de amostragem utilizado na simulação do sistema é de 100
-(cem) milissegundos, o mesmo utilizado na planta real.
+(cem) milissegundos, o mesmo utilizado para o controle da planta real.
 
 Além disso, o sistema implementa as rotinas de dois controladores que podem ser
 configurados para operarem como controladores P, PI, PD, PID ou PI-D. Os ganhos
@@ -682,10 +682,10 @@ seções.
 \subsection{Propostas de identificação}
 A primeira estrutura de identificação busca representar a dinâmica do sistema de
 tanques através de uma única rede neural, a qual receberia como entrada os
-valores passados dos níveis, $L_1(k-1)$ e $L_2(k-1)$, e os valores de tensão a
-serem aplicados, $V_{p_{\tiny 1}}(k)$ e $V_{p_{\tiny 2}}(k)$, gerando uma
-estimativa dos níveis em sua saída, denominadas $\widehat{L_1}$ e
-$\widehat{L_2}$.  A Fig. \ref{fig:ident_proposta_1} representa um diagrama
+valores passados dos níveis, $L_1(k-1)$ e $L_2(k-1)$, e os valores de tensão
+aplicados, $V_{p_{\tiny 1}}(k-1)$ e $V_{p_{\tiny 2}}(k-1)$, gerando uma
+estimativa dos níveis em sua saída, denominadas $\widehat{L_1}(k)$ e
+$\widehat{L_2}(k)$.  A Fig. \ref{fig:ident_proposta_1} representa um diagrama
 esquemático do funcionamento dessa primeira proposta.
 
 \begin{figure}[htb]
@@ -709,18 +709,18 @@ por utilizar duas redes neurais, como mostrado na Fig.
 \end{figure}
 
 A primeira rede seria a responsável pela identificação de $T_1$, recebendo como
-entrada o nível anterior, $L_1(k-1)$, e a tensão a ser aplicada, $V_{p_{\tiny
-1}}(k)$, gerando uma estimativa de $L_1$ em sua saída. Já a segunda rede seria a
-responsável pela identificação da dinâmica de $T_2$ e receberia como entrada as
-mesmas variáveis da primeira proposta, ou seja, $L_1(k-1)$, $L_2(k-1)$,
-$V_{p_{\tiny 1}}(k)$ e $V_{p_{\tiny 2}}(k)$. A saída da segunda rede seria,
+entrada o nível anterior, $L_1(k-1)$, e a tensão aplicada, $V_{p_{\tiny
+1}}(k-1)$, gerando uma estimativa de $L_1$ em sua saída. Já a segunda rede seria
+a responsável pela identificação da dinâmica de $T_2$ e receberia como entrada
+as mesmas variáveis da primeira proposta, ou seja, $L_1(k-1)$, $L_2(k-1)$,
+$V_{p_{\tiny 1}}(k-1)$ e $V_{p_{\tiny 2}}(k-1)$. A saída da segunda rede seria,
 portanto, a estimativa do nível de $T_2$.
 
 Independentemente da proposta, pode-se visualizar o sistema de identificação do
 modelo como uma única estrutura neural (simples ou composta), que possui como
-entrada os níveis anteriores e as tensões a serem aplicadas, e que produz em sua
-saída as estimativas dos níveis dos dois tanques. A Fig. \ref{fig:sist_ident}
-mostra como o sistema de identificação pode ser visto.
+entrada os níveis anteriores e as tensões aplicadas, e que produz em sua saída
+as estimativas dos níveis dos dois tanques. A Fig. \ref{fig:sist_ident} mostra
+como o sistema de identificação pode ser visto.
 
 \begin{figure}[!htb]
 \centering
@@ -733,14 +733,14 @@ mostra como o sistema de identificação pode ser visto.
 \subsection{Propostas de detecção}
 As estruturas neurais de DDF seguiram o mesmo raciocínio adotado para as
 estruturas de identificação. No primeiro caso, buscou-se desenvolver uma única
-rede neural que fosse capaz de detectar e identificar cada das falhas listas
-pela Tab. \ref{tab:classificacao_falhas}. Essa rede receberia como entrada os
-mesmos sinais das redes de identificação e os resíduos $e_i$, produzidos pela
-diferença dos níveis entre o modelo simulado ($L_i$) e o modelo identificado
-($\widehat{L_i}$). A saída da rede formaria uma palavra binária que seria
-decodificada a partir de uma tabela previamente estabelecida. Nessa tabela cada
-falha teria uma palavra binária correspondente.  A Fig. \ref{fig:detec_prop_1}
-representa um diagrama esquemático dessa proposta.
+rede neural que fosse capaz de detectar e identificar cada uma das falhas
+listadas pela Tab. \ref{tab:classificacao_falhas}. Essa rede receberia como
+entrada os mesmos sinais das redes de identificação e os resíduos $e_i$,
+produzidos pela diferença dos níveis entre o modelo simulado ($L_i$) e o modelo
+identificado ($\widehat{L_i}$). A saída da rede formaria uma palavra binária que
+seria decodificada a partir de uma tabela previamente estabelecida. Nessa tabela
+cada falha teria uma palavra binária correspondente.  A Fig.
+\ref{fig:detec_prop_1} representa um diagrama esquemático dessa proposta.
 
 \begin{figure}[!htb]
 \centering
@@ -844,3 +844,4 @@ sistema de DDF.
 Acoplar tal sistema à um ambiente de monitoramento e supervisão, ou ainda
 associá-lo à técnicas de controle tolerante à falhas, consiste simplesmente em
 processar as informações disponíveis na interface de saída do módulo de DDF.
+Contudo, isso não faz parte do escopo deste trabalho.
