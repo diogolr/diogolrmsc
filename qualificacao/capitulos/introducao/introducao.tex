@@ -16,6 +16,8 @@ desenvolvimento dessas tecnologias foi acelerado, de tal forma que o homem foi
 capaz de produzir uma máquina a vapor para movimentar equipamentos industriais e
 de fazer um martelo de 60 quilos dar 150 golpes por minuto \cite{goeking:2010}.
 
+% TODO adicionar
+\begin{comment}
 Por outro lado, a utilização de sistemas de controle remete a tempos ainda mais
 antigos, por volta de 300 a.C. a 250 a.C., quando foram desenvolvidas as
 primeiras bóias flutuadoras, o relógio de água de Ktesíbios e uma lamparina a
@@ -28,14 +30,16 @@ início do século XVII \cite{mayr:1975}. No final do século XVII e início do
 século XVIII, Dennis Papin inventou o primeiro regulador de pressão para
 caldeiras a vapor. Tal dispositivo tinha funcionalidade semelhante a uma válvula
 de segurança de uma panela de pressão \cite{dorf:2009}. 
+\end{comment}
 
 % ------------------------------------------------------------------------------
 \section{Aspectos históricos do controle automático}
-A junção dos conceitos acima discutidos se dá no final do século XVIII, quando,
-em 1769, James Watt desenvolve o primeiro controlador automático com
-realimentação usado em um processo industrial, conhecido como {\it regulador de
-esferas}.
+A junção dos conceitos de automação e sistemas de controle se dá no final do
+século XVIII, quando, em 1769, James Watt desenvolve o primeiro controlador
+automático com realimentação usado em um processo industrial, conhecido como
+{\it regulador de esferas}.
 
+\begin{comment}
 O dispositivo, inteiramente mecânico, mostrado na Fig.
 \ref{fig:controlador_james}, controlava a velocidade de um motor a vapor através
 do movimento de duas esferas. Na medida em que a velocidade do eixo de saída do
@@ -53,12 +57,18 @@ sua velocidade \cite{mayr:1970,mayr:1975,dorf:2009}.
     \label{fig:controlador_james}
 \end{figure}
 
+\end{comment}
+
 Ainda em 1769, segundo \citeasnoun{faccin:2004}, Richard Arkwright, um inventor
 inglês considerado um dos precursores das técnicas de produção em série,
 acelerou o processo de industrialização ao desenvolver uma máquina de tecer
-movimentada pela força da água corrente. Segundo o autor, foi o tear mecânico
-que impulsionou a Revolução Industrial na Europa, contribuindo diretamente para
-a mudança dos hábitos de trabalho e das relações sociais da Idade Contemporânea. 
+movimentada pela força da água corrente. 
+% TODO adicionar no paragrafo anterior
+\begin{comment}
+Segundo o autor, foi o tear mecânico que impulsionou a Revolução Industrial na
+Europa, contribuindo diretamente para a mudança dos hábitos de trabalho e das
+relações sociais da Idade Contemporânea. 
+\end{comment}
 
 De acordo com \citeasnoun{dorf:2009}, o século seguinte foi caracterizado pelo
 desenvolvimento de sistemas de controle automático através da intuição e da
@@ -102,12 +112,12 @@ de celulose \cite{faccin:2004}.
 
 % ------------------------------------------------------------------------------
 \section{Introdução da automação na indústria}
-Durante o período entre guerras, a teoria e a prática de controle nos Estados
-Unidos e na Europa Ocidental se desenvolveram de modo diferente do que na Rússia
-e no Leste Europeu. O principal incentivo para o uso da realimentação nos
-Estados Unidos foi o desenvolvimento do sistema telefônico e dos amplificadores
-eletrônicos com realimentação por Bode, Nyquist e Black nos Laboratórios
-Telefônicos Bell \cite{dorf:2009}.
+Durante o período entre guerras, a teoria e a prática de sistemas de controle
+nos Estados Unidos e na Europa Ocidental se desenvolveram de modo diferente do
+que na Rússia e no Leste Europeu. O principal incentivo para o uso da
+realimentação nos Estados Unidos foi o desenvolvimento do sistema telefônico e
+dos amplificadores eletrônicos com realimentação por Bode, Nyquist e Black nos
+Laboratórios Telefônicos Bell \cite{dorf:2009}.
 
 Durante a segunda guerra mundial fez-se necessário projetar e construir pilotos
 automáticos para aeronaves, sistemas de posicionamento de armas, sistemas de
@@ -162,6 +172,8 @@ despertando interesse de diversos membros da comunidade científica.
 
 % ------------------------------------------------------------------------------
 \section{A automação e supervisão de processos}
+% TODO adicionar
+\begin{comment}
 A Fig. \ref{fig:esquema_automacao} mostra um esquema simplificado da automação
 de dois processos acoplados. O esquema foi dividido em três níveis: nível
 inferior, o qual contempla as estratégias de controle mais comuns na industria;
@@ -193,6 +205,7 @@ processo mudando suas referências nos horários previstos, eles também realiza
 a atividade de supervisão, especialmente quando estão em contato direto com o
 processo. Logo, com a evolução das técnicas de controle no nível inferior, as
 estratégias de supervisão também deverão ser aperfeiçoadas.
+\end{comment}
 
 No passado, o supervisionamento automático dos processos, em sua maioria, era
 composto por algum tipo de sistema que possuía a simples tarefa de verificar se
@@ -248,12 +261,15 @@ maneira geral, bombas e motores de corrente contínua, ou ainda em
 \citeasnoun{filbert:1982} e \citeasnoun{filbert:1985} para aplicações envolvendo
 motores elétricos.
 
+% TODO adicionar
+\begin{comment}
 Mais recentemente, diversas contribuições foram feitas na área de DDF. Pode-se
 citar, por exemplo, as publicações relacionadas ao gerenciamento de falhas e
 supervisão de processos, tais como \citeasnoun{russel:2000},
 \citeasnoun{patton:2000}, \citeasnoun{higham:2001}, \citeasnoun{simani:2003},
 \citeasnoun{ericson:2005}, \citeasnoun{blanke:2006}, \citeasnoun{erdenet:2007},
 \citeasnoun{fesq:2009} e \citeasnoun{hang:2009}.
+\end{comment}
 
 \begin{comment}
 Em \citeasnoun{vdi2206:2003}, é mostrado um ``Diagrama em V'', que lista passos
@@ -329,6 +345,7 @@ bibliográfica sobre o assunto
     \label{fig:arvore_venkatasu}
 \end{figure}
 
+\begin{comment}
 \citeasnoun{zhang:2008} tratam ainda sobre diversos tópicos relacionados aos
 Sistemas de Controle Tolerante a Falhas (SCTF), outro segmento de pesquisa até
 então não mencionado. Mostram para isso que, por razões históricas e por
@@ -347,6 +364,7 @@ diagnóstico não satisfazem as necessidades das técnicas de controle
 reconfigurável, em contraste com o que é exposto na maioria das pesquisas na
 área de controle reconfigurável, nas quais assume-se a existência de um sistema
 de detecção e diagnóstico perfeito.
+\end{comment}
 
 Tendo conhecido alguns dos temas mais abordados ao longo de todos esses anos, o
 trabalho a ser aqui apresentado se propõe a desenvolver um sistema que faça uso

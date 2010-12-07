@@ -2,8 +2,8 @@
 \label{cap:rnas}
 
 Ao longo das últimas décadas, as pesquisas na área de Redes Neurais Artificiais
-evoluiram de maneira significativa, principalmente após a década de 80, com o
-avanço da tecnologia e o fracasso da escola simbolista na solução de
+(RNAs) evoluiram de maneira significativa, principalmente após a década de 80,
+com o avanço da tecnologia e o fracasso da escola simbolista na solução de
 determinados tipos de problemas \cite{braga:2007}.
 
 No setor industrial a história não foi muito diferente. As RNAs vem sendo
@@ -41,10 +41,12 @@ as RNAs, através de seu processo de aprendizagem e de sua capacidade de
 aproximação universal, conseguem representar a função correspondente à dinâmica
 do sistema com relativa simplicidade.
 
+\begin{comment}
 Pode-se dizer que essa capacidade de aproximação assemelha a funcionalidade de
 um sistema de inferência, que nada mais é do que um modelo capaz de reproduzir
 as relações dinâmicas existentes entre as variáveis primárias e as variáveis
 secundárias de um processo.
+\end{comment}
 
 Apesar de se conhecer as equações que regem a dinâmica do processo escolhido
 como estudo de caso neste trabalho, conforme será mostrado no Capítulo
@@ -70,6 +72,17 @@ Fig. \ref{fig:pmc} representa um modelo esquemático de uma rede PMC.
 
 \Glossary{PMC}{Perceptron de Múltiplas Camadas}
 \Glossary{LMA}{Levenberg-Marquardt}
+
+A opção pela estrutura de PMC se dá devido a sua simplicidade e capacidade de
+aplicação em diversas áreas. Já a opção pelo treinamento com o algoritmo LMA
+pode ser justificada por se tratar de um método Quase-Newton que acelera o
+processo de convergência da rede, tendo em vista que leva em consideração termos
+de ordens mais elevadas que o algoritmo {\it backpropagation}. Além disso,
+pode-se destacar ainda que apesar de ser possível realizar o treinamento das
+redes através de uma linguagem de programação convencional, implementar tais
+soluções, tão difundidas em {\it softwares} mundialmente reconhecidos como o
+Matlab\reg\ e amplamente aceitas no meio acadêmico, está fora do escopo deste
+trabalho.
 
 Segundo \citeasnoun{norgaard:2000}, uma rede PMC básica possui seus neurônios
 dispostos em camadas, recebendo como entrada as saídas dos neurônios da camada
@@ -137,23 +150,26 @@ f_t(x) = \text{tanh}(x) = \frac{1-e^{-x}}{1+e^{-x}}\\
 
 % ------------------------------------------------------------------------------
 \section{Identificação através de modelo neural}
+\begin{comment}
 Segundo \citeasnoun{reboucas:2009}, a realização de inferência utilizando RNAs
 pode ser vista como um problema de identificação, uma vez que a rede neural
 treinada deve ser capaz de representar, satisfatoriamente, a dinâmica existente
 entre as variáveis secundárias e primárias do processo.
+\end{comment}
 
-As estruturas de modelo baseadas em redes neurais, apropriadas para a
-identificação de sistemas não-lineares, são generalizações de modelos lineares.
-Para \citeasnoun{lucena:2005}, essas estruturas são caracterizadas por seu vetor
-de regressão, que nada mais é do que um vetor que contém as variáveis utilizadas
-para estimar a saída do sistema. Dependendo da escolha do vetor de regressão,
-diferentes estruturas de modelo neural podem surgir. Estruturas FIR ({\it Finite
-Impulse Response}), ARX ({\it AutoRegressive eXternal input}), ARMAX ({\it
-AutoRegressive Moving Average eXternal input}), OE ({\it Output Error}) e SSIF
-({\it State Space Innovations Form}) são algumas das estruturas lineares mais
-conhecidas. Se o vetor de regressão for selecionado para modelos ARX, a
-estrutura do modelo será chamada NNARX ({\it Neural Network ARX}). Do mesmo
-modo, existirão também modelos NNFIR, NNARMAX, NNOE e NNSSIF.
+Segundo \citeasnoun{reboucas:2009}, as estruturas de modelo baseadas em redes
+neurais, apropriadas para a identificação de sistemas não-lineares, são
+generalizações de modelos lineares.  Para \citeasnoun{lucena:2005}, essas
+estruturas são caracterizadas por seu vetor de regressão, que nada mais é do que
+um vetor que contém as variáveis utilizadas para estimar a saída do sistema.
+Dependendo da escolha do vetor de regressão, diferentes estruturas de modelo
+neural podem surgir. Estruturas FIR ({\it Finite Impulse Response}), ARX ({\it
+AutoRegressive eXternal input}), ARMAX ({\it AutoRegressive Moving Average
+eXternal input}), OE ({\it Output Error}) e SSIF ({\it State Space Innovations
+Form}) são algumas das estruturas lineares mais conhecidas. Se o vetor de
+regressão for selecionado para modelos ARX, a estrutura do modelo neural será
+chamada NNARX ({\it Neural Network ARX}). Do mesmo modo, existirão também
+modelos NNFIR, NNARMAX, NNOE e NNSSIF.
 
 \Glossary{FIR}{{\it Finite Impulse Response}}
 \Glossary{ARX}{{\it AutoRegressive eXternal Input}}
@@ -210,10 +226,10 @@ saída estimada.
 Em sistemas de identificação {\it blackbox}, como o utilizado neste trabalho, é
 de fundamental importância que a ordem do modelo seja determinada adequadamente.
 Uma escolha inadequada poderá fazer com que a dinâmica do processo não seja
-assimilada pela rede neural de inferência, fazendo com que as estimativas
-geradas possuam erro médio consideravelmente alto. Segundo
-\citeasnoun{arruda:2003}, existe uma ordem de modelo ótima que permite obter o
-menor erro entre o modelo estimado e o sistema real.
+assimilada pela rede neural, fazendo com que as estimativas geradas possuam erro
+médio consideravelmente alto. Segundo \citeasnoun{arruda:2003}, existe uma ordem
+de modelo ótima que permite obter o menor erro entre o modelo estimado e o
+sistema real.
 
 A ordem de entrada ($m$) e de saída ($n$) de um sistema desse tipo pode ser
 obtida a partir da realização de testes ou simulações com o processo. Por
