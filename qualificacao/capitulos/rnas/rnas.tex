@@ -76,9 +76,10 @@ Fig. \ref{fig:pmc} representa um modelo esquemático de uma rede PMC.
 A opção pela estrutura de PMC se dá devido a sua simplicidade e capacidade de
 aplicação em diversas áreas. Já a opção pelo treinamento com o algoritmo LMA
 pode ser justificada por se tratar de um método Quase-Newton que acelera o
-processo de convergência da rede, tendo em vista que leva em consideração termos
-de ordens mais elevadas que o algoritmo {\it backpropagation}. Além disso,
-pode-se destacar ainda que apesar de ser possível realizar o treinamento das
+processo de convergência da rede, uma vez que leva em consideração termos de
+ordens mais elevadas que o algoritmo {\it backpropagation}. 
+
+Ademais, pode-se comentar que, apesar de ser possível realizar o treinamento das
 redes através de uma linguagem de programação convencional, implementar tais
 soluções, tão difundidas em {\it softwares} mundialmente reconhecidos como o
 Matlab\reg\ e amplamente aceitas no meio acadêmico, está fora do escopo deste
@@ -248,8 +249,18 @@ estruturas podem ser: modelos lineares, redes PMC, redes de função de base
 radial, {\it wavelets} etc. Já a segunda, é a parte da seleção do subconjunto da
 família escolhida.
 
-Resumidamente, após a seleção da estrutura, segue-se uma sequência etapas até
-que o modelo possa representar adequadamente o sistema, de acordo com algum
+A escolha por uma estrutura do tipo NNARX se deu pelas diversas vantagens em se
+utilizar RNAs para estimar valores e por se tratar de um modelo que não faz uso
+de realimentação da saída estimada, o que permite dizer que este é estável no
+sentido BIBO ({\it Bounded Input, Bounded Output}). Para
+\citeasnoun{norgaard:2000}, devido a estas características, o modelo NNARX é um
+dos mais utilizados quando o sistema a ser modelado é determinístico ou o nível
+de ruído não é significativo.
+
+\Glossary{BIBO}{\it Bounded Input, Bounde Output}
+
+De maneira resumida, após a seleção da estrutura, segue-se uma sequência etapas
+até que o modelo possa representar adequadamente o sistema, de acordo com algum
 critério específico, como por exemplo, o erro médio quadrático (EMQ) de
 estimativa, que é calculado a partir da Eq. \ref{eq:emq} e utilizado no
 algoritmo de treinamento da RNA para determinar o ponto de parada (fim do
