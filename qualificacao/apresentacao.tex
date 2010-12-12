@@ -357,6 +357,11 @@ Aspectos a serem considerados:
 \centering
     \includegraphics[width=0.5\textwidth]{imgs/rnas/eps/nnarx}
 \end{figure}
+
+    Ordem \implica $\uparrow$número de regressores \implica
+    $\uparrow$complexidade
+
+    Avaliação das melhores redes \implica EMQ
 \end{frame}
 
 % ------------------------------------------------------------------------------
@@ -680,10 +685,122 @@ Queima & Queima & Queima (transmissor)\\
 \section{Sistema proposto}
 \subsection{Estudo de caso}
 \begin{frame}
-    \frametitle{}
+    \frametitle{Estudo de caso}
 
-    
+    Sistemas de tanques acoplados da Quanser\reg
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.6\textwidth]{imgs/sistema/eps/tanques}
+\end{figure}
 \end{frame}
+
+\begin{frame}
+    \frametitle{Estudo de caso}
+
+    Sistema original:
+
+\begin{itemize}
+    \item Estrutura em acrílico
+    \item Dois tanques acoplados
+    \item Dois sensores de pressão
+    \item Uma bomba de sucção bidirecional
+    \item Mangueiras
+    \item Orifícios (Entrada/Saída)
+\end{itemize}
+
+    Manual do fabricante \implica Sugere três configurações
+
+\begin{itemize}
+    \item Controlar $L_1$ (alimentação direta em $T_1$)
+    \item Controlar $L_2$ (alimentação indireta em $T_1$)
+    \item Controlar $L_2$ (alimentação em $T_1$ e $T_2$)
+\end{itemize}
+
+    Todas as três configurações \implica Sistema SISO
+\end{frame}
+
+\begin{frame}
+    \frametitle{Estudo de caso}
+
+    Modelo matemático (EDOs não-lineares):
+
+\begin{eqnarray}
+\dot{L_1} & = & \alert<2>{\frac{K_m}{A}V_p} -
+                \alert<3>{\left[\frac{a_1}{A}\sqrt{2g}\right]\sqrt{L_1}}
+\nonumber\\
+\dot{L_2} & = & \alert<4>{\left[\frac{a_1}{A}\sqrt{2g}\right]\sqrt{L_1}} -
+                \alert<5>{\left[\frac{a_2}{A}\sqrt{2g}\right]\sqrt{L_2}}
+\nonumber
+\end{eqnarray}
+
+\uncover<6->
+{
+    Modificações do modelo:
+
+\begin{itemize}
+    \item Introdução de uma nova bomba
+    \item Possibilidade de controlar $L_1$ e $L_2$ simultaneamente
+    \item Sistema SISO \implica Sistema MIMO
+\end{itemize}
+}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Estudo de caso}
+
+    Modelo matemático (EDOs não-lineares):
+
+\begin{eqnarray}
+\dot{L_1} & = & \frac{K_m}{A}\alert<1>{V_{p_{\tiny 1}}} -
+                \left[\frac{a_1}{A}\sqrt{2g}\right]\sqrt{L_1}
+\nonumber\\
+\dot{L_2} & = & \left[\frac{a_1}{A}\sqrt{2g}\right]\sqrt{L_1} -
+                \left[\frac{a_2}{A}\sqrt{2g}\right]\sqrt{L_2}
+                \alert<1>{+ \frac{K_m}{A}V_{p_{\tiny 2}}}
+\nonumber
+\end{eqnarray}
+
+    Modificações do modelo:
+
+\begin{itemize}
+    \item Introdução de uma nova bomba
+    \item Possibilidade de controlar $L_1$ e $L_2$ simultaneamente
+    \item Sistema SISO \implica Sistema MIMO
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Estudo de caso}
+
+    Novas configurações:
+\begin{figure}[htb]
+\centering
+\subfigure
+{
+    \includegraphics[width=0.47\textwidth]{imgs/sistema/eps/nova_config_1}
+}
+\quad
+\subfigure
+{
+    \includegraphics[width=0.47\textwidth]{imgs/sistema/eps/nova_config_2}
+}
+\end{figure}
+\end{frame}
+
+\subsection{Estrutura do sistema e limitações}
+\begin{frame}
+    \frametitle{Estrutura do sistema e limitações}
+
+    Estrutura do sistema proposto:
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.8\textwidth]{imgs/sistema/eps/func_sistema}
+\end{figure}
+\end{frame}
+
 
 \subsection{Estruturas neurais}
 \begin{frame}
