@@ -4,13 +4,8 @@ Ktesíbios (controle de nível de líquidos)
 
 Já com relação ao controle automático, pode-se dizer que seus primeiros passos
 aconteceram em meados do século XVIII quando James Watt inventou o regulador de
-esferas. Esse regulador, representado por essa figura, controlava a velocidade
-de um motor a vapor a partir da abertura e fechamento de uma válvula. O
-funcionamento do dispositivo era bem simples: quanto mais veloz o motor
-estivesse, maior seria a força centrífuga que agiria sobre as esferas, fazendo
-com que as hastes se movimentassem de modo a fechar a válvula e fornecer menos
-vapor ao motor, diminuindo então sua velocidade.
-
+esferas.
+ 
 A introdução dessas ideias na industria se deu durante a segunda guerra quando
 se percebeu a necessidade de se desenvolver (...) Entretanto, até esse período
 os sistemas de controle eram ajustados a partir de métodos de tentativa e erro,
@@ -45,3 +40,66 @@ Os desafios das estratégias de supervisão estão em se utilizar uma variedade 
 técnicas (...) com o objetivo de se desenvolver um sistema capaz de detectar e
 diagnosticar as falhas em um processo. Para isso, muitos aspectos devem ser
 considerados (...)
+
+Considerando tais aspectos, este trabalho se propõe a desenvolver um sistema
+baseado em RNAs, constituído por uma estrutura neural simples ou composta, que
+seja capaz de detectar e diagnosticar falhas em um determinado processo. O
+modelo de estudo de caso escolhido para testar a metodologia proposta foi o
+sistema de tanques acoplados da Quanser (mostrado posteriormente)
+
+
+Falar sobre RNAs
+
+
+Antes de falar sobre o modelo escolhido como estudo de caso, irei apresentar
+algumas definições e conceitos sobre o que são avarias, erros e outros termos
+relacionados a DDF
+
+Com a demanda cada vez mais crescente com relação a eficiência, a qualidade dos
+produtos e a integração dos processos no setor industrial, aliada aos altos
+custos envolvidos e as mais diversas necessidades de segurança, torna-se
+evidente a importância dos sistemas de supervisão e dos sistemas de DDF.
+Mas, parar falar dos sistemas de DDF, temos primeiro que definir o que são
+(...) e outros conceitos relacionados a isso.
+
+De maneira geral, pode-se dizer que os sistemas computacionais são
+caracterizados por cinco propriedades fundamentais (...) O termo dependabilidade
+nada mais é do que a tradução literal do termo dependability e está relacionado
+com a capacidade de um sistema prestar um serviço que possa ser,
+justificadamente, confiável.
+
+A dependabilidade, por sua vez, pode ser vista a partir da composição de
+diversas propriedades fundamentais (...) Muitas vezes, por questão de
+conveniência, utiliza-se o termo confiável como no caso da tradução de
+dependable system
+
+Um sistema computacional é dito confiável quando faz uso de técnicas de
+prevenção, tolerância, supressão e previsão sobre as ameaças a ele impostas para
+manter suas propriedades fundamentais. Percebam que existem três tipos de
+ameaças, cujos significados são semelhantes mas que não podem ser confundidos
+(...)
+
+Alguns autores traduzem esses termos de maneira diferente. O termo failure, por
+exemplo, também é traduzido como falha e o termo fault como falta. Nesse caso
+deve-se ter cuidado ao se referir aos sistemas de controle tolerante a falhas,
+pois as avarias (failures) não podem ser toleradas. No momento em que ocorre uma
+avaria, seu sistema está comprometido e não pode mais exercer sua função.
+Pode-se observar então o mapa de conceitos (...). O objetivo do sistema é evitar
+que ocorra uma reação em cadeia como mostrado (...) Isso ocorre, por exemplo,
+quando um dispositivo de um subsistema está avariado, gerando uma falha em
+um outro subsistema e assim sucessivamente
+
+As falhas podem ser classificadas sobre diversos aspectos. Com relação ao
+aspecto temporal (...) Em um processo, as falhas podem agir em diversas partes.
+Uma maneira generalizada de se separar essas partes é dividir o processo em
+elementos sensores, atuadores e estruturais (...)
+
+De maneira resumida, pode-se dizer que um sistema de DDF deve detectar a
+presença de uma falha e sugerir medidas corretivas ao operador com o intuito de
+garantir a continuidade da operação do processo. Entretanto, essas atividades
+são, na realidade, dividida em quatro fases/etapas (...)
+
+O sistema proposto nesse trabalho abrange as três primeiras fases (...) Para que
+isso seja possível existem diversas técnicas e métodos de detecção e
+diagnóstico (...) Dentre as várias técnicas, foram utilizadas RNAs para realizar
+tanto a detecção quanto o diagnóstico das falhas

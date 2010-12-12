@@ -96,20 +96,19 @@
 % Sumário ......................................................................
 \begin{frame}
     \frametitle{Sumário}
-    \small
-    \tableofcontents
-%    \begin{columns}
-%        \column{0.45\textwidth}
-%            \tableofcontents[sections=1]
-%            \vspace{0.25cm}
-%            \tableofcontents[sections=2]
-%            \vspace{0.25cm}
-%            \tableofcontents[sections=3]
-%        \column{0.45\textwidth}
-%            \tableofcontents[sections=4]
-%            \vspace{0.25cm}
-%            \tableofcontents[sections=5]
-%    \end{columns}
+    \footnotesize
+    \begin{columns}
+        \column{0.45\textwidth}
+            \tableofcontents[sections=1]
+            \vspace{0.25cm}
+            \tableofcontents[sections=2]
+            \vspace{0.25cm}
+            \tableofcontents[sections=3]
+        \column{0.45\textwidth}
+            \tableofcontents[sections=4]
+            \vspace{0.25cm}
+            \tableofcontents[sections=5]
+    \end{columns}
 \end{frame}
 
 % Introdução ...................................................................
@@ -122,12 +121,14 @@
 
     \vspace{0.25cm}
 
-    Controle automático \implica James Watt, em 1769
+    Controle automático \implica Após a revolução industrial (segunda metade do
+    século XVIII)
 
 \begin{figure}[htb]
 \centering
-    \includegraphics[width=0.75\textwidth]{imgs/introducao/eps/regulador_esferas}
+    \includegraphics[width=0.65\textwidth]{imgs/introducao/eps/regulador_esferas}
 \end{figure}
+
 \end{frame}
 
 \begin{frame}
@@ -164,10 +165,19 @@
 \end{itemize}
 
     Evolução \implica processos divididos em várias camadas de finalidades
-    específicas
+    específicas:
+
+% TODO retirar ao adicionar figuras dos slides seguintes
+\begin{itemize}
+    \item Controle (Inferior)
+    \item Supervisão (Intermediário)
+    \item Logística/Gerenciamento (Superior)
+\end{itemize}
     
 \end{frame}
 
+% TODO adicionar na dissertação
+\begin{comment}
 \begin{frame}
     \frametitle{Introdução da automação na indústria}
 
@@ -206,6 +216,7 @@
     {imgs/introducao/eps/esquema_automacao_sup}
 \end{figure}
 \end{frame}
+\end{comment}
 
 \begin{frame}
     \frametitle{Introdução da automação na indústria}
@@ -270,14 +281,448 @@ Aspectos a serem considerados:
     \item Diagnóstico de falha nos sensores, atuadores e componentes
     \item Supervisionamento de estados transientes
     \item Reparo/Manutenção
+    \item \ldots
 \end{itemize}
 \end{frame}
 
 \subsection{Proposta do trabalho}
 \begin{frame}
+    \frametitle{Proposta do trabalho}
+
+    Sistema proposto:
+
+\begin{itemize}
+    \item Baseado em RNAs
+    \item Constituído de uma estrutura neural (simples ou composta)
+\end{itemize}
+
+    Objetivos do sistema:
+
+\begin{itemize}
+    \item Detectar e diagnosticar falhas em tempo real
+    \item Gerar alarmes de notificação
+    \item Estudo de caso: Sistema de tanques acoplados
+\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+\section{RNAs}
+\subsection{Características}
+\begin{frame}
+    \frametitle{Características}
+
+    Opção por RNAs:
+
+\begin{itemize}
+    \item Capacidade de generalização
+    \item Adaptabilidade
+    \item Incorporação das não-linearidades do processo
+\end{itemize}
+    
+    RNAs utilizadas para:
+
+\begin{itemize}
+    \item Detecção
+    \item Diagnóstico
+    \item Identificação do modelo
+\end{itemize}
+\end{frame}
+
+\subsection{Arquitetura e modelo neural}
+\begin{frame}
+    \frametitle{Arquitetura e modelo neural}
+
+    Arquitetura escolhida: PMC
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.7\textwidth]{imgs/rnas/eps/pmc}
+\end{figure}
+
+    Treinamento: Levenberg-Marquardt (LMA) -- Matlab\reg
+
+\begin{itemize}
+    \item Método Quase-Newton
+    \item Rápida convergência
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Arquitetura e modelo neural}
+
+    Modelo neural: NNARX
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.5\textwidth]{imgs/rnas/eps/nnarx}
+\end{figure}
+\end{frame}
+
+% ------------------------------------------------------------------------------
+\section{Detecção e diagnóstico de falhas}
+\subsection{Conceitos e terminologias}
+\begin{frame}
+    \frametitle{Conceitos e terminologias}
+
+    Necessidades de otimização dos processos (qualidade, tempo de produção,
+    custo, \ldots) \implica Importância dos sistemas de {\bf Detecção e 
+    Diagnóstico de Falhas} (DDFs)
+
+    \vspace{0.25cm}
+    
+    Sistemas de DDF:
+
+\begin{itemize}
+    \item Falha
+    \item Erro
+    \item Avaria
+    \item Dependabilidade
+    \item \ldots
+\end{itemize}
+
+    Existem muitas divergências relacionadas a definição desses termos
+\end{frame}
+
+\subsection{Dependabilidade}
+\begin{frame}
+    \frametitle{Dependabilidade}
+
+    Sistemas computacionais podem ser caracterizados:
+
+\begin{itemize}
+    \item Funcionalidade
+    \item Usabilidade
+    \item Desempenho
+    \item Custo
+    \item \alert{Dependabilidade} (tradução literal de {\it dependability})
+\end{itemize}
+
+    \defin{{\bf Dependabilidade}: Capacidade de um sistema prestar um serviço
+           que possa ser, justificadamente, confiável.}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Dependabilidade}
+
+    Propriedades fundamentais da dependabilidade:
+
+\begin{itemize}
+    \small
+    \item {\bf Disponibilidade:} Prontidão para uso;
+    \item {\bf Confiabilidade:} Continuidade do serviço;
+    \item \textbf{Proteção (\textit{safety}):} Não ocorrência de consequências
+          catastróficas para o meio;
+    \item {\bf Confidencialidade:} Não ocorrência da divulgação não-autorizada
+          da informação;
+    \item {\bf Integridade:} Não ocorrência de alterações indevidas da
+          informação;
+    \item {\bf Manutenção:} Aptidão para reparos e evolução.
+\end{itemize}
+
+    Associação da {\it integridade} com a {\it disponibilidade} \implica \textbf
+    {Segurança (\textit{security})}
+
+    \vspace{0.25cm}
+
+    Utilização do termo dependabilidade de maneira mais conveniente \implica
+    {\it Dependable System} \implica ``Sistema Confiável''
+\end{frame}
+
+\begin{frame}
+    \frametitle{Dependabilidade}
+
+    Sistemática de um sistema computacional confiável:
+
+\begin{figure}[htb]
+\centering
+\footnotesize
+\[
+\text{Dependabilidade}
+\left\{
+\begin{array}{l}
+\text{Atributos}
+    \left\{
+    \begin{array}{l}
+        \text{Disponibilidade}\\
+        \text{Confiabilidade}\\
+        \text{Proteção}\\
+        \text{Confidencialidade}\\
+        \text{Integridade}\\
+        \text{Manutenção}\\
+        \text{Segurança}
+    \end{array}
+    \right.
+\\
+\\
+\text{Ameaças}
+    \left\{
+    \begin{array}{l}
+        \text{\color{red} Avaria ({\it failure})}\\
+        \text{\color{red} Erro ({\it error})}\\
+        \text{\color{red} Falha ({\it fault})}
+    \end{array}
+    \right.
+\\
+\\
+\text{Meios}
+    \left\{
+    \begin{array}{l}
+        \text{Prevenção}\\
+        \text{Tolerância}\\
+        \text{Supressão}\\
+        \text{Previsão}
+    \end{array}
+    \right.
+\end{array}
+\right.
+\]
+\end{figure}
+
+\end{frame}
+
+\subsection{Falhas, erros e avarias}
+\begin{frame}
+    \frametitle{Falhas, erros e avarias}
+
+    Falhas, erros e avarias são conceitos que não devem ser confundidos
+
+\begin{itemize}
+    \item \textbf{Avaria (\textit{failure}):} utilizado para indicar que houve
+    um desvio do comportamento do sistema, o que o torna incapaz de fornecer o
+    serviço para o qual foi designado
+   
+    \item \textbf{Erro (\textit{error}):} é relacionado com o estado do sistema
+    e {\bf pode} levar a uma avaria (sequência de passos)
+    
+    \item \textbf{Falha (\textit{fault}):} é dita a causa dos erros, ou seja,
+    está associada à noção de defeitos
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Falhas, erros e avarias}
+
+    Autores traduzem os termos {\it failure}, {\it error} e {\it fault} de
+    maneira diferente
+
+    \vspace{0.25cm}
+
+    Exemplo:
+\begin{itemize}
+    \item {\it Failure} \implica Falha
+    \item {\it Fault} \implica Falta
+    \item Cuidado ao se referir aos sistemas de controle tolerante a {\bf
+    falhas} 
+    \begin{itemize}
+        \item Lembrar que avarias ({\it failures}) não podem ser toleradas 
+        \item Avaria = comprometimento funcional
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Falhas, erros e avarias}
+
+    Mapa de conceitos:
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.55\textwidth]{imgs/detec_diag/eps/mapa_conceitos}
+\[
+\ldots
+\quad\Longrightarrow\quad
+\text{Falha} 
+\quad\longrightarrow\quad
+\text{Erro}
+\quad\longrightarrow\quad
+\text{Avaria}
+\quad\Longrightarrow\quad
+\text{Falha}
+\quad\longrightarrow\quad
+\ldots
+\]
+\end{figure}
+
+\end{frame}
+
+\subsection{Classificações de falhas}
+\begin{frame}
+    \frametitle{Classificações de falhas}
+
+    Falhas podem ser classificadas sobre diversos aspectos
+
+    \vspace{0.25cm}
+
+    Classificação quanto ao tempo:
+
+\begin{itemize}
+    \item Abrupta
+    \item Incipiente
+    \item Intermitente
+\end{itemize}
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.8\textwidth]{imgs/detec_diag/eps/tipos_falha}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Classificação de falhas}
+
+    Podem agir em diversas partes do sistema
+
+    \vspace{0.25cm}
+
+    Maneira generalizada de se separar as áreas susceptíveis em um processo
+
+    \vspace{0.25cm}
+
+    Exemplos de falhas:
+
+\begin{table}[htb]
+\scriptsize
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+{\bf Sensores} & {\bf Atuadores} & {\bf Estrutura}\\
+\hline
+\hline
+Erro de leitura & Erro de escrita & Erro de transmissão\\
+\hline
+Descalibramento & Erro de leitura & Perda de comunicação\\
+\hline
+Sensibilidade à ruído & Sensibilidade à ruído & Sensibilidade a ruído
+(transmissor)\\
+\hline
+Queima & Queima & Queima (transmissor)\\
+\hline
+- & Atraso de transporte & Atraso de propagação de sinais\\
+\hline
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+\subsection{Detecção e diagnóstico}
+\begin{frame}
+    \frametitle{Detecção e diagnóstico}
+
+    Objetivos de um sistema de DDF:
+
+\begin{itemize}
+    \item Detectar falhas
+    \item Sugerir medidas corretivas ao operador \implica Garantir continuidade
+          da operação do processo
+\end{itemize}
+
+    Na realidade, DDF consiste em 4 etapas:
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.8\textwidth]
+    {imgs/detec_diag/eps/fases_monitoramento}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Detecção e diagnóstico}
+
+    O sistema proposto abrange as 3 primeiras etapas:
+
+\begin{itemize}
+    \item {\bf Detectar:} determinar se ocorreu ou não uma falha
+    \item {\bf Identificar:} selecionar variáveis importantes para o diagnóstico
+    \item {\bf Diagnosticar:} definir que falha ocorreu e fornecer o maior
+          número de detalhes possíveis
+    \begin{itemize}
+        \item Intensidade
+        \item Localização
+        \item Momento de detecção
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Detecção e diagnóstico}
+
+    Existem diversas técnicas para detecção e diagnóstico
+
+    \vspace{0.25cm}
+
+    Exemplos de técnicas/métodos de detecção:
+\begin{itemize}
+    \item Verificação de limites
+    \item Modelos de sinais
+    \item Equações de paridade
+    \item Métodos de identificação
+    \item Observadores/Estimadores de estado
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Detecção e diagnóstico}
+
+    Exemplos de técnicas/métodos de diagnóstico:
+\begin{itemize}
+    \item Classificação estatística
+    \item Reconhecimento de padrões
+    \item Métodos de aproximação
+    \item Lógica de predicados
+\end{itemize}
+
+    Dentre as várias técnicas \implica RNAs (detecção e diagnóstico)
+\end{frame}
+
+
+% ------------------------------------------------------------------------------
+\section{Sistema proposto}
+\subsection{Estudo de caso}
+\begin{frame}
     \frametitle{}
 
     
+\end{frame}
+
+\subsection{Estruturas neurais}
+\begin{frame}
+    \frametitle{Estruturas neurais}
+
+\end{frame}
+
+\subsection{Composição do sistema}
+\begin{frame}
+    \frametitle{Composição do sistema}
+
+    
+\end{frame}
+
+% ------------------------------------------------------------------------------
+\section{Resultados parciais}
+\subsection{}
+\begin{frame}
+    \frametitle{}
+
+    
+\end{frame}
+
+% ------------------------------------------------------------------------------
+\section{Conclusões}
+\subsection{}
+\begin{frame}
+    \frametitle{}
+
+    
+\end{frame}
+
+% ------------------------------------------------------------------------------
+\section*{Dúvidas}
+\subsection*{Dúvidas}
+\begin{frame}
+    \frametitle{Dúvidas}
+
+    \Huge Dúvidas?
 \end{frame}
 
 \end{document}
