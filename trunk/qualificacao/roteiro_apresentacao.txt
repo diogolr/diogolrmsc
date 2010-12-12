@@ -47,9 +47,17 @@ seja capaz de detectar e diagnosticar falhas em um determinado processo. O
 modelo de estudo de caso escolhido para testar a metodologia proposta foi o
 sistema de tanques acoplados da Quanser (mostrado posteriormente)
 
+A opção por RNAs pode ser justificada em virtude de (...). Nesse trabalho elas
+serão utilizadas tanto para detecção e diagnóstico das falhas quanto para a
+identificação do modelo conforme explicado posteriormente.
 
-Falar sobre RNAs
-
+Todas as redes utilizadas seguiam a arquitetura do PMC, treinadas com o
+algoritmo LMA. A utilização desse algoritmo pode ser justificada por ser um
+método Quase-Newton de rápida convergência, pois haviam muitas redes a serem
+treinadas, como também será mostrado posteriormente. O modelo neural escolhido
+foi o NNARX, que leva em consideração as entradas e as saídas passadas.
+Dependendo da ordem escolhida, esse modelo pode se tornar bastante complexo em
+virtude da quantidade de regressores
 
 Antes de falar sobre o modelo escolhido como estudo de caso, irei apresentar
 algumas definições e conceitos sobre o que são avarias, erros e outros termos
@@ -103,3 +111,11 @@ O sistema proposto nesse trabalho abrange as três primeiras fases (...) Para qu
 isso seja possível existem diversas técnicas e métodos de detecção e
 diagnóstico (...) Dentre as várias técnicas, foram utilizadas RNAs para realizar
 tanto a detecção quanto o diagnóstico das falhas
+
+Para testar a metodologia proposta, foi escolhido como modelo de estudo de caso
+um sistema de tanques acoplados da Quanser. O sistema original era constituído
+de (...)
+
+Pode-se mostrar que as EDOs que regem o modelo escolhido são (...) A partir do
+modelo básico foram feitas algumas alterações, introduzindo uma nova bomba (...)
+As novas configurações possíveis são então (...)
