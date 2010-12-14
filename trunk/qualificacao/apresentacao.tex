@@ -260,7 +260,7 @@
 \begin{frame}
     \frametitle{Sistemas de supervisão}
 
-    Os desafios das estratégias de supervisão
+    Os desafios das estratégias de detecção/diagnóstico
 
 \begin{itemize}
     \item Utilização de diversas técnicas
@@ -360,6 +360,8 @@ Aspectos a serem considerados:
 
     Ordem \implica $\uparrow$número de regressores \implica
     $\uparrow$complexidade
+
+    \vspace{0.25cm}
 
     Avaliação das melhores redes \implica EMQ
 \end{frame}
@@ -702,7 +704,7 @@ Queima & Queima & Queima (transmissor)\\
 
 \begin{itemize}
     \item Estrutura em acrílico
-    \item Dois tanques acoplados
+    \item Dois tanques
     \item Dois sensores de pressão
     \item Uma bomba de sucção bidirecional
     \item Mangueiras
@@ -801,10 +803,211 @@ Queima & Queima & Queima (transmissor)\\
 \end{figure}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Estrutura do sistema e limitações}
+
+    Estrutura do sistema proposto:
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.8\textwidth]{imgs/sistema/eps/func_sistema_mod}
+\end{figure}
+\end{frame}
+
+\subsection{Simulações}
+\begin{frame}
+    \frametitle{Simulações}
+
+    EDOs do modelo simuladas com Runge-Kutta 4\textordfeminine\ ordem
+
+    \vspace{0.25cm}
+
+    Falhas simuladas através de modificações na simulação
+
+\begin{itemize}
+    \item Ex.: Ruído no sensor \implica Valor lido no sensor $\pm$ Ruído 
+\end{itemize}
+
+    Grupos de falhas selecionadas:
+
+\begin{table}[!htb]
+\small
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+{\bf Grupo} & {\bf Tipo de falha} & {\bf Sigla}\\
+\hline
+\hline
+0 & Não há falhas & SF\\
+\hline
+1 & Falha do sensor & FSe\\
+\hline
+2 & Falha do atuador & FA\\
+\hline
+\multirow{2}{*}{3} & 
+Falha estrutural ou & 
+\multirow{2}{*}{FSi}\\
+&
+Falha do sistema & 
+\\
+\hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Simulações}
+
+    Classificação das falhas:
+
+\begin{table}[!htb]
+\scriptsize
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{\bf Grupo} & {\bf Classe} & {\bf Denominação} & {\bf Variante} & {\bf Sigla}\\
+\hline
+\hline
+1 & 1 & Descalibramento & Ganho & FSeDG\\
+\hline
+1 & 1 & Descalibramento & Nível DC ({\it offset}) & FSeDO\\
+\hline
+1 & 2 & Sensibilidade & Ruído & FSeSR\\
+\hline
+1 & 3 & Queima & -- & FSeQ\\
+\hline
+\hline
+2 & 1 & Descalibramento & Ganho & FADG\\
+\hline
+2 & 1 & Descalibramento & Nível DC ({\it offset}) & FADO\\
+\hline
+2 & 2 & Sensibilidade & Ruído & FASR\\
+\hline
+2 & 3 & Variação & Constante da bomba ($K_m$) & FAVK\\
+\hline
+2 & 4 & Queima & -- & FAQ\\
+\hline
+\hline
+3 & 3 & Vazamento & Tanque & FSiVzT\\
+\hline
+3 & 2 & Variação & Orifício de saída & FSiVrOS\\
+\hline
+3 & 2 & Variação & Ganho do módulo de potência & FSiVrGMP\\
+\hline
+3 & 1 & Entupimento & Orifício de saída & FSiEOS\\
+\hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Simulações}
+
+    Sistema desenvolvido para as simulações (Qt/C++)
+
+\begin{itemize}
+    \item Configuração através de arquivo
+    \item Simulação em tempo real ou Simulação rápida
+    \item Comunicação com a planta real (Sockets TCP/IP)
+    \item Exportação de dados
+    \item Exportação de imagens
+\end{itemize}
+
+\end{frame}
 
 \subsection{Estruturas neurais}
 \begin{frame}
-    \frametitle{Estruturas neurais}
+    \frametitle{Estruturas neurais -- Identificação}
+
+    Duas propostas de identificação do modelo:
+
+\begin{itemize}
+    \item Identificação global (uma RNA para $T_1$ e $T_2$)
+    \item Identificação individual (uma RNA para cada tanque)
+\end{itemize}
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.8\textwidth]{imgs/sistema/eps/sist_ident}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Estruturas neurais -- Detecção}
+
+    Para detecção mais eficiente \implica Utilização de resíduos:
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.65\textwidth]{imgs/detec_diag/eps/residuos}
+\end{figure}
+
+    Duas propostas de detecção:
+
+\begin{itemize}
+    \item RNA única (todas as falhas)
+    \item Conjunto de especialistas (uma RNA para cada falha)
+\end{itemize}
+    
+\end{frame}
+
+\begin{frame}
+    \frametitle{Estruturas neurais -- Detecção}
+
+    Primeira proposta:
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.35\textwidth]{imgs/sistema/eps/detec_prop_1}
+\end{figure}
+
+    Saída \implica Palavra binária de $n$ bits
+    
+\end{frame}
+
+\begin{frame}
+    \frametitle{Estruturas neurais -- Detecção}
+
+    Segunda proposta:
+
+\begin{columns}
+\column{0.57\textwidth}
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.95\textwidth]{imgs/sistema/eps/detec_prop_2}
+\end{figure}
+
+\column{0.45\textwidth}
+    Saída \implica 2 bits 
+\begin{itemize}
+    \item Sem falha
+    \item Falha $T_1$
+    \item Falha $T_2$
+    \item Falha $T_1$ + $T_2$
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Estruturas neurais -- Detecção}
+
+    Vantagens em se utilizar a segunda proposta:
+
+\begin{itemize}
+    \item Possibilidade de utilizar entradas diferentes para cada falha
+    \item Modificar a estrutura das entradas
+    \begin{itemize}
+        \item Proposta 1: retreinamento completo
+        \item Proposta 2: retreinamento somente de uma das falha
+    \end{itemize}
+    \item Pós-processamento da informação
+    \begin{itemize}
+        \item Proposta 1: N\textordmasculine\ palavras \implica 
+                          $\uparrow$N\textordmasculine\ bits e
+                          $\uparrow$N\textordmasculine\ combinações
+        \item Não há decodificação da palavra
+    \end{itemize}
+\end{itemize}
 
 \end{frame}
 
@@ -818,6 +1021,27 @@ Queima & Queima & Queima (transmissor)\\
 % ------------------------------------------------------------------------------
 \section{Resultados parciais}
 \subsection{}
+
+\begin{frame}
+    \frametitle{Simulações}
+
+    Após ter selecionado as falhas e as estruturas neurais:
+
+\begin{itemize}
+    \item Estabelecimento de valores para cada falha
+    \begin{itemize}
+        \item Ruído: $\pm 2\%$
+        \item $K_m' = 0.8 K_m$
+        \item ...
+    \end{itemize}
+    \item Simulação do sistema sem falhas
+    \item Simulação com falhas (individual)
+    \item Aquisição dos dados
+    \item Processamento (treinamento das redes)
+    \item Validação
+\end{itemize}
+\end{frame}
+
 \begin{frame}
     \frametitle{}
 
