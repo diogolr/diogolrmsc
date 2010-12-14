@@ -68,7 +68,7 @@
 {
     Exame de Qualificação de Mestrado
 }
-\subtitle{\titulo}
+\subtitle{\small\titulo}
 \author[Diogo Leite Rebouças]
 {
     \autor\\
@@ -80,7 +80,7 @@
     Programa de Pós-Graduação em Engenharia Elétrica e Computação
 }
 %\date{\today}
-\date{26 de junho de 2009}
+\date{\dataaprovacao}
 \pgfdeclareimage[width=3cm,interpolate=true]
                 {ntnulogotext}{imgs/outras/eps/ufrn_trad}
 
@@ -108,11 +108,17 @@
             \tableofcontents[sections=4]
             \vspace{0.25cm}
             \tableofcontents[sections=5]
+            \vspace{0.25cm}
+            \tableofcontents[sections=6]
     \end{columns}
 \end{frame}
 
 % Introdução ...................................................................
 \section{Introdução}
+
+% TODO verificar necessidade de adicionar na dissertação
+\begin{comment}
+% ------------------------------------------------------------------------------
 \subsection{Aspectos históricos}
 \begin{frame}
     \frametitle{Aspectos históricos}
@@ -150,7 +156,9 @@
     Publicação do artigo de Ziegler e Nichols (1942) \implica Disseminação dos
     controladores PID nas indústrias
 \end{frame}
+\end{comment}
 
+% ------------------------------------------------------------------------------
 \subsection{Introdução da automação na indústria}
 \begin{frame}
     \frametitle{Introdução da automação na indústria}
@@ -158,7 +166,7 @@
     Com o surgimento dos CLPs e a popularização do controle automático, foco:
 
 \begin{itemize}
-    \item Desempenho do processo
+    \item Desempenho dos processos
     \item Qualidade dos produtos 
     \item Independência de funcionamento da planta para com os operadores
           humanos
@@ -233,6 +241,7 @@
 
 \end{frame}
 
+% ------------------------------------------------------------------------------
 \subsection{Sistemas de supervisão}
 \begin{frame}
     \frametitle{Sistemas de supervisão}
@@ -271,7 +280,7 @@
         \item \alert{Técnicas de IA}
     \end{itemize}
     \item Objetivo: desenvolver um sistema capaz de detectar e diagnosticar
-          falhas em um processo
+          falhas em um processo de maneira rápida e eficiente
 \end{itemize}
 
 Aspectos a serem considerados:
@@ -285,6 +294,7 @@ Aspectos a serem considerados:
 \end{itemize}
 \end{frame}
 
+% ------------------------------------------------------------------------------
 \subsection{Proposta do trabalho}
 \begin{frame}
     \frametitle{Proposta do trabalho}
@@ -306,8 +316,9 @@ Aspectos a serem considerados:
 
 \end{frame}
 
-% ------------------------------------------------------------------------------
+% Redes Neurais Artificiais ----------------------------------------------------
 \section{RNAs}
+% ------------------------------------------------------------------------------
 \subsection{Características}
 \begin{frame}
     \frametitle{Características}
@@ -329,6 +340,7 @@ Aspectos a serem considerados:
 \end{itemize}
 \end{frame}
 
+% ------------------------------------------------------------------------------
 \subsection{Arquitetura e modelo neural}
 \begin{frame}
     \frametitle{Arquitetura e modelo neural}
@@ -358,16 +370,16 @@ Aspectos a serem considerados:
     \includegraphics[width=0.5\textwidth]{imgs/rnas/eps/nnarx}
 \end{figure}
 
-    Ordem \implica $\uparrow$número de regressores \implica
-    $\uparrow$complexidade
+    Ordem \implica número de regressores \implica complexidade
 
     \vspace{0.25cm}
 
     Avaliação das melhores redes \implica EMQ
 \end{frame}
 
-% ------------------------------------------------------------------------------
+% Detecção e diagnóstico de falhas ---------------------------------------------
 \section{Detecção e diagnóstico de falhas}
+% ------------------------------------------------------------------------------
 \subsection{Conceitos e terminologias}
 \begin{frame}
     \frametitle{Conceitos e terminologias}
@@ -391,6 +403,7 @@ Aspectos a serem considerados:
     Existem muitas divergências relacionadas a definição desses termos
 \end{frame}
 
+% ------------------------------------------------------------------------------
 \subsection{Dependabilidade}
 \begin{frame}
     \frametitle{Dependabilidade}
@@ -488,6 +501,7 @@ Aspectos a serem considerados:
 
 \end{frame}
 
+% ------------------------------------------------------------------------------
 \subsection{Falhas, erros e avarias}
 \begin{frame}
     \frametitle{Falhas, erros e avarias}
@@ -553,6 +567,7 @@ Aspectos a serem considerados:
 
 \end{frame}
 
+% ------------------------------------------------------------------------------
 \subsection{Classificações de falhas}
 \begin{frame}
     \frametitle{Classificações de falhas}
@@ -612,6 +627,7 @@ Queima & Queima & Queima (transmissor)\\
 
 \end{frame}
 
+% ------------------------------------------------------------------------------
 \subsection{Detecção e diagnóstico}
 \begin{frame}
     \frametitle{Detecção e diagnóstico}
@@ -683,8 +699,9 @@ Queima & Queima & Queima (transmissor)\\
 \end{frame}
 
 
-% ------------------------------------------------------------------------------
+% Sistema proposto -------------------------------------------------------------
 \section{Sistema proposto}
+% ------------------------------------------------------------------------------
 \subsection{Estudo de caso}
 \begin{frame}
     \frametitle{Estudo de caso}
@@ -791,6 +808,7 @@ Queima & Queima & Queima (transmissor)\\
 \end{figure}
 \end{frame}
 
+% ------------------------------------------------------------------------------
 \subsection{Estrutura do sistema e limitações}
 \begin{frame}
     \frametitle{Estrutura do sistema e limitações}
@@ -814,6 +832,7 @@ Queima & Queima & Queima (transmissor)\\
 \end{figure}
 \end{frame}
 
+% ------------------------------------------------------------------------------
 \subsection{Simulações}
 \begin{frame}
     \frametitle{Simulações}
@@ -915,6 +934,7 @@ Falha do sistema &
 
 \end{frame}
 
+% ------------------------------------------------------------------------------
 \subsection{Estruturas neurais}
 \begin{frame}
     \frametitle{Estruturas neurais -- Identificação}
@@ -1002,68 +1022,510 @@ Falha do sistema &
     \end{itemize}
     \item Pós-processamento da informação
     \begin{itemize}
-        \item Proposta 1: N\textordmasculine\ palavras \implica 
-                          $\uparrow$N\textordmasculine\ bits e
-                          $\uparrow$N\textordmasculine\ combinações
-        \item Não há decodificação da palavra
+        \item Proposta 1: 
+        \begin{itemize}
+            \item N\textordmasculine\ falhas \implica N\textordmasculine\
+                  palavras \implica N\textordmasculine\ combinações \implica 
+                  N\textordmasculine\ bits
+        \end{itemize}
+        \item Proposta 2: 
+        \begin{itemize}
+            \item praticamente não há decodificação da palavra (2 bits)
+        \end{itemize}
     \end{itemize}
+    \item Facilidadade de acoplamento dos sinais de saída na segunda proposta
 \end{itemize}
 
 \end{frame}
 
+% ------------------------------------------------------------------------------
 \subsection{Composição do sistema}
 \begin{frame}
     \frametitle{Composição do sistema}
 
-    
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_0}
+\end{figure}
 \end{frame}
 
-% ------------------------------------------------------------------------------
-\section{Resultados parciais}
-\subsection{}
+\begin{frame}
+    \frametitle{Composição do sistema}
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_1}
+\end{figure}
+\end{frame}
 
 \begin{frame}
-    \frametitle{Simulações}
+    \frametitle{Composição do sistema}
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_2}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Composição do sistema}
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_3}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Composição do sistema}
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_4}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Composição do sistema}
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_5}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Composição do sistema}
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_6}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Composição do sistema}
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_7}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Composição do sistema}
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_8}
+\end{figure}
+\end{frame}
+
+% Resultados parciais ----------------------------------------------------------
+\section{Resultados parciais}
+% ------------------------------------------------------------------------------
+\subsection{Coleta dos dados}
+
+\begin{frame}
+    \frametitle{Coleta dos dados}
 
     Após ter selecionado as falhas e as estruturas neurais:
 
 \begin{itemize}
-    \item Estabelecimento de valores para cada falha
+    \item Excitação da planta com sinais PRBS dentro de um {\it range}
+          especificado
     \begin{itemize}
+        \item Referências: 0 a 30 cm
         \item Ruído: $\pm 2\%$
-        \item $K_m' = 0.8 K_m$
+        \item $K_m' = \pm 20\% K_m$
         \item ...
     \end{itemize}
-    \item Simulação do sistema sem falhas
-    \item Simulação com falhas (individual)
-    \item Aquisição dos dados
-    \item Processamento (treinamento das redes)
-    \item Validação
+    \item Simulação do sistema sem falhas \implica identificação do modelo
+    \item Simulação com falhas (individual -- proposta 2)
 \end{itemize}
 \end{frame}
 
+% ------------------------------------------------------------------------------
+\subsection{Treinamento e validação das RNAs}
 \begin{frame}
-    \frametitle{}
+    \frametitle{Treinamento e validação das RNAs}
 
-    
+    Treinamento:
+
+\begin{itemize}
+    \item Identificação: 10 minutos (6000 amostras)
+    \item Detecção: 20 minutos (12000 amostras)
+\end{itemize}
+
+    Número de redes treinadas:
+
+\begin{table}[htb]
+\scriptsize
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+% Linha 1
+\multirow{2}{*}{\bf Proposta} & 
+\multirow{2}{*}{\bf Ordem} & 
+{\bf Neurônios na} & 
+{\bf Número de} & 
+\multirow{2}{*}{\bf Total}\\
+% Linha 2
+& & {\bf camada oculta} & {\bf redes treinadas} &\\
+\hline
+\hline
+\multicolumn{5}{|l|}{{\bf Identificação}}\\
+\hline
+\multirow{3}{*}{1} & 2 & 6/8/10 & \multirow{3}{*}{6} & \multirow{3}{*}{54}\\
+\cline{2-3}
+& 3 & 8/12/16 & &\\
+\cline{2-3}
+& 4 & 10/16/22 & &\\
+\hline
+\multirow{3}{*}{2} & 2 & 2/4/6 -- 6/8/10 & 
+\multirow{3}{*}{6} & \multirow{3}{*}{108}\\
+\cline{2-3}
+& 3 & 4/6/8 -- 8/12/16 & & \\
+\cline{2-3}
+& 4 & 6/8/10 -- 10/16/22 & & \\
+\hline
+\multicolumn{5}{|l|}{{\bf Detecção}}\\
+\hline
+\multirow{3}{*}{2} & 2 & 8/12/16 & 
+\multirow{3}{*}{6/falha} &
+\multirow{3}{*}{702}\\
+\cline{2-3}
+& 3 & 14/18/22 & &\\
+\cline{2-3}
+& 4 & 20/24/28 & &\\
+\hline
+\hline
+\multicolumn{4}{|r|}{{\bf Total}} & 864\\
+\hline
+\end{tabular}
+\end{table}
+
 \end{frame}
 
 % ------------------------------------------------------------------------------
+\subsection{Melhores redes}
+\begin{frame}
+    \frametitle{Melhores redes}
+
+    RNAs de Identificação:
+
+\begin{itemize}
+    \item 3 validações
+    \item Média dos EMQs em $L_1$ e $L_2$
+    \item Critério de seleção EMQ = EMQ $L_1$ + EMQ $L_2$
+\end{itemize}
+
+\begin{table}[htb]
+\footnotesize
+\centering
+\begin{threeparttable}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+% Linha 1
+{\bf Proposta} & 
+{\bf Ordem} & 
+{\bf NCO\tnote{$*$}} & 
+{\bf Treinamento} &
+{\bf EMQ $\mathbf{L_1}$} & 
+{\bf EMQ $\mathbf{L_2}$} & 
+{\bf EMQ}\\
+\hline
+\hhline\\
+\multirow{3}{*}{1} &
+\cellcolor[gray]{0.85}2 &
+\cellcolor[gray]{0.85}8 &
+\cellcolor[gray]{0.85}2 &
+\cellcolor[gray]{0.85}4,39e-7 &
+\cellcolor[gray]{0.85}3,29e-6 &
+\cellcolor[gray]{0.85}3,73e-6\\
+\hhline{~------}
+&3 & 12 & 5 & 1,38e-5 & 1,46e-5 & 2,84e-5\\
+\cline{2-7}
+&4 & 22 & 4 & 1,40e-6 & 2,60e-6 & 4,01e-6\\
+\hline
+\multirow{3}{*}{2} & 2 & 2 -- 6 & 2 & 5,06e-6 & 7,26e-6 & 1,23e-5\\
+\cline{2-7}
+& 3 & 6 -- 12 & 1 & 5,48e-6 & 1,81e-7 & 5,66e-6\\
+\cline{2-7}
+& 4 & 10 -- 22 & 3 & 5,12e-6 & 9,46e-6 & 1,45e-5\\
+\hline
+\end{tabular}
+\begin{tablenotes}
+\item [$*$] Número de neurônios na camada oculta.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Melhores redes}
+
+RNAs de detecção:
+
+\begin{itemize}
+    \item Selecionadas de modo semelhante: 3 validações
+    \item Critérios de seleção
+    \begin{itemize}
+        \item Número de erros de tipo I e tipo II (falsos positivos/negativos)
+        \item Porcentagem total de erros sobre as 3 validações
+    \end{itemize}
+\end{itemize}
+
+Simulação final:    
+
+\begin{itemize}
+    \item Utilização das melhores redes de identificação e detecção
+    \item Cada falha \implica 1 minuto e 45 segundos
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.8\textwidth]{imgs/resultados/eps/intervalos}
+\end{figure}
+    \item Valores das falhas \implica mantidos fixos dentro do {\it
+          range} estabelecido para o treinamento
+\end{itemize}
+\end{frame}
+
+% ------------------------------------------------------------------------------
+\subsection{Resultados das simulações}
+\begin{frame}
+    \frametitle{Resultados das simulações}
+
+\begin{table}[htb]
+\scriptsize
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{\bf Falha} &
+\multirow{2}{*}{\bf Ordem} &
+\multirow{2}{*}{\bf NCO} &
+\multirow{2}{*}{\bf Trein.} &
+\multirow{2}{*}{\bf Acertos} &
+{\bf Erros de} & {\bf Erros de} & {\bf Total de}\\
+& & & & & {\bf tipo I} & {\bf tipo II} & {\bf erros}\\
+\hline
+\hline
+FSeDG & 4 & 28 & 2 & 23491,33 & 203,33 & 305,33 & 2,12\%\\
+\hline
+FSeDO & 4 & 28 & 5 & 23890,33 & 8,66 & 101 & 0,46\%\\
+\hline
+FSeSR & 4 & 20 & 3 & 23317 & 324,66 & 358,33 & 2,84\%\\
+\hline
+FSeQ & 4 & 20 & 4 & 23994 & 0,66 & 5,33 & 0,02\%\\
+\hline
+FADG & 2 & 8 & 3 & 20710,33 & 1626,66 & 1663 & 13,7\%\\
+\hline
+FADO & 4 & 28 & 3 & 23075,33 & 635,66 & 289 & 3,85\%\\
+\hline
+\alert<2->{FASR} & 2 & 8 & 6 & 14153,33 & 3407 & 6439,66 & \alert<2->{41,03\%}\\
+\hline
+FAVK & 2 & 8 & 5 & 20764,66 & 1551,33 & 1684 & 13,48\%\\
+\hline
+FAQ & 4 & 28 & 6 & 23980 & 2,33 & 17,66 & 0,083\%\\
+\hline
+FSiVzT & 4 & 24 & 1 & 23774,33 & 74 & 151,66 & 0,94\%\\
+\hline
+FSiVrOS & 2 & 8 & 3 & 22465,33 & 437 & 1097,66 & 6,39\%\\
+\hline
+FSiVrGMP & 4 & 20 & 2 & 20905,66 & 1979,66 & 1114,66 & 12,89\%\\
+\hline
+\alert<2->{FSiEOS} & 2 & 12 & 4 & 23995,66 & 1 & 3,33 & \alert<2->{0,018\%}\\
+\hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Resultados das simulações}
+
+\footnotesize Simulação da FSeDG com o ganho reduzido a 80\% do valor original:
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\scalebox{0.68}{\input{imgs/resultados/eps/fsedg}}
+\end{figure}
+    
+\end{frame}
+
+\begin{frame}
+    \frametitle{Resultados das simulações}
+
+    Detecção da falha somente no instante de ativação da falha
+
+    \vspace{0.25cm}
+
+    Compensação do controlador (com erro de 20\%) \implica $24 \text{cm} \equiv
+    30 \text{cm}$
+
+    \vspace{0.25cm}
+
+    Comportamento semelhante na FSeDO e na FSiVzT
+
+    \vspace{0.25cm}
+
+    Semelhança de comportamento pode dificultar a identificação (proposta 2)
+
+    \vspace{0.25cm}
+
+    Nesse caso a proposta 1 pode apresentar melhores resultados
+
+    \vspace{0.25cm}
+
+    Possibilidade de utilização de {\it flags} para correção do problema
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Resultados das simulações}
+
+\footnotesize Simulação da FSeSR com ruído de distribuição uniforme ($\pm 2\%$):
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\scalebox{0.68}{\input{imgs/resultados/eps/fsesr}}
+\end{figure}
+    
+\end{frame}
+
+\begin{frame}
+    \frametitle{Resultados das simulações}
+
+    Bons resultados \implica poucos erros
+
+    \vspace{0.25cm}
+
+    Exceto pelas FASR e FSiVrGMP, todas as demais falhas se comportaram de
+    maneira semelhante \implica facilmente detectadas
+
+    \vspace{0.25cm}
+
+    FASR:
+
+\begin{itemize}
+    \item Resultados $T_1$ \alert{\Checkmark}
+    \item Resultados $T_2$ \alert{\XSolidBrush}
+\end{itemize}
+
+    FSiVrGMP:
+
+\begin{itemize}
+    \item Não consegue identificar falha somente em $T_1$ (intervalo 15-30s)
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Resultados das simulações}
+
+\footnotesize Simulação da FASR com ruído de distribuição uniforme ($\pm 2\%$):
+
+\begin{figure}[htb] 
+\footnotesize 
+\centering 
+\scalebox{0.68}{\input{imgs/resultados/eps/fasr}}
+\end{figure}
+    
+\end{frame}
+
+\begin{frame}
+    \frametitle{Resultados das simulações}
+
+\footnotesize Simulação da FSiVrGMP com o ganho reduzido a 90\% do valor
+original:
+
+\begin{figure}[htb] 
+\footnotesize 
+\centering 
+\scalebox{0.68}{\input{imgs/resultados/eps/fsivrgmp}}
+\end{figure}
+    
+\end{frame}
+
+% Conclusões -------------------------------------------------------------------
 \section{Conclusões}
-\subsection{}
+% ------------------------------------------------------------------------------
+\subsection*{Conclusões}
 \begin{frame}
-    \frametitle{}
+    \frametitle{Conclusões}
 
-    
+    Proposta do trabalho: fornecer um sistema de DDF para um sistema de tanques
+    acoplados
+
+\begin{itemize}
+    \item Das 13 falhas testadas, 8 foram identificadas com facilidade
+    \item 3 tiveram desempenho satisfatório (correção do problema com {\it
+          flags})
+    \item Outros 2 casos o sistema não conseguiu detectar corretamente 
+    \begin{itemize}
+        \item Detecção correta somente para $T_1$
+    \end{itemize}
+\end{itemize}
+
+    Desempenho geral satisfatório: detecção correta de 85\% das falhas propostas
+
+    \vspace{0.25cm}
+
+    Utilização de RNAs (PMC, NNARX) mostrou-se eficiente
+
 \end{frame}
 
 % ------------------------------------------------------------------------------
+\subsection{Perspectivas}
+\begin{frame}
+    \frametitle{Perspectivas}
+
+    Atividades a serem realizadas:
+
+\begin{itemize}
+    \item Simulação de falhas (individual -- proposta 1)
+    \item Combinações de falhas (proposta 1 e 2)
+    \item RNAs agindo em paralelo (proposta 2)
+\end{itemize}
+
+    Possíveis trabalhos futuros:
+\begin{itemize}
+    \item Adição das redes neurais ao sistema desenvolvido em C++
+    \begin{itemize}
+        \item Possibilidade de observação das falhas em tempo de execução
+        \item Visualização dos alarmes por parte do operador
+    \end{itemize}
+    \item Acoplamento à um Sistema de Controle Tolerante a Falhas (SCTF) -- Não
+          é o escopo deste trabalho
+    \begin{itemize}
+        \item Reconfiguração dos controladores ou mudança das estratégias de
+              controle
+    \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------
+\subsection{Cronograma de atividades}
+\begin{frame}
+    \frametitle{Cronograma de atividades}
+
+    Atividades executadas/pendentes:
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.85\textwidth]{imgs/conclusoes/eps/cronograma}
+\end{figure}
+    
+\end{frame}
+
+% Dúvidas ----------------------------------------------------------------------
 \section*{Dúvidas}
+% ------------------------------------------------------------------------------
 \subsection*{Dúvidas}
 \begin{frame}
     \frametitle{Dúvidas}
 
-    \Huge Dúvidas?
+    \Large Dúvidas?
 \end{frame}
 
 \end{document}

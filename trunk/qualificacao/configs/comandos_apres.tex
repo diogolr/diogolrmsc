@@ -1,16 +1,20 @@
 % Comandos gerais --------------------------------------------------------------
 \newcommand{\titulo}{Utilização de redes neurais artificiais para detecção e
-diagnóstico de falhas em um sistema de tanques acoplados}
+diagnóstico de falhas}
 \newcommand{\autor}{Diogo Leite Rebouças}
 \newcommand{\emailautor}{\tt diogolr@dca.ufrn.br}
 \newcommand{\orientador}{Fábio Meneghetti Ugulino de Araújo}
 %\newcommand{\coorientador}{André Laurindo Maitelli}
-\newcommand{\diaaprovacao}{26}
+\newcommand{\diaaprovacao}{15}
+% Mês com inicial maiúscula (capa, folha de rosto)
+\newcommand{\Mesaprovacao}{Dezembro}
 % Mês com inicial minúscula (folha de assinaturas)
-\newcommand{\mesaprovacao}{julho}
+\newcommand{\mesaprovacao}{dezembro}
 \newcommand{\anoaprovacao}{2010}
 \let\Anoaprovacao\anoaprovacao
 \newcommand{\dataaprovacao}{\diaaprovacao\ de \mesaprovacao\ de \anoaprovacao}
+% Tipo de documento
+\newcommand{\documento}{Proposta de Qualificação}
 
 % Configuração da fonte
 %\renewcommand{\familydefault}{\sfdefault}
@@ -71,3 +75,39 @@ diagnóstico de falhas em um sistema de tanques acoplados}
     filecolor=black,        % color of file links
     urlcolor=black          % color of external links
 }
+
+% Outros -----------------------------------------------------------------------
+% Transparência dos tópicos
+\setbeamercovered{transparent}
+
+% Sumário entre as seções
+\AtBeginSection[]
+{
+\begin{frame}
+\frametitle{Sumário}
+    \footnotesize
+    \begin{columns}
+        \column{0.45\textwidth}
+            \tableofcontents[sections=1,currentsection]
+            \vspace{0.25cm}
+            \tableofcontents[sections=2,currentsection]
+            \vspace{0.25cm}
+            \tableofcontents[sections=3,currentsection]
+        \column{0.45\textwidth}
+            \tableofcontents[sections=4,currentsection]
+            \vspace{0.25cm}
+            \tableofcontents[sections=5,currentsection]
+            \vspace{0.25cm}
+            \tableofcontents[sections=6,currentsection]
+    \end{columns}
+\end{frame}
+}
+
+% Sumário entre as subseções
+%\AtBeginSubsection[]
+%{
+%\begin{frame}
+%\frametitle{Sumário}
+%\tableofcontents[currentsection,currentsubsection]
+%\end{frame}
+%}
