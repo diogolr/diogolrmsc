@@ -118,4 +118,19 @@ de (...)
 
 Pode-se mostrar que as EDOs que regem o modelo escolhido são (...) A partir do
 modelo básico foram feitas algumas alterações, introduzindo uma nova bomba (...)
-As novas configurações possíveis são então (...)
+As novas configurações possíveis são então (...) O sistema final será composto
+por (...) Percebe-se que as únicas variáveis conhecidas são as saídas dos
+sensores e a tensão que é enviada para o módulo de potência
+
+As EDOs do sistema foram então simuladas utilizando RK4 e as falhas foram
+simuladas a partir de modificações nos valores da simulação, como por exemplo,
+(...) As falhas selecionadas foram divididas em grupos (...) e classificadas
+(...)
+
+Todas as simulações foram realizadas a partir de um sistema desenvolvido em
+Qt/C++ o qual permitia (...)
+
+Para a identificação do modelo foram propostas duas estruturas neurais (...) Já
+para as redes de detecção, além das variáveis disponíveis, foram utilizados
+resíduos, gerados a partir da diferença da saída do modelo simulado com o modelo
+identificado
