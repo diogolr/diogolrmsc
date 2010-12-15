@@ -283,14 +283,12 @@
           falhas em um processo de maneira rápida e eficiente
 \end{itemize}
 
-Aspectos a serem considerados:
+Existem diversos aspectos a serem considerados
 
 \begin{itemize}
     \item Detecção antecipada de pequenas falhas
-    \item Diagnóstico de falha nos sensores, atuadores e componentes
     \item Supervisionamento de estados transientes
     \item Reparo/Manutenção
-    \item \ldots
 \end{itemize}
 \end{frame}
 
@@ -390,14 +388,13 @@ Aspectos a serem considerados:
 
     \vspace{0.25cm}
     
-    Sistemas de DDF:
+    Conceitos envolvidos com os sistemas de DDF:
 
 \begin{itemize}
     \item Falha
     \item Erro
     \item Avaria
     \item Dependabilidade
-    \item \ldots
 \end{itemize}
 
     Existem muitas divergências relacionadas a definição desses termos
@@ -429,15 +426,12 @@ Aspectos a serem considerados:
 
 \begin{itemize}
     \small
-    \item {\bf Disponibilidade:} Prontidão para uso;
-    \item {\bf Confiabilidade:} Continuidade do serviço;
-    \item \textbf{Proteção (\textit{safety}):} Não ocorrência de consequências
-          catastróficas para o meio;
-    \item {\bf Confidencialidade:} Não ocorrência da divulgação não-autorizada
-          da informação;
-    \item {\bf Integridade:} Não ocorrência de alterações indevidas da
-          informação;
-    \item {\bf Manutenção:} Aptidão para reparos e evolução.
+    \item Disponibilidade
+    \item Confiabilidade
+    \item Proteção (\textit{safety})
+    \item Confidencialidade
+    \item Integridade
+    \item Manutenção
 \end{itemize}
 
     Associação da {\it integridade} com a {\it disponibilidade} \implica \textbf
@@ -521,6 +515,8 @@ Aspectos a serem considerados:
 \end{itemize}
 \end{frame}
 
+% TODO verificar possibilidade de adicionar na versão final
+\begin{comment}
 \begin{frame}
     \frametitle{Falhas, erros e avarias}
 
@@ -541,6 +537,7 @@ Aspectos a serem considerados:
     \end{itemize}
 \end{itemize}
 \end{frame}
+\end{comment}
 
 \begin{frame}
     \frametitle{Falhas, erros e avarias}
@@ -635,7 +632,7 @@ Queima & Queima & Queima (transmissor)\\
     Objetivos de um sistema de DDF:
 
 \begin{itemize}
-    \item Detectar falhas
+    \item Detectar e Diagnosticar falhas
     \item Sugerir medidas corretivas ao operador \implica Garantir continuidade
           da operação do processo
 \end{itemize}
@@ -694,6 +691,8 @@ Queima & Queima & Queima (transmissor)\\
     \item Métodos de aproximação
     \item Lógica de predicados
 \end{itemize}
+
+    \vspace{0.25cm}
 
     Dentre as várias técnicas \implica RNAs (detecção e diagnóstico)
 \end{frame}
@@ -841,11 +840,9 @@ Queima & Queima & Queima (transmissor)\\
 
     \vspace{0.25cm}
 
-    Falhas simuladas através de modificações na simulação
+    Falhas simuladas através de modificações dos parâmetros na simulação
 
-\begin{itemize}
-    \item Ex.: Ruído no sensor \implica Valor lido no sensor $\pm$ Ruído 
-\end{itemize}
+    \vspace{0.25cm}
 
     Grupos de falhas selecionadas:
 
@@ -1008,6 +1005,8 @@ Falha do sistema &
 \end{columns}
 \end{frame}
 
+% TODO verificar possibilidade de adicionar na versão final
+\begin{comment}
 \begin{frame}
     \frametitle{Estruturas neurais -- Detecção}
 
@@ -1035,8 +1034,8 @@ Falha do sistema &
     \end{itemize}
     \item Facilidadade de acoplamento dos sinais de saída na segunda proposta
 \end{itemize}
-
 \end{frame}
+\end{comment}
 
 % ------------------------------------------------------------------------------
 \subsection{Composição do sistema}
@@ -1140,8 +1139,11 @@ Falha do sistema &
         \item $K_m' = \pm 20\% K_m$
         \item ...
     \end{itemize}
-    \item Simulação do sistema sem falhas \implica identificação do modelo
-    \item Simulação com falhas (individual -- proposta 2)
+    \item Testes realizados até o momento:
+    \begin{itemize}
+        \item Simulação do sistema sem falhas \implica identificação do modelo
+        \item Simulação com falhas (individual -- proposta 2)
+    \end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -1275,25 +1277,10 @@ RNAs de detecção:
         \item Porcentagem total de erros sobre as 3 validações
     \end{itemize}
 \end{itemize}
-
-Simulação final:    
-
-\begin{itemize}
-    \item Utilização das melhores redes de identificação e detecção
-    \item Cada falha \implica 1 minuto e 45 segundos
-\begin{figure}[htb]
-\centering
-    \includegraphics[width=0.8\textwidth]{imgs/resultados/eps/intervalos}
-\end{figure}
-    \item Valores das falhas \implica mantidos fixos dentro do {\it
-          range} estabelecido para o treinamento
-\end{itemize}
 \end{frame}
 
-% ------------------------------------------------------------------------------
-\subsection{Resultados das simulações}
 \begin{frame}
-    \frametitle{Resultados das simulações}
+    \frametitle{Melhores redes}
 
 \begin{table}[htb]
 \scriptsize
@@ -1338,6 +1325,26 @@ FSiVrGMP & 4 & 20 & 2 & 20905,66 & 1979,66 & 1114,66 & 12,89\%\\
 \end{table}
 \end{frame}
 
+% ------------------------------------------------------------------------------
+\subsection{Resultados das simulações}
+
+\begin{frame}
+    \frametitle{Resultados das simulações}
+
+Simulação final:    
+
+\begin{itemize}
+    \item Utilização das melhores redes de identificação e detecção
+    \item Cada falha \implica 1 minuto e 45 segundos
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.8\textwidth]{imgs/resultados/eps/intervalos}
+\end{figure}
+    \item Valores dos parâmetros das falhas \implica mantidos fixos dentro do
+          {\it range} estabelecido para o treinamento
+\end{itemize}
+\end{frame}
+
 \begin{frame}
     \frametitle{Resultados das simulações}
 
@@ -1369,11 +1376,9 @@ FSiVrGMP & 4 & 20 & 2 & 20905,66 & 1979,66 & 1114,66 & 12,89\%\\
 
     Semelhança de comportamento pode dificultar a identificação (proposta 2)
 
-    \vspace{0.25cm}
-
-    Nesse caso a proposta 1 pode apresentar melhores resultados
-
-    \vspace{0.25cm}
+\begin{itemize}
+    \item Proposta 1 pode apresentar melhores resultados
+\end{itemize}
 
     Possibilidade de utilização de {\it flags} para correção do problema
 
@@ -1399,8 +1404,8 @@ FSiVrGMP & 4 & 20 & 2 & 20905,66 & 1979,66 & 1114,66 & 12,89\%\\
 
     \vspace{0.25cm}
 
-    Exceto pelas FASR e FSiVrGMP, todas as demais falhas se comportaram de
-    maneira semelhante \implica facilmente detectadas
+    Todas as demais falhas se comportaram de maneira semelhante \implica
+    facilmente detectadas \implica Exceções FASR e FSiVrGMP
 
     \vspace{0.25cm}
 
@@ -1416,6 +1421,18 @@ FSiVrGMP & 4 & 20 & 2 & 20905,66 & 1979,66 & 1114,66 & 12,89\%\\
 \begin{itemize}
     \item Não consegue identificar falha somente em $T_1$ (intervalo 15-30s)
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Resultados das simulações}
+
+\footnotesize Simulação da FAQ (Ganho = 0):
+
+\begin{figure}[htb]
+\footnotesize
+\centering
+\scalebox{0.68}{\input{imgs/resultados/eps/faq}}
+\end{figure}
 
 \end{frame}
 
