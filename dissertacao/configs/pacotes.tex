@@ -1,0 +1,70 @@
+% Pacotes Principais -----------------------------------------------------------
+\usepackage[portuges,brazil]{babel}
+\usepackage[utf8]{inputenc}
+
+% Formatação de capítulos ------------------------------------------------------
+%\usepackage[Sonny]{fncychap}
+%\usepackage{fncychap}
+\usepackage{capitulos}
+
+% Figuras e Imagens ------------------------------------------------------------
+\usepackage{graphicx}
+% Figuras lado a lado
+\usepackage{epsfig}
+\usepackage{subfigure}
+
+% Utilizar H para inserir as imagens REALMENTE onde eu desejo
+\usepackage{float}
+
+% Fontes -----------------------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage{pslatex}
+
+% Simbolos ---------------------------------------------------------------------
+\usepackage{textcomp}
+\usepackage{bbding}
+
+% Tabelas ----------------------------------------------------------------------
+%\usepackage{multicol}
+\usepackage{multirow}
+% Colorir a tabela
+\usepackage{colortbl}
+% Pacote hhline corrige os bugs das linhas que não aparecem com o colortbm
+\usepackage{hhline}
+% Tabelas com colunas de largura auto ajustável
+\usepackage{tabularx}
+% Notas de rodapé em tabelas (Pode-se usar o ambiente longtable também -
+% Pesquisar exemplo com longtable)
+\usepackage{threeparttable}
+% Tabelas grandes
+\usepackage{supertabular}
+
+% Glossário --------------------------------------------------------------------
+\usepackage[portuguese,noprefix]{nomencl}
+\usepackage{makeglo}
+
+% Outros pacotes ---------------------------------------------------------------
+\usepackage{noitemsep}
+
+% Comentários em bloco
+\usepackage{verbatim}
+
+% Hiperlinks
+\usepackage{hyperref}
+
+% Orientação de página
+\usepackage{lscape}
+
+% utilitários matemáticos
+\usepackage{amsmath}
+\usepackage{icomma}
+
+% Evita o problema "too many unprocessed floats", colocando os campos
+% 'flutuantes' em suas respectivas seções
+\usepackage[section]{placeins}
+
+% Referências ------------------------------------------------------------------
+\usepackage[abbr]{harvard}	% As chamadas são sempre abreviadas
+\harvardparenthesis{square}	% Colchetes nas chamadas
+\harvardyearparenthesis{round}	% Parêntesis nos anos das referências
+\renewcommand{\harvardand}{e}	% Substituir "&" por "e" nas referências

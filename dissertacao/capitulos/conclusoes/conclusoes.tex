@@ -1,0 +1,75 @@
+\mychapter{Conclusões}
+\label{cap:conclusoes}
+
+% ------------------------------------------------------------------------------
+\section{Conclusões}
+%TODO dissertacao
+% Fazer uma análise dos resultados obtidos com as redes atuando em paralelo e
+% comparar o desempenho com a proposta 1 de detecção
+
+O presente trabalho foi desenvolvido com o intuito de fornecer um sistema DDF
+para um sistema de tanques acoplados. Para isso, o sistema fez uso de uma
+estrutura neural que, a partir dos valores disponíveis, indicava ao usuário os
+momentos em que as falhas estavam ocorrendo.
+
+O sistema proposto foi constituído por um módulo de identificação, o qual
+realizava a inferência dos níveis dos tanques, e um conjunto de redes
+especialistas, capazes de identificar cada uma das treze falhas listadas.
+
+Dentre essas falhas, oito foram identificadas com facilidade e outras três
+tiveram um desempenho satisfatório, com um pequeno problema de detecção que pode
+ser facilmente resolvido através de {\it flags} binárias. As outras duas falhas
+não foram identificadas corretamente, mas, em ambos os casos, o sistema consegue
+detectar a falha corretamente para $T_1$.
+
+Observa-se ainda que os resultados obtidos podem melhorar ainda mais quando
+forem utilizados valores reais, oscilando dentro da faixa de valores em que a
+rede foi treinada. Tal situação pode fazer com que não mais ocorra o problema de
+detecção das FSeDG, FSeDO e FSiVzT, evitando portanto a utilização de {\it
+flags} para contorná-lo.
+
+Assim, pode-se dizer que o sistema teve um desempenho satisfatório, conseguindo
+identificar cerca de 85\% das falhas propostas. Comprova-se, portanto, que as
+redes neurais de múltiplas camadas são estruturas eficientes tanto para a
+identificação de modelos quanto para a detecção e o diagnóstico de falhas.
+
+% ------------------------------------------------------------------------------
+\section{Perspectivas}
+% Modificação das estruturas neurais: Base Radial, SVM ...
+
+Após obter os resultados parciais, com as falhas agindo de maneira individual
+sobre cada uma das redes especialistas, o passo seguinte a ser dado envolve a
+aplicação de sinais de excitação em todas as redes especialistas
+simultaneamente. Dessa forma, a partir das saídas ativas de cada uma das redes,
+será possível identificar as falhas que possuem um comportamento semelhante.
+
+Depois dessa etapa, poderá ser desenvolvida a primeira proposta de
+identificação, a qual possui uma única rede neural, permitindo então que seja
+realizada uma análise comparativa dos resultados obtidos.
+
+Tendo sido selecionada a melhor estrutura de detecção, o ambiente de simulação
+desenvolvido em C++ poderá ser incrementado, adicionando a possibilidade da
+simulação das falhas em tempo real. Para isso, faz-se necessário que as
+estruturas neurais sejam adicionadas ao sistema e que sejam estabelecidas novas
+formas de entrada dos parâmetros a serem modificados. Além disso, o sistema
+poderá gerar sinais de saída de tal forma que as detecções das falhas sejam
+observadas a partir de um sistema de monitoramento e supervisão externo. 
+
+Uma vez que o sistema tenha sido testado com vários sinais de excitação, pode-se
+então acoplá-lo à um SCTF. Nesse caso os sinais gerados pelo sistema de DDF
+servirão como ``alarmes''. O SCTF, por sua vez, poderá realizar a reconfiguração
+dos controladores, modificando os valores dos ganhos ou até mesmo suas
+estruturas, de tal forma que o sistema continue funcionando de maneira correta
+até que a falha tenha sido corrigida.
+
+% ------------------------------------------------------------------------------
+\section{Cronograma de atividades}
+Na Fig. \ref{fig:cronograma} é exibido o cronograma das atividades já realizadas
+no decorrer do projeto, bem como aquelas a serem realizadas após a qualificação.
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.8\textwidth]{imgs/conclusoes/eps/cronograma}
+    \caption{Cronograma de atividades do projeto.}
+    \label{fig:cronograma}
+\end{figure}
