@@ -3,7 +3,10 @@ clear;
 clc;
 close all;
 
-ORDEM = input( 'Ordem: ' );
+% Numero de regressores de acordo com a ordem do modelo
+ordem = input( 'Ordem: ' );
+
+regressores = ordem - 1;
 
 % -------------------------------------------------------------------------
 % Falhas a serem treinadas
@@ -33,6 +36,9 @@ for i = 0 : 2^num_bits - 1
     palavra_saida{i+1} = bits;
 end
 
+ENTRADA = [];
+SAIDA = [];
+
 % Configuracao dos arquivos a serem lidos e inicio do treinamento
 for i = 1 : length( falhas )
     disp( strcat( falhas{i}, ' .................' ) );
@@ -56,36 +62,6 @@ for i = 1 : length( falhas )
     [entrada_pad saida_pad] = ajustar_dados( mat_niveis, mat_erro_sc );
     
     clear mat_niveis mat_erro_sc;
-    
-    % ---------------------------------------------------------------------
-    % Parametros de treinamento
-    % ---------------------------------------------------------------------
-    % Numero de redes a serem treinadas
-    n_treinamentos = 6;
-
-    % Numero de regressores de acordo com a ordem do modelo
-    ordem = ORDEM;
-
-    regressores = ordem - 1;
-
-    ncos_deteccao = [ 8 12 16 ; 14 18 22 ; 20 24 28 ];
-
-    % normalizar = input( 'Normalizar dados [0 ou 1]: ' );
-    normalizar = 0;
-
-    % Tolerancia
-    tol = 1e-3;
-
-    % if normalizar == 1
-    %     min = input( 'Valor minimo: ' );
-    %     max = input( 'Valor maximo: ' );
-    % end
-
-    min = -1;
-    max = 1;
-    
-    % Numero de neuronios da camada oculta
-    nco = ncos_deteccao( ordem - 1, : );
     
     % ---------------------------------------------------------------------
     % Estabelecimento da entrada e da saida
@@ -133,14 +109,16 @@ for i = 1 : length( falhas )
     % Combinacao de falhas
     % ---------------------------------------------------------------------
     if i == 14
-        saida = [ palavra_saida{1} ...  % SF
-                  palavra_saida{42} ... % F1 + F1
+        entrada = [ entrada( :, 3001:end ) ];
+        
+        saida = [ palavra_saida{42} ... % F1 + F1
                   palavra_saida{43} ... % F1 + F2
                   palavra_saida{44} ... % F2 + F1
                   palavra_saida{45} ];  % F2 + F2
     elseif i == 15
-        saida = [ palavra_saida{1} ...  % SF
-                  palavra_saida{46} ... % F1 + F1
+        entrada = [ entrada( :, 3001:end ) ];
+        
+        saida = [ palavra_saida{46} ... % F1 + F1
                   palavra_saida{47} ... % F1 + F2
                   palavra_saida{48} ... % F2 + F1
                   palavra_saida{49} ];  % F2 + F2        
@@ -157,46 +135,78 @@ for i = 1 : length( falhas )
     % Determinacao da saida
     saida = repetir_colunas( saida, 2999 );
     
-    % ---------------------------------------------------------------------
-    % Treinamento
-    % ---------------------------------------------------------------------
-    % Determinacao do numero de redes neurais a serem treinadas de acordo
-    % com o vetor da camada oculta
-    num_redes = length( nco );
-    
-    for r = 1 : num_redes
+    ENTRADA = [ ENTRADA entrada ];
+    SAIDA = [ SAIDA saida ];
+end
+
+clear entrada saida entrada_pad saida_pad;
+
+% -------------------------------------------------------------------------
+% Parametros de treinamento
+% -------------------------------------------------------------------------
+% Numero de redes a serem treinadas
+n_treinamentos = 6;
+
+ncos_deteccao = [ 8 12 16 ; 14 18 22 ; 20 24 28 ];
+
+% normalizar = input( 'Normalizar dados [0 ou 1]: ' );
+normalizar = 0;
+
+% Tolerancia
+tol = 1e-3;
+
+% if normalizar == 1
+%     min = input( 'Valor minimo: ' );
+%     max = input( 'Valor maximo: ' );
+% end
+
+min = -1;
+max = 1;
+
+% Numero de neuronios da camada oculta
+nco = ncos_deteccao( ordem - 1, : );
+
+% -------------------------------------------------------------------------
+% Treinamento
+% -------------------------------------------------------------------------
+pasta_rnas = '..\..\dados\deteccao\Global\';
+
+% Determinacao do numero de redes neurais a serem treinadas de acordo
+% com o vetor da camada oculta
+num_redes = length( nco );
+
+for r = 1 : num_redes
+    disp( ' ' );
+    disp( strcat( 'Rede N', num2str( nco( r ) ), ' ==============' ) );
+
+    subpasta = strcat( 'O', num2str( ordem ), '\', ...
+                       'N', num2str( nco( r ) ), '\' );
+
+    for t = 1 : n_treinamentos
         disp( ' ' );
-        disp( strcat( 'Rede N', num2str( nco( r ) ), ' ==============' ) );
+        disp( strcat( 'Treinamento ', num2str( t ), ' ...' ) );
 
-        subpasta = strcat( 'O', num2str( ordem ), '\', ...
-                           'N', num2str( nco( r ) ), '\' );
-                       
-        for t = 1 : n_treinamentos
-            disp( ' ' );
-            disp( strcat( 'Treinamento ', num2str( t ), ' ...' ) );
-            
-            % Treinando a RNA
-            tic
-            [rede lim_ent lim_sai] = treinar_rna( entrada, ...
-                                                  saida, ...
-                                                  nco( r ), ...
-                                                  min, max, ...
-                                                  normalizar, tol );
+        % Treinando a RNA
+        tic
+        [rede lim_ent lim_sai] = treinar_rna( ENTRADA, ...
+                                              SAIDA, ...
+                                              nco( r ), ...
+                                              min, max, ...
+                                              normalizar, tol );
 
-            tempo_treinamento = toc;
+        tempo_treinamento = toc;
 
-            % Salvando o ambiente
-            nome_arq = strcat( pasta_rnas, subpasta, ...
-                               'P1_', ...
-                               'O', num2str( ordem ), ...
-                               'N', num2str( nco( r ) ), ...
-                               'T', num2str( t ) );
+        % Salvando o ambiente
+        nome_arq = strcat( pasta_rnas, subpasta, ...
+                           'P1_', ...
+                           'O', num2str( ordem ), ...
+                           'N', num2str( nco( r ) ), ...
+                           'T', num2str( t ) );
 
-            save( nome_arq, 'rede', 'lim_ent', 'lim_sai', ...
-                            'tempo_treinamento' );
+        save( nome_arq, 'rede', 'lim_ent', 'lim_sai', ...
+                        'tempo_treinamento' );
 
-            % Salvando as informacoes da rede
-            salvar_rede( rede, strcat( nome_arq, '_RNA' ) );
-        end
+        % Salvando as informacoes da rede
+        salvar_rede( rede, strcat( nome_arq, '_RNA' ) );
     end
 end

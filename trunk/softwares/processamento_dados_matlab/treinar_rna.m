@@ -3,7 +3,8 @@ function [rede lim_ent lim_sai] = treinar_rna( ent, ...
                                                neur_cam_oculta, ...
                                                min, ...
                                                max, ...
-                                               norm, tol )
+                                               norm, ...
+                                               tol )
 
 if norm == 1
     [entrada lim_ent] = normalizar( ent, min, max, 0 );
@@ -23,10 +24,18 @@ rede.trainParam.goal = tol;
 rede.trainParam.epochs = 40000;
 rede.trainParam.max_fail = 10;
 
+[ lin col ] = size( ent );
+
 % Inicializacao dos pesos e do bias
 rede = init( rede );
 
 % Treinamento
+if lin * col > 10^6
+    rede.trainFcn = 'trainscg';
+else
+    rede.trainFcn = 'trainlm';
+end
+
 rede = train( rede, entrada, saida );
 
 end
