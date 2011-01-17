@@ -34,6 +34,10 @@ for i = 0 : 2^num_bits - 1
     end
     
     palavra_saida{i+1} = bits;
+    
+    % Multiplicar a saida por um numero aleatorio entre -1 e 1 diminui o
+    % erro
+    %  palavra_saida{i+1} = palavra_saida{i+1} * random( -1, 1 );
 end
 
 ENTRADA = [];
@@ -141,6 +145,21 @@ end
 
 clear entrada saida entrada_pad saida_pad;
 
+% Cada falha inicia com um trecho sem falha. Assim nao ha necessidade em 
+% repetir esses trechos, devendo-se entao remove-los.
+vetor = sort( randperm( 12 ) );
+
+vetor = vetor * 12000 + 1;
+
+intervalos = [];
+
+for i = 1 : length( vetor )
+    intervalos = [ intervalos vetor(i):vetor(i)+2999 ];
+end
+
+ENTRADA( :, intervalos ) = [];
+SAIDA( :, intervalos ) = [];
+
 % -------------------------------------------------------------------------
 % Parametros de treinamento
 % -------------------------------------------------------------------------
@@ -153,7 +172,7 @@ ncos_deteccao = [ 8 12 16 ; 14 18 22 ; 20 24 28 ];
 normalizar = 0;
 
 % Tolerancia
-tol = 1e-3;
+tol = 1e-2;
 
 % if normalizar == 1
 %     min = input( 'Valor minimo: ' );
