@@ -286,13 +286,12 @@ real e $\widehat{y_i}$ o valor estimado.
 % ERRORS, FAULTS AND FAILURES
 % ==============================================================================
 \section{FAULTS, ERRORS AND FAILURES}\label{sec:eff}
-Segundo \citet{kaaniche:2002}, os sistemas computacionais podem ser
-caracterizados por cinco propriedades fundamentais: funcionalidade, usabilidade,
-desempenho, custo e {\it dependabilidade}. Para \citet{laprie:1992}, o termo
-dependabilidade está relacionado com a capacidade de um sistema prestar um
-serviço que possa ser, justificadamente, confiável. Seguindo esse raciocínio,
-\citet{avizienis:2000} subdividem um sistema dependable em 3 partes, conforme
-Fig. \ref{fig:div_avizienis}.
+The computer systems can be characterized by five fundamental properties:
+functionality, usability, performance, cost and {\ it} {\it dependability}
+\citep{kaaniche:2002}. According to \citet{laprie:1992}, the term dependability
+is related to the system ability to provides a service that can be, justifiably,
+realiable. Following this reasoning, \citet{avizienis:2000} subdivides a
+dependable system into three parts, as shown in Fig. \ref{fig:div_avizienis}.
 
 \begin{figure}[htb]
 \centering
@@ -302,12 +301,11 @@ Fig. \ref{fig:div_avizienis}.
 \label{fig:div_avizienis}
 \end{figure}
 
-O primeiro grupo permite expressar as propriedades esperadas e analisar a
-qualidade de um sistema confiável. Já o segundo grupo traz os termos utilizados
-para expressar características indesejadas -- mas, em princípio, não inesperadas
--- que causam ou fazem com que um sistema passe a ser não-confiável. Por fim, o
-terceiro grupo exibe os meios ou as técnicas pelas quais torna-se possível
-oferecer um serviço confiável.
+The first group is used to provide an analysis about the quality of a dependable
+system. The second group brings the terms used to express undesirable threats --
+but, in principle, not unexpected -- that makes a system become not dependable.
+Finally, the third group shows the means and the techniques by which it becomes
+possible to offer a dependable service.
 
 \begin{comment}
 Tendo destacado tal divisão, deve-se esclarecer o significado da utilização dos
@@ -315,17 +313,16 @@ três termos que muitas vezes podem vir a ser confundidos: errors, faults and
 failures.
 \end{comment}
 
-Com relação ao segundo grupo, pode-se dizer que o termo avaria (failure) deve
-ser utilizado para indicar que houve um desvio do comportamento no sistema, o
-que o torna incapaz de fornecer o serviço para o qual foi designado. Um erro
-(error), entretanto, está relacionado com estado do sistema e pode levar a uma
-avaria. De maneira resumida, se há um erro no estado do sistema, então existe
-uma sequência de ações que podem ser executadas e que levarão as avarias, a não
-ser que medidas corretivas venham a ser tomadas. Por fim, mas não menos
-importante, o termo falha (fault) é a causa de um erro e está associado à noção
-de defeitos. Normalmente, diz-se que o termo falha pode ser definido como sendo
-um defeito que possui o potencial de gerar erros.
+About the second group, the term {\it failure} must be used to indicate when
+occur a system behavior deviation, making it incapable to provide the service
+for which was designed. An {\it error}, however, is related to the system state
+and can lead to a failure. Briefly, if there is an error, then exists a sequence
+of actions that can be lead to a failure. Last but no least, the term {\it
+fault} is the cause of an error and is related to a defect. Normally, it is said
+that the term fault may be defined as a defect that has the potential to generate
+errors.
 
+\begin{comment}
 Considerando que os sistemas reais são normalmente compostos por subsistemas, é
 comum se observar que uma falha leva a um erro, que por sua vez pode levar a uma
 avaria, podendo vir a gerar novas falhas e dar início a uma reação em cadeia,
@@ -339,6 +336,7 @@ os erros resultam de falhas e todas as avarias resultam de erros.
     \caption{Chain reaction of faults, errors and failures.}
     \label{fig:chain_reaction}
 \end{figure}
+\end{comment}
 
 \begin{comment}
 % ------------------------------------------------------------------------------
@@ -412,18 +410,19 @@ Queima & Queima & Queima (transmissor)\\
 \end{comment}
 % ------------------------------------------------------------------------------
 \subsection{Fault detection and diagnosis}
+\begin{comment}
 Considerando que os processos industrias estão se tornando cada vez mais
 integrados e complexos, a ocorrência de falhas passa a ser mais um fator de
 complicação. As falhas que antes poderiam ser detectadas facilmente por medições
 diretas de determinada variável dependem agora de um conjunto de variáveis que
 atuam simultaneamente no sistema
+\end{comment}
 
-Com o intuito de garantir o sucesso das operações planejadas e reconhecer as
-anomalias comportamentais dos processos, muitos sistemas de supervisão e
-monitoramento estão sendo desenvolvidos. Para \citet{chiang:2001}, dentre
-diversas outras funções, esses sistemas podem auxiliar nas atividades de
-detectar, diagnosticar e suprimir falhas, garantindo que as operações do
-processo satisfaçam as especificações de desempenho.
+In order to ensure the success of planned operations and recognize the
+behaviorial problems in the process, many supervision and monitoring systems are
+being developed. To \citet{chiang:2001}, among other functions, these systems
+can detect, diagnose and eliminate faults, ensuring that the process operations
+satisfies the performance specifications.
 
 De maneira complementar, destaca-se que a informação a ser disponibilizada por
 um sistema de monitoramento não deve, tão somente, informar ao operador do
