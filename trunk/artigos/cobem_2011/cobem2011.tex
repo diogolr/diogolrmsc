@@ -424,25 +424,29 @@ being developed. To \citet{chiang:2001}, among other functions, these systems
 can detect, diagnose and eliminate faults, ensuring that the process operations
 satisfies the performance specifications.
 
-De maneira complementar, destaca-se que a informação a ser disponibilizada por
-um sistema de monitoramento não deve, tão somente, informar ao operador do
-sistema sobre o que está acontecendo, mas auxiliá-lo a tomar medidas corretivas
-com o intuito de sanar o problema. Como resultado disso, o tempo em que o
-sistema estará inoperante será reduzido, a proteção do sistema aumentará e os
-custos relacionados diminuirão.
+Additionally, the information provided by a monitoring system should not only
+inform the system operator about what is going on, but also help him to take
+corrective measures in order to remedy the problem. As a result, the ineffective
+time will be reduced, the system protection will be increased and the
+operational costs will be decreased.
 
-\citet{chiang:2001} mostra ainda que existem quatro fases envolvidas no
-monitoramento dos processos: detecção, isolamento, diagnóstico e recuperação de
-falhas, conforme mostrado pela Fig. \ref{fig:states}.
+\citet{chiang:2001} shows that there are four states involved in the process
+monitoring: fault detection, fault isolation, fault diagnosis and fault
+recovery, as shown in Fig. \ref{fig:states}.
 
 \begin{figure}[htb]
 \centering
-    \includegraphics[width=0.65\textwidth]{imgs/states}
+    \includegraphics[width=0.6\textwidth]{imgs/states}
     \caption{States of fault detection and diagnosis.}
     \label{fig:states}
 \end{figure}
 
-%\begin{comment}
+Although arranged as a sequence of actions, all states are not always strictly
+necessary. Often, automated changes from one state to another is transparent to
+the operator, displaying only the crucial information to take appropriate action
+\citep{chiang:2001}.
+
+\begin{comment}
 A detecção da falha determina se ocorreu ou não uma falha. Quando realizada de
 maneira antecipada, a detecção de falhas pode fornecer informações valiosas com
 relação aos problemas que estão por acontecer. Assim, através de ações
@@ -463,13 +467,6 @@ contra-ação ou eliminação da falha.
 Por fim, a fase de recuperação da falha, também conhecida como fase de
 intervenção, tem por objetivo remover o efeito da falha para com o sistema,
 dando início a um novo ciclo de detecção e diagnóstico.
-%\end{comment}
-
-Apesar de estarem explicitamente colocados como uma sequência de ações, nem
-sempre todas as fases são estritamente necessárias. Muitas vezes os sistemas
-automatizados fazem com que a mudança de uma fase para outra seja transparente
-para operador, exibindo apenas as informações cruciais para que se possa tomar
-as medidas cabíveis \citep{chiang:2001}.
 
 % ------------------------------------------------------------------------------
 \subsection{Neural networks for detection and diagnosis}
@@ -486,6 +483,7 @@ nesse trabalho duas estruturas neurais com o objetivo de identificar o processo
 de estudo de caso e realizar a detecção e o diagnóstico de falhas a partir de
 seu histórico.  As estruturas propostas serão apresentadas na seção seguinte,
 após a descrição do modelo de estudo de caso.
+\end{comment}
 
 % ==============================================================================
 % PROPOSED SYSTEM
@@ -508,10 +506,10 @@ dessas técnicas \citep{weber:2002}.
 
 % ------------------------------------------------------------------------------
 \subsection{Case study}
-Ao final da seção de introdução, propôs-se que seria desenvolvido um sistema
-para realizar a DDF em um processo dinâmico. O processo em questão, é formado
-por um sistema de tanques acoplados desenvolvidos pela Quanser\reg, representado
-esquematicamente na Fig. \ref{fig:tanks}.
+At the end of the introductory section, this paper proposes a system development
+for FDD in a dynamic process. The process in question consists of a coupled tank
+system developed by Quanser\reg, schematically represented in Fig.
+\ref{fig:tanks}.
 
 \begin{figure}[htb]
 \centering
@@ -538,29 +536,26 @@ confusões com relação aos orifícios de saída dos tanques (a1 e a2), esses
 orifícios serão tratados como orifícios de entrada
 \end{comment}
 
-Os tanques ($T_1$ e $T_2$) são montados na parte frontal do suporte de base e
-posicionados de tal forma que a água flui do tanque superior ($T_1$) para o
-tanque inferior ($T_2$) através do orifício $a_1$, e do tanque inferior para o
-reservatório através do orifício $a_2$. As vazões de saída dos tanques variam de
-acordo com a mudança desses orifícios, disponibilizados em três diâmetros
-diferentes pelo fabricante. Além dos diferentes orifícios de saída, o fabricante
-também disponibiliza um conjunto de mangueiras, permitindo o bombeio de água
-para os dois tanques simultaneamente.
+The tanks ($T_1$ e $T_2$) are mounted on the front of the support base and
+positioned in such way that the water flows from the upper tank ($T_1$) to the
+bottom tank ($T_2$) through orifice $a_1$, and from the $T_2$ to the water
+reservatory through orifice $a_2$. The output water flow varies according to the
+orifices $a_1$ and $a_2$, available in three different diameters.
 
+\begin{comment}
 % ------------------------------------------------------------------------------
 \subsection{Mathematical model of a coupled water tanks} 
-Como os dois tanques possuem mesma área de secção transversal ($A_1 = A_2 = A$),
-suas dinâmicas serão semelhantes. Entretanto, encontrar um modelo matemático que
-descreva adequadamente a dinâmica desses tanques não é algo tão simples, visto
-que as equações gerais de movimento e energia que descrevem o escoamento de
-fluidos são bastante complicadas . Assim sendo, é preciso que sejam feitas
-algumas hipóteses fundamentais. Admite-se que a água no tanque é incompressível
-e que o escoamento é não-viscoso, não-rotacional e regular \citep{dorf:2009}.
-
-Considerando tais aspectos, depois de uma série de manipulações algébricas
-utilizando a equação de Bernoulli, pode-se demonstrar que as equações que regem
-o modelo, para uma alimentação direta no tanque superior ($T_1$), podem ser
-descritas pelas Eqs.  (\ref{eq:l1_ponto}) e (\ref{eq:l2_ponto}).
+\end{comment}
+Since the two tanks have the same cross-sectional area ($A_1 = A_2$), their
+dynamics are similar. However, find a mathematical model that adequately
+describes the dynamics of such tanks is not so simple, because the general
+equations of motion and energy that describe the fluid flow are quite
+complicated. Therefore, some fundamental assumptions are needed. So, it is
+assumed that the water in the tank is incompressible and the flow is
+non-viscous, non-rotational and regular \citep{dorf:2009}. Considering these
+aspects, after a series of algebraic manipulations using Bernoulli's equation,
+the equations of the model for a direct feed in $T_1$, can be described by Eqs.
+(\ref{eq:l1_ponto}) and (\ref{eq:l2_ponto}).
 
 \begin{eqnarray}
 \dot{L_1} & = & \frac{K_m}{A}V_p -
@@ -575,18 +570,16 @@ where $K_m$ represents the pump flow constant, $V_p$ the voltage applied to the
 pump, $a_i$ the $T_i$'s output orifice, $L_i$ the water level in $T_i$ and $g$
 the gravity acceleration.
 
-Com o intuito de deixar o sistema proposto com um caráter mais genérico e
-possibilitar que sejam realizados novos estudos relacionados com o tema de
-tolerância à falhas, optou-se por modificar o sistema de tanques original
-introduzindo uma outra bomba com as mesmas características da primeira, conforme
-mostra a Fig. \ref{fig:new_config}.
-
-É evidente que, no caso da Fig. \ref{fig:new_config}, o sistema deixa de ser
-SISO e passa a ser MIMO. Por esse motivo, esse sistema será o utilizado como
-modelo de estudo de caso no trabalho. A única modificação existente nas equações
-que regem a dinâmica do modelo é a introdução de uma nova variável na equação do
-segundo tanque, em virtude da adição da segunda bomba. Assim, as equações finais
-do modelo de estudo de caso serão:
+In order to make the proposed system more generic and possibly make further
+studies on fault tolerance, the coupled tank system was modified by introducing
+another pump with the same characteristics as the first, as shown in Fig.
+\ref{fig:new_config}.
+É evidente que, nesse caso, o sistema deixa de ser SISO e passa a ser MIMO. Por
+esse motivo, esse sistema será o utilizado como modelo de estudo de caso no
+trabalho. A única modificação existente nas equações que regem a dinâmica do
+modelo é a introdução de uma nova variável na equação do segundo tanque, em
+virtude da adição da segunda bomba. Assim, as equações finais do modelo de
+estudo de caso serão:
 
 \begin{eqnarray}
 \dot{L_1} & = & \frac{K_m}{A}V_{p_{\tiny 1}} -
