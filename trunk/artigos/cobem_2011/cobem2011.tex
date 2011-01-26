@@ -573,13 +573,10 @@ the gravity acceleration.
 In order to make the proposed system more generic and possibly make further
 studies on fault tolerance, the coupled tank system was modified by introducing
 another pump with the same characteristics as the first, as shown in Fig.
-\ref{fig:new_config}.
-É evidente que, nesse caso, o sistema deixa de ser SISO e passa a ser MIMO. Por
-esse motivo, esse sistema será o utilizado como modelo de estudo de caso no
-trabalho. A única modificação existente nas equações que regem a dinâmica do
-modelo é a introdução de uma nova variável na equação do segundo tanque, em
-virtude da adição da segunda bomba. Assim, as equações finais do modelo de
-estudo de caso serão:
+\ref{fig:new_config}. Clearly, in this case, the system has no longer a single
+input and a single output (SISO). Now, the equations for the multiple input and
+multiple output (MIMO) system can be described as Eqs. (\ref{eq:l1_ponto_fin})
+and (\ref{eq:l2_ponto_fin}).
 
 \begin{eqnarray}
 \dot{L_1} & = & \frac{K_m}{A}V_{p_{\tiny 1}} -
@@ -591,14 +588,13 @@ estudo de caso serão:
                 \label{eq:l2_ponto_fin}
 \end{eqnarray}
 %
-em que $V_{p_{\tiny 1}}$ se refere à tensão aplicada na Bomba 1 ($B_1$) e
-$V_{p_{\tiny 2}}$ à tensão aplicada na Bomba 2 ($B_2$).
+where $V_{p_{\tiny 1}}$ is the voltage applied to the first pump and
+$V_{p_{\tiny 2}}$ is the voltage applied to the second pump.
 
 % ------------------------------------------------------------------------------
 \subsection{Simulated faults}
-Apesar das diversas falhas que podem vir a existir em um sistema tanques
-acoplados, somente algumas destas foram selecionadas para serem simuladas,
-conforme Tab. \ref{tab:faults}.
+Despite the various flaws that may exist in a coupled tanks system, only some of
+these were selected to be simulated, as shown in Tab. \ref{tab:faults}.
 
 \begin{table}[!htb]
 \centering
@@ -641,20 +637,16 @@ Tank's $a_i$ obstruction & T$a_i$OStF\\
 \end{tabular}
 \end{table}
 
-Nesses tipos de simulação é comum expor todo o sistema à situações adversas, não
-comumente presentes no dia a dia, o que pode vir a causar danos em toda a
-estrutura envolvida. Sendo assim, optou-se por simular computacionalmente o
-modelo do sistema, evitando assim qualquer problema relacionado à queima dos
-dispositivos.
+Since in these types of simulation the system is normally exposed to adverse
+conditions, which could cause damage throughout the structure involved, the
+proposed system was computationally simulated.
 
 \begin{comment}
 Para dar mais liberdade de configuração à simulação, todo o sistema foi
 desenvolvido em C++, através do método de Runge-Kutta de 4\textordfeminine\
 ordem, permitindo que os parâmetros das falhas a serem simuladas fossem
 modificados a partir de um arquivo de texto. 
-\end{comment}
 
-\begin{comment}
 A Fig. \ref{fig:screenshot} mostra uma captura de tela do sistema em
 funcionamento.
 
@@ -686,48 +678,33 @@ Oliveira (2008). A configuração do endereço IP e da porta de comunicação ta
 
 % ------------------------------------------------------------------------------
 \subsection{Selected neural structures}
-Tanto para a identificação do modelo quanto para a detecção e o diagnóstico das
-falhas, deve-se ter bastante cuidado ao se escolher a estrutura e a arquitetura
-das redes neurais. Em ambos os casos, uma escolha inadequada pode fazer com que
-o sistema não se comporte de maneira adequada e não realize a função para o qual
-foi designado.
+The neural networks for identification and FDD should be carefully chosen, since
+an inappropriate choice can make the system innefective, not performing the
+function for which it was assigned.
 
-% ------------------------------------------------------------------------------
-\subsubsection{Neural network for model identification}
-A estrutura neural de identificação busca representar a dinâmica do sistema de
-tanques através de uma única rede neural, a qual receberia como entrada os
-valores passados dos níveis, $L_1(k-1)$ e $L_2(k-1)$, e os valores de tensão
-aplicados, $V_{p_{\tiny 1}}(k-1)$ e $V_{p_{\tiny 2}}(k-1)$, gerando uma
-estimativa dos níveis em sua saída, denominadas $\widehat{L}_1(k)$ e b
-$\widehat{L}_2(k)$. A Fig. \ref{fig:ann_id} representa um diagrama esquemático
-do funcionamento dessa primeira proposta.
+After a series of tests, the neural structure of identification chosen to
+represent the dynamics of the system has a single neural network, which receives
+as input the levels values, $L_1(k-1)$ and $L_2 (k-1)$, and the voltages
+applied, $V_{p_{\tiny 1}} (k-1)$ and $V_{p_{\tiny 2}} (k-1)$, generating
+estimatives on its output, called $\widehat{L}_1 (k)$ and $\widehat{L}_2 (k)$.
+The best trained neural network for this purpose was obtained from a
+second-order model NNARX with eight neurons on hidden layer. The mean square
+error was $3.73 \times 10^{-6}$. The results obtained are not shown because they
+are not the main focus of this paper.
 
-\begin{figure}[htb]
-\centering
-    \includegraphics[width=0.3\textwidth]{imgs/ann_id}
-    \caption{Neural network structure for model identification.}
-    \label{fig:ann_id}
-\end{figure}
+The structure of FDD, in turn, was composed by twelve neural networks in which
+each of these is associated with a single fault, configuring a set of
+``specialists''. It is not, however, a committee machine, since there is no
+network that performs the decision-making.
 
-A melhor rede neural treinada para esse propósito foi obtida a partir de um
-modelo NNARX de segunda ordem, com oito neurônios na camada oculta. O erro médio
-quadrático de estimativa foi de $3.73 \times 10^{-6}$.
-
-% ------------------------------------------------------------------------------
-\subsubsection{Neural network for fault detection and diagnosis}
-A estrutura de DDF foi composta por várias redes neurais, em que cada uma destas
-está associada a uma única falha, formando um conjunto de redes
-``especialistas''. Não se trata, entretanto, de uma máquina de comitê de
-especialistas, uma vez que não existe uma rede que realiza a tomada de decisões.
-
-A entrada de cada uma das redes é composta pelos valores passados dos níveis,
-$L_1(k-1)$ e $L_2(k-1)$, das tensões, $V_{p_{\tiny 1}}(k-1)$ e $V_{p_{\tiny
-2}}(k-1)$, e pelos erros residuais produzidos a partir da diferença entre o
-nível real e o nível estimado pela rede $e_i(k) = L_i(k) - \widehat{L}_i(k)$. Já
-a saída de cada rede é composta por uma palavra binária de 2 bits, a qual indica
-se aquela falha está sendo detectada em $T_1$ em $T_2$ ou em $T_1$ e $T_2$
-simultaneamente. A Fig. \ref{fig:ann_fdd} representa um diagrama esquemático
-dessa proposta.
+The input of each network is composed by the past values of the levels,
+$L_1(k-1)$ and $L_2(k-1)$, the voltages applied to the pumps, $V_{p_{\tiny 1}}
+(k-1)$ and $V_{p_{\tiny 2}} (k-1)$, and the residual errors produced from the
+difference between the real and estimated output, $e_i (k) = L_i (k) -
+\widehat{L}_i (k)$. The output of each network is a 2-bit binary word, which
+indicates whether the fault is being detected in $T_1$, in $T_2$ or in $T_1$ and
+$T_2$ simultaneously. A schematic diagram can be viewed in Fig.
+\ref{fig:ann_fdd}.
 
 \begin{figure}[htb]
 \centering
@@ -736,27 +713,27 @@ dessa proposta.
     \label{fig:ann_fdd}
 \end{figure}
 
-A opção por esse tipo desarticulado de redes neurais se dá por diversos fatores.
-Um ponto que se pode destacar é o fato de que mais de uma falha pode estar
-acontecendo simultaneamente no sistema. Nesse caso, se fosse utilizada apenas
-uma estrutura neural, gerando $N$ palavras distintas na saída (uma para cada
-falha), seria necessário também estabelecer valores de saída para todas as
-combinações de falhas possíveis, pois estas também deveriam ser representadas
-nas $N$ possíveis palavras.  Considerando somente as doze falhas selecionadas,
-tomadas duas a duas, teria-se um total de 66 possíveis combinações a serem
-geradas. Se todas as combinações fossem consideradas esse número cresceria de
-maneira exorbitante.
+Opting for this disarticulated neural networks structure occurs by several
+factors. An example that can be highlighted is the fact that more than one fault
+may be happening simultaneously in the system. In this case, if only one neural
+network was used, beyond the $N$ distinct words (one for each fault), the FDD
+system should indicate each fault combination in the output. Considering only
+the twelve selected faults, taken two by two, a total of 66 possible
+combinations should to be generated. If all combinations were considered this
+number would grow exorbitantly.
 
-Com essa configuração, diversos tipos de redes podem ser utilizadas para cada
-uma das falhas o que pode vir a aumentar a eficiência do sistema de detecção.
-Além disso, a modificação da estrutura de detecção de uma falha não
-irá influenciar em nenhuma outra. Ou seja, se em determinado momento for
-percebido que a introdução de uma nova variável faz com que uma das falhas seja
-detectada de maneira mais rápida ou eficiente, apenas aquela rede neural
-precisará ser novamente treinada.
+Moreover, a simple modification in a neural network will not affect in any
+other. That is, if at any time is noticed that the introduction of a new
+variable improves the detection for one fault, only one neural network needs to
+be trained again. In future works, hibrid structures -- like neuro-fuzzy
+networks, Kalman filters, statistical analysers and many more --, can be also
+utilized.
 
-Tendo conhecido todos os subsistemas a serem utilizados, pode-se observar na
-Fig. \ref{fig:comp} a estrutura do sistema de DDF proposto.
+Once known all used subsystems, the proposed FDD system can be viewed in Fig.
+\ref{fig:comp}. Attach this system to another, or associate it with a
+Fault-Tolerant Control System (FTCS), can be made in a simple way, by processing
+the information available at the output interface. However, this is not the
+objective here.
 
 \begin{figure}[htb]
 \centering
@@ -765,11 +742,6 @@ Fig. \ref{fig:comp} a estrutura do sistema de DDF proposto.
     \label{fig:comp}
 \end{figure}
 
-Acoplar tal sistema à um ambiente de monitoramento e supervisão, ou ainda
-associá-lo à técnicas de controle tolerante à falhas, consiste simplesmente em
-processar as informações disponíveis na interface de saída do módulo de DDF.
-Contudo, isso não faz parte do escopo deste trabalho.
-
 % ==============================================================================
 % RESULTS
 % ==============================================================================
@@ -777,24 +749,17 @@ Contudo, isso não faz parte do escopo deste trabalho.
 
 % ------------------------------------------------------------------------------
 \subsection{Data acquisition}
-Tanto para o processo de identificação quanto para o processo de detecção, o
-primeiro passo a ser dado é a obtenção das amostras experimentais para o
-treinamento supervisionado das redes neurais de identificação do modelo e de
-detecção e diagnóstico das falhas.
+The first step to be taken for the identification and detection processes, is to
+obtain the experimental samples for a supervised neural networks training. So,
+the data acquisition was done by a stimulation of the simulated system through
+the application of pseudo random binary signals (PRBSs) in the setpoint of each
+tank and in the system fault parameters.
 
-Dessa maneira, realizou-se a coleta dos dados a partir da estimulação do sistema
-simulado através da aplicação de sinais binários pseudo aleatórios (Pseudo
-Random Binary Signals -- PRBS) à referência de cada um dos tanques e aos
-parâmetros do sistema que simulam as falhas
-
-Para a identificação, a faixa de valores aplicados se deu do nível mínimo (zero)
-ao máximo (trinta). Já para a detecção das falhas, os valores foram aplicados
-conforme Tab. \ref{tab:values}. Nessa tabela, os valores gerados no intervalo
-determinado pelos mínimos e máximos de cada parâmetro eram multiplicados pelos
-respectivos valores padrão e aplicados ao modelo. Perceba que nas falhas dos
-atuadores, as tensões a serem aplicadas podem vir a danificar a bomba. Por esse
-motivo não seria viável obter as amostras do processo real, mas sim a partir de
-uma simulação.
+The range values applied to the setpoint varies between the minimum (zero) to
+the maximum (thirty). For the fault detection, the values were applied as shown
+in Tab. \ref{tab:values}. The values generated in the interval determined by the
+minimum and maximum of each parameter were multiplied by the default values and
+applied to the model.
 
 \begin{table}[htb]
 \small
@@ -842,46 +807,42 @@ T$a_i$OStF & $a_{i_{\text{\tiny MED}}}$ &
 \end{threeparttable}
 \end{table}
 
-Os sinais pseudo aleatórios gerados se mantiveram dentro dos limites
-estabelecidos durante todo o tempo da simulação. Para o processo de
-identificação foram obtidas 6000 (seis mil) amostras, equivalentes à 10 (dez)
-minutos de simulação. Já para a detecção o processo foi simulado durante 20
-(vinte) minutos, o que correspondeu a obtenção de 12000 (doze mil) amostras.
-Todos os dados foram coletados com um período de amostragem de 100 ms, idêntico
-ao utilizado na planta real.
+The PRBSs generated remains within the estabilished limits throughout the
+simulation time. For the identification process were obtained 6000 (six
+thousand) samples, equivalent to 10 (ten) minutes of simulation. For the
+detection process, 20 (twenty) minutes was simulated, which corresponds to
+12,000 (twelve thousand) samples. All data were collected with a sampling period
+of 100 ms, identical to that used in the real process.
 
-De posse dos valores obtidos, iniciou-se a fase de treinamento das RNAs. Todas
-as redes foram treinadas de modo offline com o toolbox de redes neurais do
-software matemático Matlab\reg, utilizando o algoritmo LMA. Ao final de cada etapa
-de treinamento as redes eram submetidas aos testes de validação com o intuito de
-avaliar suas capacidades de generalização.
+In possession of the obtained values, the neural networks training starts. All
+networks were trained in offline mode with the neural networks toolbox of
+Matlab\reg, using the LMA algorithm.
 
 % ------------------------------------------------------------------------------
-\subsection{Selected neural networks}
-Como já foi visto, a melhor rede utilizada para a identificação do modelo foi
-obtida a partir de uma estrutura NNARX de segunda ordem com oito neurônios na
-camada oculta. Essa rede foi selecionada dentre outras 54 que haviam sido
-treinadas para esta mesma finalidade.
+\subsection{Selected neural structures}
+As already seen, the best network used for the model identification was obtained
+from a second-order NNARX structure with eight neurons on hidden layer. This
+network was selected among 54 others who had been trained for this same purpose.
 
-Para o processo de detecção e diagnóstico das falhas, o número de redes neurais
-treinadas aumenta de maneira significativa. Para cada ordem da estrutura NNARX
-selecionada, o número de neurônios na camada oculta era modificado três vezes.
-Cada vez que esse número era modificado, eram treinadas seis redes neurais., o
-que garantia que as redes selecionadas não seriam comprometidas por problemas de
-não convergência devido à uma má inicialização dos pesos ou devido à mínimos
-locais. Dessa forma, para uma estrutura de segunda ordem, por exemplo, eram
-treinadas $3 \times 6 = 18$ redes neurais.  
+For the FDD, the number of trained neural networks increases significantly. For
+each order of the NNARX structure, the number neurons on hidden layer was
+changed three times. Each time that number was changed, six neural networks were
+trained, which guarantees that the selected networks would not be compromised by
+convergence problems due the bad weights initialization or due to local minima.
+Thus, for a second order structure, for example, were trained $3 \times 6 = 18$
+neural networks.
 
-Como foram selecionadas estruturas de segunda, terceira e quarta ordem, o número
-de redes treinadas corresponderia a $18 \times 3 = 54$ para cada falha.
-Entretanto, haviam doze falhas a serem treinadas. Assim, o número total foi de
-$54 \times 12 = 648$ redes neurais distintas.
+The networks were selected from a second, third and fourth-order structures. So,
+the number of trained networks would amount to $18 \times 3 = 54$ for each
+fault. However, there were twelve faults to be trained. Thus, the total was $54
+\times 12 = 648$ distinct neural networks.
 
-Devido a esse grande número, todas as redes passavam por um processo de
-validação dividido em três simulações. Em cada simulação eram contabilizados os
-Erros de Tipo I e os Erros de Tipo II, obtendo então uma média total de erros
-para cada estrutura. Os valores obtidos durante o processo de seleção podem ser
-observados na Tab. \ref{tab:best_ann}.
+% TODO reler esse paragrafo e ver se eh preciso comentar sobre os 24000
+% acertos/erros
+Because of this large number, all the networks went through a validation process
+by three simulations. In each simulation were recorded Type I and Type II
+errors, composing an average error for each structure. The values obtained
+during the selection process can be viewed in Tab. \ref {tab:best_ann}.
 
 \begin{table}[htb]
 \centering
