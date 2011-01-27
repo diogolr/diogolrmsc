@@ -677,7 +677,7 @@ Oliveira (2008). A configuração do endereço IP e da porta de comunicação ta
 \end{comment}
 
 % ------------------------------------------------------------------------------
-\subsection{Selected neural structures}
+\subsection{Neural structures}
 The neural networks for identification and FDD should be carefully chosen, since
 an inappropriate choice can make the system innefective, not performing the
 function for which it was assigned.
@@ -837,12 +837,10 @@ the number of trained networks would amount to $18 \times 3 = 54$ for each
 fault. However, there were twelve faults to be trained. Thus, the total was $54
 \times 12 = 648$ distinct neural networks.
 
-% TODO reler esse paragrafo e ver se eh preciso comentar sobre os 24000
-% acertos/erros
 Because of this large number, all the networks went through a validation process
-by three simulations. In each simulation were recorded Type I and Type II
-errors, composing an average error for each structure. The values obtained
-during the selection process can be viewed in Tab. \ref {tab:best_ann}.
+with three simulations. In each simulation were recorded Type I and Type II
+errors, composing an average error for each structure. The average values
+obtained during the selection process can be viewed in Tab. \ref{tab:best_ann}.
 
 \begin{table}[htb]
 \centering
@@ -889,10 +887,9 @@ T$a_i$OStF & 2 & 12 & 4 & 23995,66 & 1 & 3,33 & 0,018\%\\
 \end{threeparttable}
 \end{table}
 
-Tendo selecionado a melhor estrutura de identificação e as melhores redes de
-DDF, pôde-se compor o sistema e submetê-lo à simulação final de um minuto
-e quarenta e cinco segundos, subdividida em intervalos de quinze segundos
-conforme Fig. \ref{fig:intervals}.
+Having selected the best structures, the system was composed and submited to the
+final simulation of one minute and forty five seconds, divided into intervals of
+fifteen seconds as shown in Fig. \ref{fig:intervals}.
 
 \begin{figure}[htb]
 \centering
@@ -901,10 +898,9 @@ conforme Fig. \ref{fig:intervals}.
     \label{fig:intervals}
 \end{figure}
 
-Nesta última validação, os valores de cada um dos parâmetros das falhas foram
-mantidos fixos durante o intervalo em que aquela falha estava atuando no
-sistema. Os valores utilizados em cada uma das doze simulações podem ser
-observados na Tab. \ref{tab:used_val}.
+In this final test, the values of each fault parameter were kept fixed during
+the interval in which that fault was acting in the system. The values of these
+parameters are shown in Tab. \ref{tab:used_val}.
 
 \begin{table}[htb]
 \centering
@@ -943,15 +939,14 @@ observados na Tab. \ref{tab:used_val}.
 
 % ------------------------------------------------------------------------------
 \subsection{Obtained results}
-Os resultados obtidos para cada uma das falhas podem ser vistos da Fig.
-\ref{fig:fsedg} a \ref{fig:fsivros}. Nessas figuras, as áreas hachuradas em
-vermelho representam os intervalos em que o sistema detectou a falha em $T_1$,
-enquanto que as falhas hachuradas em azul representam os intervalos em que a
-falha foi detectada em $T_2$.
+The obtained results can be seen in Figs. \ref{fig:fsedg} to \ref{fig:fsivros}.
+In these images, the red hatched areas represents the intervals in which the
+fault was detected in $T_1$., while the blue hatched areas represents the
+intervals in which the fault was detected in $T_2$.
 
-A primeira falha a ser simulada foi a UGSeF, cujo resultado da detecção pode ser
-observado na Fig. \ref{fig:fsedg}. Nessa simulação o valor do ganho do sensor
-foi reduzido para 80\% do valor original. 
+The first fault to be simulated was UGSeF, whose the results can be seen in Fig.
+\ref{fig:fsedg}. In this simulation the value of the sensor gain was reduced to
+80\% of original value.
 
 \begin{figure}[htb]
     \begin{minipage}[b]{0.48\linewidth}
@@ -985,40 +980,38 @@ foi reduzido para 80\% do valor original.
     \end{minipage}
 \end{figure}
 
-Observa-se nessa figura que o sistema consegue identificar a presença da falha
-assim que o valor do parâmetro é modificado. Após esse período, os controladores
-conseguem ``compensar'' a falha, enviando mais tensão para a bomba e,
-consequentemente, fazendo com que o nível retorne à referência. Observa-se,
-entretanto, que essa ``compensação'' se dá de maneira inadequada, tendo em vista
-que a leitura do nível estará com um erro de 20\%. 
+In this figure, the system can identify the presence of failure so the parameter
+value is modified. After this period, the controllers can ``compensate'' the
+fault, sending more voltage to the pump and thus causing the return to the
+setpoint. However, that ``compensation'' is done improperly, given that the
+reading has an error of 20\%.
 
-Dessa forma, quando o valor lido pelos sensores for de 24\ cm, o tanque estará
-prestes a transbordar, atingindo, na verdade, o limite superior de 30\ cm. Em
-uma aplicação acadêmica tal situação pode não representar nenhum risco aos
-equipamentos além daqueles em que a água venha a causar. Por outro lado, em
-aplicações críticas essa ``compensação'' pode vir a causar diversos prejuízos.
+Thus, when the value read by the sensors is 24 cm, the tank is about to
+overflow, reaching, in fact, the upper limit of 30 cm. In an academic
+application this may not represent any risk to equipments beyond those in which
+the water will cause. But, in critical applications, that ``compensation'' could
+cause several damages.
 
-O sistema se comportou de maneira semelhante à essa na UOSeF e na TLStF,
-conforme observado nas Figs. \ref{fig:fsedo} e \ref{fig:fsivzt}. Essa semelhança
-pode vir a dificultar a identificação dessas falhas quando as redes estiverem
-agindo paralelamente.
+The system behaved in a manner similar to that in UOSeF and TLStF, as observed
+in Figs. \ref{fig:fsedo} and \ref{fig:fsivzt}. This similarity may eventually
+hinder the identification of these faults when the networks are acting in
+parallel way, since the inputs are the same.
 
-Os resultados obtidos para essas falhas não estão condizentes com a Tab.
-\ref{tab:best_ann}. Tal situação pode estar acontecendo porque as redes
-identificaram uma dinâmica para variações rápidas através de sinais de excitação
-pseudo aleatórios, não conseguindo identificar variações bruscas e continuadas.
+The results for these faults are not consistent with the Tab.
+\ref{tab:best_ann}. This situation may be ocurring because the networks
+identified a rapid dynamic of the excitation PRBS, failing to identify
+continuous abrupt changes.
 
-Assim, uma possível alternativa para contornar esse problema, seria a de se
-utilizar flags binárias, ativadas no momento em que fosse detectada a primeira
-variação e desativadas na detecção seguinte. Essas flags indicariam para o
-sistema que a falha está agindo durante todo o intervalo de tempo em que
-estivessem ativas.
+A possible alternative to solve this problem would be to use binary flags,
+activated at the time that the first variation was detected and deactivated in
+the next detection. These flags indicate that the faults are acting during the
+time interval in which they were active.
 
-Uma outra simulação mostrou que a NSSeF foi facilmente identificada pelo
-sistema, como pode ser visto na Fig. \ref{fig:fsesr}. Observa-se entretanto que,
-por se tratar de um ruído com distribuição uniforme ($\pm 2\%$), o sistema não
-consegue identificar a falha em alguns pontos. Nesses pontos, pode-se perceber
-que o valor gerado pela função {\tt rand} mantém o sinal próximo à referência.
+Another simulation shows that the NSSeF was easily identified by the system, as
+shown in Fig. \ref{fig:fsesr}. However, due to the noise with uniform
+distribution ($\pm 2\%$), the system can not detect the fault at some points. At
+these points, the value generated by the {\tt rand} function keeps the signal
+next to the setpoint.
 
 \begin{figure}[htb]
     \begin{minipage}[b]{0.48\linewidth}
@@ -1036,16 +1029,15 @@ que o valor gerado pela função {\tt rand} mantém o sinal próximo à referên
     \end{minipage}
 \end{figure}
 
-Ao contrário da NSSeF, a simulação realizada para a NSAF não foi tão facilmente
-identificada, como pode ser visto na Fig. \ref{fig:fasr}. Os resultados obtidos
-para $T_1$ podem até ser considerados razoáveis, enquanto que os resultados para
-$T_2$ são visivelmente inaceitáveis, tendo em vista que nenhum dos pontos em que
-a falha deveria ter sido identificada foram reconhecidos pela rede. Apesar
-disso, observa-se que os resultados estão condizentes com a Tab.
-\ref{tab:melhores_redes_detec}, em que o total de erros de detecção supera 40\%.
+Unlike the NSSeF, the simulation performed for the NSAF was not so easily
+identified, as shown in Fig. \ref{fig:PRSA}. The results obtained for $T_1$ can
+even be considered reasonable, while the results for $T_2$ are clearly
+unacceptable, given that none of the points at which the fault should have been
+identified were recognized by the network. Nevertheless, the results are
+consistent with the Tab. \ref{tab:best_ann}, where the total error exceeds 40\%.
 
-Todas as demais falhas restantes também foram facilmente identificadas pelo
-sistema, como pode ser observado nas Figs. \ref{fig:fseq} a \ref{fig:fsieos}. 
+All other remaining failures were also easily identified by the system, as shown
+in Figs. \ref{fig:fseq} to \ref{fig:fsieos}.
 
 \begin{figure}[htb]
     \begin{minipage}[b]{0.48\linewidth}
@@ -1101,59 +1093,53 @@ há a detecção da falha em $T_1$ em um pequeno intervalo no final da simulaç�
 Contudo, isso não veio a comprometer o funcionamento do sistema nos intervalos
 em que a falha deveria realmente ser detectada. Trata-se, portanto, de um falso
 positivo.
-\end{comment}
 
 Ressalta-se por fim que as situações adversas podem ter ocorrido no sistema em
 virtude do treinamento ter sido realizado com valores constantes para a variação
 dos parâmetros. Por esse motivo os resultados obtidos nem sempre estão de acordo
 com os valores da Tab. \ref{tab:best_ann}.
+\end{comment}
 
 % ==============================================================================
 % CONCLUSIONS
 % ==============================================================================
 \section{CONCLUSIONS}\label{sec:conclusions}
-O presente trabalho foi desenvolvido com o intuito de fornecer um sistema DDF
-para um sistema de tanques acoplados. Para isso, o sistema fez uso de uma
-estrutura neural que, a partir dos valores disponíveis, indicava ao usuário os
-momentos em que as falhas estavam ocorrendo. 
+This work was developed in order to provide a FDD system for a coupled water
+tanks. For this, the system made use of a neural structure that, from the
+processing of the available values, the user was indicated about the faults that
+are ocurring.
 
-Tal estrutura, por ser completamente desarticulada, abre margem para que outras
-técnicas de detecção e diagnóstico venham a ser utilizadas para falhas
-específicas, substituindo aquelas redes que tiverem desempenho aquém ao
-esperado.
+Since this structure is completely disjointed, another techniques can be mixed
+composing a hibrid system for fault detection and diagnosis. The used techniques
+can replace those networks whose the performance was below the expectations.
 
-Dentre as falhas selecionadas, oito foram identificadas com facilidade e outras
-três tiveram um desempenho satisfatório, com um pequeno problema de detecção que
-pode ser facilmente resolvido através de {\it flags} binárias. As outras duas
-falhas não foram identificadas corretamente, mas, em ambos os casos, o sistema
-consegue detectar a falha corretamente para $T_1$.
+Among the faults selected, eight were identified with ease and three had a
+satisfactory performance, with a small problem detection that can be easily
+solved through binary flags. The other fault was not correctly identified for
+$T_2$, but can be considered reasonable for $T_1$.
 
-Observa-se ainda que os resultados obtidos podem melhorar ainda mais quando
-forem utilizados valores reais, oscilando dentro da faixa de valores em que a
-rede foi treinada. Tal situação pode fazer com que não mais ocorra o problema de
-detecção das UGSeF, UOSeF e TLStF, evitando portanto a utilização de {\it
-flags} para contorná-lo.
+The results may improve when the real values are used, since they vary within
+the range of values in which the network was trained. This situation can maybe
+correct the problem that occurs for detecting UGSeF, and UOSeF TLStF, thus
+avoiding the use of flags to circumvent it.
 
-Assim, pode-se dizer que o sistema teve um desempenho satisfatório, conseguindo
-identificar cerca de 85\% das falhas propostas. Comprova-se, portanto, que as
-redes neurais de múltiplas camadas são estruturas eficientes tanto para a
-identificação de modelos quanto para a detecção e o diagnóstico de falhas.
+Thus, the system had a satisfactory performance and could be capable to identify
+about 92\% of fault proposals. Proving, therefore, that MLP networks are
+efficient structures for identification and for the fault detection and
+diagnosis.
 
-Uma vez que o sistema tenha sido testado com vários sinais de excitação, pode-se
-então acoplá-lo à um sistema de controle tolerante à falhas (SCTF). Nesse caso
-os sinais gerados pelo sistema de DDF servirão como ``alarmes''. O SCTF, por sua
-vez, poderá realizar a reconfiguração dos controladores, modificando os valores
-dos ganhos ou até mesmo suas estruturas, de tal forma que o sistema continue
-funcionando de maneira correta até que a falha tenha sido corrigida.
+Once tested with various excitation signal, the system could be attached to a
+FTCS. In this case the signals generated by the FDD system will serve as
+``alarm''. The SCTF, in turn, may perform the controllers reconfiguration by
+modifying their parameters, or even their structures, so that the system
+continues to function properly until the fault has been corrected.
 
 % ==============================================================================
 % ACKNOWLEDGEMENTS
 % ==============================================================================
-\begin{comment}
 \section{ACKNOWLEDGEMENTS}
 The authors thank CAPES for financial support and also the colleagues in ITA and
 UFPA.
-\end{comment}
 
 % ==============================================================================
 % REFERENCES
