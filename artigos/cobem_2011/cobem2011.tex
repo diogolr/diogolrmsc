@@ -295,10 +295,9 @@ dependable system into three parts, as shown in Fig. \ref{fig:div_avizienis}.
 
 \begin{figure}[htb]
 \centering
-\footnotesize
-\includegraphics[width=0.3\textwidth]{imgs/div_avizienis}
-\caption{Dependability systematic classification.}
-\label{fig:div_avizienis}
+    \includegraphics[width=0.3\textwidth]{imgs/div_avizienis}
+    \caption{Dependability systematic classification.}
+    \label{fig:div_avizienis}
 \end{figure}
 
 The first group is used to provide an analysis about the quality of a dependable
@@ -385,7 +384,6 @@ sinal. Considerando então um processo genérico, pode-se citar como exemplos de
 falhas aquelas exibidas pela Tab. \ref{tab:gen_faults}.
 
 \begin{table}[htb]
-%\small
 \centering
 \caption{Exemplos de falhas para um processo genérico.}
 \label{tab:gen_faults}
@@ -515,13 +513,13 @@ system developed by Quanser\reg, schematically represented in Fig.
 \centering
 \subfigure[Original configuration.]
 {
-    \includegraphics[height=225px]{imgs/tanks}
+    \includegraphics[height=245px]{imgs/tanks}
     \label{fig:tanks}
 }
 \qquad
 \subfigure[Proposed configuration.]
 {
-    \includegraphics[height=225px]{imgs/new_config}
+    \includegraphics[height=245px]{imgs/new_config}
     \label{fig:new_config}
 }
     \caption{Case study -- Coupled Water Tanks.}
@@ -738,7 +736,7 @@ objective here.
 \begin{figure}[htb]
 \centering
     \includegraphics[width=0.75\textwidth]{imgs/comp}
-    \caption{Schematic diagram of system composition.}
+    \caption{Proposed system schematic diagram.}
     \label{fig:comp}
 \end{figure}
 
@@ -762,7 +760,6 @@ minimum and maximum of each parameter were multiplied by the default values and
 applied to the model.
 
 \begin{table}[htb]
-\small
 \caption{Applied values for training step.}
 \label{tab:values}
 \centering
@@ -952,14 +949,15 @@ The first fault to be simulated was UGSeF, whose the results can be seen in Fig.
     \begin{minipage}[b]{0.48\linewidth}
         \scalebox{0.65}{\input{imgs/resultados/fsedg}}
         \vspace{0.5cm}
-        \caption{UGSeF}
+        \caption{UGSeF simulation -- Sensor's gain reduced to 80\% from the
+                 default value.}
         \label{fig:fsedg}
     \end{minipage}
     \hfill
     \begin{minipage}[b]{0.48\linewidth}
         \scalebox{0.65}{\input{imgs/resultados/fsedo}}
         \vspace{0.5cm}
-        \caption{UOSeF}
+        \caption{UOSeF simulation -- Sensor's offset configured to $-2$ cm.}
         \label{fig:fsedo}
     \end{minipage}
 \end{figure}
@@ -968,14 +966,17 @@ The first fault to be simulated was UGSeF, whose the results can be seen in Fig.
     \begin{minipage}[b]{0.48\linewidth}
         \scalebox{0.65}{\input{imgs/resultados/fsivzt}}
         \vspace{0.5cm}
-        \caption{TLStF}
+        \caption{TLStF simulation -- Where $a_{\tiny L} = a_{\tiny
+                 \text{MED}}/2$ and $a_{\tiny \text{MED}} \approx 0.1781$
+                 cm\textsuperscript{2}.}
         \label{fig:fsivzt}
     \end{minipage}
     \hfill
     \begin{minipage}[b]{0.48\linewidth}
         \scalebox{0.65}{\input{imgs/resultados/fsesr}}
         \vspace{0.5cm}
-        \caption{NSSeF}
+        \caption{NSSeF simulation -- Assumming a uniform distribution noise from
+                 $\pm 2$\%.}
         \label{fig:fsesr}
     \end{minipage}
 \end{figure}
@@ -992,10 +993,15 @@ application this may not represent any risk to equipments beyond those in which
 the water will cause. But, in critical applications, that ``compensation'' could
 cause several damages.
 
-The system behaved in a manner similar to that in UOSeF and TLStF, as observed
-in Figs. \ref{fig:fsedo} and \ref{fig:fsivzt}. This similarity may eventually
-hinder the identification of these faults when the networks are acting in
-parallel way, since the inputs are the same.
+The system behaved in a similar manner to that in UOSeF and TLStF, as observed
+in Figs. \ref{fig:fsedo} and \ref{fig:fsivzt}. Especially in TLStF simulation,
+is considered another output orifice, named $a_{\tiny L}$, that has the same
+characteristics of the tank output orifice $a_i$.
+\begin{comment}
+The similarity with UGSeF may eventually hinder the identification of these
+faults when the networks are acting in parallel way, since the inputs are the
+same.
+\end{comment}
 
 The results for these faults are not consistent with the Tab.
 \ref{tab:best_ann}. This situation may be ocurring because the networks
@@ -1017,20 +1023,21 @@ next to the setpoint.
     \begin{minipage}[b]{0.48\linewidth}
         \scalebox{0.65}{\input{imgs/resultados/fasr}}
         \vspace{0.5cm}
-        \caption{NSAF}
+        \caption{NSAF simulation -- Assumming a uniform distribution noise from
+                 $\pm 2$\%.}
         \label{fig:fasr}
     \end{minipage}
     \hfill
     \begin{minipage}[b]{0.48\linewidth}
         \scalebox{0.65}{\input{imgs/resultados/fseq}}
         \vspace{0.5cm}
-        \caption{BSeF}
+        \caption{BSeF simulation -- Sensor's gain reduced to zero.}
         \label{fig:fseq}
     \end{minipage}
 \end{figure}
 
 Unlike the NSSeF, the simulation performed for the NSAF was not so easily
-identified, as shown in Fig. \ref{fig:PRSA}. The results obtained for $T_1$ can
+identified, as shown in Fig. \ref{fig:fasr}. The results obtained for $T_1$ can
 even be considered reasonable, while the results for $T_2$ are clearly
 unacceptable, given that none of the points at which the fault should have been
 identified were recognized by the network. Nevertheless, the results are
@@ -1043,14 +1050,16 @@ in Figs. \ref{fig:fseq} to \ref{fig:fsieos}.
     \begin{minipage}[b]{0.48\linewidth}
         \scalebox{0.65}{\input{imgs/resultados/fadg}}
         \vspace{0.5cm}
-        \caption{UGAF}
+        \caption{UGAF simulation -- Actuator's gain reduced to 80\% from the
+                 default value.}
         \label{fig:fadg}
     \end{minipage}
     \hfill
     \begin{minipage}[b]{0.48\linewidth}
         \scalebox{0.65}{\input{imgs/resultados/fado}}
         \vspace{0.5cm}
-        \caption{UOAF}
+        \caption{UOAF simulation -- Actuator's offset configured to $-0.5$
+                 Volts.}
         \label{fig:fado}
     \end{minipage}
 \end{figure}
@@ -1059,14 +1068,15 @@ in Figs. \ref{fig:fseq} to \ref{fig:fsieos}.
     \begin{minipage}[b]{0.48\linewidth}
         \scalebox{0.65}{\input{imgs/resultados/favk}}
         \vspace{0.5cm}
-        \caption{$K_m$AF}
+        \caption{$K_m$AF simulation -- $K_m$ reduced to 75\% from the default
+                 value.}
         \label{fig:favk}
     \end{minipage}
     \hfill
     \begin{minipage}[b]{0.48\linewidth}
         \scalebox{0.65}{\input{imgs/resultados/faq}}
         \vspace{0.5cm}
-        \caption{BAF}
+        \caption{BAF simulation -- Actuator's gain reduced to zero.}
         \label{fig:faq}
     \end{minipage}
 \end{figure}
@@ -1075,14 +1085,14 @@ in Figs. \ref{fig:fseq} to \ref{fig:fsieos}.
     \begin{minipage}[b]{0.48\linewidth}
         \scalebox{0.65}{\input{imgs/resultados/fsieos}}
         \vspace{0.5cm}
-        \caption{T$a_i$OStF}
+        \caption{T$a_i$OStF simulation -- Where $a_i = a_{\tiny \text{MED}}/4$.}
         \label{fig:fsieos}
     \end{minipage}
     \hfill
     \begin{minipage}[b]{0.48\linewidth}
         \scalebox{0.65}{\input{imgs/resultados/fsivros}}
         \vspace{0.5cm}
-        \caption{T$a_i$VStF}
+        \caption{T$a_i$VStF simulation -- Where $a_i = a_{\tiny \text{MED}}/2$.}
         \label{fig:fsivros}
     \end{minipage}
 \end{figure}
