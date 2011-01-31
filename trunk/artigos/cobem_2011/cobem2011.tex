@@ -46,7 +46,7 @@
 \begin{center}
 
 \vspace{-4mm}
-\title{FAULT DETECTION AND DIAGNOSIS USING ARTIFICIAL NEURAL NETWORKS}
+\title{A SET OF NEURAL SPECIALISTS FOR FAULT DETECTION AND DIAGNOSIS}
 \end{center}
 \authors{Diogo Leite Rebouças, diogolr@dca.ufrn.br} \\
 \authors{Fábio Meneghetti Ugulino de Araújo, meneghet@dca.ufrn.br} \\
@@ -58,15 +58,15 @@ Brazil} \\
 \abstract{\textbf{Abstract.} In a real process, all used resources, whether
 physical or developed in software, are subject to interruptions or operational
 commitments. However, in situations in which operate critical systems, any kind
-of problem may bring big consequences. Knowing this, this process. For
-implementing and testing the proposed methodology, a coupled tank system was
-used as a study model case.  The system should be developed to generate a set of
-signals that notify the process operator and that may be post-processed,
-enabling changes in control strategy or control parameters. Due to the damage
-risks involved with sensors, actuators and amplifiers of the real plant, the
-data set of the faults are generated computationally and the results will be
-collected from numerical simulations of the process model. The system will be
-composed by structures with Artificial Neural Networks.}\\
+of problem may bring big consequences. For implementing and testing the proposed
+methodology, a coupled water tank system was used as a study case model. The
+developed system should generate a set of signals for notify the process
+operator about the faults that are ocurring, enabling changes in control
+strategy or control parameters. Due to the damage risks involved with sensors,
+actuators and amplifiers of the real plant, the data set of the faults are
+computationally generated and the results will be collected from numerical
+simulations of the process model. The system will be composed by structures with
+Artificial Neural Networks.}\\
 \\
 \keywords{\textbf{Keywords:} Critical Systems, Fault Detection, Fault Diagnosis,
 Artificial Neural Network.}\\
@@ -83,35 +83,15 @@ or threshold previously specified. If this were occur, an alarm was triggered
 and the operator was warned about the incident, acting in a way to correct the
 problem. Sometimes the problem could also be corrected in an automatic way for
 some protection subsystem. This procedure, in many cases, was sufficient to
-prevent failures or had severe damage to the process. But, the failures or
+prevent failures or severe damages to the process. But, the failures or
 errors were detected only after a certain period of time, which prevents the
 system from obtaining a detailed diagnosis about what happened
 \citep{isermann:2006}.
 
-\begin{comment}
-Os desafios desse segmento estão, portanto, em se utilizar modelos matemáticos
-do processo, modelos de sinais, métodos de identificação e estimação e técnicas
-de inteligência artificial para se desenvolver um sistema capaz de detectar e
-diagnosticar falhas em um processo. 
-\end{comment}
-
 Considering the methods of Fault Detection and Diagnosis (FDD) that makes use of
-Artificial Neural Networks (ANN), you can highlight a series of contributions,
-such as \citet{sreedhar:1995}, \citet{vemuri:1998}, \citet{chang:2003},
-\citet{talebi:2005} and \citet{jia-li:2010}.
-
-\begin{comment}
-Diversas outras contribuições foram feitas através da utilização de técnicas
-híbridas.  Em \citet{gao:2000}, por exemplo, é proposto um sistema que utiliza
-uma rede neural de Elman, com treinamento assistido por algoritmo genético para
-a detecção de falhas em unidades de sistemas de motor. \citet{guo:2005}
-combinam as propriedades das transformadas wavelet com RNAs para detecção de
-falhas em máquinas rotativas Já em \citet{tian:2007}, é proposto um sistema
-Neuro-Fuzzy para detecção de falhas em oleodutos.  Por fim, \citet{khaled:2010},
-mostram um sistema composto por um método que combina RNAs com análise de
-componentes principais, capaz de identificar e isolar falhas em processos de
-fabricação.
-\end{comment}
+Artificial Neural Networks (ANN), a series of contributions can be highlighted,
+such as \citet{vemuri:1998}, \citet{gao:2000}, \citet{chang:2003},
+\citet{talebi:2005}, \citet{tian:2007} and \citet{jia-li:2010}.
 
 Based on this methods, this paper aims to develop a FDD system with ANNs for a
 dynamic process. The system should be capable to generate alert signals to the
@@ -121,94 +101,36 @@ between the real measured variable and an estimated value of this variable
 obtained from a identification structure of a study case model.
 
 In the following sections the proposed system will be described with more
-details. The second section should summarize the main concepts of ANNs used,
-showing its architecture and identification model. Following, the third section
-will show the basic concepts and terminology about FDD, and the proposed system
-will appear after the study case model description at the fourth section. The
-last two sections shows the obtained results and conclusions.
+details. The second section should summarize the main concepts of the used ANNs,
+showing its architecture and model. Following, the third section will show the
+basic concepts and terminology about FDD, and the proposed system will appear
+after the study case model description at the fourth section. The last two
+sections shows the obtained results and conclusions.
 
 % ==============================================================================
 % NEURAL NETWORKS
 % ==============================================================================
 \section{NEURAL NETWORKS}\label{sec:ann}
-\begin{comment}
-Ao longo das últimas décadas, as pesquisas na área de Redes Neurais Artificiais
-(RNAs) evoluiram de maneira significativa, principalmente após a década de 80,
-com o avanço da tecnologia e o fracasso da escola simbolista na solução de
-determinados tipos de problemas \citep{braga:2007}.
-
-No setor industrial a história não foi muito diferente. As RNAs vem sendo
-utilizadas em diversos trabalhos, seja de maneira isolada ou em sistemas
-híbridos, os quais combinam outras características de sistemas inteligentes,
-tais como técnicas Fuzzy ou Algoritmos Genéticos.
-
-% ------------------------------------------------------------------------------
-\subsection{Fundamental concepts}
-\end{comment}
-
 According to \citet{haykin:2000}, the Artificial Neural Networks (ANNs) are
-parallel structures, massively distributed, composed by simple processing units
+parallel structures, massively distributed, composed by simple processing units,
 named neurons. These structures resemble the human brain due to its ability to
 acquire knowledge from the environment in which it is. This learning occurs
 through an adjustment of the connection weights, or synaptic weights, wich
 exists between neurons. These connections stores the information acquired by the
 network.
 
-Among the various neural network architectures, such as radial basis function,
-Kohonen networks, support vector machine, this work uses a Multilayer Perceptron
-(MLP), due to its simplicity and applicability. The training algorithm used is a
-Levenberg-Marquardt (LMA), available with mathematical software Matlab\reg.
-
-\begin{comment}
-Dentre as diversas aplicações das RNAs, podem ser citados exemplos para a
-classificação de padrões, filtragem de sinais, análise de imagens, identificação
-e controle de sistemas dinâmicos. De acordo com Haykin (2000), algumas das
-justificativas para a utilização dessas estruturas são: sua característica
-intrínseca de não-linearidade, sua capacidade de generalização e adaptabilidade,
-a tolerância à falhas e a facilidade para realizar o mapeamento de relações
-entrada-saída.
-
-Devido a grande complexidade existente em muitos problemas físicos reais,
-desenvolver um modelo matemático que represente adequadamente a dinâmica do
-processo é uma tarefa praticamente impossível. Para \citet{luttiane:2009}, as
-RNAs, através de seu processo de aprendizagem e de sua capacidade de aproximação
-universal, conseguem representar a função correspondente à dinâmica do sistema
-com relativa simplicidade.
-
-Apesar de se conhecer as equações que regem a dinâmica do processo escolhido
-como estudo de caso neste trabalho, conforme será mostrado na quarta seção,
-justifica-se desde já a utilização de RNAs para identificação do modelo em
-virtude da necessidade de simulação das falhas. Maiores detalhes serão
-esclarecidos ao longo do texto da referida seção.
-
-Dentre as diversas arquiteturas de redes neurais existentes, tais como as redes
-de funções de base radial, as redes de Kohonen, máquinas de vetor de suporte,
-dentre outras, a arquitetura escolhida para este trabalho foi a das redes
-Perceptron de Múltiplas Camadas (PMC), treinadas com o algoritmo
-Levenberg-Marquardt (LMA) disponível no software matemático
-Matlab\reg. 
-
-A opção pela estrutura de PMC se dá devido a sua simplicidade e capacidade de
-aplicação em diversas áreas. Já a opção pelo treinamento com o algoritmo LMA
-pode ser justificada por se tratar de um método Quase-Newton que acelera o
-processo de convergência da rede, uma vez que leva em consideração termos de
-ordens mais elevadas que o algoritmo backpropagation.
-
-Segundo \citet{norgaard:2000}, uma rede PMC básica possui seus neurônios
-dispostos em camadas, recebendo como entrada as saídas dos neurônios da camada
-imediatamente anterior ou, no caso da primeira camada, as entradas da rede. Por
-possuir essa configuração essas redes são conhecidas como redes feedforward.
-\citet{cybenko:1989} demonstra ainda que qualquer função contínua pode ser
-aproximada por uma rede neural PMC que possua uma camada oculta com funções de
-ativação sigmoidal ou tangente hiperbólica.
-\end{comment}
+Among the various neural network architectures, such as radial basis function
+networks, Kohonen networks, support vector machine and so many others, this work
+uses a Multilayer Perceptron (MLP), due to its simplicity and applicability.
+The training algorithm used was the Levenberg-Marquardt (LMA), available with
+mathematical software Matlab\reg.
 
 % ------------------------------------------------------------------------------
 \subsection{Process identification with neural networks}
-As described in \citet{lucena:2005}, the model structures suitable for nonlinear
+As described in \citet{lucena:2005}, the model suitable structures for nonlinear
 system identification are generalizations of linear models. These structures are
 characterized by their regression vector, which is nothing more than a vector
-containing the variables used to estimate the system output.  Depending on the
+containing the variables used to estimate the system output. Depending on the
 choice of the regression vector, different neural model structures may arise.
 FIR (Finite Impulse Response), ARX (AutoRegressive eXternal input), ARMAX
 (AutoRegressive Moving Average eXternal input), OE (Output Error) and SSIF
@@ -217,7 +139,7 @@ the regression vector is selected for ARX models, for example, the structure of
 the neural model will be called NNARX (Neural Network ARX). Similarly, there
 will also NNFIR models, NNARMAX, NNOE and NNSSIF.
 
-In this work a NNARX model based on \citet{norgaard:2000} description was used
+In this work a NNARX model, based on \citet{norgaard:2000} description, was used
 for process identification and FDD. The regressors of the model, relates the
 network output with its past values of input and output. Because of that, the
 use of these regressors are fundamental for system identification. The
@@ -230,72 +152,30 @@ Eq. (\ref{eq:nnarx}).
 \end{equation}
 
 In this equation $\hat{y}$ represents the estimated output, $d$ the transport
-delay, $n$ the output order, $m$ the input order, $f( \cdotp )$ a nonlinear
-function maped by the neural network, $y$ the output and $u$ the input.
+delay, $n$ the output order, $m$ the input order, $f(\cdotp)$ a nonlinear
+function maped by the neural network, $y$ the output and $u$ the input. For the
+ease implementation, in all used networks, the input order was the same as the
+output ($m = n$).
 
 An estimative generated by NNARX structure is always stable, since it represents
-purely algebraic relations between the variables and there are no estimated
-output feedback.
-
-% ------------------------------------------------------------------------------
-\begin{comment}
-\subsubsection{Model order and model selection}
-Em sistemas de identificação blackbox, como o utilizado neste trabalho, é de
-fundamental importância que a ordem do modelo seja determinada adequadamente.
-Uma escolha inadequada poderá fazer com que a dinâmica do processo não seja
-assimilada pela rede neural, fazendo com que as estimativas geradas possuam erro
-médio consideravelmente alto. Segundo \citet{arruda:2003}, existe uma ordem de
-modelo ótima que permite obter o menor erro entre o modelo estimado e o sistema
-real, que pode ser obtida a partir da realização de testes ou simulações com o
-processo. Por facilidade de representação, considerar-se-á a ordem de entrada
-igual a ordem de saída ($m = n$).
-
-% ------------------------------------------------------------------------------
-\subsubsection{Model selection}
-Segundo \citet{norgaard:2000}, o problema da seleção das estruturas pode ser
-dividido em duas partes. A primeira delas é a parte da seleção da ``família'' de
-estruturas de modelagem. Dependendo do sistema, as estruturas podem ser: modelos
-lineares, redes PMC, redes de função de base radial, wavelets etc. Já a segunda,
-é a parte da seleção do subconjunto da família escolhida.
-
-A escolha por uma estrutura do tipo NNARX se deu pelas diversas vantagens em se
-utilizar RNAs para estimar valores e por se tratar de um modelo que não faz uso
-de realimentação da saída estimada, o que permite dizer que este é estável no
-sentido BIBO (Bounded Input, Bounded Output). Para \citet{norgaard:2000}, devido
-a estas características, o modelo NNARX é um dos mais utilizados quando o
-sistema a ser modelado é determinístico ou o nível de ruído não é significativo.
-
-Após a seleção da ordem e da estrutura NNARX, segue-se uma sequência etapas até
-que o modelo possa representar adequadamente o sistema, de acordo com algum
-critério específico, como por exemplo, o erro médio quadrático (EMQ) de
-estimativa, que é calculado a partir da Eq. (\ref{eq:emq}) e utilizado no
-algoritmo de treinamento da RNA para determinar o ponto de parada (fim do
-treinamento).
-
-\begin{equation}
-\label{eq:emq} 
-\text{EMQ} = \sqrt{\frac{1}{N} 
-             \sum_{i=1}^{N}\pfrac{y_i - \widehat{y_i}}{y_i}^2}
-\end{equation}
-
-Nessa equação, $N$ representa o número de amostras de validação, $y_i$ o valor
-real e $\widehat{y_i}$ o valor estimado.
-\end{comment}
+purely algebraic relations between the variables and there is no feedback of the
+estimated output.
 
 % ==============================================================================
 % ERRORS, FAULTS AND FAILURES
 % ==============================================================================
 \section{FAULTS, ERRORS AND FAILURES}\label{sec:eff}
 The computer systems can be characterized by five fundamental properties:
-functionality, usability, performance, cost and {\ it} {\it dependability}
+functionality, usability, performance, cost and {\it dependability}
 \citep{kaaniche:2002}. According to \citet{laprie:1992}, the term dependability
 is related to the system ability to provides a service that can be, justifiably,
-realiable. Following this reasoning, \citet{avizienis:2000} subdivides a
-dependable system into three parts, as shown in Fig. \ref{fig:div_avizienis}.
+reliable. Following this reasoning, \citet{avizienis:2000} subdivides a
+dependable system into the three parts, as shown in Fig.
+\ref{fig:div_avizienis}.
 
 \begin{figure}[htb]
 \centering
-    \includegraphics[width=0.3\textwidth]{imgs/div_avizienis}
+    \includegraphics[width=0.33\textwidth]{imgs/div_avizienis}
     \caption{Dependability systematic classification.}
     \label{fig:div_avizienis}
 \end{figure}
@@ -306,131 +186,35 @@ but, in principle, not unexpected -- that makes a system become not dependable.
 Finally, the third group shows the means and the techniques by which it becomes
 possible to offer a dependable service.
 
-\begin{comment}
-Tendo destacado tal divisão, deve-se esclarecer o significado da utilização dos
-três termos que muitas vezes podem vir a ser confundidos: errors, faults and
-failures.
-\end{comment}
-
 About the second group, the term {\it failure} must be used to indicate when
-occur a system behavior deviation, making it incapable to provide the service
+a system behavior deviation occur, making it incapable to provide the service
 for which was designed. An {\it error}, however, is related to the system state
 and can lead to a failure. Briefly, if there is an error, then exists a sequence
-of actions that can be lead to a failure. Last but no least, the term {\it
-fault} is the cause of an error and is related to a defect. Normally, it is said
-that the term fault may be defined as a defect that has the potential to generate
+of actions that can lead to a failure. Last, but not least, the term {\it fault}
+is the cause of an error and is related to a defect. Normally, it is said that
+the term fault may be defined as a defect that has the potential to generate
 errors.
 
-\begin{comment}
-Considerando que os sistemas reais são normalmente compostos por subsistemas, é
-comum se observar que uma falha leva a um erro, que por sua vez pode levar a uma
-avaria, podendo vir a gerar novas falhas e dar início a uma reação em cadeia,
-tal como mostra a Fig \ref{fig:chain_reaction}.Contudo, nem sempre uma falha
-conduz a um erro, assim como nem sempre um erro conduz a uma avaria, mas todos
-os erros resultam de falhas e todas as avarias resultam de erros.
-
-\begin{figure}[htb]
-\centering
-    \includegraphics[width=0.65\textwidth]{imgs/chain_reaction}
-    \caption{Chain reaction of faults, errors and failures.}
-    \label{fig:chain_reaction}
-\end{figure}
-\end{comment}
-
-\begin{comment}
-% ------------------------------------------------------------------------------
-\subsection{Fault types}
-De acordo com \citet{silva:2008}, as falhas em um processo industrial podem ser
-classificadas em relação a vários aspectos. Em se tratando da classificação
-quanto ao tempo, as falhas podem ser abruptas, incipientes ou intermitentes, tal
-como mostra a Fig \ref{fig:fault_types}.
-
-\begin{figure}[htb]
-\centering
-    \includegraphics[width=0.65\textwidth]{imgs/fault_types}
-    \caption{Características temporais das falhas quanto a sua persistência.}
-    \label{fig:fault_types}
-\end{figure}
-\end{comment}
-
-\begin{comment}
-As falhas abruptas surgem repentinamente, podendo ser decorrentes de imprevistos
-ou até mesmo de acidentes. Essas falhas mudam o comportamento do processo
-rapidamente, exigindo contra-ações velozes e eficazes que possam minimizar as
-consequências do ocorrido.
-
-As falhas incipientes iniciam a partir de pequenos desvios comportamentais do
-sistema, podendo ser mascaradas pelos controladores. Muitas vezes essas falhas
-acabam passando despercebidas pelos operadores ou até mesmo pelos sistemas de
-detecção e diagnóstico de falhas.
-
-As falhas intermitentes são aquelas que ocorrem durante um certo período de
-tempo e, em seguida, desaparecem, voltando a aparecer após um novo intervalo.
-Podem ser causadas por alguma perturbação periódica ou por alguma situação que
-se repita ciclicamente
-\end{comment}
-
-\begin{comment}
-Com relação a localização das falhas, estas podem ocorrer nos sensores, nos
-atuadores ou na estrutura do sistema \citep{silva:2008}. As falhas nos sensores
-são observadas através de variações específicas nas medições, as quais podem ser
-descaracterizadas como variações válidas do sistema. As falhas nos atuadores
-podem ser vistas como qualquer mau funcionamento do equipamento que atua no
-sistema. As falhas na estrutura, ou falhas estruturais, ocorrem quando alguma
-alteração do sistema muda, de alguma forma, a relação original de entrada e
-saída do processo ou quando ocorre algum problema com algum dos dispositivos,
-desde que não sejam sensores ou atuadores, como por exemplo, os transmissores de
-sinal. Considerando então um processo genérico, pode-se citar como exemplos de
-falhas aquelas exibidas pela Tab. \ref{tab:gen_faults}.
-
-\begin{table}[htb]
-\centering
-\caption{Exemplos de falhas para um processo genérico.}
-\label{tab:gen_faults}
-\begin{tabular}{|c|c|c|}
-\hline
-{\bf Sensores} & {\bf Atuadores} & {\bf Estrutura}\\
-\hline
-Erro de leitura & Erro de escrita & Erro de transmissão\\
-\hline
-Uncalibrated & Erro de leitura & Perda de comunicação\\
-\hline
-Sensibilidade à ruído & Sensibilidade à ruído & Sensibilidade a ruído
-(transmissor)\\
-\hline
-Queima & Queima & Queima (transmissor)\\
-\hline
-- & Atraso de transporte & Atraso de propagação de sinais\\
-\hline
-\end{tabular}
-\end{table}
-
-\end{comment}
 % ------------------------------------------------------------------------------
 \subsection{Fault detection and diagnosis}
-\begin{comment}
-Considerando que os processos industrias estão se tornando cada vez mais
-integrados e complexos, a ocorrência de falhas passa a ser mais um fator de
-complicação. As falhas que antes poderiam ser detectadas facilmente por medições
-diretas de determinada variável dependem agora de um conjunto de variáveis que
-atuam simultaneamente no sistema
-\end{comment}
-
 In order to ensure the success of planned operations and recognize the
 behaviorial problems in the process, many supervision and monitoring systems are
-being developed. To \citet{chiang:2001}, among other functions, these systems
-can detect, diagnose and eliminate faults, ensuring that the process operations
-satisfies the performance specifications.
+being developed. According to \citet{chiang:2001}, among other functions, these
+systems can detect, diagnose and eliminate faults, ensuring that the process
+operations satisfies the performance specifications.
 
 Additionally, the information provided by a monitoring system should not only
 inform the system operator about what is going on, but also help him to take
-corrective measures in order to remedy the problem. As a result, the ineffective
+corrective actions in order to remedy the problem. As a result, the ineffective
 time will be reduced, the system protection will be increased and the
 operational costs will be decreased.
 
 \citet{chiang:2001} shows that there are four states involved in the process
 monitoring: fault detection, fault isolation, fault diagnosis and fault
-recovery, as shown in Fig. \ref{fig:states}.
+recovery, as shown in Fig. \ref{fig:states}. Although arranged as a sequence of
+actions, all states are not always strictly necessary. Often, automated changes
+from one state to another is transparent to the operator, displaying only the
+crucial information to take appropriate action.
 
 \begin{figure}[htb]
 \centering
@@ -439,74 +223,15 @@ recovery, as shown in Fig. \ref{fig:states}.
     \label{fig:states}
 \end{figure}
 
-Although arranged as a sequence of actions, all states are not always strictly
-necessary. Often, automated changes from one state to another is transparent to
-the operator, displaying only the crucial information to take appropriate action
-\citep{chiang:2001}.
-
-\begin{comment}
-A detecção da falha determina se ocorreu ou não uma falha. Quando realizada de
-maneira antecipada, a detecção de falhas pode fornecer informações valiosas com
-relação aos problemas que estão por acontecer. Assim, através de ações
-apropriadas, pode-se evitar grandes perturbações no processo.
-
-A identificação da falha tem por objetivo identificar as variáveis mais
-importantes para que se realize um diagnóstico apropriado. Para isso, essa fase
-procura concentrar as atenções do operador nos subsistemas mais pertinentes à
-falha, de tal modo que o efeito desta possa ser eliminado de maneira mais
-eficiente.
-
-A fase de diagnóstico da falha determina que falha ocorreu. De acordo com
-\citet{isermann:2004}, essa fase deverá indicar o maior número de detalhes
-possíveis a respeito da falha, tais como a intensidade, a localização e o
-momento em que a falha foi detectada. Essa fase é considerada essencial para uma
-contra-ação ou eliminação da falha.
-
-Por fim, a fase de recuperação da falha, também conhecida como fase de
-intervenção, tem por objetivo remover o efeito da falha para com o sistema,
-dando início a um novo ciclo de detecção e diagnóstico.
-
-% ------------------------------------------------------------------------------
-\subsection{Neural networks for detection and diagnosis}
-Com a introdução das novas tecnologias de medição e o consequente aumento do
-número de instrumentos nos processos industrias, o número de informações
-disponíveis para um dado sistema tornou-se demasiadamente grande. Tal situação
-acaba por aumentar ainda mais a complexidade de processamento, tendo em vista
-que cada vez mais os procedimentos de DDF utilizam dados de histórico do
-processo. Dentre os exemplos desses métodos que fazem uso de histórico do
-processo estão aqueles são baseados em RNAs.
-
-Unindo essas características com aquelas expostas no Cap. 2, serão utilizadas
-nesse trabalho duas estruturas neurais com o objetivo de identificar o processo
-de estudo de caso e realizar a detecção e o diagnóstico de falhas a partir de
-seu histórico.  As estruturas propostas serão apresentadas na seção seguinte,
-após a descrição do modelo de estudo de caso.
-\end{comment}
-
 % ==============================================================================
 % PROPOSED SYSTEM
 % ==============================================================================
 \section{PROPOSED SYSTEM}\label{sec:proposed}
-\begin{comment}
-Existem diversos métodos consolidados para detecção e isolamento de falhas,
-sendo alguns deles baseados em redundância física de componentes de hardware,
-como sensores, atuadores e controladores. Entretanto, a duplicação de
-componentes de hardware nem sempre é possível, uma vez que os custos
-relacionados com a adição de novos componentes podem elevar o orçamento
-demasiadamente.
-
-Devido a esse elevado custo, existe uma fronteira clara e inerente à aplicação
-de técnicas de tolerância a falhas. A escolha adequada dos dispositivos físicos
-e dos softwares devem levar em consideração as exigências específicas de cada
-sistema, de tal maneira que se possa contornar o custo associado ao emprego
-dessas técnicas \citep{weber:2002}.
-\end{comment}
-
 % ------------------------------------------------------------------------------
 \subsection{Case study}
 At the end of the introductory section, this paper proposes a system development
-for FDD in a dynamic process. The process in question consists of a coupled tank
-system developed by Quanser\reg, schematically represented in Fig.
+for FDD in a dynamic process. The process in question consists of a coupled
+water tanks system developed by Quanser\reg, schematically represented in Fig.
 \ref{fig:tanks}.
 
 \begin{figure}[htb]
@@ -525,26 +250,13 @@ system developed by Quanser\reg, schematically represented in Fig.
     \caption{Case study -- Coupled Water Tanks.}
 \end{figure}
 
-\begin{comment}
-O sistema original consiste de uma bomba de água de corrente contínua e dois
-tanques acoplados. A alimentação de água pela bomba se dá de forma vertical
-através de dois orifícios com conectores normalmente fechados, de diferentes
-diâmetros, denominados Out 1 e Out 2. Para facilitar o entendimento e evitar
-confusões com relação aos orifícios de saída dos tanques (a1 e a2), esses
-orifícios serão tratados como orifícios de entrada
-\end{comment}
-
 The tanks ($T_1$ e $T_2$) are mounted on the front of the support base and
 positioned in such way that the water flows from the upper tank ($T_1$) to the
 bottom tank ($T_2$) through orifice $a_1$, and from the $T_2$ to the water
 reservatory through orifice $a_2$. The output water flow varies according to the
 orifices $a_1$ and $a_2$, available in three different diameters.
 
-\begin{comment}
-% ------------------------------------------------------------------------------
-\subsection{Mathematical model of a coupled water tanks} 
-\end{comment}
-Since the two tanks have the same cross-sectional area ($A_1 = A_2$), their
+Since the two tanks have the same cross-sectional area ($A_1 = A_2 = A$), their
 dynamics are similar. However, find a mathematical model that adequately
 describes the dynamics of such tanks is not so simple, because the general
 equations of motion and energy that describe the fluid flow are quite
@@ -552,7 +264,7 @@ complicated. Therefore, some fundamental assumptions are needed. So, it is
 assumed that the water in the tank is incompressible and the flow is
 non-viscous, non-rotational and regular \citep{dorf:2009}. Considering these
 aspects, after a series of algebraic manipulations using Bernoulli's equation,
-the equations of the model for a direct feed in $T_1$, can be described by Eqs.
+the equations for a direct feed in $T_1$, can be described by Eqs.
 (\ref{eq:l1_ponto}) and (\ref{eq:l2_ponto}).
 
 \begin{eqnarray}
@@ -569,11 +281,11 @@ pump, $a_i$ the $T_i$'s output orifice, $L_i$ the water level in $T_i$ and $g$
 the gravity acceleration.
 
 In order to make the proposed system more generic and possibly make further
-studies on fault tolerance, the coupled tank system was modified by introducing
-another pump with the same characteristics as the first, as shown in Fig.
+studies on fault tolerance, the system was modified by introducing another pump
+with the same characteristics as the first one, as shown in Fig.
 \ref{fig:new_config}. Clearly, in this case, the system has no longer a single
 input and a single output (SISO). Now, the equations for the multiple input and
-multiple output (MIMO) system can be described as Eqs. (\ref{eq:l1_ponto_fin})
+multiple output (MIMO) system can be described by Eqs. (\ref{eq:l1_ponto_fin})
 and (\ref{eq:l2_ponto_fin}).
 
 \begin{eqnarray}
@@ -591,46 +303,46 @@ $V_{p_{\tiny 2}}$ is the voltage applied to the second pump.
 
 % ------------------------------------------------------------------------------
 \subsection{Simulated faults}
-Despite the various flaws that may exist in a coupled tanks system, only some of
+Despite the various faults that may exist in a coupled water tanks, only some of
 these were selected to be simulated, as shown in Tab. \ref{tab:faults}.
 
 \begin{table}[!htb]
 \centering
 \caption{Selected faults -- Classification.}
 \label{tab:faults}
-\begin{tabular}{|c|c|}
+\begin{tabular}{|c|c|c|}
 \hline
-{\bf Name} & {\bf Acronym}\\
+{\bf Fault \#} & {\bf Name} & {\bf Acronym}\\
 \hline
-\multicolumn{2}{|l|}{\bf Sensors}\\
+\multicolumn{3}{|l|}{\bf Sensors}\\
 \hline
-Uncalibrated Gain & UGSeF\\
+1 & Uncalibrated Gain & UGSeF\\
 \hline
-Uncalibrated Offset & UOSeF\\
+2 & Uncalibrated Offset & UOSeF\\
 \hline
-Noise Sensitivity & NSSeF\\
+3 & Noise Sensitivity & NSSeF\\
 \hline
-Burned Sensor & BSeF\\
+4 & Burned Sensor & BSeF\\
 \hline
-\multicolumn{2}{|l|}{\bf Actuators}\\
+\multicolumn{3}{|l|}{\bf Actuators}\\
 \hline
-Uncalibrated Gain & UGAF\\
+5 & Uncalibrated Gain & UGAF\\
 \hline
-Uncalibrated Offset & UOAF\\
+6 & Uncalibrated Offset & UOAF\\
 \hline
-Noise Sensitivity & NSAF\\
+7 & Noise Sensitivity & NSAF\\
 \hline
-$K_m$ variation & $K_m$AF\\
+8 & $K_m$ variation & $K_m$AF\\
 \hline
-Burned Actuator & BAF\\
+9 & Burned Actuator & BAF\\
 \hline
-\multicolumn{2}{|l|}{\bf Structural}\\
+\multicolumn{3}{|l|}{\bf Structural}\\
 \hline
-Tank's Leak & TLStF\\
+10 & Tank's Leak & TLStF\\
 \hline
-Tank's $a_i$ variation & T$a_i$VStF\\
+11 & Tank's $a_i$ variation & T$a_i$VStF\\
 \hline
-Tank's $a_i$ obstruction & T$a_i$OStF\\
+12 & Tank's $a_i$ obstruction & T$a_i$OStF\\
 \hline
 \end{tabular}
 \end{table}
@@ -639,56 +351,21 @@ Since in these types of simulation the system is normally exposed to adverse
 conditions, which could cause damage throughout the structure involved, the
 proposed system was computationally simulated.
 
-\begin{comment}
-Para dar mais liberdade de configuração à simulação, todo o sistema foi
-desenvolvido em C++, através do método de Runge-Kutta de 4\textordfeminine\
-ordem, permitindo que os parâmetros das falhas a serem simuladas fossem
-modificados a partir de um arquivo de texto. 
-
-A Fig. \ref{fig:screenshot} mostra uma captura de tela do sistema em
-funcionamento.
-
-\begin{figure}[htb]
-\centering
-    \includegraphics[width=0.6\textwidth]{imgs/screenshot}
-    \caption{A screenshot from the developed system.}
-    \label{fig:screenshot}
-\end{figure}
-\end{comment}
-
-\begin{comment}
-Nesse sistema, cada um dos parâmetros do arquivo de entrada deveria ser
-especificado em uma coluna e o número de linhas equivale ao número de amostras a
-serem simuladas. O período de amostragem utilizado na simulação do sistema é de
-100 (cem) milissegundos, o mesmo utilizado para o controle da planta real.
-
-Além disso, o sistema implementa as rotinas de dois controladores que podem ser
-configurados para operarem como controladores P, PI, PD, PID ou PI-D. Os ganhos
-pro porcionais, integrais e derivativos são introduzidos na interface do
-usuário. 
-
-Esse mesmo sistema pode ainda ser utilizado para operar com a planta real,
-fazendo aquisições dos dados através da rede (local ou remota), utilizando
-sockets TCP, se comunicando com um servidor implementado conforme mostrado em
-Oliveira (2008). A configuração do endereço IP e da porta de comunicação também
-é realizada a partir da interface do usuário. 
-\end{comment}
-
 % ------------------------------------------------------------------------------
 \subsection{Neural structures}
 The neural networks for identification and FDD should be carefully chosen, since
 an inappropriate choice can make the system innefective, not performing the
 function for which it was assigned.
 
-After a series of tests, the neural structure of identification chosen to
-represent the dynamics of the system has a single neural network, which receives
-as input the levels values, $L_1(k-1)$ and $L_2 (k-1)$, and the voltages
-applied, $V_{p_{\tiny 1}} (k-1)$ and $V_{p_{\tiny 2}} (k-1)$, generating
-estimatives on its output, called $\widehat{L}_1 (k)$ and $\widehat{L}_2 (k)$.
-The best trained neural network for this purpose was obtained from a
-second-order model NNARX with eight neurons on hidden layer. The mean square
-error was $3.73 \times 10^{-6}$. The results obtained are not shown because they
-are not the main focus of this paper.
+After a series of tests, the neural structure for identification, that must
+represent the dynamics of the system, has a single neural network, which
+receives as input the past values of the levels, $L_1(k-1)$ and $L_2 (k-1)$, and
+voltages applied, $V_{p_{\tiny 1}} (k-1)$ and $V_{p_{\tiny 2}} (k-1)$,
+generating, on its output, estimated levels, called $\widehat{L}_1 (k)$ and
+$\widehat{L}_2 (k)$.  The best trained neural network for this purpose was
+obtained from a second-order model NNARX with eight neurons on hidden layer. The
+mean square error was $3.73 \times 10^{-6}$. The results obtained are not shown
+because they are not the main focus of this paper.
 
 The structure of FDD, in turn, was composed by twelve neural networks in which
 each of these is associated with a single fault, configuring a set of
@@ -720,22 +397,22 @@ the twelve selected faults, taken two by two, a total of 66 possible
 combinations should to be generated. If all combinations were considered this
 number would grow exorbitantly.
 
-Moreover, a simple modification in a neural network will not affect in any
+Moreover, a simple modification at one neural network will not affect in any
 other. That is, if at any time is noticed that the introduction of a new
 variable improves the detection for one fault, only one neural network needs to
-be trained again. In future works, hibrid structures -- like neuro-fuzzy
-networks, Kalman filters, statistical analysers and many more --, can be also
-utilized.
+be retrained. In future works, hibrid structures -- like neuro-fuzzy networks,
+Kalman filters, statistical analysers and many more --, can be also utilized as
+a specialist.
 
 Once known all used subsystems, the proposed FDD system can be viewed in Fig.
 \ref{fig:comp}. Attach this system to another, or associate it with a
 Fault-Tolerant Control System (FTCS), can be made in a simple way, by processing
-the information available at the output interface. However, this is not the
-objective here.
+the information available at the output interface, named
+\sequencia{F}{1}{2}{n}. However, this is not the objective here.
 
 \begin{figure}[htb]
 \centering
-    \includegraphics[width=0.75\textwidth]{imgs/comp}
+    \includegraphics[width=0.8\textwidth]{imgs/comp}
     \caption{Proposed system schematic diagram.}
     \label{fig:comp}
 \end{figure}
@@ -770,11 +447,11 @@ applied to the model.
 {\bf Representativeness}\\
 \hline
 UGSeF & 0,16\tnote{$*$} & 
-0,8 & 1,2 & Up to $\pm 6$ cm\\
+0,8 & 1,2 & Up to $\pm$6\ cm\\
 \hline
-UOSeF & 1,0 & -3,0 & 3,0 & Up to $\pm 3$ cm\\
+UOSeF & 1,0 & -3,0 & 3,0 & Up to $\pm$3\ cm\\
 \hline
-NSSeF & 1,0 & -0,03 & 0,03 & Up to $\pm 9$ cm\\
+NSSeF & 1,0 & -0,03 & 0,03 & Up to $\pm$9\ cm\\
 \hline
 BSeF & 1,0 & 0,0 & 0,0 & -- \\
 \hline
@@ -782,17 +459,17 @@ UGAF & 1,0 & 0,8 & 1,0 & Up to -3 Volts\\
 \hline
 UOAF & 1,0 & -1,0 & 0,0 & Up to -1 Volts\\
 \hline
-NSAF & 1,0 & -0,03 & 0,03 & Up to $\pm 0,45$ Volts\\
+NSAF & 1,0 & -0,03 & 0,03 & Up to $\pm$0,45 Volts\\
 \hline
 $K_m$AF & $K_m$ & 0,7 & 1,1 & --\\
 \hline
 BAF & 1,0 & 0,0 & 0,0 & --\\
 \hline
-TLStF & $a_{i_{\text{\tiny MED}}}$ & 
-0,25 & 0,75 & 25 a 75\% de $a_{i_{\text{\tiny MED}}}$\\
+TLStF & $a_{i_{\text{\tiny MED}}}$\tnote{$**$} & 
+0,25 & 0,75 & 25 a 75\% of $a_{i_{\text{\tiny MED}}}$\\
 \hline
 T$a_i$VStF & $a_{i_{\text{\tiny MED}}}$ & 
-0,75 & 1,25 & $\pm 25\%$ de $a_{i_{\text{\tiny MED}}}$\\
+0,75 & 1,25 & $\pm$25\% of $a_{i_{\text{\tiny MED}}}$\\
 \hline
 T$a_i$OStF & $a_{i_{\text{\tiny MED}}}$ & 
 0,0 & 0,5 & --\\
@@ -800,6 +477,7 @@ T$a_i$OStF & $a_{i_{\text{\tiny MED}}}$ &
 \end{tabular}
 \begin{tablenotes}
 \item [$*$] Established by the manufacturer.
+\item [$**$] Cross-sectional area is approximately 0.1781\ cm${}^2$.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
@@ -819,10 +497,11 @@ Matlab\reg, using the LMA algorithm.
 \subsection{Selected neural structures}
 As already seen, the best network used for the model identification was obtained
 from a second-order NNARX structure with eight neurons on hidden layer. This
-network was selected among 54 others who had been trained for this same purpose.
+network was selected among 54 others who had been trained for this same purpose
+and has a mean square error of $3.73 \times 10^{-6}$.
 
 For the FDD, the number of trained neural networks increases significantly. For
-each order of the NNARX structure, the number neurons on hidden layer was
+each order of the NNARX structure, the number of the neurons on hidden layer was
 changed three times. Each time that number was changed, six neural networks were
 trained, which guarantees that the selected networks would not be compromised by
 convergence problems due the bad weights initialization or due to local minima.
@@ -890,7 +569,7 @@ fifteen seconds as shown in Fig. \ref{fig:intervals}.
 
 \begin{figure}[htb]
 \centering
-    \includegraphics[width=0.6\textwidth]{imgs/intervals}
+    \includegraphics[width=0.7\textwidth]{imgs/intervals}
     \caption{Final simulation -- Intervals.}
     \label{fig:intervals}
 \end{figure}
@@ -905,13 +584,13 @@ parameters are shown in Tab. \ref{tab:used_val}.
 \label{tab:used_val}
 \begin{tabular}{|c|c|c|}
 \hline
-{\bf Simulação} & {\bf Falha} & {\bf Valor modificado}\\
+{\bf Sim. \#} & {\bf Fault} & {\bf Modified value}\\
 \hline
 1 & UGSeF & $\text{Gain} = 0,128$\\
 \hline
 2 & UOSeF & -2,0\ cm\\
 \hline
-3 & NSSeF & $\pm 2\%$\\
+3 & NSSeF & $\pm$2\%\\
 \hline
 4 & BSeF & $\text{Gain} = 0,0$\\
 \hline
@@ -919,17 +598,17 @@ parameters are shown in Tab. \ref{tab:used_val}.
 \hline
 6 & UOAF & -0,5 Volts\\
 \hline
-7 & NSAF & $\pm 2\%$\\
+7 & NSAF & $\pm$2\%\\
 \hline
 8 & $K_m$AF & $K_m = 3,45$\\ 
 \hline
 9 & BAF & $\text{Gain} = 0,0$\\
 \hline
-10 & TLStF & $a_{\tiny VZ} = \frac{a_{\tiny MED}}{2}$\\
+10 & TLStF & $a_{\text{\tiny VZ}} = a_{\text{\tiny MED}}/2$\\
 \hline
-11 & T$a_i$VStF & $a_i = \frac{a_{\tiny MED}}{2}$\\
+11 & T$a_i$VStF & ${a_i}' = a_{\text{\tiny MED}}/2$\\
 \hline
-12 & T$a_i$OStF & ${a_i}' = \frac{a_{\tiny MED}}{4}$\\
+12 & T$a_i$OStF & ${a_i}' = a_{\text{\tiny MED}}/4$\\
 \hline
 \end{tabular}
 \end{table}
@@ -938,12 +617,12 @@ parameters are shown in Tab. \ref{tab:used_val}.
 \subsection{Obtained results}
 The obtained results can be seen in Figs. \ref{fig:fsedg} to \ref{fig:fsivros}.
 In these images, the red hatched areas represents the intervals in which the
-fault was detected in $T_1$., while the blue hatched areas represents the
+fault was detected in $T_1$, while the blue hatched areas represents the
 intervals in which the fault was detected in $T_2$.
 
 The first fault to be simulated was UGSeF, whose the results can be seen in Fig.
 \ref{fig:fsedg}. In this simulation the value of the sensor gain was reduced to
-80\% of original value.
+80\% of the default value.
 
 \begin{figure}[htb]
     \begin{minipage}[b]{0.48\linewidth}
@@ -976,37 +655,33 @@ The first fault to be simulated was UGSeF, whose the results can be seen in Fig.
         \scalebox{0.65}{\input{imgs/resultados/fsesr}}
         \vspace{0.5cm}
         \caption{NSSeF simulation -- Assumming a uniform distribution noise from
-                 $\pm 2$\%.}
+                 $\pm$2\%.}
         \label{fig:fsesr}
     \end{minipage}
 \end{figure}
 
-In this figure, the system can identify the presence of failure so the parameter
-value is modified. After this period, the controllers can ``compensate'' the
-fault, sending more voltage to the pump and thus causing the return to the
-setpoint. However, that ``compensation'' is done improperly, given that the
-reading has an error of 20\%.
+In this figure, the system can identify the presence of the fault only when the
+parameter value is modified. After this period, the controllers can
+``compensate'' the fault, sending more voltage to the pump and thus causing the
+return to the setpoint. However, that ``compensation'' is done improperly, given
+that the reading has an error of 20\%.
 
 Thus, when the value read by the sensors is 24 cm, the tank is about to
 overflow, reaching, in fact, the upper limit of 30 cm. In an academic
 application this may not represent any risk to equipments beyond those in which
-the water will cause. But, in critical applications, that ``compensation'' could
-cause several damages.
+the water could cause. But, in critical applications, that ``compensation''
+may bring several damages.
 
 The system behaved in a similar manner to that in UOSeF and TLStF, as observed
-in Figs. \ref{fig:fsedo} and \ref{fig:fsivzt}. Especially in TLStF simulation,
-is considered another output orifice, named $a_{\tiny L}$, that has the same
-characteristics of the tank output orifice $a_i$.
-\begin{comment}
-The similarity with UGSeF may eventually hinder the identification of these
-faults when the networks are acting in parallel way, since the inputs are the
-same.
-\end{comment}
+in Figs. \ref{fig:fsedo} and \ref{fig:fsivzt}. Especially for the TLStF
+simulation, is considered another output orifice, named $a_{\tiny L}$, that has
+the same characteristics of the tank output orifice $a_i$, but different
+diameter.
 
 The results for these faults are not consistent with the Tab.
-\ref{tab:best_ann}. This situation may be ocurring because the networks
-identified a rapid dynamic of the excitation PRBS, failing to identify
-continuous abrupt changes.
+\ref{tab:best_ann}. This situation may be ocurring because the networks has
+identified the rapid dynamic changes of the PRBS, failing to identify continuous
+abrupt changes.
 
 A possible alternative to solve this problem would be to use binary flags,
 activated at the time that the first variation was detected and deactivated in
@@ -1015,7 +690,7 @@ time interval in which they were active.
 
 Another simulation shows that the NSSeF was easily identified by the system, as
 shown in Fig. \ref{fig:fsesr}. However, due to the noise with uniform
-distribution ($\pm 2\%$), the system can not detect the fault at some points. At
+distribution ($\pm$2\%), the system can not detect the fault at some points. At
 these points, the value generated by the {\tt rand} function keeps the signal
 next to the setpoint.
 
@@ -1024,7 +699,7 @@ next to the setpoint.
         \scalebox{0.65}{\input{imgs/resultados/fasr}}
         \vspace{0.5cm}
         \caption{NSAF simulation -- Assumming a uniform distribution noise from
-                 $\pm 2$\%.}
+                 $\pm$2\%.}
         \label{fig:fasr}
     \end{minipage}
     \hfill
@@ -1043,8 +718,8 @@ unacceptable, given that none of the points at which the fault should have been
 identified were recognized by the network. Nevertheless, the results are
 consistent with the Tab. \ref{tab:best_ann}, where the total error exceeds 40\%.
 
-All other remaining failures were also easily identified by the system, as shown
-in Figs. \ref{fig:fseq} to \ref{fig:fsieos}.
+As well as NNSeF, all other remaining faults were also easily identified by the
+system, as shown in Figs. \ref{fig:fseq} to \ref{fig:fsivros}.
 
 \begin{figure}[htb]
     \begin{minipage}[b]{0.48\linewidth}
@@ -1097,19 +772,6 @@ in Figs. \ref{fig:fseq} to \ref{fig:fsieos}.
     \end{minipage}
 \end{figure}
 
-\begin{comment}
-Uma última observação pode ser feita a respeito da Fig. \ref{fig:fseq}, em que
-há a detecção da falha em $T_1$ em um pequeno intervalo no final da simulação.
-Contudo, isso não veio a comprometer o funcionamento do sistema nos intervalos
-em que a falha deveria realmente ser detectada. Trata-se, portanto, de um falso
-positivo.
-
-Ressalta-se por fim que as situações adversas podem ter ocorrido no sistema em
-virtude do treinamento ter sido realizado com valores constantes para a variação
-dos parâmetros. Por esse motivo os resultados obtidos nem sempre estão de acordo
-com os valores da Tab. \ref{tab:best_ann}.
-\end{comment}
-
 % ==============================================================================
 % CONCLUSIONS
 % ==============================================================================
@@ -1123,24 +785,24 @@ Since this structure is completely disjointed, another techniques can be mixed
 composing a hibrid system for fault detection and diagnosis. The used techniques
 can replace those networks whose the performance was below the expectations.
 
-Among the faults selected, eight were identified with ease and three had a
-satisfactory performance, with a small problem detection that can be easily
-solved through binary flags. The other fault was not correctly identified for
-$T_2$, but can be considered reasonable for $T_1$.
+Among the twelve selected faults, eight were easily identified and three had a
+satisfactory performance, with a small detection problem that can be solved
+through binary flags. The other fault was not correctly identified for $T_2$,
+but can be considered reasonable for detection on $T_1$.
 
 The results may improve when the real values are used, since they vary within
 the range of values in which the network was trained. This situation can maybe
-correct the problem that occurs for detecting UGSeF, and UOSeF TLStF, thus
-avoiding the use of flags to circumvent it.
+correct the problem that occurs for detecting UGSeF, UOSeF and TLStF, avoiding
+the use of binary flags.
 
 Thus, the system had a satisfactory performance and could be capable to identify
-about 92\% of fault proposals. Proving, therefore, that MLP networks are
+about 92\% of the proposed faults. Proving, therefore, that MLP networks are
 efficient structures for identification and for the fault detection and
 diagnosis.
 
-Once tested with various excitation signal, the system could be attached to a
-FTCS. In this case the signals generated by the FDD system will serve as
-``alarm''. The SCTF, in turn, may perform the controllers reconfiguration by
+Once tested with various excitation signals, the system could be attached to a
+FTCS. In this case, the signals generated by the FDD system will serve as an
+``alarm''. The FTCS, in turn, may perform the controllers reconfiguration by
 modifying their parameters, or even their structures, so that the system
 continues to function properly until the fault has been corrected.
 
