@@ -58,13 +58,12 @@ Brazil} \\
 \abstract{\textbf{Abstract.} In a real process, all used resources, whether
 physical or developed in software, are subject to interruptions or operational
 commitments. However, in situations in which operate critical systems, any kind
-of problem may bring big consequences. For implementing and testing the proposed
-methodology, a coupled water tank system was used as a study case model. The
-developed system should generate a set of signals for notify the process
-operator about the faults that are ocurring, enabling changes in control
-strategy or control parameters. Due to the damage risks involved with sensors,
-actuators and amplifiers of the real plant, the data set of the faults are
-computationally generated and the results will be collected from numerical
+of problem may bring big consequences. A coupled water tank system was used as a
+study case model for implementing and testing the proposed methodology. The developed system should generate a set of signals for
+notify the process operator about the faults that are ocurring, enabling changes
+in control strategy or control parameters. Due to the damage risks involved with
+sensors, actuators and amplifiers of the real plant, the data set of the faults
+are computationally generated and the results will be collected from numerical
 simulations of the process model. The system will be composed by structures with
 Artificial Neural Networks.}\\
 \\
@@ -90,8 +89,13 @@ system from obtaining a detailed diagnosis about what happened
 
 Considering the methods of Fault Detection and Diagnosis (FDD) that makes use of
 Artificial Neural Networks (ANN), a series of contributions can be highlighted,
-such as \citet{vemuri:1998}, \citet{gao:2000}, \citet{chang:2003},
-\citet{talebi:2005}, \citet{tian:2007} and \citet{jia-li:2010}.
+such as \citet{gao:2000}, where a system composed by an Elman neural network was
+trained for fault detection in engine units, \citet{guo:2005}, that combines
+wavelet transform with artificial neural networks to detect faults in rotation
+machines,  \citet{tian:2007}, where a neuro-fuzzy system was used for fault
+detection in pipelines and \citet{khaled:2010} where a principal component
+analysis was combined to artificial neural networks to detect faults in
+manufacturing processes.
 
 Based on this methods, this paper aims to develop a FDD system with ANNs for a
 dynamic process. The system should be capable to generate alert signals to the
@@ -114,10 +118,9 @@ sections shows the obtained results and conclusions.
 According to \citet{haykin:2000}, the Artificial Neural Networks (ANNs) are
 parallel structures, massively distributed, composed by simple processing units,
 named neurons. These structures resemble the human brain due to its ability to
-acquire knowledge from the environment in which it is. This learning occurs
-through an adjustment of the connection weights, or synaptic weights, wich
-exists between neurons. These connections stores the information acquired by the
-network.
+acquire knowledge from the environment. This learning occurs through an
+adjustment of the connection weights, or synaptic weights, wich exists between
+neurons. These connections stores the information acquired by the network.
 
 Among the various neural network architectures, such as radial basis function
 networks, Kohonen networks, support vector machine and so many others, this work
@@ -228,11 +231,10 @@ crucial information to take appropriate action.
 % ==============================================================================
 \section{PROPOSED SYSTEM}\label{sec:proposed}
 % ------------------------------------------------------------------------------
-\subsection{Case study}
-At the end of the introductory section, this paper proposes a system development
-for FDD in a dynamic process. The process in question consists of a coupled
-water tanks system developed by Quanser\reg, schematically represented in Fig.
-\ref{fig:tanks}.
+%\subsection{Case study}
+This paper proposes a system development for FDD in a dynamic process. The
+process in question consists of a coupled water tanks system developed by
+Quanser\reg, schematically represented in Fig.  \ref{fig:tanks}.
 
 \begin{figure}[htb]
 \centering
@@ -357,15 +359,14 @@ The neural networks for identification and FDD should be carefully chosen, since
 an inappropriate choice can make the system innefective, not performing the
 function for which it was assigned.
 
-After a series of tests, the neural structure for identification, that must
-represent the dynamics of the system, has a single neural network, which
-receives as input the past values of the levels, $L_1(k-1)$ and $L_2 (k-1)$, and
-voltages applied, $V_{p_{\tiny 1}} (k-1)$ and $V_{p_{\tiny 2}} (k-1)$,
-generating, on its output, estimated levels, called $\widehat{L}_1 (k)$ and
-$\widehat{L}_2 (k)$.  The best trained neural network for this purpose was
-obtained from a second-order model NNARX with eight neurons on hidden layer. The
-mean square error was $3.73 \times 10^{-6}$. The results obtained are not shown
-because they are not the main focus of this paper.
+The neural structure for identification, that must represent the dynamics of the
+system, has a single neural network, which receives as input the past values of
+the levels, $L_1(k-1)$ and $L_2 (k-1)$, and voltages applied, $V_{p_{\tiny 1}}
+(k-1)$ and $V_{p_{\tiny 2}} (k-1)$, generating, on its output, estimated levels,
+called $\widehat{L}_1 (k)$ and $\widehat{L}_2 (k)$.  The best trained neural
+network for this purpose was obtained from a second-order model NNARX with eight
+neurons on hidden layer. The validation mean square error was $3.73 \times
+10^{-6}$.
 
 The structure of FDD, in turn, was composed by twelve neural networks in which
 each of these is associated with a single fault, configuring a set of
@@ -500,7 +501,7 @@ from a second-order NNARX structure with eight neurons on hidden layer. This
 network was selected among 54 others who had been trained for this same purpose
 and has a mean square error of $3.73 \times 10^{-6}$.
 
-For the FDD, the number of trained neural networks increases significantly. For
+The number of trained neural networks increases significantly for the FDD. For
 each order of the NNARX structure, the number of the neurons on hidden layer was
 changed three times. Each time that number was changed, six neural networks were
 trained, which guarantees that the selected networks would not be compromised by
@@ -563,9 +564,9 @@ T$a_i$OStF & 2 & 12 & 4 & 23995,66 & 1 & 3,33 & 0,018\%\\
 \end{threeparttable}
 \end{table}
 
-Having selected the best structures, the system was composed and submited to the
-final simulation of one minute and forty five seconds, divided into intervals of
-fifteen seconds as shown in Fig. \ref{fig:intervals}.
+The system was composed after a selection of the best structures and submited to
+the final simulation of one minute and forty five seconds, divided into
+intervals of fifteen seconds as shown in Fig. \ref{fig:intervals}.
 
 \begin{figure}[htb]
 \centering
@@ -622,9 +623,13 @@ intervals in which the fault was detected in $T_2$.
 
 The first fault to be simulated was UGSeF, whose the results can be seen in Fig.
 \ref{fig:fsedg}. In this simulation the value of the sensor gain was reduced to
-80\% of the default value.
+80\% of the default value. In this figure, the system can identify the presence
+of the fault only when the parameter value is modified. After this period, the
+controllers can ``compensate'' the fault, sending more voltage to the pump and
+thus causing the return to the setpoint. However, that ``compensation'' is done
+improperly, given that the reading has an error of 20\%.
 
-\begin{figure}[htb]
+\begin{figure}[H]
     \begin{minipage}[b]{0.48\linewidth}
         \scalebox{0.65}{\input{imgs/resultados/fsedg}}
         \vspace{0.5cm}
@@ -641,7 +646,7 @@ The first fault to be simulated was UGSeF, whose the results can be seen in Fig.
     \end{minipage}
 \end{figure}
 
-\begin{figure}[htb]
+\begin{figure}[H]
     \begin{minipage}[b]{0.48\linewidth}
         \scalebox{0.65}{\input{imgs/resultados/fsivzt}}
         \vspace{0.5cm}
@@ -660,11 +665,73 @@ The first fault to be simulated was UGSeF, whose the results can be seen in Fig.
     \end{minipage}
 \end{figure}
 
-In this figure, the system can identify the presence of the fault only when the
-parameter value is modified. After this period, the controllers can
-``compensate'' the fault, sending more voltage to the pump and thus causing the
-return to the setpoint. However, that ``compensation'' is done improperly, given
-that the reading has an error of 20\%.
+\begin{figure}[H]
+    \begin{minipage}[b]{0.48\linewidth}
+        \scalebox{0.65}{\input{imgs/resultados/fasr}}
+        \vspace{0.5cm}
+        \caption{NSAF simulation -- Assumming a uniform distribution noise from
+                 $\pm$2\%.}
+        \label{fig:fasr}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.48\linewidth}
+        \scalebox{0.65}{\input{imgs/resultados/fseq}}
+        \vspace{0.5cm}
+        \caption{BSeF simulation -- Sensor's gain reduced to zero.}
+        \label{fig:fseq}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}[b]{0.48\linewidth}
+        \scalebox{0.65}{\input{imgs/resultados/fadg}}
+        \vspace{0.5cm}
+        \caption{UGAF simulation -- Actuator's gain reduced to 80\% from the
+                 default value.}
+        \label{fig:fadg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.48\linewidth}
+        \scalebox{0.65}{\input{imgs/resultados/fado}}
+        \vspace{0.5cm}
+        \caption{UOAF simulation -- Actuator's offset configured to $-0.5$
+                 Volts.}
+        \label{fig:fado}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}[b]{0.48\linewidth}
+        \scalebox{0.65}{\input{imgs/resultados/favk}}
+        \vspace{0.5cm}
+        \caption{$K_m$AF simulation -- $K_m$ reduced to 75\% from the default
+                 value.}
+        \label{fig:favk}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.48\linewidth}
+        \scalebox{0.65}{\input{imgs/resultados/faq}}
+        \vspace{0.5cm}
+        \caption{BAF simulation -- Actuator's gain reduced to zero.}
+        \label{fig:faq}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}[b]{0.48\linewidth}
+        \scalebox{0.65}{\input{imgs/resultados/fsieos}}
+        \vspace{0.5cm}
+        \caption{T$a_i$OStF simulation -- Where $a_i = a_{\tiny \text{MED}}/4$.}
+        \label{fig:fsieos}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.48\linewidth}
+        \scalebox{0.65}{\input{imgs/resultados/fsivros}}
+        \vspace{0.5cm}
+        \caption{T$a_i$VStF simulation -- Where $a_i = a_{\tiny \text{MED}}/2$.}
+        \label{fig:fsivros}
+    \end{minipage}
+\end{figure}
 
 Thus, when the value read by the sensors is 24 cm, the tank is about to
 overflow, reaching, in fact, the upper limit of 30 cm. In an academic
@@ -694,23 +761,6 @@ distribution ($\pm$2\%), the system can not detect the fault at some points. At
 these points, the value generated by the {\tt rand} function keeps the signal
 next to the setpoint.
 
-\begin{figure}[htb]
-    \begin{minipage}[b]{0.48\linewidth}
-        \scalebox{0.65}{\input{imgs/resultados/fasr}}
-        \vspace{0.5cm}
-        \caption{NSAF simulation -- Assumming a uniform distribution noise from
-                 $\pm$2\%.}
-        \label{fig:fasr}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[b]{0.48\linewidth}
-        \scalebox{0.65}{\input{imgs/resultados/fseq}}
-        \vspace{0.5cm}
-        \caption{BSeF simulation -- Sensor's gain reduced to zero.}
-        \label{fig:fseq}
-    \end{minipage}
-\end{figure}
-
 Unlike the NSSeF, the simulation performed for the NSAF was not so easily
 identified, as shown in Fig. \ref{fig:fasr}. The results obtained for $T_1$ can
 even be considered reasonable, while the results for $T_2$ are clearly
@@ -720,57 +770,6 @@ consistent with the Tab. \ref{tab:best_ann}, where the total error exceeds 40\%.
 
 As well as NNSeF, all other remaining faults were also easily identified by the
 system, as shown in Figs. \ref{fig:fseq} to \ref{fig:fsivros}.
-
-\begin{figure}[htb]
-    \begin{minipage}[b]{0.48\linewidth}
-        \scalebox{0.65}{\input{imgs/resultados/fadg}}
-        \vspace{0.5cm}
-        \caption{UGAF simulation -- Actuator's gain reduced to 80\% from the
-                 default value.}
-        \label{fig:fadg}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[b]{0.48\linewidth}
-        \scalebox{0.65}{\input{imgs/resultados/fado}}
-        \vspace{0.5cm}
-        \caption{UOAF simulation -- Actuator's offset configured to $-0.5$
-                 Volts.}
-        \label{fig:fado}
-    \end{minipage}
-\end{figure}
-
-\begin{figure}[htb]
-    \begin{minipage}[b]{0.48\linewidth}
-        \scalebox{0.65}{\input{imgs/resultados/favk}}
-        \vspace{0.5cm}
-        \caption{$K_m$AF simulation -- $K_m$ reduced to 75\% from the default
-                 value.}
-        \label{fig:favk}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[b]{0.48\linewidth}
-        \scalebox{0.65}{\input{imgs/resultados/faq}}
-        \vspace{0.5cm}
-        \caption{BAF simulation -- Actuator's gain reduced to zero.}
-        \label{fig:faq}
-    \end{minipage}
-\end{figure}
-
-\begin{figure}[htb]
-    \begin{minipage}[b]{0.48\linewidth}
-        \scalebox{0.65}{\input{imgs/resultados/fsieos}}
-        \vspace{0.5cm}
-        \caption{T$a_i$OStF simulation -- Where $a_i = a_{\tiny \text{MED}}/4$.}
-        \label{fig:fsieos}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[b]{0.48\linewidth}
-        \scalebox{0.65}{\input{imgs/resultados/fsivros}}
-        \vspace{0.5cm}
-        \caption{T$a_i$VStF simulation -- Where $a_i = a_{\tiny \text{MED}}/2$.}
-        \label{fig:fsivros}
-    \end{minipage}
-\end{figure}
 
 % ==============================================================================
 % CONCLUSIONS
@@ -791,9 +790,9 @@ through binary flags. The other fault was not correctly identified for $T_2$,
 but can be considered reasonable for detection on $T_1$.
 
 The results may improve when the real values are used, since they vary within
-the range of values in which the network was trained. This situation can maybe
-correct the problem that occurs for detecting UGSeF, UOSeF and TLStF, avoiding
-the use of binary flags.
+the range of values in which the network was trained. This situation can correct
+the problem that occurs for detecting UGSeF, UOSeF and TLStF, avoiding the use
+of binary flags.
 
 Thus, the system had a satisfactory performance and could be capable to identify
 about 92\% of the proposed faults. Proving, therefore, that MLP networks are
