@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="imgs">
+    <file>salvar.png</file>
+  </qresource>
+</RCC>
