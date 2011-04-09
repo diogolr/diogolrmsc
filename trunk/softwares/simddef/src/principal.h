@@ -5,11 +5,13 @@
 
 #include <QMainWindow>
 
+#include "executa_rede.h"
 #include "ui_principal.h"
 
 class JanelaPrincipal : public QMainWindow
 {
     Q_OBJECT
+
     // Metodos
     public:
         JanelaPrincipal();
@@ -18,7 +20,7 @@ class JanelaPrincipal : public QMainWindow
     private:
 
     private slots:
-
+    
     // Atributos
     private:
         Ui_JanelaPrincipal *ui;
