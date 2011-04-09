@@ -26,12 +26,14 @@ QT += svg
 FORMS += ui/principal.ui
 
 HEADERS += src/excecoes.h \
+           src/executa_rede.h \
            src/funcoes.h \
            src/grafico.h \
            src/matriz.h \
            src/principal.h
 
 SOURCES += src/excecoes.cpp \
+           src/executa_rede.cpp \
            src/funcoes.cpp \
            src/grafico.cpp \
            src/main.cpp \

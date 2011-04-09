@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>JanelaPrincipal</class>
+ <widget class="QMainWindow" name="JanelaPrincipal">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -45,6 +45,19 @@
     </property>
     <property name="autoRaise">
      <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="botao">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>70</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
     </property>
    </widget>
   </widget>

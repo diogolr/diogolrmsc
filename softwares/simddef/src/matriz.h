@@ -108,4 +108,8 @@ class Matriz
         int col;
 };
 
+// Classes templates nao podem ter a implementacao separada em .h e .cpp. Por
+// esse motivo, o .cpp e adicionado logo abaixo do .h
+#include "matriz.cpp"
+
 #endif
