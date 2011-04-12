@@ -1,6 +1,6 @@
 #ifndef MATRIZ_H_
 #define MATRIZ_H_
-
+#include <QDebug>
 #include <cmath>     // abs(), sqrt(), pow()
 
 #include <algorithm> // min(), max()
@@ -98,7 +98,7 @@ class Matriz
         // Outros metodos
         Matriz<T> adicionar_col( const int &, const Matriz<T> & );
         Matriz<T> adicionar_lin( const int &, const Matriz<T> & );
-        Matriz<T> adicionar_regressores( bool *, const int & );
+        Matriz<T> adicionar_regressores( int * );
         Matriz<T> coluna( const int & ) const;
         Matriz<T> linha( const int & ) const;
         void tred2( Matriz<T> *, Matriz<T> * );
