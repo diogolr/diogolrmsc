@@ -1,5 +1,5 @@
-#ifndef EXECUTA_REDE_H_
-#define EXECUTA_REDE_H_
+#ifndef REDE_H_
+#define REDE_H_
 
 #include <QFile>
 #include <QIODevice>
@@ -13,17 +13,18 @@
 #include "funcoes.h"
 #include "matriz.h"
 
-class ExecutaRede
+class Rede
 {
     // Metodos
     public:
-        ExecutaRede( const QString &, const QString & );
-        ~ExecutaRede();
+        Rede( const QString &, const QString & );
+        ~Rede();
 
     private:
-        ExecutaRede();
+        Rede();
 
         void inicializar();
+        void ler_entrada( const QString & );
         void ler_rede( const QString & );
     
     // Atributos

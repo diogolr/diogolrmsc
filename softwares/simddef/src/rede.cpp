@@ -1,31 +1,37 @@
-#ifndef EXECUTA_REDE_CPP_
-#define EXECUTA_REDE_CPP_
+#ifndef REDE_CPP_
+#define REDE_CPP_
 
-#include "executa_rede.h"
+#include "rede.h"
 
-ExecutaRede :: ExecutaRede( const QString &nome_arq_rede,
+Rede :: Rede( const QString &nome_arq_rede,
                             const QString &nome_arq_ent )
 {
     inicializar();
-    ler_rede( "" );
+    ler_entrada( nome_arq_ent );
+    ler_rede( nome_arq_rede );
 }
 
 
-ExecutaRede :: ~ExecutaRede()
+Rede :: ~Rede()
 {
     if ( entrada != NULL )
         delete entrada;
 }
 
 
-void ExecutaRede :: inicializar()
+void Rede :: inicializar()
 {
     entrada = NULL;
     n_entradas = n_camadas = 0;
 }
 
 
-void ExecutaRede :: ler_rede( const QString &nome_arq )
+void Rede :: ler_entrada( const QString &nome_arq )
+{
+}
+
+
+void Rede :: ler_rede( const QString &nome_arq )
 {
     QFile arquivo( nome_arq );
 

@@ -17,18 +17,18 @@
    <widget class="Grafico" name="grafico" native="true">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>130</y>
+      <x>270</x>
+      <y>40</y>
       <width>441</width>
       <height>311</height>
      </rect>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton">
+   <widget class="QToolButton" name="botao_salvar">
     <property name="geometry">
      <rect>
       <x>130</x>
-      <y>210</y>
+      <y>280</y>
       <width>29</width>
       <height>28</height>
      </rect>
@@ -50,14 +50,90 @@
    <widget class="QPushButton" name="botao">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>70</y>
+      <x>40</x>
+      <y>280</y>
       <width>75</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
      <string>PushButton</string>
+    </property>
+   </widget>
+   <widget class="QTreeWidget" name="treeWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>231</width>
+      <height>192</height>
+     </rect>
+    </property>
+    <column>
+     <property name="text">
+      <string>Falhas a serem detectadas</string>
+     </property>
+    </column>
+    <item>
+     <property name="text">
+      <string>Falhas dos sensores</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Falhas dos atuadores</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Falhas do sistema</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QToolButton" name="botao_cad_falha">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>230</y>
+      <width>29</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="icon">
+     <iconset resource="../imgs/imgs.qrc">
+      <normaloff>:/imgs/salvar.png</normaloff>:/imgs/salvar.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>22</width>
+      <height>22</height>
+     </size>
+    </property>
+    <property name="autoRaise">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="botao_rem_falha">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>230</y>
+      <width>29</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="icon">
+     <iconset resource="../imgs/imgs.qrc">
+      <normaloff>:/imgs/salvar.png</normaloff>:/imgs/salvar.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>22</width>
+      <height>22</height>
+     </size>
+    </property>
+    <property name="autoRaise">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>
