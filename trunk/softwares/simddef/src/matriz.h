@@ -96,7 +96,10 @@ class Matriz
         static T cor( const Matriz<T> &, const Matriz<T> & );
         
         // Outros metodos
-        Matriz<T> add_lin( const Matriz<T> & );
+        Matriz<T> adicionar_col( const int &, const Matriz<T> & );
+        Matriz<T> adicionar_lin( const int &, const Matriz<T> & );
+        Matriz<T> adicionar_regressores( bool *, const int & );
+        Matriz<T> coluna( const int & ) const;
         Matriz<T> linha( const int & ) const;
         void tred2( Matriz<T> *, Matriz<T> * );
         void tql2( Matriz<T> *, Matriz<T> * );

@@ -127,7 +127,7 @@ void Grafico :: exportar( const QString &nome_arquivo )
 
     int opcoes = ( QwtPlotPrintFilter::PrintAll & 
                    ~QwtPlotPrintFilter::PrintBackground ) |
-                 QwtPlotPrintFilter::PrintFrameWithScales;
+                   QwtPlotPrintFilter::PrintFrameWithScales;
 
     filtro.setOptions( opcoes );
 

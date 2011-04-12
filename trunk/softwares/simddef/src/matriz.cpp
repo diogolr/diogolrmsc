@@ -10,7 +10,7 @@
 /*! Matrizes quadradas
  *  @param tam Dimensao
  */
-template < class T >
+template< class T >
 Matriz<T> :: Matriz( const int &tam )
 {
     this->lin = tam;
@@ -24,7 +24,7 @@ Matriz<T> :: Matriz( const int &tam )
  *  @param i Numero de linhas
  *  @param j Numero de colunas
  */
-template < class T >
+template< class T >
 Matriz<T> :: Matriz( const int &i , const int &j )
 {
     this->lin = i;
@@ -37,7 +37,7 @@ Matriz<T> :: Matriz( const int &i , const int &j )
 /*! Construtor copia
  *  @param mat Matriz a ser copiada
  */
-template < class T >
+template< class T >
 Matriz<T> :: Matriz( const Matriz<T> &mat )
 {
     this->lin = mat.linhas();
@@ -57,7 +57,7 @@ Matriz<T> :: Matriz( const Matriz<T> &mat )
 // Destrutor -------------------------------------------------------------------
 /*! Desaloca a memoria associada a matriz
  */
-template < class T >
+template< class T >
 Matriz<T> :: ~Matriz<T>()
 {
     delete []matriz;
@@ -66,7 +66,7 @@ Matriz<T> :: ~Matriz<T>()
 // Transformacoes --------------------------------------------------------------
 /*! Modifica todos os elementos da matriz para zero
  */
-template < class T >
+template< class T >
 void Matriz<T> :: zero()
 {
     for ( int i = 0 ; i < this->lin ; ++i )
@@ -80,7 +80,7 @@ void Matriz<T> :: zero()
 
 /*! Faz a matriz ser igual a matriz identidade de mesma dimensao
  */
-template < class T >
+template< class T >
 void Matriz<T> :: identidade()
 {
     if ( this->lin == this->col )
@@ -110,7 +110,7 @@ void Matriz<T> :: identidade()
 /*! Numero de linhas
  *  @return Numero de linhas
  */
-template < class T >
+template< class T >
 int Matriz<T> :: linhas() const
 {
     return this->lin;
@@ -119,7 +119,7 @@ int Matriz<T> :: linhas() const
 /*! Numero de colunas
  *  @return Numero de colunas
  */
-template < class T >
+template< class T >
 int Matriz<T> :: colunas() const
 {
     return this->col;
@@ -128,7 +128,7 @@ int Matriz<T> :: colunas() const
 /*! Retorna um ponteiro para o inicio da linha i
  *  @param i Linha a ser retornada
  */
-template < class T >
+template< class T >
 const T* Matriz<T> :: operator[] ( const int &i ) const
 {
     if ( i < this->lin && i > 0 )
@@ -144,7 +144,7 @@ const T* Matriz<T> :: operator[] ( const int &i ) const
 /*! Retorna um ponteiro para o inicio da linha i.
  *  @param i Row to return.
  */
-template < class T >
+template< class T >
 T* Matriz<T> :: operator[] ( const int &i )
 {
     if ( i < this->lin && i > 0 )
@@ -162,7 +162,7 @@ T* Matriz<T> :: operator[] ( const int &i )
  *  @param j Column of the element.
  *  @return The reference to the element.
  */
-template < class T >
+template< class T >
 T& Matriz<T> :: operator() ( const int &i , const int &j )
 {
     if ( i >= this->lin || i < 0 )
@@ -178,7 +178,7 @@ T& Matriz<T> :: operator() ( const int &i , const int &j )
  *  @param j Column of the element.
  *  @return Element in row i and column j.
  */
-template < class T >
+template< class T >
 T Matriz<T> :: operator() ( const int & i , const int & j ) const
 {
     if ( i >= this->lin || i < 0 )
@@ -191,7 +191,7 @@ T Matriz<T> :: operator() ( const int & i , const int & j ) const
 
 
 // Exibicao
-template < class T2 >
+template< class T2 >
 ostream& operator<< ( ostream &o, Matriz<T2> &m )
 {
     for ( int i = 0 ; i < m.linhas() ; ++i )
@@ -212,7 +212,7 @@ ostream& operator<< ( ostream &o, Matriz<T2> &m )
  *  @param rhs Matriz to be copied.
  *  @return The new Matriz.
  */
-template < class T >
+template< class T >
 Matriz<T>& Matriz<T> :: operator= ( const Matriz<T> & rhs )
 {
     delete this->matriz;
@@ -239,7 +239,7 @@ Matriz<T>& Matriz<T> :: operator= ( const Matriz<T> & rhs )
  *  @param rhs The Matriz<T> to be comparated.
  *  @return true if they are equals, else false.
  */
-template < class T >
+template< class T >
 bool Matriz<T> :: operator== ( const Matriz<T> & rhs )
 {
     for ( int i = 0 ; i < this->lin ; ++i )
@@ -260,7 +260,7 @@ bool Matriz<T> :: operator== ( const Matriz<T> & rhs )
  *  @param rhs The Matriz<T> to be comparated.
  *  @return true if they are diferent, else false.
  */
-template < class T >
+template< class T >
 bool Matriz<T> :: operator!= ( const Matriz<T> & rhs )
 {
     return !(*this == rhs );
@@ -270,7 +270,7 @@ bool Matriz<T> :: operator!= ( const Matriz<T> & rhs )
  *  @param rhs The Matriz<T> to be comparated.
  *  @return true if they are less than rhs, else false.
  */
-template < class T >
+template< class T >
 bool Matriz<T> :: operator< ( const Matriz<T> & rhs )
 {
     for ( int i = 0 ; i < this->lin ; ++i )
@@ -291,7 +291,7 @@ bool Matriz<T> :: operator< ( const Matriz<T> & rhs )
  *  @param rhs The Matriz<T> to be comparated.
  *  @return true if they are less than os equals to rhs, else false.
  */
-template < class T >
+template< class T >
 bool Matriz<T> :: operator<= ( const Matriz<T> & rhs )
 {
     for ( int i = 0 ; i < this->lin ; ++i )
@@ -312,7 +312,7 @@ bool Matriz<T> :: operator<= ( const Matriz<T> & rhs )
  *  @param rhs The Matriz<T> to be comparated.
  *  @return true if they are greater than rhs, else false.
  */
-template < class T >
+template< class T >
 bool Matriz<T> :: operator> ( const Matriz<T> & rhs )
 {
     for ( int i = 0 ; i < this->lin ; ++i )
@@ -333,7 +333,7 @@ bool Matriz<T> :: operator> ( const Matriz<T> & rhs )
  *  @param rhs The Matriz<T> to be comparated.
  *  @return true if they are less than os equals to rhs, else false.
  */
-template < class T >
+template< class T >
 bool Matriz<T> :: operator>= ( const Matriz<T> & rhs )
 {
     for ( int i = 0 ; i < this->lin ; ++i )
@@ -356,7 +356,7 @@ bool Matriz<T> :: operator>= ( const Matriz<T> & rhs )
  *  @param rhs The Matriz<T> to be add.
  *  @return The new Matriz<T> with the sum of this and rhs.
  */
-template < class T >
+template< class T >
 Matriz<T> Matriz<T> :: operator+ ( const Matriz<T> & rhs ) const
 {
     
@@ -385,7 +385,7 @@ Matriz<T> Matriz<T> :: operator+ ( const Matriz<T> & rhs ) const
  *  @param rhs The Matriz<T> to be deducted.
  *  @return The new Matriz<T> with the detucted of rhs to this.
  */
-template < class T >
+template< class T >
 Matriz<T> Matriz<T> :: operator- ( const Matriz<T> & rhs ) const
 {
     if ( this->lin == rhs.linhas() && this->col == rhs.colunas() )
@@ -412,7 +412,7 @@ Matriz<T> Matriz<T> :: operator- ( const Matriz<T> & rhs ) const
  *  @param rhs The Matriz<T> to be multiplicated.
  *  @return The new Matriz<T> with the multiplication of this and rhs.
  */
-template < class T >
+template< class T >
 Matriz<T> Matriz<T> :: operator* ( const Matriz<T> & rhs ) const
 {
     
@@ -443,7 +443,7 @@ Matriz<T> Matriz<T> :: operator* ( const Matriz<T> & rhs ) const
  *  @param rhs The T object that will multiply the Matriz.
  *  @return The new Matriz<T> with the elements multiplyed by T.
  */
-template < class T >
+template< class T >
 Matriz<T> Matriz<T> :: operator* ( const T & rhs ) const
 {
     Matriz<T>* result = NULL;
@@ -464,7 +464,7 @@ Matriz<T> Matriz<T> :: operator* ( const T & rhs ) const
  *  @param rhs The T object that will to divid the Matriz.
  *  @return The new Matriz<T> with the elements divided by rhs.
  */
-template < class T >
+template< class T >
 Matriz<T> Matriz<T> :: operator/ ( const T & rhs ) const
 {
     Matriz<T>* result;
@@ -484,7 +484,7 @@ Matriz<T> Matriz<T> :: operator/ ( const T & rhs ) const
 /*! This method implements the - (inverse) operator for the Matriz's elements.
  *  @return The new Matriz<T> with the elements inverted.
  */
-template < class T >
+template< class T >
 Matriz<T> Matriz<T> :: operator- () const
 {
     Matriz<T>* result = NULL;
@@ -507,7 +507,7 @@ Matriz<T> Matriz<T> :: operator- () const
  *  @param rhs The Matriz<T> wiht the values that will increase this Matriz.
  *  @return The this pointer value.
  */
-template < class T >
+template< class T >
 Matriz<T> Matriz<T> :: operator+= ( const Matriz<T> & rhs )
 {
     if ( this->lin == rhs.linhas() && this->col == rhs.colunas() )
@@ -531,7 +531,7 @@ Matriz<T> Matriz<T> :: operator+= ( const Matriz<T> & rhs )
  *  @param rhs The Matriz<T> wiht the values that will dencrease this Matriz.
  *  @return The this pointer value.
  */
-template < class T >
+template< class T >
 Matriz<T> Matriz<T> :: operator-= ( const Matriz<T> & rhs )
 {
     if ( this->lin == rhs.linhas() && this->col == rhs.colunas() )
@@ -555,7 +555,7 @@ Matriz<T> Matriz<T> :: operator-= ( const Matriz<T> & rhs )
  *  @param rhs The scalar value that will multiply all elements of the Matriz.
  *  @return The this pointer value.
  */
-template < class T >
+template< class T >
 Matriz<T> Matriz<T> :: operator*= ( const T & rhs )
 {
     for ( int i = 0 ; i < this->lin ; ++i )
@@ -572,7 +572,7 @@ Matriz<T> Matriz<T> :: operator*= ( const T & rhs )
  *  @param rhs The scalar value that will devide all elements of the Matriz.
  *  @return The this pointer value.
  */
-template < class T >
+template< class T >
 Matriz<T> Matriz<T> :: operator/= ( const T & rhs )
 {
     for ( int i = 0 ; i < this->lin ; ++i )
@@ -591,7 +591,7 @@ Matriz<T> Matriz<T> :: operator/= ( const T & rhs )
 /*! This method implements the Transpose Function to the Matriz.
  *  @return The tranposed matriz.
  */
-template < class T >
+template< class T >
 Matriz<T> Matriz<T> :: trans() const
 {
     Matriz<T> * result = new Matriz<T> ( this->col , this->lin );
@@ -612,7 +612,7 @@ Matriz<T> Matriz<T> :: trans() const
 /*! Realiza o calculo da matriz inversa.
  *  @return Matriz<T> inversa.
  */
-template < class T >
+template< class T >
 Matriz<T> Matriz<T> :: inv() const
 {
     if ( this->lin == this->col )
@@ -723,14 +723,14 @@ Matriz<T> Matriz<T> :: inv() const
 /*! This method calculate the Adjoint.
  *  @return Adjoint.
  */
-template < class T >
+template< class T >
 Matriz<T> Matriz<T> :: adj() const
 {
     return this->det() * this->inv();
 }
 
 
-template < class T >
+template< class T >
 T Matriz<T> :: tra () const
 {
     int n = this->linhas();
@@ -756,7 +756,7 @@ T Matriz<T> :: tra () const
 /*! This method calculate the det for Matriz<T> using recursirve calcs.
  *  @return Matriz<T> determinants.
  */
-template < class T >
+template< class T >
 T Matriz<T> :: det() const
 {
     if ( this->lin == this->col )
@@ -832,8 +832,55 @@ T Matriz<T> :: det() const
 
 
 // Outras operacoes ------------------------------------------------------------
-template < class T >
-Matriz<T> Matriz<T> :: add_lin( const Matriz<T> &l )
+template< class T >
+Matriz<T> Matriz<T> :: adicionar_col( const int &coluna, const Matriz<T> &c )
+{
+    if ( c.linhas() != this->lin )
+    {
+        // TODO Exception
+    }
+
+    if ( c.colunas() != 1 )
+    {
+        // TODO Exception
+    }
+
+    Matriz<T> *nova = new Matriz<T> ( this->lin, this->col + 1 );
+
+    bool adicionada = false;
+
+    // copiando as linhas de this 
+    for ( int j = 0 ; j < this->col + 1 ; ++j )
+    {
+        for ( int i = 0 ; i < this->lin ; ++i )
+        {
+            if ( j == coluna )
+            {
+                (*nova)(i,j) = c( i, 0 );
+                
+                if ( i == this->lin - 1 )
+                    adicionada = true;
+            }
+            else
+            {
+                if ( !adicionada )
+                {
+                    (*nova)(i,j) = (*this)(i,j);
+                }
+                else
+                {
+                    (*nova)(i,j) = (*this)(i,j-1);
+                }
+            }
+        }
+    }
+
+    return (*nova);
+}
+
+
+template< class T >
+Matriz<T> Matriz<T> :: adicionar_lin( const int &linha, const Matriz<T> &l )
 {
     if ( l.colunas() != this->col )
     {
@@ -847,43 +894,111 @@ Matriz<T> Matriz<T> :: add_lin( const Matriz<T> &l )
 
     Matriz<T> *nova = new Matriz<T> ( this->lin + 1, this->col );
 
+    bool adicionada = false;
+
     // copiando as linhas de this 
-    for ( int i = 0 ; i < this->lin ; ++i )
+    for ( int i = 0 ; i < this->lin + 1 ; ++i )
     {
         for ( int j = 0 ; j < this->col ; ++j )
         {
-            (*nova)(i,j) = (*this)(i,j);
-        }
-    }
+            if ( i == linha )
+            {
+                (*nova)(i,j) = l( 0, j );
 
-    // adicionando a linha nova
-    for ( int j = 0; j < this->col ; ++j )
-    {
-        (*nova)(this->lin,j) = l(0,j);
+                if ( j == this->col - 1 )
+                    adicionada = true;
+            }
+            else
+            {
+                if ( !adicionada )
+                {
+                    (*nova)(i,j) = (*this)(i,j);
+                }
+                else
+                {
+                    (*nova)(i,j) = (*this)(i-1,j);
+                }
+            }
+        }
     }
 
     return (*nova);
 }
 
 
-template < class T >
-Matriz<T> Matriz<T> :: linha( const int &n ) const
+// Adiciona regressores de acordo com o vetor de booleanos para cada coluna
+// desejada. O numero de regressores de cada coluna selecionada sera igual ao
+// parametro n. Supoe-se aqui que o numero de elementos no array eh igual ao
+// numero de colunas da matriz
+template< class T >
+Matriz<T> Matriz<T> :: adicionar_regressores( bool *cols_selecionadas, 
+                                              const int &n )
 {
-    if ( n <= 0 )
+    Matriz<T> *nova = new Matriz<T>( (*this) );
+
+    for ( int j = 0 ; j < this->col ; j++ )
+    {
+        if ( cols_selecionadas[j] )
+        {
+            Matriz<T> coluna = this->coluna( j );
+
+            for ( int r = 1 ; r <= n ; r++ )
+            {
+                // Descer elementos da coluna de acordo com r
+                for ( int i = 1 ; i < nova->lin ; i++ )
+                {
+                    coluna( coluna->linhas() - 1, 0 ) = 
+                    coluna( coluna->linhas() - 1 - r, 0 );
+                }
+                // Adicionar a coluna à matriz nova na coluna j+r
+            }
+        }
+    }
+}
+
+
+template< class T >
+Matriz<T> Matriz<T> :: coluna( const int &n ) const
+{
+    if ( n < 0 )
     {
         //TODO Exception
     }
 
-    if ( n > this->lin )
+    if ( n >= this->col )
+    {
+        //TODO Exception
+    }
+
+    Matriz<T> *c = new Matriz<T> ( this->lin, 1 );
+
+    for ( int i = 0 ; i < this->lin ; ++i )
+    {
+        (*c)( i, 0 ) = (*this)( i, n );
+    }
+
+    return *c;
+}
+
+
+template< class T >
+Matriz<T> Matriz<T> :: linha( const int &n ) const
+{
+    if ( n < 0 )
+    {
+        //TODO Exception
+    }
+
+    if ( n >= this->lin )
     {
         //TODO Exception
     }
 
     Matriz<T> *l = new Matriz<T> ( 1, this->col );
 
-    for ( int i = 0 ; i < this->col ; ++i )
+    for ( int j = 0 ; j < this->col ; ++j )
     {
-        (*l)( 0, i ) = (*this)( n - 1, i );
+        (*l)( 0, j ) = (*this)( n, j );
     }
 
     return *l;
@@ -895,7 +1010,7 @@ Matriz<T> Matriz<T> :: linha( const int &n ) const
  * and Wilkinson, Handbook for Auto. Comp., Vol.ii-Linear Algebra, and the
  * corresponding Fortran subroutine in EISPACK.
  */
-template < class T >
+template< class T >
 void Matriz<T> :: tred2( Matriz<T> *d, Matriz<T> *e )
 {
     if ( (*d).linhas() != 1 )
@@ -1076,7 +1191,7 @@ void Matriz<T> :: tred2( Matriz<T> *d, Matriz<T> *e )
  * and Wilkinson, Handbook for Auto. Comp., Vol.ii-Linear Algebra, and the
  * corresponding Fortran subroutine in EISPACK.
  */
-template < class T >
+template< class T >
 void Matriz<T> :: tql2( Matriz<T> *d, Matriz<T> *e )
 {
     int n = this->col;
@@ -1217,7 +1332,7 @@ void Matriz<T> :: tql2( Matriz<T> *d, Matriz<T> *e )
 
 // Operacoes de estatistica
 // -----------------------------------------------------------------------------
-template < class T >
+template< class T >
 Matriz<T> Matriz<T> :: cov() const
 {
     Matriz<T> covariancia( this->lin, this->lin );
@@ -1226,8 +1341,8 @@ Matriz<T> Matriz<T> :: cov() const
     {
         for ( int j = 0 ; j < this->lin ; ++j )
         {
-            Matriz li ( this->linha ( i + 1 ) );
-            Matriz lj ( this->linha ( j + 1 ) );
+            Matriz li ( this->linha( i ) );
+            Matriz lj ( this->linha( j ) );
 
             T val = cov ( li, lj );
 
@@ -1249,7 +1364,7 @@ Matriz<T> Matriz<T> :: cov() const
 }
 
 
-template < class T >
+template< class T >
 Matriz<T> Matriz<T> :: cor() const
 {
     Matriz<T> correlacao( this->lin, this->lin );
@@ -1258,8 +1373,8 @@ Matriz<T> Matriz<T> :: cor() const
     {
         for ( int j = 0 ; j < this->lin ; ++j )
         {
-            Matriz li ( this->linha ( i + 1 ) );
-            Matriz lj ( this->linha ( j + 1 ) );
+            Matriz li ( this->linha( i ) );
+            Matriz lj ( this->linha( j ) );
 
             T val = cor ( li, lj );
 
@@ -1281,7 +1396,7 @@ Matriz<T> Matriz<T> :: cor() const
 }
 
 
-template < class T >
+template< class T >
 T Matriz<T> :: med( const Matriz<T> &x )
 {
     int n = x.colunas();
@@ -1297,7 +1412,7 @@ T Matriz<T> :: med( const Matriz<T> &x )
 }
 
 
-template < class T >
+template< class T >
 T Matriz<T> :: med( const Matriz<T> &x, const Matriz<T> &px )
 {
     // TODO
@@ -1305,7 +1420,7 @@ T Matriz<T> :: med( const Matriz<T> &x, const Matriz<T> &px )
 }
 
 
-template < class T >
+template< class T >
 T Matriz<T> :: desv_pad( const Matriz<T> &x )
 {
     // variancia
@@ -1313,7 +1428,7 @@ T Matriz<T> :: desv_pad( const Matriz<T> &x )
 }
 
 
-template < class T >
+template< class T >
 T Matriz<T> :: var( const Matriz<T> &x )
 {
     T media = med(x);
@@ -1330,7 +1445,7 @@ T Matriz<T> :: var( const Matriz<T> &x )
 }
 
 
-template < class T >
+template< class T >
 T Matriz<T> :: cov( const Matriz<T> &x,  const Matriz<T> &y )
 {
     int ncx = x.colunas();
@@ -1360,7 +1475,7 @@ T Matriz<T> :: cov( const Matriz<T> &x,  const Matriz<T> &y )
 }
 
 
-template < class T >
+template< class T >
 T Matriz<T> :: cor( const Matriz<T> &x,  const Matriz<T> &y )
 {
     int ncx = x.colunas();

@@ -5,7 +5,7 @@
 
 #include <QMainWindow>
 
-#include "executa_rede.h"
+#include "rede.h"
 #include "ui_principal.h"
 
 class JanelaPrincipal : public QMainWindow

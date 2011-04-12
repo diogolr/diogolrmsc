@@ -1,0 +1,3 @@
+- Ver QSignalMapper para mapear os sinais emitidos pela classe
+definida em item.h para a interface (como saber que arquivo
+foi carregado para utilizar a classe ExecutaRede, por exemplo)
