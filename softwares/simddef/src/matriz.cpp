@@ -926,34 +926,83 @@ Matriz<T> Matriz<T> :: adicionar_lin( const int &linha, const Matriz<T> &l )
 }
 
 
-// Adiciona regressores de acordo com o vetor de booleanos para cada coluna
-// desejada. O numero de regressores de cada coluna selecionada sera igual ao
-// parametro n. Supoe-se aqui que o numero de elementos no array eh igual ao
-// numero de colunas da matriz
+// Adiciona regressores de acordo com o vetor de inteiros para cada coluna
+// desejada. O numero de regressores de cada coluna devera ser especificado no
+// vetor. Se o numero for maior que zero, serao adicionados X regressores, onde
+// X se refere ao numero contido no vetor
 template< class T >
-Matriz<T> Matriz<T> :: adicionar_regressores( bool *cols_selecionadas, 
-                                              const int &n )
+Matriz<T> Matriz<T> :: adicionar_regressores( int *regressores ) 
 {
-    Matriz<T> *nova = new Matriz<T>( (*this) );
 
+    int soma = 0;
+
+    for ( int i = 0 ; i < this->col ; i++ )
+    {
+        soma += regressores[i];
+    }
+
+    Matriz<T> *nova = new Matriz<T>( this->lin, this->col + soma );
+
+    nova->zero();
+
+    int soma_parcial = 0;
+    
     for ( int j = 0 ; j < this->col ; j++ )
     {
-        if ( cols_selecionadas[j] )
+        // Se houver regressores
+        if ( regressores[j] > 0 )
         {
-            Matriz<T> coluna = this->coluna( j );
+            Matriz<T> novas_cols( this->lin, 1 + regressores[j] );
 
-            for ( int r = 1 ; r <= n ; r++ )
+            // Copiando a coluna original
+            for ( int i = 0 ; i < this->lin ; i++ )
             {
-                // Descer elementos da coluna de acordo com r
-                for ( int i = 1 ; i < nova->lin ; i++ )
+                novas_cols( i, 0 ) = (*this)( i, j );
+            }
+
+            // Adicionando as colunas dos regressores
+            for ( int c = 0 ; c < regressores[j] ; c++ )
+            {
+                for ( int i = c + 1 ; i < this->lin ; i++ )
                 {
-                    coluna( coluna->linhas() - 1, 0 ) = 
-                    coluna( coluna->linhas() - 1 - r, 0 );
+                    novas_cols( i, c + 1 ) = (*this)( i - c, j );
                 }
-                // Adicionar a coluna à matriz nova na coluna j+r
+            }
+
+            soma_parcial = 0;
+            
+            for ( int k = 0 ; k < j ; k++ )
+            {
+                soma_parcial += regressores[k];
+            }
+
+            for ( int i = 0 ; i < this->lin ; i++ )
+            {
+                for ( int c = 0 ; c < novas_cols.colunas() ; c++ )
+                {
+                    //TODO (*nova)( i, j + soma_parcial + c ) = novas_cols( i, c );
+                }
+            }
+        }
+        // Se nao houver regressores basta posicionar corretamente as colunas
+        // originais
+        else
+        {
+            soma_parcial = 0;
+
+            for ( int k = 0 ; k <= j ; k++ )
+            {
+                soma_parcial += regressores[k];
+            }
+
+            for ( int i = 0 ; i < this->lin ; i++ )
+            {
+                (*nova)( i, j + soma_parcial ) = (*this)( i, j );
             }
         }
     }
+
+    return *nova;
 }
 
 

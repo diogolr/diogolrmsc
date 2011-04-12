@@ -20,6 +20,7 @@ class JanelaPrincipal : public QMainWindow
     private:
 
     private slots:
+        void on_botao_clicked();
     
     // Atributos
     private:
