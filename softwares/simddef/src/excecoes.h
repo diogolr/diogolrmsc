@@ -19,6 +19,14 @@ class Excecao
         QString erro;
 };
 
+
+class ExcecaoConversao : public Excecao
+{
+    // Metodo
+    public:
+        ExcecaoConversao( const QString &e ) : Excecao( e ){ /* Vazio */ }
+};
+
 class ExcecaoDimensao : public Excecao
 {
     // Metodo
@@ -38,13 +46,6 @@ class ExcecaoMatrizQuadrada : public Excecao
     // Metodo
     public:
         ExcecaoMatrizQuadrada ( const QString &e ) : Excecao( e ){ /* Vazio */ }
-};
-
-class ExcecaoTamanho : public Excecao
-{
-    // Metodo
-    public:
-        ExcecaoTamanho( const QString &e ) : Excecao( e ){ /* Vazio */ }
 };
 
 class ExcecaoCampoInvalido : public Excecao

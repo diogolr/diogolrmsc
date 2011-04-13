@@ -20,34 +20,34 @@ JanelaPrincipal :: ~JanelaPrincipal()
 using namespace::std;
 void JanelaPrincipal :: on_botao_clicked()
 {
-    Matriz<double> mat( 5, 5 );
+    /* Teste da adicao de regressores ***********************************
+    Matriz<double> mat( 5, 4 );
 
-    mat( 0, 0 ) = 1.0; mat( 0, 1 ) = 2.0; mat( 0, 2 ) = 0.0;  mat( 0, 3 ) = 4.0; mat( 0, 4 ) = 3.0;
-    mat( 1, 0 ) = 2.0; mat( 1, 1 ) = 1.0; mat( 1, 2 ) = -1.0; mat( 1, 3 ) = 9.0; mat( 1, 4 ) = 2.0;
-    mat( 2, 0 ) = 3.0; mat( 2, 1 ) = 4.0; mat( 2, 2 ) = 2.0;  mat( 2, 3 ) = 5.0; mat( 2, 4 ) = 7.0;
-    mat( 3, 0 ) = 4.0; mat( 3, 1 ) = 3.0; mat( 3, 2 ) = 3.5;  mat( 3, 3 ) = 1.0; mat( 3, 4 ) = 6.0;
-    mat( 4, 0 ) = 5.0; mat( 4, 1 ) = 0.0; mat( 4, 2 ) = 43.0; mat( 4, 3 ) = 4.0; mat( 4, 4 ) = 1.0;
+    // 3 2 1 3
+    // 4 1 3 2
+    // 1 2 1 1   (Matriz original)
+    // 5 4 1 3
+    // 3 3 2 4
 
-    cout << mat << endl << endl;
-
-    Matriz<double> c( 5, 1 );
-
-    c( 0, 0 ) = 1.3;
-    c( 1, 0 ) = 2.3;
-    c( 2, 0 ) = 3.3;
-    c( 3, 0 ) = 4.3;
-    c( 4, 0 ) = 5.3;
-    
-    mat = mat.adicionar_col( 4, c );
+    mat( 0, 0 ) = 3.0; mat( 0, 1 ) = 2.0; mat( 0, 2 ) = 1.0; mat( 0, 3 ) = 3.0;
+    mat( 1, 0 ) = 4.0; mat( 1, 1 ) = 1.0; mat( 1, 2 ) = 3.0; mat( 1, 3 ) = 2.0;
+    mat( 2, 0 ) = 1.0; mat( 2, 1 ) = 2.0; mat( 2, 2 ) = 1.0; mat( 2, 3 ) = 1.0;
+    mat( 3, 0 ) = 5.0; mat( 3, 1 ) = 4.0; mat( 3, 2 ) = 1.0; mat( 3, 3 ) = 3.0;
+    mat( 4, 0 ) = 3.0; mat( 4, 1 ) = 3.0; mat( 4, 2 ) = 2.0; mat( 4, 3 ) = 4.0;
 
     cout << mat << endl << endl;
 
-    int x[] = { 0, 2, 0, 3, 0, 0 };
+    int x[] = { 1, 2, 4, 3 };
 
-    mat = mat.adicionar_regressores( x );
+    mat.adicionar_regressores( x );
 
     cout << mat << endl << endl;
-    
+    */
+
+    /* Teste da leitura do arquivo de entrada e da rede ***********************************
+    Rede r( "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/O2N8T3_RNA.cfg", 
+            "D:/documentos/diogolrmsc@ggc/softwares/simulacao_tanques_cpp/saidas/FADG/erro_sc_qualif.dat" );
+    */
 }
 
 #endif

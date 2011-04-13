@@ -377,7 +377,7 @@ Matriz<T> Matriz<T> :: operator+ ( const Matriz<T> & rhs ) const
     }
     else
     {
-        throw ExcecaoTamanho( "Tamanhos incompatíveis." );
+        throw ExcecaoDimensao( "Dimensões incompatíveis." );
     }
 }
 
@@ -404,7 +404,7 @@ Matriz<T> Matriz<T> :: operator- ( const Matriz<T> & rhs ) const
     }
     else
     {
-        throw ExcecaoTamanho( "Tamanhos incompatíveis." );
+        throw ExcecaoDimensao( "Dimensões incompatíveis." );
     }   
 }
 
@@ -435,7 +435,7 @@ Matriz<T> Matriz<T> :: operator* ( const Matriz<T> & rhs ) const
     }
     else
     {
-        throw ExcecaoTamanho( "Tamanhos incompatíveis." );
+        throw ExcecaoDimensao( "Dimensões incompatíveis." );
     }
 }
 
@@ -523,7 +523,7 @@ Matriz<T> Matriz<T> :: operator+= ( const Matriz<T> & rhs )
     }
     else
     {
-        throw ExcecaoTamanho( "Tamanhos incompatíveis." );
+        throw ExcecaoDimensao( "Dimensões incompatíveis." );
     }
 }
 
@@ -547,7 +547,7 @@ Matriz<T> Matriz<T> :: operator-= ( const Matriz<T> & rhs )
     }
     else
     {
-        throw ExcecaoTamanho( "Tamanhos incompatíveis." );
+        throw ExcecaoDimensao( "Dimensões incompatíveis." );
     }
 }
 
@@ -833,180 +833,6 @@ T Matriz<T> :: det() const
 
 // Outras operacoes ------------------------------------------------------------
 template< class T >
-Matriz<T> Matriz<T> :: adicionar_col( const int &coluna, const Matriz<T> &c )
-{
-    if ( c.linhas() != this->lin )
-    {
-        // TODO Exception
-    }
-
-    if ( c.colunas() != 1 )
-    {
-        // TODO Exception
-    }
-
-    Matriz<T> *nova = new Matriz<T> ( this->lin, this->col + 1 );
-
-    bool adicionada = false;
-
-    // copiando as linhas de this 
-    for ( int j = 0 ; j < this->col + 1 ; ++j )
-    {
-        for ( int i = 0 ; i < this->lin ; ++i )
-        {
-            if ( j == coluna )
-            {
-                (*nova)(i,j) = c( i, 0 );
-                
-                if ( i == this->lin - 1 )
-                    adicionada = true;
-            }
-            else
-            {
-                if ( !adicionada )
-                {
-                    (*nova)(i,j) = (*this)(i,j);
-                }
-                else
-                {
-                    (*nova)(i,j) = (*this)(i,j-1);
-                }
-            }
-        }
-    }
-
-    return (*nova);
-}
-
-
-template< class T >
-Matriz<T> Matriz<T> :: adicionar_lin( const int &linha, const Matriz<T> &l )
-{
-    if ( l.colunas() != this->col )
-    {
-        // TODO Exception
-    }
-
-    if ( l.linhas() != 1 )
-    {
-        // TODO Exception
-    }
-
-    Matriz<T> *nova = new Matriz<T> ( this->lin + 1, this->col );
-
-    bool adicionada = false;
-
-    // copiando as linhas de this 
-    for ( int i = 0 ; i < this->lin + 1 ; ++i )
-    {
-        for ( int j = 0 ; j < this->col ; ++j )
-        {
-            if ( i == linha )
-            {
-                (*nova)(i,j) = l( 0, j );
-
-                if ( j == this->col - 1 )
-                    adicionada = true;
-            }
-            else
-            {
-                if ( !adicionada )
-                {
-                    (*nova)(i,j) = (*this)(i,j);
-                }
-                else
-                {
-                    (*nova)(i,j) = (*this)(i-1,j);
-                }
-            }
-        }
-    }
-
-    return (*nova);
-}
-
-
-// Adiciona regressores de acordo com o vetor de inteiros para cada coluna
-// desejada. O numero de regressores de cada coluna devera ser especificado no
-// vetor. Se o numero for maior que zero, serao adicionados X regressores, onde
-// X se refere ao numero contido no vetor
-template< class T >
-Matriz<T> Matriz<T> :: adicionar_regressores( int *regressores ) 
-{
-
-    int soma = 0;
-
-    for ( int i = 0 ; i < this->col ; i++ )
-    {
-        soma += regressores[i];
-    }
-
-    Matriz<T> *nova = new Matriz<T>( this->lin, this->col + soma );
-
-    nova->zero();
-
-    int soma_parcial = 0;
-    
-    for ( int j = 0 ; j < this->col ; j++ )
-    {
-        // Se houver regressores
-        if ( regressores[j] > 0 )
-        {
-            Matriz<T> novas_cols( this->lin, 1 + regressores[j] );
-
-            // Copiando a coluna original
-            for ( int i = 0 ; i < this->lin ; i++ )
-            {
-                novas_cols( i, 0 ) = (*this)( i, j );
-            }
-
-            // Adicionando as colunas dos regressores
-            for ( int c = 0 ; c < regressores[j] ; c++ )
-            {
-                for ( int i = c + 1 ; i < this->lin ; i++ )
-                {
-                    novas_cols( i, c + 1 ) = (*this)( i - c, j );
-                }
-            }
-
-            soma_parcial = 0;
-            
-            for ( int k = 0 ; k < j ; k++ )
-            {
-                soma_parcial += regressores[k];
-            }
-
-            for ( int i = 0 ; i < this->lin ; i++ )
-            {
-                for ( int c = 0 ; c < novas_cols.colunas() ; c++ )
-                {
-                    //TODO (*nova)( i, j + soma_parcial + c ) = novas_cols( i, c );
-                }
-            }
-        }
-        // Se nao houver regressores basta posicionar corretamente as colunas
-        // originais
-        else
-        {
-            soma_parcial = 0;
-
-            for ( int k = 0 ; k <= j ; k++ )
-            {
-                soma_parcial += regressores[k];
-            }
-
-            for ( int i = 0 ; i < this->lin ; i++ )
-            {
-                (*nova)( i, j + soma_parcial ) = (*this)( i, j );
-            }
-        }
-    }
-
-    return *nova;
-}
-
-
-template< class T >
 Matriz<T> Matriz<T> :: coluna( const int &n ) const
 {
     if ( n < 0 )
@@ -1052,6 +878,154 @@ Matriz<T> Matriz<T> :: linha( const int &n ) const
 
     return *l;
 }
+
+template< class T >
+void Matriz<T> :: adicionar_coluna( const int &coluna, const Matriz<T> &c )
+{
+    if ( c.linhas() != this->lin )
+    {
+        throw( ExcecaoDimensao( "Dimensões incompatíveis." ) );
+    }
+
+    if ( c.colunas() != 1 )
+    {
+        throw( ExcecaoDimensao( "Dimensão inválida." ) );
+    }
+
+    Matriz<T> *nova = new Matriz<T> ( this->lin, this->col + 1 );
+
+    bool adicionada = false;
+
+    // copiando as linhas de this 
+    for ( int j = 0 ; j < this->col + 1 ; ++j )
+    {
+        for ( int i = 0 ; i < this->lin ; ++i )
+        {
+            if ( j == coluna )
+            {
+                (*nova)(i,j) = c( i, 0 );
+                
+                if ( i == this->lin - 1 )
+                    adicionada = true;
+            }
+            else
+            {
+                if ( !adicionada )
+                {
+                    (*nova)(i,j) = (*this)(i,j);
+                }
+                else
+                {
+                    (*nova)(i,j) = (*this)(i,j-1);
+                }
+            }
+        }
+    }
+
+    *this = *nova;
+
+    delete nova;
+}
+
+
+template< class T >
+void Matriz<T> :: adicionar_linha( const int &linha, const Matriz<T> &l )
+{
+    if ( l.colunas() != this->col )
+    {
+        throw( ExcecaoDimensao( "Dimensões incompatíveis." ) );
+    }
+
+    if ( l.linhas() != 1 )
+    {
+        throw( ExcecaoDimensao( "Dimensão inválida." ) );
+    }
+
+    Matriz<T> *nova = new Matriz<T> ( this->lin + 1, this->col );
+
+    bool adicionada = false;
+
+    // copiando as linhas de this 
+    for ( int i = 0 ; i < this->lin + 1 ; ++i )
+    {
+        for ( int j = 0 ; j < this->col ; ++j )
+        {
+            if ( i == linha )
+            {
+                (*nova)(i,j) = l( 0, j );
+
+                if ( j == this->col - 1 )
+                    adicionada = true;
+            }
+            else
+            {
+                if ( !adicionada )
+                {
+                    (*nova)(i,j) = (*this)(i,j);
+                }
+                else
+                {
+                    (*nova)(i,j) = (*this)(i-1,j);
+                }
+            }
+        }
+    }
+
+    *this = *nova;
+
+    delete nova;
+}
+
+
+// Adiciona regressores de acordo com o vetor de inteiros para cada coluna
+// desejada. O numero de regressores de cada coluna devera ser especificado no
+// vetor. Se o numero for maior que zero, serao adicionados X regressores, onde
+// X se refere ao numero contido no vetor
+template< class T >
+void Matriz<T> :: adicionar_regressores( int *regressores ) 
+{
+    Matriz<T> *nova = new Matriz<T>( *this );
+
+    int soma = 0;
+
+    for ( int j = 0 ; j < this->col ; j++ )
+    {
+        if ( regressores[j] > 0 )
+        {
+            // Repetindo as colunas dos regressores
+            for ( int k = 1 ; k <= regressores[j] ; k++ )
+            {
+                nova->adicionar_coluna( j + soma + k, this->coluna( j ) );
+
+                nova->descer_coluna( j + soma + k, k, 0.0 );
+            }
+
+            soma += regressores[j];
+        }
+    }
+
+    *this = *nova;
+
+    delete nova;
+}
+
+
+template< class T >
+void Matriz<T> :: descer_coluna( const int &c, const int &k, const T &valor )
+{
+    for ( int i = this->lin - 1 ; i >= 0 ; i-- )
+    {
+        if ( i >= k )
+        {
+            (*this)( i, c ) = (*this)( i - k, c );
+        }
+        else
+        {
+            (*this)( i, c ) = valor;
+        }
+    }
+}
+
 
 /* Based @ JAMA/C++ (see http://math.nist.gov/tnt/download.html)
  *
