@@ -4,7 +4,7 @@
 #include "rede.h"
 
 Rede :: Rede( const QString &nome_arq_rede,
-                            const QString &nome_arq_ent )
+              const QString &nome_arq_ent )
 {
     inicializar();
     ler_entrada( nome_arq_ent );
@@ -25,9 +25,65 @@ void Rede :: inicializar()
     n_entradas = n_camadas = 0;
 }
 
-
+#include <iostream>
+using namespace::std;
 void Rede :: ler_entrada( const QString &nome_arq )
 {
+    QFile arquivo( nome_arq );
+
+    if ( arquivo.open( QIODevice::ReadOnly ) )
+    {
+        // Iniciando a stream para leitura do arquivo
+        QTextStream stream( &arquivo );
+
+        int linha_atual = 0;
+        int num_colunas = 0;
+
+        QString linha = stream.readLine();
+
+        QStringList valores;
+            
+        valores = linha.split( QRegExp( "\t" ) );
+
+        num_colunas = valores.size();
+
+        if ( num_colunas > 0 )
+            entrada = new Matriz< double >( 1, num_colunas );
+            
+        linha = stream.readLine();
+
+        linha_atual++;
+
+        bool ok = true;
+        double valor = 0.0;
+
+        while( !linha.isNull() )
+        {
+            valores = linha.split( QRegExp( "\t" ) );
+
+            Matriz< double > lin( 1, num_colunas );
+
+            entrada->adicionar_linha( linha_atual, lin );
+
+            for ( int j = 0 ; j < valores.size() ; j++ )
+            {
+                valor = valores[j].toDouble( &ok );
+
+                if ( !ok )
+                {
+                    throw( ExcecaoConversao( "Conversão inválida" ) );
+                }
+                
+                (*entrada)( linha_atual, j ) = valor;
+            }
+
+            linha = stream.readLine();
+            
+            linha_atual++;
+        }
+
+        // TODO transpor entrada?
+    }
 }
 
 
@@ -55,14 +111,14 @@ void Rede :: ler_rede( const QString &nome_arq )
 
         if ( !ok )
         {
-            // TODO disparar excecao
+            throw( ExcecaoConversao( "Conversão inválida" ) );
         }
 
         n_camadas = valores[1].toInt( &ok );
 
         if ( !ok )
         {
-            // TODO disparar excecao
+            throw( ExcecaoConversao( "Conversão inválida" ) );
         }
 
         // Para cada camada
@@ -80,7 +136,7 @@ void Rede :: ler_rede( const QString &nome_arq )
 
             if ( !ok )
             {
-                // TODO disparar excecao
+                throw( ExcecaoConversao( "Conversão inválida" ) );
             }
 
             f_ativacao.append( qstring_char( valores[1] )[0] );
@@ -100,7 +156,8 @@ void Rede :: ler_rede( const QString &nome_arq )
                                              n_neuronios[ c - 1 ] );
             }
 
-            Matriz< double > *bias = new Matriz< double >( n_neuronios[ c ], 1 );
+            Matriz< double > *bias = new Matriz< double >( n_neuronios[ c ], 
+                                                           1 );
 
             for ( int i = 0 ; i < matriz->linhas() ; i++ )
             {
@@ -114,7 +171,7 @@ void Rede :: ler_rede( const QString &nome_arq )
 
                     if ( !ok )
                     {
-                        // TODO disparar excecao
+                        throw( ExcecaoConversao( "Conversão inválida" ) );
                     }
                 }
                 
@@ -122,7 +179,7 @@ void Rede :: ler_rede( const QString &nome_arq )
 
                 if ( !ok )
                 {
-                    // TODO disparar excecao
+                    throw( ExcecaoConversao( "Conversão inválida" ) );
                 }
             }
 

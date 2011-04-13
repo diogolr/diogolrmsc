@@ -15,6 +15,10 @@
 
 class Rede
 {
+    // Atributos publicos
+    public:
+        enum TipoRede{ NNARX = 0 };
+
     // Metodos
     public:
         Rede( const QString &, const QString & );
