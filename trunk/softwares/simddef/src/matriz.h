@@ -75,11 +75,11 @@ class Matriz
         Matriz<T> operator/= ( const T & );
         
         // Operacoes com matrizes
-        Matriz<T> trans() const;
-        Matriz<T> inv() const;
-        Matriz<T> adj() const;
-        T tra() const;
-        T det() const;
+        Matriz<T> transposta() const;
+        Matriz<T> inversa() const;
+        Matriz<T> adjunta() const;
+        T traco() const;
+        T determinante() const;
 
         // Operacoes de estatistica
         Matriz<T> cov() const;

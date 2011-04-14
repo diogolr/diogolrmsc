@@ -1,6 +1,10 @@
 #ifndef REDE_CPP_
 #define REDE_CPP_
 
+// TODO remover iostream
+#include <iostream>
+using namespace::std;
+
 #include "rede.h"
 
 Rede :: Rede( const QString &nome_arq_rede,
@@ -19,14 +23,40 @@ Rede :: ~Rede()
 }
 
 
+Matriz< double > Rede :: para_frente()
+{
+    Matriz< double > *ent = entrada;
+    Matriz< double > *saida = NULL;
+
+    // Para cada camada
+    for ( int c = 0 ; c < n_camadas ; c++ )
+    {
+        (*saida) = (*ent) * (*pesos[c]);
+
+        // Para cada amostra, somar o bias
+        for ( int n = 0 ; n < n_amostras ; n++ )
+        {
+            for ( int b = 0 ; b < biases[c]->colunas() ; b++ )
+            {
+                (*saida)( n, b ) += (*biases[c])( 0, b );
+            }
+        }
+
+        ent = saida;
+    }
+
+    cout << (*saida);
+
+    return (*saida);
+}
+
+
 void Rede :: inicializar()
 {
     entrada = NULL;
     n_entradas = n_camadas = 0;
 }
 
-#include <iostream>
-using namespace::std;
 void Rede :: ler_entrada( const QString &nome_arq )
 {
     QFile arquivo( nome_arq );
@@ -82,7 +112,10 @@ void Rede :: ler_entrada( const QString &nome_arq )
             linha_atual++;
         }
 
-        // TODO transpor entrada?
+        n_amostras = entrada->linhas();
+
+        // Transposta da entrada
+        // (*entrada) = entrada->trans();
     }
 }
 
@@ -182,6 +215,9 @@ void Rede :: ler_rede( const QString &nome_arq )
                     throw( ExcecaoConversao( "Conversão inválida" ) );
                 }
             }
+
+            (*matriz) = matriz->transposta();
+            (*bias) = bias->transposta();
 
             pesos.append( matriz );
             biases.append( bias );

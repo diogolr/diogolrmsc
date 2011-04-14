@@ -592,7 +592,7 @@ Matriz<T> Matriz<T> :: operator/= ( const T & rhs )
  *  @return The tranposed matriz.
  */
 template< class T >
-Matriz<T> Matriz<T> :: trans() const
+Matriz<T> Matriz<T> :: transposta() const
 {
     Matriz<T> * result = new Matriz<T> ( this->col , this->lin );
     
@@ -613,7 +613,7 @@ Matriz<T> Matriz<T> :: trans() const
  *  @return Matriz<T> inversa.
  */
 template< class T >
-Matriz<T> Matriz<T> :: inv() const
+Matriz<T> Matriz<T> :: inversa() const
 {
     if ( this->lin == this->col )
     {   
@@ -724,22 +724,23 @@ Matriz<T> Matriz<T> :: inv() const
  *  @return Adjoint.
  */
 template< class T >
-Matriz<T> Matriz<T> :: adj() const
+Matriz<T> Matriz<T> :: adjunta() const
 {
-    return this->det() * this->inv();
+    return this->determinante() * this->inversa();
 }
 
 
 template< class T >
-T Matriz<T> :: tra () const
+T Matriz<T> :: traco() const
 {
     int n = this->linhas();
-    T traco = 0;
 
     if ( n != this->colunas() )
     {
         //TODO Exception
     }
+
+    T traco = 0;
 
     for ( int i = 0 ; i < n ; ++i )
     {
@@ -757,7 +758,7 @@ T Matriz<T> :: tra () const
  *  @return Matriz<T> determinants.
  */
 template< class T >
-T Matriz<T> :: det() const
+T Matriz<T> :: determinante() const
 {
     if ( this->lin == this->col )
     {
@@ -821,7 +822,7 @@ T Matriz<T> :: det() const
                 }
             }
 
-            return (*this)(0,dj) * (dj%2 == 0 ? 1 : -1) * mat.det();
+            return (*this)(0,dj) * (dj%2 == 0 ? 1 : -1) * mat.determinante();
         }
     }
     else 

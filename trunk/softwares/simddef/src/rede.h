@@ -18,14 +18,19 @@ class Rede
     // Atributos publicos
     public:
         enum TipoRede{ NNARX = 0 };
+        enum FuncaoAtivacao{ Linear = 0, TgHiperbolica, Sigmoidal };
 
     // Metodos
     public:
         Rede( const QString &, const QString & );
         ~Rede();
+        
+        Matriz< double > para_frente();
 
     private:
         Rede();
+        
+        double funcao_ativacao( const int &, const double & );
 
         void inicializar();
         void ler_entrada( const QString & );
@@ -33,8 +38,9 @@ class Rede
     
     // Atributos
     private:
-        int n_entradas;
+        int n_amostras;
         int n_camadas;
+        int n_entradas;
         
         Matriz< double > *entrada;
 
