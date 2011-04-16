@@ -19,40 +19,46 @@ class Excecao
         QString erro;
 };
 
+class ExcecaoCampoInvalido : public Excecao
+{
+    // Metodos
+    public:
+        ExcecaoCampoInvalido( const QString &e ) : Excecao( e ){ /* Vazio */ }
+};
 
 class ExcecaoConversao : public Excecao
 {
-    // Metodo
+    // Metodos
     public:
         ExcecaoConversao( const QString &e ) : Excecao( e ){ /* Vazio */ }
 };
 
 class ExcecaoDimensao : public Excecao
 {
-    // Metodo
+    // Metodos
     public:
         ExcecaoDimensao( const QString &e ) : Excecao( e ){ /* Vazio */ }
 };
 
-class ExcecaoOperacao : public Excecao
+class ExcecaoFuncao : public Excecao
 {
-    // Metodo
+    // Metodos
     public:
-        ExcecaoOperacao( const QString &e ) : Excecao( e ){ /* Vazio */ }
+        ExcecaoFuncao( const QString &e ) : Excecao( e ){ /* Vazio */ }
 };
 
 class ExcecaoMatrizQuadrada : public Excecao
 {
-    // Metodo
+    // Metodos
     public:
         ExcecaoMatrizQuadrada ( const QString &e ) : Excecao( e ){ /* Vazio */ }
 };
 
-class ExcecaoCampoInvalido : public Excecao
+class ExcecaoOperacao : public Excecao
 {
-    // Metodo
+    // Metodos
     public:
-        ExcecaoCampoInvalido( const QString &e ) : Excecao( e ){ /* Vazio */ }
+        ExcecaoOperacao( const QString &e ) : Excecao( e ){ /* Vazio */ }
 };
 
 #endif

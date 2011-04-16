@@ -53,6 +53,8 @@ for i = 1 : length( falhas )
                                'T', num2str( melhores( i, 3 ) ) );
 
     arq_config_detec = strcat( nome_arq_sem_ext, '.mat' );
+    
+    %disp( arq_config_detec );
 
     load( arq_config_detec );
     
@@ -71,6 +73,10 @@ for i = 1 : length( falhas )
                                                      arq_erro_sc, ...
                                                      regressores, ...
                                                      validacao );
+                                                 
+    %saida_rna = sim( rede, entrada );
+    
+    %dlmwrite( strcat('saida_detec_', falhas{i}, '.dat' ), saida_rna', 'delimiter', '\t' );
 
     % Determinando o nome do arquivo final e chamando o metodo para 
     % gerar a saida

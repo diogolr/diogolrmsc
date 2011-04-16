@@ -31,23 +31,46 @@ Matriz< double > Rede :: para_frente()
     // Para cada camada
     for ( int c = 0 ; c < n_camadas ; c++ )
     {
-        (*saida) = (*ent) * (*pesos[c]);
+        saida = new Matriz< double >( (*pesos[c]) * (*ent)  );
 
         // Para cada amostra, somar o bias
         for ( int n = 0 ; n < n_amostras ; n++ )
         {
-            for ( int b = 0 ; b < biases[c]->colunas() ; b++ )
+            for ( int b = 0 ; b < biases[c]->linhas() ; b++ )
             {
-                (*saida)( n, b ) += (*biases[c])( 0, b );
+                (*saida)( b, n ) += (*biases[c])( b, 0 );
+                (*saida)( b, n ) = funcao_ativacao( c, (*saida)( b, n ) );
             }
         }
+
+        cout << "==================" << endl << *saida << endl << endl;
 
         ent = saida;
     }
 
-    cout << (*saida);
-
     return (*saida);
+}
+
+
+double Rede :: funcao_ativacao( const int &camada, const double &valor )
+{
+    switch ( f_ativacao[ camada ] )
+    {
+        case 'l':
+            return valor;
+            break;
+
+        case 's':
+            return logsig( valor ); // Definida em funcoes.h
+            break;
+
+        case 't':
+            return tansig( valor ); // Definida em funcoes.h
+            break;
+
+        default:
+            throw ExcecaoFuncao( "Função de ativação inválida" );
+    }
 }
 
 
@@ -115,7 +138,7 @@ void Rede :: ler_entrada( const QString &nome_arq )
         n_amostras = entrada->linhas();
 
         // Transposta da entrada
-        // (*entrada) = entrada->trans();
+        (*entrada) = entrada->transposta();
     }
 }
 
@@ -216,8 +239,8 @@ void Rede :: ler_rede( const QString &nome_arq )
                 }
             }
 
-            (*matriz) = matriz->transposta();
-            (*bias) = bias->transposta();
+            //(*matriz) = matriz->transposta();
+            //(*bias) = bias->transposta();
 
             pesos.append( matriz );
             biases.append( bias );
