@@ -17,8 +17,8 @@ class Rede
 {
     // Atributos publicos
     public:
-        enum TipoRede{ NNARX = 0 };
-        enum FuncaoAtivacao{ Linear = 0, TgHiperbolica, Sigmoidal };
+        // enum TipoRede{ NNARX = 0 };
+        // enum FuncaoAtvacao{ Linear = 0, TgHiperbolica, Sigmoidal };
 
     // Metodos
     public:

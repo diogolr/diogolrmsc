@@ -45,9 +45,15 @@ void JanelaPrincipal :: on_botao_clicked()
     */
 
     /* Teste da leitura do arquivo de entrada e da rede ***********************************
-    Rede r( "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/O2N8T3_RNA.cfg", 
-            "D:/documentos/diogolrmsc@ggc/softwares/simulacao_tanques_cpp/saidas/FADG/erro_sc_qualif.dat" );
     */
+/*    Rede r( "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/O2N8T3_RNA.cfg", 
+            "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/ent_rna_detec.dat" );
+    Rede r( "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/O2N8T3_RNA.cfg", 
+            "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/ent_rna_detec_linha_300.dat" );*/
+    Rede r( "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/O2N8T3_RNA.cfg", 
+            "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/ent_rna_detec_linhas_296_a_305.dat" );
+
+    Matriz< double > saida = r.para_frente();
 }
 
 #endif

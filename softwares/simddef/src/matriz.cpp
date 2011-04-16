@@ -419,6 +419,7 @@ Matriz<T> Matriz<T> :: operator* ( const Matriz<T> & rhs ) const
     if ( this->col == rhs.linhas() )
     {
         Matriz<T>* result = NULL;
+
         result = new Matriz<T>( this->lin , rhs.colunas() );
 
         for ( int i = 0 ; i < result->linhas() ; ++i )
