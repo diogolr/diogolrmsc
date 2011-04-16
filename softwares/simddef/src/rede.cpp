@@ -13,6 +13,7 @@ Rede :: Rede( const QString &nome_arq_rede,
     inicializar();
     ler_entrada( nome_arq_ent );
     ler_rede( nome_arq_rede );
+    criar_rede();
 }
 
 
@@ -25,6 +26,14 @@ Rede :: ~Rede()
 
 Matriz< double > Rede :: para_frente()
 {
+    Matriz< double > saida( n_amostras, 2 );
+
+    saida.zero();
+
+    
+
+    return saida;
+    /*
     Matriz< double > *ent = entrada;
     Matriz< double > *saida = NULL;
 
@@ -48,7 +57,7 @@ Matriz< double > Rede :: para_frente()
         ent = saida;
     }
 
-    return (*saida);
+    return (*saida);*/
 }
 
 
@@ -71,6 +80,78 @@ double Rede :: funcao_ativacao( const int &camada, const double &valor )
         default:
             throw ExcecaoFuncao( "Função de ativação inválida" );
     }
+}
+
+
+void Rede :: configurar_pesos()
+{
+    // TODO corrigir... ao inves de usar o array conexoes, pode-se chamar
+    // diretamente a funcao rede.set_weight( i, j, peso )
+
+    unsigned int tam = rede.get_total_connections();
+
+    connection *conexoes = new connection[ sizeof( connection ) * tam ];
+
+    rede.get_connection_array( conexoes );
+
+    for ( int c = 0 ; c < n_camadas - 1 ; c++ )
+    {
+        for ( int i = 0 ; i < n_neuronios[c + 1] ; i++ )
+        {
+            for ( int j = 0 ; j < n_neuronios[c] ; j++ )
+            {
+                conexoes[i].weight = (*pesos[c])( i, j );
+                
+                // Bias
+                if ( j == n_neuronios[c] - 1 )
+                {
+                    conexoes[i].weight = (*biases[c])( i, 0 );
+                }
+            }
+        }
+    }
+    
+    rede.set_weight_array( conexoes, tam );
+
+    cout << endl;
+    cout << endl;
+    cout << endl;
+
+    cout << (*pesos[0]);
+
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    rede.get_connection_array( conexoes );
+    for ( unsigned int i = 0 ; i < tam ; i++ )
+    {
+        cout << conexoes[i].weight << "\t";
+    }
+    cout << endl;
+    cout << endl;
+    cout << endl;
+}
+
+
+void Rede :: criar_rede()
+{
+    // O metodo create_standard_array da biblioteca FANN recebe como parametros
+    // o numero de camadas e um array contendo o numero de neuronios de cada
+    // camada. O numero de camadas inclui a camada de entrada, portanto, faz-se
+    // necessario adicionar o numero de entradas no inicio do vetor n_neuronios
+    // desta classe e somar 1 ao numero de camadas
+    n_neuronios.push_front( n_entradas );
+
+    n_camadas++;
+
+    rede.create_standard_array( n_camadas, 
+                                (const unsigned int *)n_neuronios.data() );
+
+    rede.print_connections();
+
+    configurar_pesos();
+    
+    rede.print_connections();
 }
 
 

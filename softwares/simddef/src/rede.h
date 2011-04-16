@@ -9,6 +9,11 @@
 #include <QTextStream>
 #include <QVector>
 
+#include "doublefann.h"
+#include "fann_cpp.h"
+using FANN::neural_net;
+using FANN::connection;
+
 #include "excecoes.h"
 #include "funcoes.h"
 #include "matriz.h"
@@ -32,6 +37,8 @@ class Rede
         
         double funcao_ativacao( const int &, const double & );
 
+        void configurar_pesos();
+        void criar_rede();
         void inicializar();
         void ler_entrada( const QString & );
         void ler_rede( const QString & );
@@ -48,6 +55,9 @@ class Rede
         QVector< char > f_ativacao;
         QVector< Matriz< double > * > pesos;
         QVector< Matriz< double > * > biases;
+
+        // Rede neural da biblioteca FANN
+        neural_net rede;
 };
 
 #endif

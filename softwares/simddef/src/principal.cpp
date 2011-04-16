@@ -16,8 +16,6 @@ JanelaPrincipal :: ~JanelaPrincipal()
     delete ui;
 }
 
-#include <iostream>
-using namespace::std;
 void JanelaPrincipal :: on_botao_clicked()
 {
     /* Teste da adicao de regressores ***********************************
@@ -53,7 +51,7 @@ void JanelaPrincipal :: on_botao_clicked()
     Rede r( "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/O2N8T3_RNA.cfg", 
             "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/ent_rna_detec_linhas_296_a_305.dat" );
 
-    Matriz< double > saida = r.para_frente();
+    r.para_frente();
 }
 
 #endif

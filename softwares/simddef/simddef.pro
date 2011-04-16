@@ -5,14 +5,14 @@
 TEMPLATE = app
 TARGET = 
 DEPENDPATH += . src ui
-INCLUDEPATH += . qwt
+INCLUDEPATH += . qwt fann
 
 unix {
     LIBS += /usr/lib/qwt-5.2.1/libqwt.so.5
 }
 win32 {
     QMAKE_LIBDIR += lib
-    LIBS += -lqwt5
+    LIBS += -lqwt5 -lfann
 }
 
 OBJECTS_DIR = obj
