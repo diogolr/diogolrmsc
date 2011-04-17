@@ -11,6 +11,7 @@
 
 #include "doublefann.h"
 #include "fann_cpp.h"
+using FANN::activation_function_enum;
 using FANN::neural_net;
 using FANN::connection;
 
@@ -22,21 +23,20 @@ class Rede
 {
     // Atributos publicos
     public:
-        // enum TipoRede{ NNARX = 0 };
-        // enum FuncaoAtvacao{ Linear = 0, TgHiperbolica, Sigmoidal };
+        // enum TipoRede{ MLP = 0 };
+        // enum FuncaoAtivacao{ Linear = 0, TgHiperbolica, Sigmoidal };
 
     // Metodos
     public:
         Rede( const QString &, const QString & );
         ~Rede();
         
-        Matriz< double > para_frente();
+        Matriz< double > executar();
 
     private:
         Rede();
         
-        double funcao_ativacao( const int &, const double & );
-
+        void configurar_funcoes_ativacao();
         void configurar_pesos();
         void criar_rede();
         void inicializar();
@@ -45,19 +45,25 @@ class Rede
     
     // Atributos
     private:
-        int n_amostras;
-        int n_camadas;
-        int n_entradas;
         
         Matriz< double > *entrada;
+        Matriz< double > *saida;
 
-        QVector< int > n_neuronios;
+        // O tipo uint serve apenas como um typedef definido pelo Qt para
+        // unsigned int
+        QVector< uint > n_neuronios;
         QVector< char > f_ativacao;
         QVector< Matriz< double > * > pesos;
         QVector< Matriz< double > * > biases;
 
         // Rede neural da biblioteca FANN
         neural_net rede;
+        
+        uint n_amostras;
+        uint n_camadas;
+        uint n_conexoes;
+        uint n_entradas;
+        uint n_saidas;
 };
 
 #endif

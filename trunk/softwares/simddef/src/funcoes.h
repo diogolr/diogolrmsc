@@ -8,8 +8,8 @@
 
 #include <cmath>
 
-#define logsig( n ) 1 / ( 1 + exp( -n ) )
-#define tansig( n ) 2 / ( 1 + exp( -2 * n ) ) - 1
+//#define logsig( n ) 1 / ( 1 + exp( -n ) )
+//#define tansig( n ) 2 / ( 1 + exp( -2 * n ) ) - 1
 
 enum TipoMensagem{ Geral = 0, 
                    Informacao, 

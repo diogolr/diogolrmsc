@@ -5,9 +5,8 @@ function [saida] = minha_simulacao( rede, entrada )
     for i = 1 : size( saida, 2 )
         saida( :, i ) = saida( :, i ) + rede.b{1};
     end
-    
+
     saida = tansig( saida );
-    
     saida = rede.LW{2,1} * saida;
     
     for i = 1 : size( saida, 2 )

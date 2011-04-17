@@ -125,33 +125,33 @@ int Matriz<T> :: colunas() const
     return this->col;
 }
 
-/*! Retorna um ponteiro para o inicio da linha i
- *  @param i Linha a ser retornada
- */
-template< class T >
-const T* Matriz<T> :: operator[] ( const int &i ) const
-{
-    if ( i < this->lin && i > 0 )
-    {
-        return &this->matriz[i*col];
-    }
-    else 
-    {
-        throw ExcecaoDimensao( "Dimensão inválida." );
-    }
-}
-
 /*! Retorna um ponteiro para o inicio da linha i.
  *  @param i Row to return.
  */
 template< class T >
 T* Matriz<T> :: operator[] ( const int &i )
 {
-    if ( i < this->lin && i > 0 )
+    if ( i < this->lin && i >= 0 )
     {
         return &this->matriz[i*col];
     }
     else
+    {
+        throw ExcecaoDimensao( "Dimensão inválida." );
+    }
+}
+
+/*! Retorna um ponteiro para o inicio da linha i
+ *  @param i Linha a ser retornada
+ */
+template< class T >
+const T* Matriz<T> :: operator[] ( const int &i ) const
+{
+    if ( i < this->lin && i >= 0 )
+    {
+        return &this->matriz[i*col];
+    }
+    else 
     {
         throw ExcecaoDimensao( "Dimensão inválida." );
     }
