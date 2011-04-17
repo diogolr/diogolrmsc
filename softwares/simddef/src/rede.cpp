@@ -1,18 +1,16 @@
 #ifndef REDE_CPP_
 #define REDE_CPP_
 
-// TODO remover iostream
-#include <iostream>
-using namespace::std;
-
 #include "rede.h"
 
 Rede :: Rede( const QString &nome_arq_rede,
+              const QString &nome_arq_lim,
               const QString &nome_arq_ent )
 {
     inicializar();
     ler_entrada( nome_arq_ent );
     ler_rede( nome_arq_rede );
+    ler_limites( nome_arq_lim );
     criar_rede();
 }
 
@@ -39,7 +37,13 @@ Matriz< double > Rede :: executar()
 
     for ( uint n = 0 ; n < n_amostras ; n++ )
     {
-        valores = rede.run( (*entrada)[n] );
+        valores = (*entrada)[n];
+
+        normalizar( valores );
+
+        valores = rede.run( valores );
+
+        desnormalizar( valores );
 
         for ( uint s = 0 ; s < n_saidas ; s++ )
         {
@@ -116,8 +120,6 @@ void Rede :: configurar_pesos()
     }
 
     rede.set_weight_array( conexoes, n_conexoes );
-
-    rede.print_connections();
 }
 
 
@@ -137,6 +139,17 @@ void Rede :: criar_rede()
 
     configurar_pesos();
     configurar_funcoes_ativacao();
+}
+
+
+void Rede :: desnormalizar( double *valores )
+{
+    // A desnormalizacao so acontece para os dados de saida, por isso so se
+    // utiliza o numero de saidas
+    for ( uint n = 0 ; n < n_saidas ; n++ )
+    {
+        valores[n] = ( valores[n] + 1.0 ) * ( y_range[n] / 2.0 ) + y_min[n];
+    }
 }
 
 
@@ -203,8 +216,110 @@ void Rede :: ler_entrada( const QString &nome_arq )
 
         n_amostras = entrada->linhas();
 
-        // Transposta da entrada
-        //(*entrada) = entrada->transposta();
+        arquivo.close();
+    }
+}
+
+
+void Rede :: ler_limites( const QString &nome_arq )
+{
+    QFile arquivo( nome_arq );
+
+    if ( arquivo.open( QIODevice::ReadOnly ) )
+    {
+        // Iniciando a stream para leitura do arquivo
+        QTextStream stream( &arquivo );
+
+        QString linha;
+
+        QStringList valores;
+
+        double valor = 0.0;
+        
+        bool ok = true;
+
+        if ( !ok )
+        {
+            throw( ExcecaoConversao( "Conversão inválida" ) );
+        }
+       
+        // Configurando x_min x_max e x_range
+        for ( uint i = 0 ; i < n_entradas ; i++ )
+        {
+            linha = stream.readLine();
+
+            valores = linha.split( QRegExp( "\t" ) );
+
+            // x_min
+            valor = valores[0].toDouble( &ok );
+        
+            if ( !ok )
+            {
+                throw( ExcecaoConversao( "Conversão inválida" ) );
+            }
+
+            x_min.append( valor );
+
+            // x_max
+            valor = valores[1].toDouble( &ok );
+        
+            if ( !ok )
+            {
+                throw( ExcecaoConversao( "Conversão inválida" ) );
+            }
+
+            x_max.append( valor );
+
+            // x_range
+            valor = valores[2].toDouble( &ok );
+            
+            if ( !ok )
+            {
+                throw( ExcecaoConversao( "Conversão inválida" ) );
+            }
+
+            x_range.append( valor );
+        }
+        
+        // Configurando y_min y_max e y_range
+        for ( uint i = 0 ; i < n_saidas ; i++ )
+        {
+            linha = stream.readLine();
+
+            valores = linha.split( QRegExp( "\t" ) );
+
+            // x_min
+            valor = valores[0].toDouble( &ok );
+        
+            if ( !ok )
+            {
+                throw( ExcecaoConversao( "Conversão inválida" ) );
+            }
+
+            y_min.append( valor );
+
+            // x_max
+            valor = valores[1].toDouble( &ok );
+        
+            if ( !ok )
+            {
+                throw( ExcecaoConversao( "Conversão inválida" ) );
+            }
+
+            y_max.append( valor );
+
+            // x_range
+            valor = valores[2].toDouble( &ok );
+            
+            if ( !ok )
+            {
+                throw( ExcecaoConversao( "Conversão inválida" ) );
+            }
+
+            y_range.append( valor );
+        }
+
+        arquivo.close();
     }
 }
 
@@ -312,6 +427,17 @@ void Rede :: ler_rede( const QString &nome_arq )
         n_saidas = n_neuronios.last();
 
         arquivo.close();
+    }
+}
+
+
+void Rede :: normalizar( double *valores )
+{
+    // A normalizacao so acontece para os dados de entrada, por isso so se
+    // utiliza o numero de entradas
+    for ( uint n = 0 ; n < n_entradas ; n++ )
+    {
+        valores[n] = ( valores[n] - x_min[n] ) * ( 2.0 / x_range[n] ) - 1.0;
     }
 }
 

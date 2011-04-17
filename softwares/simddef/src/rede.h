@@ -28,7 +28,7 @@ class Rede
 
     // Metodos
     public:
-        Rede( const QString &, const QString & );
+        Rede( const QString &, const QString &, const QString & );
         ~Rede();
         
         Matriz< double > executar();
@@ -39,9 +39,12 @@ class Rede
         void configurar_funcoes_ativacao();
         void configurar_pesos();
         void criar_rede();
+        void desnormalizar( double * );
         void inicializar();
         void ler_entrada( const QString & );
+        void ler_limites( const QString & );
         void ler_rede( const QString & );
+        void normalizar( double * );
     
     // Atributos
     private:
@@ -49,12 +52,16 @@ class Rede
         Matriz< double > *entrada;
         Matriz< double > *saida;
 
-        // O tipo uint serve apenas como um typedef definido pelo Qt para
-        // unsigned int
-        QVector< uint > n_neuronios;
         QVector< char > f_ativacao;
         QVector< Matriz< double > * > pesos;
         QVector< Matriz< double > * > biases;
+        QVector< double > x_min;
+        QVector< double > x_max;
+        QVector< double > x_range;
+        QVector< double > y_min;
+        QVector< double > y_max;
+        QVector< double > y_range;
+        QVector< uint > n_neuronios;
 
         // Rede neural da biblioteca FANN
         neural_net rede;
