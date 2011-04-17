@@ -21,115 +21,103 @@ Rede :: ~Rede()
 {
     if ( entrada != NULL )
         delete entrada;
+
+    if ( saida != NULL )
+        delete saida;
+
+    rede.destroy();
 }
 
 
-Matriz< double > Rede :: para_frente()
+Matriz< double > Rede :: executar()
 {
-    Matriz< double > saida( n_amostras, 2 );
+    saida = new Matriz< double >( n_amostras, n_saidas );
 
-    saida.zero();
+    saida->zero();
 
-    
+    double *valores = new double[ n_saidas ];
 
-    return saida;
-    /*
-    Matriz< double > *ent = entrada;
-    Matriz< double > *saida = NULL;
-
-    // Para cada camada
-    for ( int c = 0 ; c < n_camadas ; c++ )
+    for ( uint n = 0 ; n < n_amostras ; n++ )
     {
-        saida = new Matriz< double >( (*pesos[c]) * (*ent)  );
+        valores = rede.run( (*entrada)[n] );
 
-        // Para cada amostra, somar o bias
-        for ( int n = 0 ; n < n_amostras ; n++ )
+        for ( uint s = 0 ; s < n_saidas ; s++ )
         {
-            for ( int b = 0 ; b < biases[c]->linhas() ; b++ )
-            {
-                (*saida)( b, n ) += (*biases[c])( b, 0 );
-                (*saida)( b, n ) = funcao_ativacao( c, (*saida)( b, n ) );
-            }
+            (*saida)( n, s ) = valores[s];
         }
-
-        cout << "==================" << endl << *saida << endl << endl;
-
-        ent = saida;
     }
 
-    return (*saida);*/
+    return (*saida);
 }
 
 
-double Rede :: funcao_ativacao( const int &camada, const double &valor )
+void Rede :: configurar_funcoes_ativacao()
 {
-    switch ( f_ativacao[ camada ] )
+    // A camada zero equivale a camada de entrada, a qual nao possui funcao de
+    // ativacao. Ao chamar essa funcao, a rede ja devera ter sido configurada e,
+    // portanto, o numero de camadas em n_camadas sera sempre uma unidade maior.
+    // Por esse motivo, utiliza-se f_ativacao[c - 1]
+    for ( int c = 1 ; (uint)c < n_camadas ; c++ )
     {
-        case 'l':
-            return valor;
-            break;
+        switch ( f_ativacao[ c - 1 ] )
+        {
+            case 'l':
+                rede.set_activation_function_layer( FANN::LINEAR, c );
+                rede.set_activation_steepness_layer( 1.0, c );
+                break;
 
-        case 's':
-            return logsig( valor ); // Definida em funcoes.h
-            break;
+            case 's':
+                rede.set_activation_function_layer( FANN::SIGMOID, c );
+                rede.set_activation_steepness_layer( 1.0, c );
+                break;
 
-        case 't':
-            return tansig( valor ); // Definida em funcoes.h
-            break;
+            case 't':
+                rede.set_activation_function_layer( FANN::SIGMOID_SYMMETRIC, c );
+                rede.set_activation_steepness_layer( 1.0, c );
+                break;
 
-        default:
-            throw ExcecaoFuncao( "Função de ativação inválida" );
+            default:
+                throw ExcecaoFuncao( "Função de ativação inválida" );
+        }
     }
 }
 
 
 void Rede :: configurar_pesos()
 {
-    // TODO corrigir... ao inves de usar o array conexoes, pode-se chamar
-    // diretamente a funcao rede.set_weight( i, j, peso )
+    n_conexoes = rede.get_total_connections();
 
-    unsigned int tam = rede.get_total_connections();
-
-    connection *conexoes = new connection[ sizeof( connection ) * tam ];
+    connection *conexoes = new connection[ sizeof( connection ) * n_conexoes ];
 
     rede.get_connection_array( conexoes );
 
-    for ( int c = 0 ; c < n_camadas - 1 ; c++ )
+    uint contador = 0;
+
+    while( contador < n_conexoes )
     {
-        for ( int i = 0 ; i < n_neuronios[c + 1] ; i++ )
+        for ( uint c = 0 ; c < n_camadas - 1 ; c++ )
         {
-            for ( int j = 0 ; j < n_neuronios[c] ; j++ )
+            for ( uint i = 0 ; i < n_neuronios[c + 1] ; i++ )
             {
-                conexoes[i].weight = (*pesos[c])( i, j );
-                
-                // Bias
-                if ( j == n_neuronios[c] - 1 )
+                for ( uint j = 0 ; j < n_neuronios[c] ; j++ )
                 {
-                    conexoes[i].weight = (*biases[c])( i, 0 );
+                    conexoes[contador].weight = (*pesos[c])( i, j );
+                    contador++;
+
+                    // Adicionar peso do bias
+                    if ( j == n_neuronios[c] - 1 )
+                    {
+                        conexoes[contador].weight = (*biases[c])( i, 0 );
+                        contador++;
+                    }
                 }
             }
         }
     }
-    
-    rede.set_weight_array( conexoes, tam );
 
-    cout << endl;
-    cout << endl;
-    cout << endl;
+    rede.set_weight_array( conexoes, n_conexoes );
 
-    cout << (*pesos[0]);
-
-    cout << endl;
-    cout << endl;
-    cout << endl;
-    rede.get_connection_array( conexoes );
-    for ( unsigned int i = 0 ; i < tam ; i++ )
-    {
-        cout << conexoes[i].weight << "\t";
-    }
-    cout << endl;
-    cout << endl;
-    cout << endl;
+    rede.print_connections();
 }
 
 
@@ -147,18 +135,15 @@ void Rede :: criar_rede()
     rede.create_standard_array( n_camadas, 
                                 (const unsigned int *)n_neuronios.data() );
 
-    rede.print_connections();
-
     configurar_pesos();
-    
-    rede.print_connections();
+    configurar_funcoes_ativacao();
 }
 
 
 void Rede :: inicializar()
 {
-    entrada = NULL;
-    n_entradas = n_camadas = 0;
+    entrada = saida = NULL;
+    n_amostras = n_camadas = n_conexoes = n_entradas = 0;
 }
 
 void Rede :: ler_entrada( const QString &nome_arq )
@@ -219,7 +204,7 @@ void Rede :: ler_entrada( const QString &nome_arq )
         n_amostras = entrada->linhas();
 
         // Transposta da entrada
-        (*entrada) = entrada->transposta();
+        //(*entrada) = entrada->transposta();
     }
 }
 
@@ -244,14 +229,14 @@ void Rede :: ler_rede( const QString &nome_arq )
         // de camadas
         bool ok = true;
 
-        n_entradas = valores[0].toInt( &ok );
+        n_entradas = valores[0].toUInt( &ok );
 
         if ( !ok )
         {
             throw( ExcecaoConversao( "Conversão inválida" ) );
         }
 
-        n_camadas = valores[1].toInt( &ok );
+        n_camadas = valores[1].toUInt( &ok );
 
         if ( !ok )
         {
@@ -259,7 +244,7 @@ void Rede :: ler_rede( const QString &nome_arq )
         }
 
         // Para cada camada
-        for ( int c = 0 ; c < n_camadas ; c++ )
+        for ( unsigned int c = 0 ; c < n_camadas ; c++ )
         {
             // As linhas entre as camadas sao vazias e por isso devem ser
             // desprezadas
@@ -269,7 +254,7 @@ void Rede :: ler_rede( const QString &nome_arq )
 
             valores = linha.split( QRegExp( " \t " ) );
 
-            n_neuronios.append( valores[0].toInt( &ok ) );
+            n_neuronios.append( valores[0].toUInt( &ok ) );
 
             if ( !ok )
             {
@@ -320,12 +305,11 @@ void Rede :: ler_rede( const QString &nome_arq )
                 }
             }
 
-            //(*matriz) = matriz->transposta();
-            //(*bias) = bias->transposta();
-
             pesos.append( matriz );
             biases.append( bias );
         }
+
+        n_saidas = n_neuronios.last();
 
         arquivo.close();
     }

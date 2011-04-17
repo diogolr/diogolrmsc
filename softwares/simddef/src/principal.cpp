@@ -16,6 +16,8 @@ JanelaPrincipal :: ~JanelaPrincipal()
     delete ui;
 }
 
+#include <iostream>
+using std::cout;
 void JanelaPrincipal :: on_botao_clicked()
 {
     /* Teste da adicao de regressores ***********************************
@@ -46,12 +48,17 @@ void JanelaPrincipal :: on_botao_clicked()
     */
 /*    Rede r( "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/O2N8T3_RNA.cfg", 
             "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/ent_rna_detec.dat" );
-    Rede r( "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/O2N8T3_RNA.cfg", 
-            "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/ent_rna_detec_linha_300.dat" );*/
-    Rede r( "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/O2N8T3_RNA.cfg", 
-            "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/ent_rna_detec_linhas_296_a_305.dat" );
+      Rede r( "E:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/O2N8T3_RNA.cfg", 
+              "E:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/ent_rna_detec_linha_300.dat" );
+*/
+///*    
+    Rede r( "E:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/O2N8T3_RNA.cfg", 
+            "E:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/ent_rna_detec_linhas_296_a_305.dat" );
+//*/
 
-    r.para_frente();
+    Matriz< double > saida = r.executar();
+
+    cout << saida;
 }
 
 #endif
