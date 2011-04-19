@@ -3,6 +3,9 @@
 
 #include "rede.h"
 
+#include <iostream>
+using namespace::std;
+
 Rede :: Rede( const QString &nome_arq_rede,
               const QString &nome_arq_lim,
               const QString &nome_arq_ent )
@@ -22,7 +25,13 @@ Rede :: ~Rede()
 
 Matrix< double > Rede :: executar()
 {
-    return rede.calculate_output_matrix( entrada );
+    normalizar( &entrada );
+
+    Matrix< double > saida = rede.calculate_output_matrix( entrada );
+
+    desnormalizar( &saida );
+
+    return saida;
 }
 
 
@@ -30,7 +39,7 @@ void Rede :: configurar_funcoes_ativacao()
 {
     for ( uint c = 0 ; (uint)c < n_camadas ; c++ )
     {
-        switch ( f_ativacao[ c - 1 ] )
+        switch ( f_ativacao[ c ] )
         {
             case 'l':
                 if ( c == n_camadas - 1 )
@@ -85,13 +94,20 @@ void Rede :: configurar_pesos()
 }
 
 
-#include <iostream>
-using namespace::std;
 void Rede :: criar_rede()
 {
-    // TODO Configurar n_neuronios porque o ult elemento eh o numero de saidas e
-    // esta sendo criado duas camadas escondidas
-    rede.set_network_architecture( n_entradas, n_neuronios, n_saidas );
+    // Como o atributo n_neuronios inclui a camada de saida e a biblioteca Flood
+    // contabiliza as camadas escondidas separadas da camada de saida, faz-se
+    // necessario criar um novo vetor temporario somente para informar o numero
+    // de neuronios de cada camada oculta para a funcao set_network_architecture
+    Vector< int > n_neur_cam_ocultas( n_neuronios.get_size() - 1 );
+
+    for ( int i = 0 ; i < n_neur_cam_ocultas.get_size() ; i++ )
+    {
+        n_neur_cam_ocultas[i] = n_neuronios[i];
+    }
+
+    rede.set_network_architecture( n_entradas, n_neur_cam_ocultas, n_saidas );
 
     rede.save( "teste.net" );
 
@@ -100,13 +116,17 @@ void Rede :: criar_rede()
 }
 
 
-void Rede :: desnormalizar( double *valores )
+void Rede :: desnormalizar( Matrix< double > *valores )
 {
-    // A desnormalizacao so acontece para os dados de saida, por isso so se
-    // utiliza o numero de saidas
-    for ( uint n = 0 ; n < n_saidas ; n++ )
+    for ( uint a = 0 ; a < n_amostras ; a++ )
     {
-        valores[n] = ( valores[n] + 1.0 ) * ( y_range[n] / 2.0 ) + y_min[n];
+        // A desnormalizacao so acontece para os dados de saida, por isso so se
+        // utiliza o numero de saidas
+        for ( uint n = 0 ; n < n_saidas ; n++ )
+        {
+            (*valores)[a][n] = ( (*valores)[a][n] + 1.0 ) * 
+                               ( y_range[n] / 2.0 ) + y_min[n];
+        }
     }
 }
 
@@ -135,7 +155,10 @@ void Rede :: ler_entrada( const QString &nome_arq )
 
         num_colunas = valores.size();
 
-        entrada.set( 1, num_colunas );
+        // Adicionando uma linha so para que se possa utilizar o metodo add_row
+        // corretamente, pois o metodo add_row precisa saber o numero de colunas
+        // da matriz. No final do laco while esta linha sera removida
+        entrada.set( 1, num_colunas, 0.0 );
 
         bool ok = true;
 
@@ -163,6 +186,8 @@ void Rede :: ler_entrada( const QString &nome_arq )
 
             linha = stream.readLine();
         }
+
+        entrada.subtract_row( 0 );
 
         n_amostras = entrada.get_rows_number();
 
@@ -199,8 +224,6 @@ void Rede :: ler_limites( const QString &nome_arq )
             linha = stream.readLine();
 
             valores = linha.split( QRegExp( "\t" ) );
-
-            qDebug() << valores;
 
             // x_min
             valor = valores[0].toDouble( &ok );
@@ -239,8 +262,6 @@ void Rede :: ler_limites( const QString &nome_arq )
             linha = stream.readLine();
 
             valores = linha.split( QRegExp( "\t" ) );
-
-            qDebug() << valores;
 
             // x_min
             valor = valores[0].toDouble( &ok );
@@ -368,7 +389,6 @@ void Rede :: ler_rede( const QString &nome_arq )
                     }
                 }
                 
-                // TODO columns_number - 1?
                 bias[i] = valores[ matriz.get_columns_number() ].toDouble( &ok );
 
                 if ( !ok )
@@ -388,15 +408,18 @@ void Rede :: ler_rede( const QString &nome_arq )
 }
 
 
-void Rede :: normalizar( double *valores )
+void Rede :: normalizar( Matrix< double > *valores )
 {
-    // A normalizacao so acontece para os dados de entrada, por isso so se
-    // utiliza o numero de entradas
-    for ( uint n = 0 ; n < n_entradas ; n++ )
+    for ( uint a = 0 ; a < n_amostras ; a++ )
     {
-        valores[n] = ( valores[n] - x_min[n] ) * ( 2.0 / x_range[n] ) - 1.0;
+        // A normalizacao so acontece para os dados de entrada, por isso so se
+        // utiliza o numero de entradas
+        for ( uint n = 0 ; n < n_entradas ; n++ )
+        {
+            (*valores)[a][n] = ( (*valores)[a][n] - x_min[n] ) * 
+                               ( 2.0 / x_range[n] ) - 1.0;
+        }
     }
 }
-
 
 #endif

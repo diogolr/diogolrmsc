@@ -18,16 +18,16 @@ JanelaPrincipal :: ~JanelaPrincipal()
 
 
 #include <iostream>
-using std::cout;
+using namespace::std;
 void JanelaPrincipal :: on_botao_clicked()
 {
-    Rede r( "E:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/O2N8T3_RNA.cfg", 
-            "E:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/O2N8T3_RNA.lim",
-            "E:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/ent_rna_detec_linhas_296_a_305.dat" );
+    Rede r( "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/O2N8T3_RNA.cfg", 
+            "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/O2N8T3_RNA.lim",
+            "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/ent_rna_detec_linhas_296_a_305.dat" );
 
-//    Matrix< double > saida = r.executar();
+    Matrix< double > saida = r.executar();
 
-//    cout << saida;
+    cout << saida;
 }
 
 #endif
