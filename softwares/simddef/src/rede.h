@@ -46,12 +46,12 @@ class Rede
         void configurar_funcoes_ativacao();
         void configurar_pesos();
         void criar_rede();
-        void desnormalizar( double * );
+        void desnormalizar( Matrix< double > * );
         void inicializar();
         void ler_entrada( const QString & );
         void ler_limites( const QString & );
         void ler_rede( const QString & );
-        void normalizar( double * );
+        void normalizar( Matrix< double > * );
     
     // Atributos
     private:
