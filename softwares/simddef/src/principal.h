@@ -5,6 +5,9 @@
 
 #include <QMainWindow>
 
+#include <Matrix.h>
+using Flood::Matrix;
+
 #include "rede.h"
 #include "ui_principal.h"
 

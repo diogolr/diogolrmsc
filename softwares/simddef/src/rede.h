@@ -1,6 +1,8 @@
 #ifndef REDE_H_
 #define REDE_H_
 
+#include <QDebug>
+
 #include <QFile>
 #include <QIODevice>
 #include <QRegExp>
@@ -9,29 +11,34 @@
 #include <QTextStream>
 #include <QVector>
 
-#include "doublefann.h"
-#include "fann_cpp.h"
-using FANN::activation_function_enum;
-using FANN::neural_net;
-using FANN::connection;
+#include <MultilayerPerceptron.h>
+using Flood::MultilayerPerceptron;
+
+#define LINEAR MultilayerPerceptron::Linear
+#define LOGSIG MultilayerPerceptron::Logistic
+#define TANH   MultilayerPerceptron::HyperbolicTangent
+
+#include <Matrix.h>
+using Flood::Matrix;
+
+#include <Vector.h>
+using Flood::Vector;
 
 #include "excecoes.h"
 #include "funcoes.h"
-#include "matriz.h"
 
 class Rede
 {
     // Atributos publicos
     public:
         // enum TipoRede{ MLP = 0 };
-        // enum FuncaoAtivacao{ Linear = 0, TgHiperbolica, Sigmoidal };
 
     // Metodos
     public:
         Rede( const QString &, const QString &, const QString & );
         ~Rede();
         
-        Matriz< double > executar();
+        Matrix< double > executar();
 
     private:
         Rede();
@@ -49,28 +56,28 @@ class Rede
     // Atributos
     private:
         
-        Matriz< double > *entrada;
-        Matriz< double > *saida;
+        Matrix< double > entrada;
+        Matrix< double > saida;
+        
+        // Rede neural da biblioteca Flood
+        MultilayerPerceptron rede;
 
         QVector< char > f_ativacao;
-        QVector< Matriz< double > * > pesos;
-        QVector< Matriz< double > * > biases;
         QVector< double > x_min;
         QVector< double > x_max;
         QVector< double > x_range;
         QVector< double > y_min;
         QVector< double > y_max;
         QVector< double > y_range;
-        QVector< uint > n_neuronios;
 
-        // Rede neural da biblioteca FANN
-        neural_net rede;
-        
         uint n_amostras;
         uint n_camadas;
-        uint n_conexoes;
         uint n_entradas;
         uint n_saidas;
+        
+        Vector< int > n_neuronios;
+        Vector< Matrix< double > > pesos;
+        Vector< Vector< double > > biases;
 };
 
 #endif

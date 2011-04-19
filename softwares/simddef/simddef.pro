@@ -5,14 +5,20 @@
 TEMPLATE = app
 TARGET = 
 DEPENDPATH += . src ui
-INCLUDEPATH += . qwt fann
+INCLUDEPATH += . \
+               flood/MultilayerPerceptron \
+               flood/ObjectiveFunctional \
+               flood/Perceptron \
+               flood/TrainingAlgorithm \
+               flood/Utilities \
+               qwt
 
 unix {
     LIBS += /usr/lib/qwt-5.2.1/libqwt.so.5
 }
 win32 {
     QMAKE_LIBDIR += lib
-    LIBS += -lqwt5 -lfann
+    LIBS += -lqwt5 -lflood
 }
 
 OBJECTS_DIR = obj
@@ -28,7 +34,6 @@ FORMS += ui/principal.ui
 HEADERS += src/excecoes.h \
            src/funcoes.h \
            src/grafico.h \
-           src/matriz.h \
            src/principal.h \
            src/rede.h
 
@@ -36,7 +41,6 @@ SOURCES += src/excecoes.cpp \
            src/funcoes.cpp \
            src/grafico.cpp \
            src/main.cpp \
-           src/matriz.cpp \
            src/principal.cpp \
            src/rede.cpp \
 
