@@ -3,6 +3,7 @@
 
 #include <QDebug>
 
+#include <QDialog>
 #include <QFile>
 #include <QIODevice>
 #include <QRegExp>
@@ -11,23 +12,25 @@
 #include <QTextStream>
 #include <QVector>
 
+#include <Matrix.h>
 #include <MultilayerPerceptron.h>
+#include <Vector.h>
 using Flood::MultilayerPerceptron;
+using Flood::Matrix;
+using Flood::Vector;
+
+#include "excecoes.h"
+#include "funcoes.h"
+#include "modulo.h"
+
+typedef Matrix< double > MatrizD;
+typedef Vector< double > VetorD;
 
 #define LINEAR MultilayerPerceptron::Linear
 #define LOGSIG MultilayerPerceptron::Logistic
 #define TANH   MultilayerPerceptron::HyperbolicTangent
 
-#include <Matrix.h>
-using Flood::Matrix;
-
-#include <Vector.h>
-using Flood::Vector;
-
-#include "excecoes.h"
-#include "funcoes.h"
-
-class Rede
+class Rede : public Modulo
 {
     // Atributos publicos
     public:
@@ -35,30 +38,25 @@ class Rede
 
     // Metodos
     public:
-        Rede( const QString &, const QString &, const QString & );
+        Rede();
         ~Rede();
         
-        Matrix< double > executar();
+        MatrizD executar();
+        void ler_arquivos( const QStringList & );
 
     private:
-        Rede();
-        
         void configurar_funcoes_ativacao();
         void configurar_pesos();
         void criar_rede();
-        void desnormalizar( Matrix< double > * );
+        void desnormalizar( MatrizD * );
         void inicializar();
         void ler_entrada( const QString & );
         void ler_limites( const QString & );
         void ler_rede( const QString & );
-        void normalizar( Matrix< double > * );
+        void normalizar( MatrizD * );
     
     // Atributos
     private:
-        
-        Matrix< double > entrada;
-        Matrix< double > saida;
-        
         // Rede neural da biblioteca Flood
         MultilayerPerceptron rede;
 
@@ -72,12 +70,10 @@ class Rede
 
         uint n_amostras;
         uint n_camadas;
-        uint n_entradas;
-        uint n_saidas;
         
         Vector< int > n_neuronios;
-        Vector< Matrix< double > > pesos;
-        Vector< Vector< double > > biases;
+        Vector< MatrizD > pesos;
+        Vector< VetorD > biases;
 };
 
 #endif

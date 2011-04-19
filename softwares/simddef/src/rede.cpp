@@ -6,15 +6,9 @@
 #include <iostream>
 using namespace::std;
 
-Rede :: Rede( const QString &nome_arq_rede,
-              const QString &nome_arq_lim,
-              const QString &nome_arq_ent )
+Rede :: Rede() : Modulo( Modulo::RNA )
 {
     inicializar();
-    ler_entrada( nome_arq_ent );
-    ler_rede( nome_arq_rede );
-    ler_limites( nome_arq_lim );
-    criar_rede();
 }
 
 
@@ -23,15 +17,32 @@ Rede :: ~Rede()
 }
 
 
-Matrix< double > Rede :: executar()
+MatrizD Rede :: executar()
 {
     normalizar( &entrada );
 
-    Matrix< double > saida = rede.calculate_output_matrix( entrada );
+    MatrizD saida = rede.calculate_output_matrix( entrada );
 
     desnormalizar( &saida );
 
     return saida;
+}
+
+
+void Rede :: ler_arquivos( const QStringList &arquivos )
+{
+    try
+    {
+        ler_entrada( arquivos[0] );
+        ler_rede( arquivos[1] );
+        ler_limites( arquivos[2] );
+    }
+    catch( Excecao e )
+    {
+        throw e;
+    }
+    
+    criar_rede();
 }
 
 
@@ -109,14 +120,12 @@ void Rede :: criar_rede()
 
     rede.set_network_architecture( n_entradas, n_neur_cam_ocultas, n_saidas );
 
-    rede.save( "teste.net" );
-
     configurar_pesos();
     configurar_funcoes_ativacao();
 }
 
 
-void Rede :: desnormalizar( Matrix< double > *valores )
+void Rede :: desnormalizar( MatrizD *valores )
 {
     for ( uint a = 0 ; a < n_amostras ; a++ )
     {
@@ -140,7 +149,11 @@ void Rede :: ler_entrada( const QString &nome_arq )
 {
     QFile arquivo( nome_arq );
 
-    if ( arquivo.open( QIODevice::ReadOnly ) )
+    if ( !arquivo.open( QIODevice::ReadOnly ) )
+    {
+        throw ExcecaoArquivo( "O arquivo não pôde ser aberto." );
+    }
+    else
     {
         // Iniciando a stream para leitura do arquivo
         QTextStream stream( &arquivo );
@@ -168,7 +181,7 @@ void Rede :: ler_entrada( const QString &nome_arq )
         {
             valores = linha.split( QRegExp( "\t" ) );
 
-            Vector< double > lin( num_colunas );
+            VetorD lin( num_colunas );
 
             for ( int j = 0 ; j < valores.size() ; j++ )
             {
@@ -200,7 +213,11 @@ void Rede :: ler_limites( const QString &nome_arq )
 {
     QFile arquivo( nome_arq );
 
-    if ( arquivo.open( QIODevice::ReadOnly ) )
+    if ( !arquivo.open( QIODevice::ReadOnly ) )
+    {
+        throw ExcecaoArquivo( "O arquivo não pôde ser aberto." );
+    }
+    else
     {
         // Iniciando a stream para leitura do arquivo
         QTextStream stream( &arquivo );
@@ -303,7 +320,11 @@ void Rede :: ler_rede( const QString &nome_arq )
 {
     QFile arquivo( nome_arq );
 
-    if ( arquivo.open( QIODevice::ReadOnly ) )
+    if ( !arquivo.open( QIODevice::ReadOnly ) )
+    {
+        throw ExcecaoArquivo( "O arquivo não pôde ser aberto." );
+    }
+    else
     {
         // Iniciando a stream para leitura do arquivo
         QTextStream stream( &arquivo );
@@ -360,7 +381,7 @@ void Rede :: ler_rede( const QString &nome_arq )
             
             // Configurando os pesos da rede. Importante observar que a ultima
             // coluna sera sempre o bias daquela camada
-            Matrix< double > matriz;
+            MatrizD matriz;
 
             if ( c == 0 )
             {
@@ -371,7 +392,7 @@ void Rede :: ler_rede( const QString &nome_arq )
                 matriz.set( n_neuronios[c], n_neuronios[ c - 1 ] );
             }
 
-            Vector< double > bias( n_neuronios[ c ] );
+            VetorD bias( n_neuronios[ c ] );
 
             for ( int i = 0 ; i < matriz.get_rows_number() ; i++ )
             {
@@ -408,7 +429,7 @@ void Rede :: ler_rede( const QString &nome_arq )
 }
 
 
-void Rede :: normalizar( Matrix< double > *valores )
+void Rede :: normalizar( MatrizD *valores )
 {
     for ( uint a = 0 ; a < n_amostras ; a++ )
     {

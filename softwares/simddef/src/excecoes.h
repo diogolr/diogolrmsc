@@ -19,6 +19,13 @@ class Excecao
         QString erro;
 };
 
+class ExcecaoArquivo : public Excecao
+{
+    // Metodos
+    public:
+        ExcecaoArquivo( const QString &e ) : Excecao( e ){ /* Vazio */ }
+};
+
 class ExcecaoCampoInvalido : public Excecao
 {
     // Metodos
