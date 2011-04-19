@@ -14,7 +14,8 @@ INCLUDEPATH += . \
                qwt
 
 unix {
-    LIBS += /usr/lib/qwt-5.2.1/libqwt.so.5
+    LIBS += /usr/lib/qwt-5.2.1/libqwt.so.5 \
+            /usr/lib/flood/libflood.so.1
 }
 win32 {
     QMAKE_LIBDIR += lib
