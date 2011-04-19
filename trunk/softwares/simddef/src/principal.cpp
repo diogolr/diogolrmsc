@@ -18,12 +18,18 @@ JanelaPrincipal :: ~JanelaPrincipal()
 
 
 #include <iostream>
-using namespace::std;
+using std::cout;
 void JanelaPrincipal :: on_botao_clicked()
 {
-    Rede r( "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/O2N8T3_RNA.cfg", 
-            "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/O2N8T3_RNA.lim",
-            "D:/documentos/diogolrmsc@ggc/softwares/simddef/cfgs_rnas/FADG/ent_rna_detec_linhas_296_a_305.dat" );
+    Rede r;
+    switch( config.exec() )
+    {
+        case QDialog::Accepted:
+            r.ler_arquivos( config.arquivos() );
+            break;
+        case QDialog::Rejected:
+            break;
+    }
 
     Matrix< double > saida = r.executar();
 

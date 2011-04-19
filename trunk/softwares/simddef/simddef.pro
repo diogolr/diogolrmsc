@@ -30,18 +30,23 @@ CONFIG += release console
 QT += svg
 
 # Input
-FORMS += ui/principal.ui
+FORMS += ui/config_modulo.ui \
+         ui/principal.ui
 
-HEADERS += src/excecoes.h \
+HEADERS += src/config_modulo.h \
+           src/excecoes.h \
            src/funcoes.h \
            src/grafico.h \
+           src/modulo.h \
            src/principal.h \
            src/rede.h
 
-SOURCES += src/excecoes.cpp \
+SOURCES += src/config_modulo.cpp \
+           src/excecoes.cpp \
            src/funcoes.cpp \
            src/grafico.cpp \
            src/main.cpp \
+           src/modulo.cpp \
            src/principal.cpp \
            src/rede.cpp \
 
