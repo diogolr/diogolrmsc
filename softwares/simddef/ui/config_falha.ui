@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ConfigModulo</class>
+ <widget class="QDialog" name="ConfigModulo">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>436</width>
+    <height>486</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Configuração das falhas do sistema</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Cadastre uma nova falha escrevendo uma abreviatura, uma breve descrição e escolhendo o local da falha. Exemplo: FADG (Falha do atuador por descalibramento de ganho)</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Abreviatura</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Descrição</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Local</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLineEdit" name="nome">
+         <property name="toolTip">
+          <string>Abreviatura da falha (Limite de 10 caracteres)</string>
+         </property>
+         <property name="maxLength">
+          <number>10</number>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="descricao">
+         <property name="toolTip">
+          <string>Descrição da falha (Limite de 50 caracteres)</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="maxLength">
+          <number>80</number>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox">
+         <property name="toolTip">
+          <string>Local da falha</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>Falha do sensor</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Falha do atuador</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Falha do sistema</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Lista de falhas cadastradas</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>153</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QToolButton" name="adicionar">
+         <property name="toolTip">
+          <string>Adicionar falha</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../imgs/imgs.qrc">
+           <normaloff>:/imgs/adicionar.png</normaloff>:/imgs/adicionar.png</iconset>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="remover">
+         <property name="toolTip">
+          <string>Remover falha</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../imgs/imgs.qrc">
+           <normaloff>:/imgs/remover.png</normaloff>:/imgs/remover.png</iconset>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="0">
+    <widget class="QTableWidget" name="falhas_cad">
+     <property name="toolTip">
+      <string>Falhas cadastradas</string>
+     </property>
+     <column>
+      <property name="text">
+       <string>Abreviatura</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Descrição</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>153</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="botao_cancel">
+       <property name="text">
+        <string>Fechar</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>nome</tabstop>
+  <tabstop>descricao</tabstop>
+  <tabstop>adicionar</tabstop>
+  <tabstop>remover</tabstop>
+  <tabstop>falhas_cad</tabstop>
+  <tabstop>botao_cancel</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../imgs/imgs.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>botao_cancel</sender>
+   <signal>clicked()</signal>
+   <receiver>ConfigModulo</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>411</x>
+     <y>367</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>245</x>
+     <y>352</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
