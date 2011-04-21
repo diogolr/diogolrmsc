@@ -36,11 +36,4 @@ void ConfigModulo :: on_botao_ok_clicked()
 }
 
 
-void ConfigModulo :: on_botao_cancel_clicked()
-{
-    reject();
-}
-
-
-
 #endif

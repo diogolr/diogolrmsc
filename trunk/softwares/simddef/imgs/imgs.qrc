@@ -1,5 +1,19 @@
 <RCC>
   <qresource prefix="imgs">
+    <file>adicionar.png</file>
+    <file>configurar.png</file>
+    <file>copiar.png</file>
+    <file>editar.png</file>
+    <file>grafico.png</file>
+    <file>imprimir.png</file>
+    <file>mover_para_baixo.png</file>
+    <file>mover_para_cima.png</file>
+    <file>nota.png</file>
+    <file>novo.png</file>
+    <file>recortar.png</file>
+    <file>remover.png</file>
     <file>salvar.png</file>
+    <file>zoom_mais.png</file>
+    <file>zoom_menos.png</file>
   </qresource>
 </RCC>
