@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ConfigModulo</class>
- <widget class="QDialog" name="ConfigModulo">
+ <class>ConfigFalha</class>
+ <widget class="QDialog" name="ConfigFalha">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -32,6 +32,13 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Local</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QLabel" name="label_6">
          <property name="text">
           <string>Abreviatura</string>
@@ -45,19 +52,34 @@
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>Local</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QLineEdit" name="nome">
+        <widget class="QComboBox" name="local">
+         <property name="toolTip">
+          <string>Local da falha</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>Falha do sensor</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Falha do atuador</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Falha do sistema</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="abrv">
          <property name="toolTip">
           <string>Abreviatura da falha (Limite de 10 caracteres)</string>
          </property>
@@ -77,28 +99,6 @@
          <property name="maxLength">
           <number>80</number>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="comboBox">
-         <property name="toolTip">
-          <string>Local da falha</string>
-         </property>
-         <item>
-          <property name="text">
-           <string>Falha do sensor</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Falha do atuador</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Falha do sistema</string>
-          </property>
-         </item>
         </widget>
        </item>
       </layout>
@@ -166,6 +166,26 @@
      <property name="toolTip">
       <string>Falhas cadastradas</string>
      </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="tabKeyNavigation">
+      <bool>false</bool>
+     </property>
+     <property name="gridStyle">
+      <enum>Qt::DotLine</enum>
+     </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+     <attribute name="verticalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>Local</string>
+      </property>
+     </column>
      <column>
       <property name="text">
        <string>Abreviatura</string>
@@ -205,7 +225,7 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>nome</tabstop>
+  <tabstop>abrv</tabstop>
   <tabstop>descricao</tabstop>
   <tabstop>adicionar</tabstop>
   <tabstop>remover</tabstop>
@@ -219,16 +239,16 @@
   <connection>
    <sender>botao_cancel</sender>
    <signal>clicked()</signal>
-   <receiver>ConfigModulo</receiver>
+   <receiver>ConfigFalha</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>411</x>
-     <y>367</y>
+     <x>425</x>
+     <y>475</y>
     </hint>
     <hint type="destinationlabel">
-     <x>245</x>
-     <y>352</y>
+     <x>300</x>
+     <y>463</y>
     </hint>
    </hints>
   </connection>

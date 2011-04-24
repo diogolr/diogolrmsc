@@ -9,6 +9,7 @@
 #include <Matrix.h>
 using Flood::Matrix;
 
+#include "config_falha.h"
 #include "config_modulo.h"
 #include "rede.h"
 #include "ui_principal.h"

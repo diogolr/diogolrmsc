@@ -17,7 +17,6 @@ ConfigModulo :: ~ConfigModulo()
 }
 
 
-
 QStringList ConfigModulo :: arquivos()
 {
     qDebug() << nomes_arquivos;
@@ -35,5 +34,9 @@ void ConfigModulo :: on_botao_ok_clicked()
     accept();
 }
 
+
+void ConfigModulo :: on_botao_cancel_clicked()
+{
+}
 
 #endif

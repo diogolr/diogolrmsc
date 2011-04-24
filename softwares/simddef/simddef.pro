@@ -27,25 +27,30 @@ UI_DIR = ui
 MOC_DIR = moc
 
 CONFIG += release console
-QT += svg
+QT += svg xml
 
 # Input
-FORMS += ui/config_modulo.ui \
+FORMS += ui/config_falha.ui \
+         ui/config_modulo.ui \
          ui/principal.ui
 
-HEADERS += src/config_modulo.h \
+HEADERS += src/config_falha.h \
+           src/config_modulo.h \
            src/excecoes.h \
            src/funcoes.h \
            src/grafico.h \
+           src/manipulador_xml.h \
            src/modulo.h \
            src/principal.h \
            src/rede.h
 
-SOURCES += src/config_modulo.cpp \
+SOURCES += src/config_falha.cpp \
+           src/config_modulo.cpp \
            src/excecoes.cpp \
            src/funcoes.cpp \
            src/grafico.cpp \
            src/main.cpp \
+           src/manipulador_xml.cpp \
            src/modulo.cpp \
            src/principal.cpp \
            src/rede.cpp \
