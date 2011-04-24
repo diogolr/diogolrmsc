@@ -163,6 +163,13 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>botao</tabstop>
+  <tabstop>botao_salvar</tabstop>
+  <tabstop>treeWidget</tabstop>
+  <tabstop>botao_cad_falha</tabstop>
+  <tabstop>botao_rem_falha</tabstop>
+ </tabstops>
  <resources>
   <include location="../imgs/imgs.qrc"/>
  </resources>

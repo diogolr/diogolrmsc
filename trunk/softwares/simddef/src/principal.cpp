@@ -21,19 +21,11 @@ JanelaPrincipal :: ~JanelaPrincipal()
 using std::cout;
 void JanelaPrincipal :: on_botao_clicked()
 {
-    Rede r;
-    switch( config.exec() )
-    {
-        case QDialog::Accepted:
-            r.ler_arquivos( config.arquivos() );
-            break;
-        case QDialog::Rejected:
-            break;
-    }
+    ConfigFalha cfg;
 
-    Matrix< double > saida = r.executar();
+    cfg.carregar_falhas( "falhas.sdd" );
 
-    cout << saida;
+    cfg.exec();
 }
 
 #endif
