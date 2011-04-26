@@ -48,13 +48,25 @@ bool ManipuladorXml :: startElement( const QString &namespace_uri,
 
             tabela->insertRow( lin );
 
+            // Desabilitando a ordenacao para inserir o item corretamente e so
+            // depois ordenar
+            tabela->setSortingEnabled( false );
+
             QTableWidgetItem *local = new QTableWidgetItem( atribs.value( 0 ) );
             QTableWidgetItem *abrv = new QTableWidgetItem( atribs.value( 1 ) );
             QTableWidgetItem *desc = new QTableWidgetItem( atribs.value( 2 ) );
 
+            local->setTextAlignment( Qt::AlignHCenter | Qt::AlignVCenter );
+            abrv->setTextAlignment( Qt::AlignHCenter | Qt::AlignVCenter );
+
             tabela->setItem( lin, 0, local );
             tabela->setItem( lin, 1, abrv );
             tabela->setItem( lin, 2, desc );
+
+            tabela->sortItems( 1, Qt::AscendingOrder );
+
+            // Reabilitando a ordenacao
+            tabela->setSortingEnabled( true );
 
             return true;
         }
