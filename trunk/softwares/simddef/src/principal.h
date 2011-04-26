@@ -3,13 +3,11 @@
 
 #include <QDebug>
 
-#include <QDialog>
+#include <QFileDialog>
 #include <QMainWindow>
+#include <QStringList>
 
-#include <Matrix.h>
-using Flood::Matrix;
-
-#include "config_falha.h"
+#include "config_falhas.h"
 #include "config_modulo.h"
 #include "rede.h"
 #include "ui_principal.h"
@@ -24,14 +22,24 @@ class JanelaPrincipal : public QMainWindow
         ~JanelaPrincipal();
 
     private:
+        void atualizar_falhas();
+        void inicializar();
 
     private slots:
+        void on_acao_cfg_falhas_triggered();
+        void on_botao_carregar_falhas_clicked();
         void on_botao_clicked();
     
     // Atributos
     private:
-        ConfigModulo config;
+        bool arq_falhas_configurado;
 
+        ConfigFalhas *cfg_falhas;
+        ConfigModulo *cfg_modulo;
+
+        QStringList abreviaturas;
+        QStringList descricoes;
+        
         Ui_JanelaPrincipal *ui;
 };
 

@@ -1,35 +1,84 @@
-#ifndef CONFIG_FALHA_CPP_
-#define CONFIG_FALHA_CPP_
+#ifndef CONFIG_FALHAS_CPP_
+#define CONFIG_FALHAS_CPP_
 
-#include "config_falha.h"
+#include "config_falhas.h"
 
-ConfigFalha :: ConfigFalha( const QString &arq,
-                            QWidget *pai ) : QDialog( pai )
+ConfigFalhas :: ConfigFalhas( QWidget *pai, const QString &arq ) : 
+                QDialog( pai ), 
+                nome_arq( arq )
 {
-    ui = new Ui_ConfigFalha;
+    ui = new Ui_ConfigFalhas;
     
     ui->setupUi( this );
-
-    nome_arq = arq;
+    
+    ler_falhas();
 }
 
 
-ConfigFalha :: ~ConfigFalha()
+ConfigFalhas :: ~ConfigFalhas()
 {
     delete ui;
 }
 
 
-QList< QStringList > ConfigFalha :: ler_falhas()
+QList< QStringList > ConfigFalhas :: lista_falhas()
 {
-    inicializar();
-    carregar_falhas();
-    ler_tabela();
     return falhas;
 }
 
 
-void ConfigFalha :: carregar_falhas()
+QStringList ConfigFalhas :: abreviaturas()
+{
+    QStringList abreviaturas;
+
+    for ( int f = 0 ; f < falhas.count() ; f++ )
+    {
+        abreviaturas << falhas[f][1];
+    }
+
+    return abreviaturas;
+}
+
+
+QStringList ConfigFalhas :: descricoes()
+{
+    QStringList descricoes;
+
+    for ( int f = 0 ; f < falhas.count() ; f++ )
+    {
+        descricoes << falhas[f][2];
+    }
+
+    return descricoes;
+}
+
+
+void ConfigFalhas :: ler_falhas()
+{
+    carregar_falhas();
+    atualizar_lista();
+}
+
+
+void ConfigFalhas :: atualizar_lista()
+{
+    falhas.clear();
+
+    // Adicionando as falhas na lista de falhas
+    for ( int i = 0 ; i < ui->falhas_cad->rowCount() ; i++ )
+    {
+        QStringList lista;
+
+        lista << ui->falhas_cad->item( i, 0 )->text()
+              << ui->falhas_cad->item( i, 1 )->text()
+              << ui->falhas_cad->item( i, 2 )->text();
+
+        falhas.append( lista );
+    }
+}
+
+
+void ConfigFalhas :: carregar_falhas()
 {
     // Limpando as falhas ja existentes na tabela para recarregar os arquivos
     ui->falhas_cad->clearContents();
@@ -63,37 +112,7 @@ void ConfigFalha :: carregar_falhas()
 }
 
 
-void ConfigFalha :: configurar_arquivo( const QString &arq )
-{
-    nome_arq = arq;
-}
-
-
-void ConfigFalha :: inicializar()
-{
-    ui->salvar->setEnabled( false );
-}
-
-
-void ConfigFalha :: ler_tabela()
-{
-    falhas.clear();
-
-    // Adicionando as falhas na lista de falhas
-    for ( int i = 0 ; i < ui->falhas_cad->rowCount() ; i++ )
-    {
-        QStringList lista;
-
-        lista << ui->falhas_cad->item( i, 0 )->text()
-              << ui->falhas_cad->item( i, 1 )->text()
-              << ui->falhas_cad->item( i, 2 )->text();
-
-        falhas.append( lista );
-    }
-}
-
-
-void ConfigFalha :: on_adicionar_clicked()
+void ConfigFalhas :: on_adicionar_clicked()
 {
     ui->salvar->setEnabled( true );
 
@@ -189,7 +208,7 @@ void ConfigFalha :: on_adicionar_clicked()
 }
 
 
-void ConfigFalha :: on_remover_clicked()
+void ConfigFalhas :: on_remover_clicked()
 {
     ui->salvar->setEnabled( true );
 
@@ -223,7 +242,7 @@ void ConfigFalha :: on_remover_clicked()
 }
 
 
-void ConfigFalha :: on_salvar_clicked()
+void ConfigFalhas :: on_salvar_clicked()
 {
     QFile arq( nome_arq );
 
@@ -237,7 +256,7 @@ void ConfigFalha :: on_salvar_clicked()
 
     // Leitura da tabela atual que esta sendo exibida para salvar o arquivo
     // corretamente
-    ler_tabela();
+    atualizar_lista();
 
     // Escrita no arquivo
     QXmlStreamWriter stream( &arq );

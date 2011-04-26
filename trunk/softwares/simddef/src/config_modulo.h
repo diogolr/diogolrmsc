@@ -4,8 +4,8 @@
 #include <QDebug>
 
 #include <QDialog>
-#include <QString>
 #include <QStringList>
+#include <QWidget>
 
 #include "ui_config_modulo.h"
 
@@ -15,14 +15,14 @@ class ConfigModulo : public QDialog
 
     // Metodos
     public:
-        ConfigModulo();
+        ConfigModulo( QWidget *pai = 0, 
+                      const QStringList &falhas = QStringList() );
         ~ConfigModulo();
 
         QStringList arquivos();
 
     private slots:
         void on_botao_ok_clicked();
-        void on_botao_cancel_clicked();
 
     // Atributos
     private:
