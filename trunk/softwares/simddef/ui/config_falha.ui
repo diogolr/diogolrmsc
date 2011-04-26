@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>436</width>
-    <height>486</height>
+    <width>521</width>
+    <height>484</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -63,12 +63,12 @@
          </property>
          <item>
           <property name="text">
-           <string>Falha do sensor</string>
+           <string>Falha do atuador</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Falha do atuador</string>
+           <string>Falha do sensor</string>
           </property>
          </item>
          <item>
@@ -130,7 +130,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QToolButton" name="adicionar">
+        <widget class="QPushButton" name="adicionar">
          <property name="toolTip">
           <string>Adicionar falha</string>
          </property>
@@ -138,22 +138,16 @@
           <iconset resource="../imgs/imgs.qrc">
            <normaloff>:/imgs/adicionar.png</normaloff>:/imgs/adicionar.png</iconset>
          </property>
-         <property name="autoRaise">
-          <bool>true</bool>
-         </property>
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="remover">
+        <widget class="QPushButton" name="remover">
          <property name="toolTip">
           <string>Remover falha</string>
          </property>
          <property name="icon">
           <iconset resource="../imgs/imgs.qrc">
            <normaloff>:/imgs/remover.png</normaloff>:/imgs/remover.png</iconset>
-         </property>
-         <property name="autoRaise">
-          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -171,6 +165,9 @@
      </property>
      <property name="tabKeyNavigation">
       <bool>false</bool>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::SingleSelection</enum>
      </property>
      <property name="gridStyle">
       <enum>Qt::DotLine</enum>
@@ -214,7 +211,20 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="botao_cancel">
+      <widget class="QPushButton" name="salvar">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="toolTip">
+        <string>Salvar alterações</string>
+       </property>
+       <property name="text">
+        <string>Salvar</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="fechar">
        <property name="text">
         <string>Fechar</string>
        </property>
@@ -230,14 +240,14 @@
   <tabstop>adicionar</tabstop>
   <tabstop>remover</tabstop>
   <tabstop>falhas_cad</tabstop>
-  <tabstop>botao_cancel</tabstop>
+  <tabstop>fechar</tabstop>
  </tabstops>
  <resources>
   <include location="../imgs/imgs.qrc"/>
  </resources>
  <connections>
   <connection>
-   <sender>botao_cancel</sender>
+   <sender>fechar</sender>
    <signal>clicked()</signal>
    <receiver>ConfigFalha</receiver>
    <slot>accept()</slot>

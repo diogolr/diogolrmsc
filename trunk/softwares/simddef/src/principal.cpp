@@ -17,13 +17,11 @@ JanelaPrincipal :: ~JanelaPrincipal()
 }
 
 
-#include <iostream>
-using std::cout;
 void JanelaPrincipal :: on_botao_clicked()
 {
-    ConfigFalha cfg;
+    ConfigFalha cfg( "../cfgs/falhas.sdd", this );
 
-    cfg.carregar_falhas( "falhas.sdd" );
+    cfg.ler_falhas();
 
     cfg.exec();
 }
