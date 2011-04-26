@@ -1,5 +1,5 @@
-#ifndef CONFIG_FALHA_H_
-#define CONFIG_FALHA_H_
+#ifndef CONFIG_FALHAS_H_
+#define CONFIG_FALHAS_H_
 
 #include <QDebug>
 
@@ -20,24 +20,28 @@
 #include "excecoes.h"
 #include "funcoes.h"
 #include "manipulador_xml.h"
-#include "ui_config_falha.h"
+#include "ui_config_falhas.h"
 
-class ConfigFalha : public QDialog
+class ConfigFalhas : public QDialog
 {
     Q_OBJECT
 
     // Metodos
     public:
-        ConfigFalha( const QString &, QWidget *pai = 0 );
-        ~ConfigFalha();
+        ConfigFalhas( QWidget *pai = 0, 
+                      const QString &arq = "../cfgs/falhas.sdd" );
+        ~ConfigFalhas();
 
-        QList< QStringList > ler_falhas();
+        QList< QStringList > lista_falhas();
+
+        QStringList abreviaturas();
+        QStringList descricoes();
+
+        void ler_falhas();
 
     private:
+        void atualizar_lista();
         void carregar_falhas();
-        void configurar_arquivo( const QString & );
-        void inicializar();
-        void ler_tabela();
 
     private slots:
         void on_adicionar_clicked();
@@ -50,7 +54,7 @@ class ConfigFalha : public QDialog
 
         QList< QStringList > falhas;
 
-        Ui_ConfigFalha *ui;
+        Ui_ConfigFalhas *ui;
 };
 
 #endif

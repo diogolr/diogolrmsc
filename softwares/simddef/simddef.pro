@@ -30,11 +30,11 @@ CONFIG += release console
 QT += svg xml
 
 # Input
-FORMS += ui/config_falha.ui \
+FORMS += ui/config_falhas.ui \
          ui/config_modulo.ui \
          ui/principal.ui
 
-HEADERS += src/config_falha.h \
+HEADERS += src/config_falhas.h \
            src/config_modulo.h \
            src/excecoes.h \
            src/funcoes.h \
@@ -44,7 +44,7 @@ HEADERS += src/config_falha.h \
            src/principal.h \
            src/rede.h
 
-SOURCES += src/config_falha.cpp \
+SOURCES += src/config_falhas.cpp \
            src/config_modulo.cpp \
            src/excecoes.cpp \
            src/funcoes.cpp \

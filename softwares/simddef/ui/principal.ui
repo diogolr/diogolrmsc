@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>722</width>
+    <width>735</width>
     <height>582</height>
    </rect>
   </property>
@@ -24,34 +24,11 @@
      </rect>
     </property>
    </widget>
-   <widget class="QToolButton" name="botao_salvar">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>280</y>
-      <width>29</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="icon">
-     <iconset resource="../imgs/imgs.qrc">
-      <normaloff>:/imgs/salvar.png</normaloff>:/imgs/salvar.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>22</width>
-      <height>22</height>
-     </size>
-    </property>
-    <property name="autoRaise">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QPushButton" name="botao">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>280</y>
+      <x>10</x>
+      <y>380</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -60,81 +37,72 @@
      <string>PushButton</string>
     </property>
    </widget>
-   <widget class="QTreeWidget" name="treeWidget">
+   <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>30</y>
-      <width>231</width>
-      <height>192</height>
+      <x>10</x>
+      <y>50</y>
+      <width>241</width>
+      <height>270</height>
      </rect>
     </property>
-    <column>
-     <property name="text">
-      <string>Falhas a serem detectadas</string>
-     </property>
-    </column>
-    <item>
-     <property name="text">
-      <string>Falhas dos sensores</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Falhas dos atuadores</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Falhas do sistema</string>
-     </property>
-    </item>
-   </widget>
-   <widget class="QToolButton" name="botao_cad_falha">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>230</y>
-      <width>29</width>
-      <height>28</height>
-     </rect>
+    <property name="title">
+     <string> Falhas </string>
     </property>
-    <property name="icon">
-     <iconset resource="../imgs/imgs.qrc">
-      <normaloff>:/imgs/salvar.png</normaloff>:/imgs/salvar.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>22</width>
-      <height>22</height>
-     </size>
-    </property>
-    <property name="autoRaise">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QToolButton" name="botao_rem_falha">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>230</y>
-      <width>29</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="icon">
-     <iconset resource="../imgs/imgs.qrc">
-      <normaloff>:/imgs/salvar.png</normaloff>:/imgs/salvar.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>22</width>
-      <height>22</height>
-     </size>
-    </property>
-    <property name="autoRaise">
-     <bool>true</bool>
-    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="2" column="0" colspan="3">
+      <widget class="QTreeWidget" name="treeWidget">
+       <column>
+        <property name="text">
+         <string>Falhas a serem detectadas</string>
+        </property>
+       </column>
+       <item>
+        <property name="text">
+         <string>Falhas dos atuadores</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Falhas dos sensores</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Falhas do sistema</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLineEdit" name="end_arq_falhas">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" colspan="3">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Arquivo de configuracao de falhas</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" colspan="2">
+      <widget class="QPushButton" name="botao_carregar_falhas">
+       <property name="toolTip">
+        <string>Abrir arquivo de configuração</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../imgs/imgs.qrc">
+         <normaloff>:/imgs/abrir.png</normaloff>:/imgs/abrir.png</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -142,7 +110,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>722</width>
+     <width>735</width>
      <height>21</height>
     </rect>
    </property>
@@ -151,9 +119,49 @@
      <string>&amp;Arquivo</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menu_Configurar">
+    <property name="title">
+     <string>&amp;Configurar</string>
+    </property>
+    <addaction name="acao_cfg_falhas"/>
+   </widget>
    <addaction name="menu_Arquivo"/>
+   <addaction name="menu_Configurar"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="barra_ferramentas">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>20</width>
+     <height>20</height>
+    </size>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="acao_cfg_falhas"/>
+  </widget>
+  <action name="acao_cfg_falhas">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../imgs/imgs.qrc">
+     <normaloff>:/imgs/configurar.png</normaloff>:/imgs/configurar.png</iconset>
+   </property>
+   <property name="text">
+    <string>Falhas</string>
+   </property>
+   <property name="toolTip">
+    <string>Configurar falhas</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -165,10 +173,6 @@
  </customwidgets>
  <tabstops>
   <tabstop>botao</tabstop>
-  <tabstop>botao_salvar</tabstop>
-  <tabstop>treeWidget</tabstop>
-  <tabstop>botao_cad_falha</tabstop>
-  <tabstop>botao_rem_falha</tabstop>
  </tabstops>
  <resources>
   <include location="../imgs/imgs.qrc"/>

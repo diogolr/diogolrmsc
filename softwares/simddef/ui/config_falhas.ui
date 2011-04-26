@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ConfigFalha</class>
- <widget class="QDialog" name="ConfigFalha">
+ <class>ConfigFalhas</class>
+ <widget class="QDialog" name="ConfigFalhas">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -249,16 +249,16 @@
   <connection>
    <sender>fechar</sender>
    <signal>clicked()</signal>
-   <receiver>ConfigFalha</receiver>
+   <receiver>ConfigFalhas</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>425</x>
-     <y>475</y>
+     <x>484</x>
+     <y>466</y>
     </hint>
     <hint type="destinationlabel">
-     <x>300</x>
-     <y>463</y>
+     <x>301</x>
+     <y>455</y>
     </hint>
    </hints>
   </connection>

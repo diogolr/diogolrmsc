@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="imgs">
+    <file>abrir.png</file>
+    <file>recarregar.png</file>
     <file>adicionar.png</file>
     <file>configurar.png</file>
     <file>copiar.png</file>
