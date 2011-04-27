@@ -5,8 +5,6 @@
 
 #include <QObject>
 #include <QString>
-#include <QTableWidget>
-#include <QTableWidgetItem>
 #include <QXmlAttributes>
 #include <QXmlDefaultHandler>
 #include <QXmlParseException>
@@ -17,7 +15,7 @@ class ManipuladorXml : public QXmlDefaultHandler
 {
     // Metodos
     public:
-        ManipuladorXml( QObject * );
+        ManipuladorXml( void * );
         ~ManipuladorXml();
 
         bool fatalError( const QXmlParseException & );
@@ -28,7 +26,7 @@ class ManipuladorXml : public QXmlDefaultHandler
                            const QXmlAttributes & );
 
     // Atributos
-        QObject *parametro;
+        void *parametro;
 };
 
 #endif

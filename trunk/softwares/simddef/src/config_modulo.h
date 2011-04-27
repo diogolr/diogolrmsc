@@ -4,9 +4,16 @@
 #include <QDebug>
 
 #include <QDialog>
+#include <QFileDialog>
+#include <QListWidgetItem>
+#include <QMessageBox>
+#include <QPushButton>
+#include <QString>
 #include <QStringList>
 #include <QWidget>
 
+#include "funcoes.h"
+#include "modulo.h"
 #include "ui_config_modulo.h"
 
 class ConfigModulo : public QDialog
@@ -15,14 +22,26 @@ class ConfigModulo : public QDialog
 
     // Metodos
     public:
-        ConfigModulo( QWidget *pai = 0, 
-                      const QStringList &falhas = QStringList() );
+        ConfigModulo( const QStringList &,
+                      Modulo *mod = 0,
+                      QWidget *pai = 0 );
+        ConfigModulo( const QStringList &,
+                      QWidget *pai = 0 );
+                     
         ~ConfigModulo();
+
+        Modulo::TipoModulo tipo();
+
+        QString falha();
+        QString nome();
 
         QStringList arquivos();
 
     private slots:
-        void on_botao_ok_clicked();
+        void on_adicionar_clicked();
+        void on_descer_clicked();
+        void on_remover_clicked();
+        void on_subir_clicked();
 
     // Atributos
     private:

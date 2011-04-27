@@ -13,6 +13,12 @@ Modulo :: ~Modulo()
 }
 
 
+Modulo::TipoModulo Modulo :: tipo()
+{
+    return tipo_modulo;
+}
+
+
 void Modulo :: nome_entrada( const int &, const QString & )
 {
 }
