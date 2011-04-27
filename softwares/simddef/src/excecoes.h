@@ -1,8 +1,6 @@
 #ifndef EXCECOES_H_
 #define EXCECOES_H_
 
-#include "funcoes.h"
-
 #include <QString>
 
 class Excecao
@@ -26,25 +24,11 @@ class ExcecaoArquivo : public Excecao
         ExcecaoArquivo( const QString &e ) : Excecao( e ){ /* Vazio */ }
 };
 
-class ExcecaoCampoInvalido : public Excecao
-{
-    // Metodos
-    public:
-        ExcecaoCampoInvalido( const QString &e ) : Excecao( e ){ /* Vazio */ }
-};
-
 class ExcecaoConversao : public Excecao
 {
     // Metodos
     public:
         ExcecaoConversao( const QString &e ) : Excecao( e ){ /* Vazio */ }
-};
-
-class ExcecaoDimensao : public Excecao
-{
-    // Metodos
-    public:
-        ExcecaoDimensao( const QString &e ) : Excecao( e ){ /* Vazio */ }
 };
 
 class ExcecaoFuncao : public Excecao
@@ -54,18 +38,11 @@ class ExcecaoFuncao : public Excecao
         ExcecaoFuncao( const QString &e ) : Excecao( e ){ /* Vazio */ }
 };
 
-class ExcecaoMatrizQuadrada : public Excecao
+class ExcecaoLeituraXML : public Excecao
 {
     // Metodos
     public:
-        ExcecaoMatrizQuadrada ( const QString &e ) : Excecao( e ){ /* Vazio */ }
-};
-
-class ExcecaoOperacao : public Excecao
-{
-    // Metodos
-    public:
-        ExcecaoOperacao( const QString &e ) : Excecao( e ){ /* Vazio */ }
+        ExcecaoLeituraXML( const QString &e ) : Excecao( e ){ /* Vazio */ }
 };
 
 #endif

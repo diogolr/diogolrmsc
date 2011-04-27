@@ -3,7 +3,7 @@
 
 #include "manipulador_xml.h"
 
-ManipuladorXml :: ManipuladorXml( QObject *p ) : QXmlDefaultHandler()
+ManipuladorXml :: ManipuladorXml( void *p ) : QXmlDefaultHandler()
 {
     parametro = p;
 }
@@ -14,11 +14,16 @@ ManipuladorXml :: ~ManipuladorXml()
 }
 
 
-bool ManipuladorXml :: fatalError( const QXmlParseException &exception )
+bool ManipuladorXml :: fatalError( const QXmlParseException &excecao )
 {
-    qWarning() << "Fatal error on line" << exception.lineNumber()
-               << ", column" << exception.columnNumber() << ":"
-               << exception.message();
+    QString msg( "Erro de leitura no arquivo XML, linha %1, coluna %2. "
+                  "Mensagem de erro: %3" );
+
+    msg = msg.arg( excecao.lineNumber() )
+             .arg( excecao.columnNumber() )
+             .arg( excecao.message() );
+
+    throw ExcecaoLeituraXML( msg );
     
     return false;
 }
@@ -42,31 +47,15 @@ bool ManipuladorXml :: startElement( const QString &namespace_uri,
              atribs.qName( 1 ) == "abrv" &&
              atribs.qName( 2 ) == "descricao" )
         {
-            QTableWidget *tabela = (QTableWidget *)parametro;
+            QList< QStringList > *falhas = (QList< QStringList > *)parametro;
 
-            int lin = tabela->rowCount();
+            QStringList atributos;
 
-            tabela->insertRow( lin );
+            atributos << atribs.value( 0 ) 
+                      << atribs.value( 1 ) 
+                      << atribs.value( 2 );
 
-            // Desabilitando a ordenacao para inserir o item corretamente e so
-            // depois ordenar
-            tabela->setSortingEnabled( false );
-
-            QTableWidgetItem *local = new QTableWidgetItem( atribs.value( 0 ) );
-            QTableWidgetItem *abrv = new QTableWidgetItem( atribs.value( 1 ) );
-            QTableWidgetItem *desc = new QTableWidgetItem( atribs.value( 2 ) );
-
-            local->setTextAlignment( Qt::AlignHCenter | Qt::AlignVCenter );
-            abrv->setTextAlignment( Qt::AlignHCenter | Qt::AlignVCenter );
-
-            tabela->setItem( lin, 0, local );
-            tabela->setItem( lin, 1, abrv );
-            tabela->setItem( lin, 2, desc );
-
-            tabela->sortItems( 1, Qt::AscendingOrder );
-
-            // Reabilitando a ordenacao
-            tabela->setSortingEnabled( true );
+            falhas->append( atributos );
 
             return true;
         }

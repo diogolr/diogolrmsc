@@ -3,60 +3,22 @@
 
 #include "config_falhas.h"
 
-ConfigFalhas :: ConfigFalhas( QWidget *pai, const QString &arq ) : 
+ConfigFalhas :: ConfigFalhas( QWidget *pai, 
+                              const QList< QStringList > &lista_falhas ) :
                 QDialog( pai ), 
-                nome_arq( arq )
+                falhas( lista_falhas )
 {
     ui = new Ui_ConfigFalhas;
     
     ui->setupUi( this );
     
-    ler_falhas();
+    carregar_falhas();
 }
 
 
 ConfigFalhas :: ~ConfigFalhas()
 {
     delete ui;
-}
-
-
-QList< QStringList > ConfigFalhas :: lista_falhas()
-{
-    return falhas;
-}
-
-
-QStringList ConfigFalhas :: abreviaturas()
-{
-    QStringList abreviaturas;
-
-    for ( int f = 0 ; f < falhas.count() ; f++ )
-    {
-        abreviaturas << falhas[f][1];
-    }
-
-    return abreviaturas;
-}
-
-
-QStringList ConfigFalhas :: descricoes()
-{
-    QStringList descricoes;
-
-    for ( int f = 0 ; f < falhas.count() ; f++ )
-    {
-        descricoes << falhas[f][2];
-    }
-
-    return descricoes;
-}
-
-
-void ConfigFalhas :: ler_falhas()
-{
-    carregar_falhas();
-    atualizar_lista();
 }
 
 
@@ -83,26 +45,34 @@ void ConfigFalhas :: carregar_falhas()
     // Limpando as falhas ja existentes na tabela para recarregar os arquivos
     ui->falhas_cad->clearContents();
 
-    // Leitura do arquivo XML de configuracao das falhas
-    QFile arq( nome_arq );
+    // Desabilitando a ordenacao para inserir o item corretamente e so
+    // depois ordenar
+    ui->falhas_cad->setSortingEnabled( false );
 
-    if ( !arq.open( QIODevice::ReadOnly | QIODevice::Text ) )
+    for ( int f = 0 ; f < falhas.count() ; f++ )
     {
-        throw ExcecaoArquivo( "O arquivo não pôde ser aberto para leitura." );
+        // Elementos serao sempre inseridos na linha 0
+        ui->falhas_cad->insertRow( 0 );
+
+        QTableWidgetItem *local = new QTableWidgetItem( falhas[f][0] );
+        QTableWidgetItem *abrv = new QTableWidgetItem( falhas[f][1] );
+        QTableWidgetItem *desc = new QTableWidgetItem( falhas[f][2] );
+
+        local->setTextAlignment( Qt::AlignHCenter | Qt::AlignVCenter );
+        abrv->setTextAlignment( Qt::AlignHCenter | Qt::AlignVCenter );
+
+        // Elementos a serem modificados sempre sao aqueles inseridos na linha 0
+        ui->falhas_cad->setItem( 0, 0, local );
+        ui->falhas_cad->setItem( 0, 1, abrv );
+        ui->falhas_cad->setItem( 0, 2, desc );
     }
 
-    QXmlInputSource *fonte = new QXmlInputSource( &arq );
+    // Ordenacao dos elementos de acordo com a coluna 1 (abreviatura) depois que
+    // todos foram inseridos
+    ui->falhas_cad->sortItems( 1, Qt::AscendingOrder );
 
-    QXmlSimpleReader leitor;
-
-    ManipuladorXml *manipulador_xml = new ManipuladorXml( ui->falhas_cad );
-
-    leitor.setContentHandler( manipulador_xml );
-    leitor.setErrorHandler( manipulador_xml );
-
-    leitor.parse( fonte );
-
-    arq.close();
+    // Reabilitando a ordenacao para o usuario
+    ui->falhas_cad->setSortingEnabled( true );
 
     // Redimensionando as colunas de acordo com o conteudo
     for ( int i = 0 ; i < ui->falhas_cad->columnCount() ; i++ )
@@ -244,49 +214,59 @@ void ConfigFalhas :: on_remover_clicked()
 
 void ConfigFalhas :: on_salvar_clicked()
 {
-    QFile arq( nome_arq );
+    QString tipos_arq = "Arquivos Simddef (*.sdd)";
 
-    if ( !arq.open( QIODevice::WriteOnly ) )
+    QString nome_arq = QFileDialog::getSaveFileName( this, 
+                                                     "Salvar como...",
+                                                     ".",
+                                                     tipos_arq );
+
+    if ( !nome_arq.isEmpty() )
     {
-        exibir_mensagem( this, 
-                         "Erro", 
-                         "O arquivo não pôde ser aberto para escrita.",
-                         Aviso );
-    }
+        QFile arq( nome_arq );
 
-    // Leitura da tabela atual que esta sendo exibida para salvar o arquivo
-    // corretamente
-    atualizar_lista();
+        if ( !arq.open( QIODevice::WriteOnly ) )
+        {
+            exibir_mensagem( this, 
+                             "Erro", 
+                             "O arquivo não pôde ser aberto para escrita.",
+                             Aviso );
+        }
 
-    // Escrita no arquivo
-    QXmlStreamWriter stream( &arq );
+        // Leitura da tabela atual que esta sendo exibida para salvar o arquivo
+        // corretamente
+        atualizar_lista();
 
-    stream.setAutoFormatting( true );
-    stream.writeStartDocument();
-    stream.writeStartElement( "Simddef" );
-    stream.writeAttribute( "version", "1.0" );
-    stream.writeAttribute( "tipo", "falhas" );
+        // Escrita no arquivo
+        QXmlStreamWriter stream( &arq );
 
-    for ( int f = 0 ; f < falhas.count() ; f++ )
-    {
-        stream.writeStartElement( "Falha" );
-        stream.writeAttribute( "local", falhas[f][0] );
-        stream.writeAttribute( "abrv", falhas[f][1] );
-        stream.writeAttribute( "descricao", falhas[f][2] );
+        stream.setAutoFormatting( true );
+        stream.writeStartDocument();
+        stream.writeStartElement( "Simddef" );
+        stream.writeAttribute( "version", "1.0" );
+        stream.writeAttribute( "tipo", "falhas" );
+
+        for ( int f = 0 ; f < falhas.count() ; f++ )
+        {
+            stream.writeStartElement( "Falha" );
+            stream.writeAttribute( "local", falhas[f][0] );
+            stream.writeAttribute( "abrv", falhas[f][1] );
+            stream.writeAttribute( "descricao", falhas[f][2] );
+            stream.writeEndElement();
+        }
+
         stream.writeEndElement();
+        stream.writeEndDocument();
+
+        arq.close();
+
+        exibir_mensagem( this, 
+                         "Arquivo salvo com sucesso", 
+                         "O arquivo foi salvo com sucesso.",
+                         Informacao );
+
+        ui->salvar->setEnabled( false );
     }
-
-    stream.writeEndElement();
-    stream.writeEndDocument();
-
-    arq.close();
-
-    exibir_mensagem( this, 
-                     "Arquivo salvo com sucesso", 
-                     "O arquivo foi salvo com sucesso.",
-                     Informacao );
-
-    ui->salvar->setEnabled( false );
 }
 
 #endif

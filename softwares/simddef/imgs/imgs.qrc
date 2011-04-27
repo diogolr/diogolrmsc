@@ -1,17 +1,28 @@
 <RCC>
   <qresource prefix="imgs">
     <file>abrir.png</file>
-    <file>recarregar.png</file>
     <file>adicionar.png</file>
+    <file>arquivo.png</file>
+    <file>carregar_falhas.png</file>
+    <file>cancelar.png</file>
+    <file>configuracoes.png</file>
     <file>configurar.png</file>
     <file>copiar.png</file>
     <file>editar.png</file>
+    <file>falhas.png</file>
     <file>grafico.png</file>
     <file>imprimir.png</file>
+    <file>modulos.png</file>
+    <file>lixeira_cheia.png</file>
+    <file>lixeira_vazia.png</file>
+    <file>modulos_blocos.png</file>
     <file>mover_para_baixo.png</file>
     <file>mover_para_cima.png</file>
     <file>nota.png</file>
     <file>novo.png</file>
+    <file>ok.png</file>
+    <file>radar.png</file>
+    <file>recarregar.png</file>
     <file>recortar.png</file>
     <file>remover.png</file>
     <file>salvar.png</file>

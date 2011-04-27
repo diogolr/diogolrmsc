@@ -17,8 +17,10 @@ class Modulo
 
     // Metodos publicos
     public:
-        Modulo( const Modulo::TipoModulo & );
+        Modulo( const Modulo::TipoModulo &tipo = Modulo::RNA );
         ~Modulo();
+        
+        Modulo::TipoModulo tipo();
 
         virtual MatrizD executar() = 0;
         virtual void ler_arquivos( const QStringList & ) = 0;
