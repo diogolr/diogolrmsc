@@ -3,35 +3,29 @@
 
 #include <QDebug>
 
+#include <QFile>
 #include <QList>
-#include <QObject>
 #include <QString>
-#include <QXmlAttributes>
-#include <QXmlDefaultHandler>
-#include <QXmlParseException>
+#include <QStringList>
+#include <QXmlStreamReader>
+#include <QXmlStreamAttributes>
 
 #include "excecoes.h"
 #include "modulo.h"
 
-class ManipuladorXml : public QXmlDefaultHandler
+class ManipuladorXml
 {
     // Metodos
     public:
-        ManipuladorXml( void * );
+        ManipuladorXml();
         ~ManipuladorXml();
 
-        bool fatalError( const QXmlParseException & );
+        QList< Modulo * > ler_modulos( const QString & );
+        QList< QStringList > ler_falhas( const QString & );
 
-        bool startElement( const QString &,
-                           const QString &,
-                           const QString &,
-                           const QXmlAttributes & );
-
-        bool characters( const QString & );
-
-    // Atributos
     private:
-        void *parametro;
+        void processar_falha( QXmlStreamReader &,
+                              QList< QStringList > & );
 };
 
 #endif
