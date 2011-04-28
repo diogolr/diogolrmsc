@@ -13,7 +13,7 @@
 #include <QXmlSimpleReader>
 
 #include "config_falhas.h"
-#include "config_modulo.h"
+#include "config_modulos.h"
 #include "excecoes.h"
 #include "manipulador_xml.h"
 #include "rede.h"
@@ -30,24 +30,31 @@ class JanelaPrincipal : public QMainWindow
 
     private:
         void atualizar_falhas( const QString & );
+        void atualizar_modulos( const QString & );
+        void desabilitar_botoes_falhas();
+        void desabilitar_botoes_modulos();
+        void habilitar_botoes_falhas();
+        void habilitar_botoes_modulos();
         void inicializar();
         void limpar_falhas();
+        void limpar_modulos();
 
     private slots:
         void on_acao_cfg_falhas_triggered();
-        void on_botao_adicionar_modulo_clicked();
+        void on_acao_cfg_modulos_triggered();
         void on_botao_carregar_falhas_clicked();
         void on_botao_carregar_modulos_clicked();
         void on_botao_recarregar_falhas_clicked();
+        void on_botao_recarregar_modulos_clicked();
     
     // Atributos
     private:
         bool arq_falhas_configurado;
 
         ConfigFalhas *cfg_falhas;
-        ConfigModulo *cfg_modulo;
+        ConfigModulos *cfg_modulos;
 
-        QList< Modulo * > modulos;
+        QList< Modulo * > lista_modulos;
         QList< QStringList > lista_falhas;
 
         QStringList abreviaturas;

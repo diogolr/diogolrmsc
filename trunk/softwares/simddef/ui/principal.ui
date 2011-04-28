@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>922</width>
-    <height>629</height>
+    <width>797</width>
+    <height>572</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,7 +29,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>922</width>
+     <width>797</width>
      <height>21</height>
     </rect>
    </property>
@@ -43,6 +43,7 @@
      <string>&amp;Configurar</string>
     </property>
     <addaction name="acao_cfg_falhas"/>
+    <addaction name="acao_cfg_modulos"/>
    </widget>
    <addaction name="menu_Arquivo"/>
    <addaction name="menu_Configurar"/>
@@ -65,6 +66,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="acao_cfg_falhas"/>
+   <addaction name="acao_cfg_modulos"/>
   </widget>
   <widget class="QDockWidget" name="dock_falhas">
    <property name="features">
@@ -107,16 +109,13 @@
          </property>
          <property name="icon">
           <iconset resource="../imgs/imgs.qrc">
-           <normaloff>:/imgs/carregar_falhas.png</normaloff>:/imgs/carregar_falhas.png</iconset>
+           <normaloff>:/imgs/abrir.png</normaloff>:/imgs/abrir.png</iconset>
          </property>
          <property name="iconSize">
           <size>
            <width>20</width>
            <height>20</height>
           </size>
-         </property>
-         <property name="shortcut">
-          <string>Ctrl+S, Ctrl+R</string>
          </property>
          <property name="autoRaise">
           <bool>true</bool>
@@ -196,24 +195,14 @@
      <item row="0" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QLabel" name="label_2">
+        <widget class="QLineEdit" name="end_arq_modulos">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
-          <string>Módulos de detecção</string>
+          <string/>
          </property>
         </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
        </item>
        <item>
         <widget class="QToolButton" name="botao_carregar_modulos">
@@ -221,11 +210,34 @@
           <bool>false</bool>
          </property>
          <property name="toolTip">
-          <string>Carregar configuração de módulos de detecção/diagnóstico</string>
+          <string>Abrir arquivo de configuração de módulos</string>
          </property>
          <property name="icon">
           <iconset resource="../imgs/imgs.qrc">
-           <normaloff>:/imgs/modulos_blocos.png</normaloff>:/imgs/modulos_blocos.png</iconset>
+           <normaloff>:/imgs/abrir.png</normaloff>:/imgs/abrir.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="botao_recarregar_modulos">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="toolTip">
+          <string>Recarregar arquivo de configuração de módulos</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../imgs/imgs.qrc">
+           <normaloff>:/imgs/recarregar.png</normaloff>:/imgs/recarregar.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -235,83 +247,6 @@
          </property>
          <property name="shortcut">
           <string>Ctrl+S, Ctrl+R</string>
-         </property>
-         <property name="autoRaise">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QToolButton" name="botao_salvar_modulos">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="toolTip">
-          <string>Salvar configuração de módulos de detecção/diagnóstico</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../imgs/imgs.qrc">
-           <normaloff>:/imgs/salvar.png</normaloff>:/imgs/salvar.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="shortcut">
-          <string>Ctrl+S, Ctrl+R</string>
-         </property>
-         <property name="autoRaise">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="2" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
-       <item>
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>138</width>
-           <height>21</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QToolButton" name="botao_adicionar_modulo">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="toolTip">
-          <string>Adicionar novo módulo de detecção/diagnóstico</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../imgs/imgs.qrc">
-           <normaloff>:/imgs/adicionar.png</normaloff>:/imgs/adicionar.png</iconset>
-         </property>
-         <property name="autoRaise">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QToolButton" name="botao_remover_modulo">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="toolTip">
-          <string>Remover módulo selecionado</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../imgs/imgs.qrc">
-           <normaloff>:/imgs/remover.png</normaloff>:/imgs/remover.png</iconset>
          </property>
          <property name="autoRaise">
           <bool>true</bool>
@@ -321,7 +256,7 @@
       </layout>
      </item>
      <item row="1" column="0">
-      <widget class="QTableWidget" name="tableWidget">
+      <widget class="QTableWidget" name="modulos">
        <property name="editTriggers">
         <set>QAbstractItemView::DoubleClicked</set>
        </property>
@@ -364,6 +299,21 @@
    </property>
    <property name="toolTip">
     <string>Configurar falhas</string>
+   </property>
+  </action>
+  <action name="acao_cfg_modulos">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../imgs/imgs.qrc">
+     <normaloff>:/imgs/modulos_blocos.png</normaloff>:/imgs/modulos_blocos.png</iconset>
+   </property>
+   <property name="text">
+    <string>Módulos</string>
+   </property>
+   <property name="toolTip">
+    <string>Configurar módulos</string>
    </property>
   </action>
  </widget>
