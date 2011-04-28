@@ -54,6 +54,8 @@ class JanelaPrincipal : public QMainWindow
         ConfigFalhas *cfg_falhas;
         ConfigModulos *cfg_modulos;
 
+        ManipuladorXml manipulador_xml;
+
         QList< Modulo * > lista_modulos;
         QList< QStringList > lista_falhas;
 

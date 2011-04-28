@@ -27,34 +27,18 @@ JanelaPrincipal :: ~JanelaPrincipal()
 
 void JanelaPrincipal :: atualizar_falhas( const QString &nome_arq )
 {
-    // Leitura do arquivo XML de configuracao das falhas
-    QFile arq( nome_arq );
-
-    if ( !arq.open( QIODevice::ReadOnly | QIODevice::Text ) )
-    {
-        throw ExcecaoArquivo( "O arquivo não pôde ser aberto para leitura." );
-    }
-
-    QXmlInputSource *fonte = new QXmlInputSource( &arq );
-
-    QXmlSimpleReader leitor;
-
-    ManipuladorXml *manipulador_xml = new ManipuladorXml( &lista_falhas );
-
-    leitor.setContentHandler( manipulador_xml );
-    leitor.setErrorHandler( manipulador_xml );
-
     try
     {
-        leitor.parse( fonte );
+        lista_falhas = manipulador_xml.ler_falhas( nome_arq );
+    }
+    catch( ExcecaoArquivo e )
+    {
+        throw e;
     }
     catch( ExcecaoLeituraXML e )
     {
-        arq.close();
         throw e;
     }
-
-    arq.close();
 
     // Atualizando a lista de abreviaturas e descricoes e a exibicao das falhas
     // a serem detectadas
@@ -196,6 +180,10 @@ void JanelaPrincipal :: on_botao_carregar_falhas_clicked()
             ui->acao_cfg_falhas->setEnabled( true );
 
             ui->botao_carregar_modulos->setEnabled( true );
+        }
+        catch( ExcecaoArquivo e )
+        {
+            exibir_mensagem( this, "Erro de leitura", e.msg_erro(), Aviso );
         }
         catch( ExcecaoLeituraXML e )
         {
