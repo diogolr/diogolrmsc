@@ -36,8 +36,8 @@ bool ManipuladorXml :: startElement( const QString &namespace_uri,
 {
     if ( q_name == "Simddef" && atribs.count() == 2 )
     {
-        if ( atribs.qName( 1 ) == "tipo" &&
-             atribs.value( 1 ) == "falhas" )
+        if ( atribs.qName( 0 ) == "versao" &&
+             atribs.qName( 1 ) == "tipo" ) 
             return true;
     }
 
@@ -47,6 +47,11 @@ bool ManipuladorXml :: startElement( const QString &namespace_uri,
              atribs.qName( 1 ) == "abrv" &&
              atribs.qName( 2 ) == "descricao" )
         {
+            if ( atribs.value( 0 ) != "Atuador" &&
+                 atribs.value( 0 ) != "Sensor" &&
+                 atribs.value( 0 ) != "Sistema" )
+                return false;
+
             QList< QStringList > *falhas = (QList< QStringList > *)parametro;
 
             QStringList atributos;
@@ -61,7 +66,26 @@ bool ManipuladorXml :: startElement( const QString &namespace_uri,
         }
     }
 
+    if ( q_name == "Modulo" && atribs.count() == 2 )
+    {
+        if ( atribs.qName( 0 ) == "abrv_falha" &&
+             atribs.qName( 1 ) == "tipo_modulo" )
+        {
+            // TODO
+        }
+    }
+
     return false;
+}
+
+
+bool ManipuladorXml :: characters( const QString &dados )
+{
+    // if ( dentro de tal tag )
+    //     ...
+    //     return true;
+
+    return true;
 }
 
 #endif

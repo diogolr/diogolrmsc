@@ -130,7 +130,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QPushButton" name="adicionar">
+        <widget class="QToolButton" name="adicionar">
          <property name="toolTip">
           <string>Adicionar falha</string>
          </property>
@@ -138,16 +138,22 @@
           <iconset resource="../imgs/imgs.qrc">
            <normaloff>:/imgs/adicionar.png</normaloff>:/imgs/adicionar.png</iconset>
          </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="remover">
+        <widget class="QToolButton" name="remover">
          <property name="toolTip">
           <string>Remover falha</string>
          </property>
          <property name="icon">
           <iconset resource="../imgs/imgs.qrc">
            <normaloff>:/imgs/remover.png</normaloff>:/imgs/remover.png</iconset>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
          </property>
         </widget>
        </item>

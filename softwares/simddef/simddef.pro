@@ -31,11 +31,11 @@ QT += svg xml
 
 # Input
 FORMS += ui/config_falhas.ui \
-         ui/config_modulo.ui \
+         ui/config_modulos.ui \
          ui/principal.ui
 
 HEADERS += src/config_falhas.h \
-           src/config_modulo.h \
+           src/config_modulos.h \
            src/excecoes.h \
            src/funcoes.h \
            src/grafico.h \
@@ -45,7 +45,7 @@ HEADERS += src/config_falhas.h \
            src/rede.h
 
 SOURCES += src/config_falhas.cpp \
-           src/config_modulo.cpp \
+           src/config_modulos.cpp \
            src/excecoes.cpp \
            src/funcoes.cpp \
            src/grafico.cpp \

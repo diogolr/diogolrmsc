@@ -18,8 +18,8 @@ JanelaPrincipal :: ~JanelaPrincipal()
     if ( cfg_falhas != NULL )
         delete cfg_falhas;
 
-    if ( cfg_modulo != NULL )
-        delete cfg_modulo;
+    if ( cfg_modulos != NULL )
+        delete cfg_modulos;
 
     delete ui;
 }
@@ -50,6 +50,7 @@ void JanelaPrincipal :: atualizar_falhas( const QString &nome_arq )
     }
     catch( ExcecaoLeituraXML e )
     {
+        arq.close();
         throw e;
     }
 
@@ -88,10 +89,6 @@ void JanelaPrincipal :: atualizar_falhas( const QString &nome_arq )
                                                      " - " +
                                                      descricoes[f] ) );
         }
-        else
-        {
-            throw ExcecaoLeituraXML( "Local da falha inválido" );
-        }
             
         item->setToolTip( 0, descricoes[f] );
     }
@@ -100,12 +97,32 @@ void JanelaPrincipal :: atualizar_falhas( const QString &nome_arq )
 }
 
 
+void JanelaPrincipal :: atualizar_modulos( const QString &nome_arq )
+{
+    // TODO
+}
+
+
+void JanelaPrincipal :: desabilitar_botoes_falhas()
+{
+    ui->botao_recarregar_falhas->setEnabled( false );
+    ui->acao_cfg_falhas->setEnabled( false );
+
+    ui->botao_carregar_modulos->setEnabled( false );
+}
+
+
+void JanelaPrincipal :: desabilitar_botoes_modulos()
+{
+    ui->botao_recarregar_modulos->setEnabled( false );
+    ui->acao_cfg_modulos->setEnabled( false );
+}
+
+
 void JanelaPrincipal :: inicializar()
 {
     cfg_falhas = NULL;
-    cfg_modulo = NULL;
-    
-    limpar_falhas();
+    cfg_modulos = NULL;
 }
 
 
@@ -114,11 +131,23 @@ void JanelaPrincipal :: limpar_falhas()
     lista_falhas.clear();
     abreviaturas.clear();
     descricoes.clear();
-    ui->end_arq_falhas->clear();
+
+    // Limpando os elementos da lista de falhas da interface
+    QTreeWidgetItem *atuadores = ui->falhas->topLevelItem( 0 );
+    QTreeWidgetItem *sensores = ui->falhas->topLevelItem( 1 );
+    QTreeWidgetItem *sistema = ui->falhas->topLevelItem( 2 );
     
-    ui->botao_adicionar_modulo->setEnabled( false );
-    ui->botao_recarregar_falhas->setEnabled( false );
-    ui->acao_cfg_falhas->setEnabled( false );
+    Q_UNUSED( atuadores->takeChildren() );
+    Q_UNUSED( sensores->takeChildren() );
+    Q_UNUSED( sistema->takeChildren() );
+}
+
+
+void JanelaPrincipal :: limpar_modulos()
+{
+    lista_modulos.clear();
+
+    ui->modulos->clearContents();
 }
 
 
@@ -133,58 +162,14 @@ void JanelaPrincipal :: on_acao_cfg_falhas_triggered()
 }
 
 
-void JanelaPrincipal :: on_botao_adicionar_modulo_clicked()
+void JanelaPrincipal :: on_acao_cfg_modulos_triggered()
 {
-    if ( cfg_modulo != NULL )
-        delete cfg_modulo;
+    if ( cfg_modulos != NULL )
+        delete cfg_modulos;
 
-    cfg_modulo = new ConfigModulo( abreviaturas, this );
+    cfg_modulos = new ConfigModulos( this, abreviaturas );
 
-    // Saindo se cancelar for pressionado ou continuando se o modulo foi
-    // configurado corretamente
-    switch( cfg_modulo->exec() )
-    {
-        case QDialog::Rejected:
-            return;
-    }
-
-    // A configuracao dos arquivos necessarios varia de acordo com cada modulo.
-    QStringList arquivos;
-
-    // Criando um ponteiro para cada um dos tipos de modulo para evitar
-    // problemas de alocacao dinamica dentro do switch
-    Rede *rede;
-
-    // Selecionando o tipo de modulo a ser adicionado
-    switch( cfg_modulo->tipo() )
-    {
-        // Configuracao de um modulo neural
-        case Modulo::RNA:
-            rede = new Rede;
-
-            modulos << rede;
-                    
-            arquivos << cfg_modulo->arquivos();
-
-            rede->ler_arquivos( arquivos );
-
-            // TODO adicionar modulo na tabela da interface
-            
-            break;
-
-        // Configuracao de um modulo fuzzy
-        case Modulo::Fuzzy:
-            break;
-
-        // Configuracao de um modulo estatistico
-        case Modulo::Estatistico:
-            break;
-
-        // Configuracao de um modulo personalizado
-        case Modulo::Personalizado:
-        default:
-            break;
-    }
+    cfg_modulos->exec();
 }
 
 
@@ -199,21 +184,33 @@ void JanelaPrincipal :: on_botao_carregar_falhas_clicked()
 
     if ( !nome_arq.isEmpty() )
     {
+        limpar_falhas();
+
         try
         {
             atualizar_falhas( nome_arq );
 
             ui->end_arq_falhas->setText( nome_arq );
 
-            ui->botao_adicionar_modulo->setEnabled( true );
             ui->botao_recarregar_falhas->setEnabled( true );
             ui->acao_cfg_falhas->setEnabled( true );
+
+            ui->botao_carregar_modulos->setEnabled( true );
         }
         catch( ExcecaoLeituraXML e )
         {
             exibir_mensagem( this, "Erro de leitura", e.msg_erro(), Aviso );
 
-            limpar_falhas();
+            ui->end_arq_falhas->clear();
+
+            desabilitar_botoes_falhas();
+
+            // Se as falhas que estavam cadastradas foram "excluidas" apos o
+            // erro, nao faz mais sentido manter os modulos cadastrados no
+            // sistema
+            limpar_modulos();
+
+            desabilitar_botoes_modulos();
         }
     }
 }
@@ -221,24 +218,78 @@ void JanelaPrincipal :: on_botao_carregar_falhas_clicked()
 
 void JanelaPrincipal :: on_botao_carregar_modulos_clicked()
 {
+    QString tipos_arq = "Aquivos Simddef (*.sdd)";
+
+    QString nome_arq = QFileDialog::getOpenFileName( this, 
+                                                     "Abrir arquivo...",
+                                                     ".",
+                                                     tipos_arq );
+
+    if ( !nome_arq.isEmpty() )
+    {
+        limpar_modulos();
+
+        try
+        {
+            atualizar_modulos( nome_arq );
+
+            ui->end_arq_modulos->setText( nome_arq );
+
+            ui->botao_recarregar_modulos->setEnabled( true );
+            ui->acao_cfg_modulos->setEnabled( true );
+        }
+        catch( ExcecaoLeituraXML e )
+        {
+            exibir_mensagem( this, "Erro de leitura", e.msg_erro(), Aviso );
+            
+            ui->end_arq_modulos->clear();
+
+            desabilitar_botoes_modulos();
+        }
+    }
 }
 
 
 void JanelaPrincipal :: on_botao_recarregar_falhas_clicked()
 {
+    limpar_falhas();
+
     try
     {
         atualizar_falhas( ui->end_arq_falhas->text() );
-
-        ui->botao_adicionar_modulo->setEnabled( true );
-        ui->botao_recarregar_falhas->setEnabled( true );
-        ui->acao_cfg_falhas->setEnabled( true );
     }
     catch( ExcecaoLeituraXML e )
     {
         exibir_mensagem( this, "Erro de leitura", e.msg_erro(), Aviso );
 
-        limpar_falhas();
+        ui->end_arq_falhas->clear();
+
+        desabilitar_botoes_falhas();
+
+        // Se as falhas que estavam cadastradas foram "excluidas" apos o erro,
+        // nao faz mais sentido manter os modulos cadastrados no sistema
+        limpar_modulos();
+
+        desabilitar_botoes_modulos();
+    }
+}
+
+
+void JanelaPrincipal :: on_botao_recarregar_modulos_clicked()
+{
+    limpar_modulos();
+
+    try
+    {
+        atualizar_modulos( ui->end_arq_modulos->text() );
+    }
+    catch( ExcecaoLeituraXML e )
+    {
+        exibir_mensagem( this, "Erro de leitura", e.msg_erro(), Aviso );
+
+        ui->end_arq_modulos->clear();
+
+        desabilitar_botoes_modulos();
     }
 }
 

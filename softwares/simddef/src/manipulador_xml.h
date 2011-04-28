@@ -3,6 +3,7 @@
 
 #include <QDebug>
 
+#include <QList>
 #include <QObject>
 #include <QString>
 #include <QXmlAttributes>
@@ -10,6 +11,7 @@
 #include <QXmlParseException>
 
 #include "excecoes.h"
+#include "modulo.h"
 
 class ManipuladorXml : public QXmlDefaultHandler
 {
@@ -25,7 +27,10 @@ class ManipuladorXml : public QXmlDefaultHandler
                            const QString &,
                            const QXmlAttributes & );
 
+        bool characters( const QString & );
+
     // Atributos
+    private:
         void *parametro;
 };
 

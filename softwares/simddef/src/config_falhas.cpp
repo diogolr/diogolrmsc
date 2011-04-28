@@ -243,7 +243,7 @@ void ConfigFalhas :: on_salvar_clicked()
         stream.setAutoFormatting( true );
         stream.writeStartDocument();
         stream.writeStartElement( "Simddef" );
-        stream.writeAttribute( "version", "1.0" );
+        stream.writeAttribute( "versao", "1.0" );
         stream.writeAttribute( "tipo", "falhas" );
 
         for ( int f = 0 ; f < falhas.count() ; f++ )

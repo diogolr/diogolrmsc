@@ -1,68 +1,46 @@
-#ifndef CONFIG_MODULO_CPP_
-#define CONFIG_MODULO_CPP_
+#ifndef CONFIG_MODULOS_CPP_
+#define CONFIG_MODULOS_CPP_
 
-#include "config_modulo.h"
+#include "config_modulos.h"
 
-ConfigModulo :: ConfigModulo( const QStringList &falhas,
-                              Modulo *mod,
-                              QWidget *pai ) :
+ConfigModulos :: ConfigModulos( QWidget *pai,
+                                const QStringList &falhas ) :
                 QDialog( pai )
 {
-    ui = new Ui_ConfigModulo;
+    ui = new Ui_ConfigModulos;
     
     ui->setupUi( this );
 
     ui->falhas->insertItems( 0, falhas );
-
-    ui->tipo->setCurrentIndex( mod->tipo() );
-
-    nomes_arquivos.clear();
 }
 
 
-ConfigModulo :: ConfigModulo( const QStringList &falhas,
-                              QWidget *pai ) : 
-                QDialog( pai )
-{
-    ui = new Ui_ConfigModulo;
-    
-    ui->setupUi( this );
-
-    ui->falhas->insertItems( 0, falhas );
-
-    nomes_arquivos.clear();
-}
-
-
-ConfigModulo :: ~ConfigModulo()
+ConfigModulos :: ~ConfigModulos()
 {
     delete ui;
 }
 
 
-Modulo::TipoModulo ConfigModulo :: tipo()
+void ConfigModulos :: atualizar_modulos()
 {
-    return (Modulo::TipoModulo)ui->tipo->currentIndex();
 }
 
 
-QString ConfigModulo :: falha()
+void ConfigModulos :: carregar_modulos()
 {
-    return ui->falhas->currentText();
 }
 
 
-QStringList ConfigModulo :: arquivos()
+void ConfigModulos :: on_adicionar_clicked()
 {
-    return nomes_arquivos;
 }
 
 
-void ConfigModulo :: on_adicionar_clicked()
+void ConfigModulos :: on_adicionar_arq_clicked()
 {
     QString tipos_arq;
 
-    switch( ui->tipo->currentIndex() )
+    switch( ui->tipos->currentIndex() )
     {
         case Modulo::RNA:
             tipos_arq = "Arquivos de RNAs (*.cfg *.net *.dat *.lim)";
@@ -99,8 +77,6 @@ void ConfigModulo :: on_adicionar_clicked()
                                                  Qt::MatchExactly ).count() )
             {
                 ui->lista_arquivos->addItem( nomes_arqs[a] );
-
-                nomes_arquivos << nomes_arqs[a];
             }
             else
             {
@@ -113,14 +89,14 @@ void ConfigModulo :: on_adicionar_clicked()
             exibir_mensagem( this, 
                              "Aviso", 
                              "Alguns arquivos já estavam na lista e, portanto, "
-                             "não foram adicionados novamente.",
+                             "não foram novamente adicionados.",
                              Informacao );
         }
     }
 }
 
 
-void ConfigModulo :: on_descer_clicked()
+void ConfigModulos :: on_descer_arq_clicked()
 {
     int lin = ui->lista_arquivos->currentRow();
 
@@ -129,8 +105,21 @@ void ConfigModulo :: on_descer_clicked()
 }
 
 
-void ConfigModulo :: on_remover_clicked()
+void ConfigModulos :: on_remover_clicked()
 {
+}
+
+
+void ConfigModulos :: on_remover_arq_clicked()
+{
+    int lin = ui->lista_arquivos->currentRow();
+
+    if ( lin == -1 )
+    {
+        exibir_mensagem( this, "Erro", "Nenhum item selecionado", Aviso );
+        return;
+    }
+
     QMessageBox msg( this );
 
     msg.setModal( true );
@@ -149,15 +138,13 @@ void ConfigModulo :: on_remover_clicked()
     if ( msg.clickedButton() == nao )
         return;
 
-    int lin = ui->lista_arquivos->currentRow();
-
     QListWidgetItem *item = ui->lista_arquivos->takeItem( lin ); 
 
-    nomes_arquivos.removeAll( item->text() );
+    Q_UNUSED( item );
 }
 
 
-void ConfigModulo :: on_subir_clicked()
+void ConfigModulos :: on_subir_arq_clicked()
 {
     int lin = ui->lista_arquivos->currentRow();
 
