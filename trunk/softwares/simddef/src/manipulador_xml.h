@@ -12,6 +12,8 @@
 
 #include "excecoes.h"
 #include "modulo.h"
+#include "rede.h"
+// TODO incluir arquivos dos modulos Fuzzy, Estatistico, Personalizado ...
 
 class ManipuladorXml
 {
@@ -20,12 +22,17 @@ class ManipuladorXml
         ManipuladorXml();
         ~ManipuladorXml();
 
-        QList< Modulo * > ler_modulos( const QString & );
         QList< QStringList > ler_falhas( const QString & );
+        QList< Modulo * > ler_modulos( const QString & );
 
     private:
-        void processar_falha( QXmlStreamReader &,
-                              QList< QStringList > & );
+        void processar_arquivos( const int &, 
+                                 QXmlStreamReader &, 
+                                 QStringList & );
+        void processar_falhas( QXmlStreamReader &,
+                               QList< QStringList > & );
+        void processar_modulos( QXmlStreamReader &,
+                                QList< Modulo * > & );
 };
 
 #endif

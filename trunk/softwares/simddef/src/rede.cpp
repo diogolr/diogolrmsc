@@ -29,7 +29,7 @@ MatrizD Rede :: executar()
 }
 
 
-void Rede :: ler_arquivos( const QStringList &arquivos )
+void Rede :: ler_arquivos()
 {
     try
     {
@@ -37,7 +37,15 @@ void Rede :: ler_arquivos( const QStringList &arquivos )
         ler_rede( arquivos[1] );
         ler_limites( arquivos[2] );
     }
-    catch( Excecao e )
+    catch( ExcecaoArquivo e )
+    {
+        throw e;
+    }
+    catch( ExcecaoConversao e )
+    {
+        throw e;
+    }
+    catch( ExcecaoFuncao e )
     {
         throw e;
     }

@@ -83,7 +83,19 @@ void JanelaPrincipal :: atualizar_falhas( const QString &nome_arq )
 
 void JanelaPrincipal :: atualizar_modulos( const QString &nome_arq )
 {
-    // TODO
+    try
+    {
+        lista_modulos = manipulador_xml.ler_modulos( nome_arq );
+        lista_modulos[0]->ler_arquivos();
+    }
+    catch( ExcecaoArquivo e )
+    {
+        throw e;
+    }
+    catch( ExcecaoLeituraXML e )
+    {
+        throw e;
+    }
 }
 
 

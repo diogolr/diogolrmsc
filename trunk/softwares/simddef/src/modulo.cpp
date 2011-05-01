@@ -19,6 +19,30 @@ Modulo::TipoModulo Modulo :: tipo()
 }
 
 
+QString Modulo :: nome_falha()
+{
+    return falha;
+}
+
+
+QStringList Modulo :: endereco_arquivos()
+{
+    return arquivos;
+}
+
+
+void Modulo :: config_arquivos( const QStringList &arqs )
+{
+    arquivos = arqs;
+}
+
+
+void Modulo :: config_falha( const QString &f )
+{
+    falha = f;
+}
+
+
 void Modulo :: nome_entrada( const int &, const QString & )
 {
 }
