@@ -242,20 +242,26 @@ void ConfigFalhas :: on_salvar_clicked()
 
         stream.setAutoFormatting( true );
         stream.writeStartDocument();
-        stream.writeStartElement( "Simddef" );
-        stream.writeAttribute( "versao", "1.0" );
-        stream.writeAttribute( "tipo", "falhas" );
+        stream.writeStartElement( "Simddef" );       // <Simddef
+        stream.writeAttribute( "versao", "1.0" );    // versao="1.0"
+        stream.writeAttribute( "tipo", "falhas" );   // tipo="falhas">
 
         for ( int f = 0 ; f < falhas.count() ; f++ )
         {
-            stream.writeStartElement( "Falha" );
-            stream.writeAttribute( "local", falhas[f][0] );
-            stream.writeAttribute( "abrv", falhas[f][1] );
-            stream.writeAttribute( "descricao", falhas[f][2] );
-            stream.writeEndElement();
+            stream.writeStartElement( "Falha" );     // <Falha>
+            stream.writeStartElement( "local" );     // <local>
+            stream.writeCharacters( falhas[f][0] );  //     ...
+            stream.writeEndElement();                // </local>
+            stream.writeStartElement( "abrv" );      // <abrv>
+            stream.writeCharacters( falhas[f][1] );  //     ...
+            stream.writeEndElement();                // </abrv>
+            stream.writeStartElement( "descricao" ); // <decricao>
+            stream.writeCharacters( falhas[f][2] );  //     ...
+            stream.writeEndElement();                // </descricao>
+            stream.writeEndElement();                // </Falha>
         }
 
-        stream.writeEndElement();
+        stream.writeEndElement();                    // </Simddef>
         stream.writeEndDocument();
 
         arq.close();

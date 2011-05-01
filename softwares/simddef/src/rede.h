@@ -42,7 +42,7 @@ class Rede : public Modulo
         ~Rede();
         
         MatrizD executar();
-        void ler_arquivos( const QStringList & );
+        void ler_arquivos();
 
     private:
         void configurar_funcoes_ativacao();

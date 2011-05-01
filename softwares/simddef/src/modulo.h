@@ -22,8 +22,15 @@ class Modulo
         
         Modulo::TipoModulo tipo();
 
+        QString nome_falha();
+
+        QStringList endereco_arquivos();
+
         virtual MatrizD executar() = 0;
-        virtual void ler_arquivos( const QStringList & ) = 0;
+        virtual void ler_arquivos() = 0;
+
+        void config_arquivos( const QStringList & );
+        void config_falha( const QString & );
 
     // Metodos protegidos
     protected:
@@ -37,7 +44,9 @@ class Modulo
         MatrizD entrada;
         MatrizD saida;
 
-        QStringList nomes_arquivos;
+        QString falha;
+
+        QStringList arquivos;
 
         TipoModulo tipo_modulo;
 
