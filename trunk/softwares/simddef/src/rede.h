@@ -42,6 +42,7 @@ class Rede : public Modulo
         ~Rede();
         
         MatrizD executar();
+        QString nome_tipo();
         void ler_arquivos();
 
     private:

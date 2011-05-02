@@ -9,6 +9,9 @@ void exibir_mensagem( QWidget *pai,
                       const TipoMensagem &tipo,
                       const QString &end_img )
 {
+    // Retirar quando a mensagem personalizada for implementada
+    Q_UNUSED( end_img );
+
     switch( tipo )
     {
         case Geral:
@@ -35,12 +38,6 @@ void exibir_mensagem( QWidget *pai,
 }
 
 
-QString utf8( const QString &texto )
-{
-    return QString::fromUtf8( ( texto.toStdString() ).c_str() );
-}
-
-
 char * qstring_char( const QString &texto )
 {
     return texto.toUtf8().data();
@@ -60,6 +57,30 @@ float random( const float &min, const float &max )
     float zero_um = (((float)rand())/((float)RAND_MAX));
 
     return min + ( max - min ) * zero_um;
+}
+
+
+QString numero( const double &n )
+{
+    return QString::number( n );
+}
+
+
+QString numero( const int &n )
+{
+    return QString::number( n );
+}
+
+
+QString numero( const float &n )
+{
+    return QString::number( n );
+}
+
+
+QString utf8( const QString &texto )
+{
+    return QString::fromUtf8( ( texto.toStdString() ).c_str() );
 }
 
 #endif

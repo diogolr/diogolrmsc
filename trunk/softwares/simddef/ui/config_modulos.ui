@@ -265,12 +265,12 @@
      </attribute>
      <column>
       <property name="text">
-       <string>Falha</string>
+       <string>Tipo</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Tipo</string>
+       <string>Falha</string>
       </property>
      </column>
      <column>

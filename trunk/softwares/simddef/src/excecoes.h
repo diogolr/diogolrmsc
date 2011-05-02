@@ -24,6 +24,13 @@ class ExcecaoArquivo : public Excecao
         ExcecaoArquivo( const QString &e ) : Excecao( e ){ /* Vazio */ }
 };
 
+class ExcecaoAssociacao : public Excecao
+{
+    // Metodos
+    public:
+        ExcecaoAssociacao( const QString &e ) : Excecao( e ){ /* Vazio */ }
+};
+
 class ExcecaoConversao : public Excecao
 {
     // Metodos

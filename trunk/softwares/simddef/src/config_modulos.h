@@ -4,7 +4,9 @@
 #include <QDebug>
 
 #include <QDialog>
+#include <QDir>
 #include <QFileDialog>
+#include <QHash>
 #include <QList>
 #include <QListWidgetItem>
 #include <QMessageBox>
@@ -24,7 +26,8 @@ class ConfigModulos : public QDialog
     // Metodos
     public:
         ConfigModulos( QWidget *pai = 0,
-                       const QStringList & = QStringList() );
+                       const QStringList & = QStringList(),
+                       const QList< Modulo * > & = QList< Modulo * >() );
         ~ConfigModulos();
 
     private:
@@ -35,12 +38,17 @@ class ConfigModulos : public QDialog
         void on_adicionar_clicked();
         void on_adicionar_arq_clicked();
         void on_descer_arq_clicked();
+        void on_modulos_cad_itemDoubleClicked( QTableWidgetItem * );
         void on_remover_clicked();
         void on_remover_arq_clicked();
         void on_subir_arq_clicked();
 
     // Atributos
     private:
+        QHash< QTableWidgetItem *, Modulo * > mapeamento_modulos;
+
+        QList< Modulo * > modulos;
+
         Ui_ConfigModulos *ui;
 };
 

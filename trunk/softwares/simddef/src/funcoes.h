@@ -26,12 +26,15 @@ void exibir_mensagem( QWidget *pai = NULL,
                       const TipoMensagem &tipo = Geral,
                       const QString &end_img = "" );
 
-QString utf8( const QString &texto );
-
 char * qstring_char( const QString &texto );
 
 double random( const double &min, const double &max );
 
 float random( const float &min, const float &max );
+
+QString numero( const double & );
+QString numero( const int & );
+QString numero( const float & );
+QString utf8( const QString &texto );
 
 #endif

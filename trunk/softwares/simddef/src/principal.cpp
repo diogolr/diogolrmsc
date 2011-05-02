@@ -25,17 +25,18 @@ JanelaPrincipal :: ~JanelaPrincipal()
 }
 
 
+void JanelaPrincipal :: ativar_modulo( Modulo * )
+{
+}
+
+
 void JanelaPrincipal :: atualizar_falhas( const QString &nome_arq )
 {
     try
     {
         lista_falhas = manipulador_xml.ler_falhas( nome_arq );
     }
-    catch( ExcecaoArquivo e )
-    {
-        throw e;
-    }
-    catch( ExcecaoLeituraXML e )
+    catch( Excecao e )
     {
         throw e;
     }
@@ -86,16 +87,98 @@ void JanelaPrincipal :: atualizar_modulos( const QString &nome_arq )
     try
     {
         lista_modulos = manipulador_xml.ler_modulos( nome_arq );
-        lista_modulos[0]->ler_arquivos();
     }
-    catch( ExcecaoArquivo e )
+    catch( Excecao e )
     {
         throw e;
     }
-    catch( ExcecaoLeituraXML e )
+
+    int num_modulos = lista_modulos.count();
+
+    QTableWidgetItem *item;
+
+    QString nome_falha;
+
+    // Desabilitando a ordenacao para que a insercao seja feita de maneira
+    // correta
+    ui->modulos->setSortingEnabled( false );
+
+    // Barra de progresso
+    QProgressDialog progresso( utf8( "Carregando os módulos..." ), 
+                               "Cancelar", 
+                               0,           // minimo 
+                               num_modulos, // maximo
+                               this );
+
+    progresso.setWindowModality( Qt::WindowModal );
+
+    for ( int m = 0 ; m < num_modulos ; m++ )
     {
-        throw e;
+        nome_falha = lista_modulos[m]->nome_falha();
+
+        progresso.setValue( m );
+     
+        if ( progresso.wasCanceled() )
+        {
+            throw Excecao( "Processo de carregamento dos módulos "
+                           "cancelado pelo usuário" );
+        }
+
+        // Conferindo se os modulos estao associados a falhas carregadas
+        if ( !abreviaturas.contains( nome_falha ) )
+        {
+            progresso.close();
+
+            throw ExcecaoAssociacao( "Erro de associação de falha ao "
+                                     "tentar carregar o módulo. Falha <b>" +
+                                     nome_falha +
+                                     "</b> ainda não cadastrada." );
+        }
+
+        // Leitura dos arquivos de configuracao dos modulos
+        lista_modulos[m]->ler_arquivos();
+
+        // Exibicao dos modulos na janela principal ----------------------------
+        // A tabela da interface possui 3 campos a serem preenchidos (tipo
+        // do modulo, nome da falha a qual o modulo esta associado e o
+        // status do modulo)
+        ui->modulos->insertRow( 0 );
+        
+        // Tipo ----------------------------------------------------------------
+        item = new QTableWidgetItem( lista_modulos[m]->nome_tipo() );
+
+        item->setTextAlignment( Qt::AlignHCenter | Qt::AlignVCenter );
+
+        ui->modulos->setItem( 0, 0, item );
+
+        // Falha ---------------------------------------------------------------
+        item = new QTableWidgetItem( nome_falha );
+
+        item->setTextAlignment( Qt::AlignHCenter | Qt::AlignVCenter );
+
+        ui->modulos->setItem( 0, 1, item );
+
+        // Status --------------------------------------------------------------
+        item = new QTableWidgetItem( "Desativado" );
+
+        item->setTextAlignment( Qt::AlignHCenter | Qt::AlignVCenter );
+
+        // O mapeamento so e feito para o terceiro item porque e ele que contem
+        // o status (ativado/desativado) do modulo
+        mapeamento_modulos[item] = lista_modulos[m];
+
+        ui->modulos->setItem( 0, 2, item );
     }
+        
+    // Reabilitando a ordenacao e ordenando os modulos de acordo com o nome
+    // das falhas
+    ui->modulos->setSortingEnabled( true );
+    ui->modulos->sortByColumn( 1, Qt::AscendingOrder );
+
+    // Redimensionando as colunas de acordo com o conteudo das celulas
+    ui->modulos->resizeColumnsToContents();
+        
+    progresso.setValue( num_modulos );
 }
 
 
@@ -112,6 +195,11 @@ void JanelaPrincipal :: desabilitar_botoes_modulos()
 {
     ui->botao_recarregar_modulos->setEnabled( false );
     ui->acao_cfg_modulos->setEnabled( false );
+}
+
+
+void JanelaPrincipal :: desativar_modulo( Modulo * )
+{
 }
 
 
@@ -142,8 +230,10 @@ void JanelaPrincipal :: limpar_falhas()
 void JanelaPrincipal :: limpar_modulos()
 {
     lista_modulos.clear();
+    mapeamento_modulos.clear();
 
     ui->modulos->clearContents();
+    ui->modulos->setRowCount( 0 );
 }
 
 
@@ -163,7 +253,7 @@ void JanelaPrincipal :: on_acao_cfg_modulos_triggered()
     if ( cfg_modulos != NULL )
         delete cfg_modulos;
 
-    cfg_modulos = new ConfigModulos( this, abreviaturas );
+    cfg_modulos = new ConfigModulos( this, abreviaturas, lista_modulos );
 
     cfg_modulos->exec();
 }
@@ -193,13 +283,9 @@ void JanelaPrincipal :: on_botao_carregar_falhas_clicked()
 
             ui->botao_carregar_modulos->setEnabled( true );
         }
-        catch( ExcecaoArquivo e )
+        catch( Excecao e )
         {
-            exibir_mensagem( this, "Erro de leitura", e.msg_erro(), Aviso );
-        }
-        catch( ExcecaoLeituraXML e )
-        {
-            exibir_mensagem( this, "Erro de leitura", e.msg_erro(), Aviso );
+            exibir_mensagem( this, "Erro", e.msg_erro(), Aviso );
 
             ui->end_arq_falhas->clear();
 
@@ -238,9 +324,9 @@ void JanelaPrincipal :: on_botao_carregar_modulos_clicked()
             ui->botao_recarregar_modulos->setEnabled( true );
             ui->acao_cfg_modulos->setEnabled( true );
         }
-        catch( ExcecaoLeituraXML e )
+        catch( Excecao e )
         {
-            exibir_mensagem( this, "Erro de leitura", e.msg_erro(), Aviso );
+            exibir_mensagem( this, "Erro", e.msg_erro(), Aviso );
             
             ui->end_arq_modulos->clear();
 
@@ -258,9 +344,9 @@ void JanelaPrincipal :: on_botao_recarregar_falhas_clicked()
     {
         atualizar_falhas( ui->end_arq_falhas->text() );
     }
-    catch( ExcecaoLeituraXML e )
+    catch( Excecao e )
     {
-        exibir_mensagem( this, "Erro de leitura", e.msg_erro(), Aviso );
+        exibir_mensagem( this, "Erro", e.msg_erro(), Aviso );
 
         ui->end_arq_falhas->clear();
 
@@ -283,13 +369,32 @@ void JanelaPrincipal :: on_botao_recarregar_modulos_clicked()
     {
         atualizar_modulos( ui->end_arq_modulos->text() );
     }
-    catch( ExcecaoLeituraXML e )
+    catch( Excecao e )
     {
-        exibir_mensagem( this, "Erro de leitura", e.msg_erro(), Aviso );
+        exibir_mensagem( this, "Erro", e.msg_erro(), Aviso );
 
         ui->end_arq_modulos->clear();
 
         desabilitar_botoes_modulos();
+    }
+}
+
+
+void JanelaPrincipal :: on_modulos_itemDoubleClicked( QTableWidgetItem *it )
+{
+    // O item que contem de status (ativado ou desativado) fica na terceira
+    // coluna da tabela
+    QTableWidgetItem *item = ui->modulos->item( it->row(), 2 );
+
+    if ( item->text() == "Desativado" )
+    {
+        ativar_modulo( mapeamento_modulos[ item ] );
+        item->setText( "Ativado" );
+    }
+    else
+    {
+        desativar_modulo( mapeamento_modulos[ item ] );
+        item->setText( "Desativado" );
     }
 }
 

@@ -76,7 +76,7 @@ for i = 1 : length( falhas )
                                                  
     %saida_rna = sim( rede, entrada );
     
-    %dlmwrite( strcat('saida_detec_', falhas{i}, '.dat' ), saida_rna', 'delimiter', '\t' );
+    dlmwrite( strcat('entrada_', falhas{i}, '.dat' ), entrada', 'delimiter', '\t' );
 
     % Determinando o nome do arquivo final e chamando o metodo para 
     % gerar a saida

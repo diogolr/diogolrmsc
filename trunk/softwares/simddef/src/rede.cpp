@@ -29,6 +29,12 @@ MatrizD Rede :: executar()
 }
 
 
+QString Rede :: nome_tipo()
+{
+    return QString( "RNA" );
+}
+
+
 void Rede :: ler_arquivos()
 {
     try
@@ -159,7 +165,8 @@ void Rede :: ler_entrada( const QString &nome_arq )
 
     if ( !arquivo.open( QIODevice::ReadOnly ) )
     {
-        throw ExcecaoArquivo( "O arquivo não pôde ser aberto." );
+        throw ExcecaoArquivo( "O arquivo <b>" + nome_arq + "</b> não pôde ser "
+                              "aberto." );
     }
     else
     {

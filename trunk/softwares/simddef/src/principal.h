@@ -4,11 +4,14 @@
 #include <QDebug>
 
 #include <QFileDialog>
+#include <QHash>
 #include <QMainWindow>
 #include <QList>
+#include <QProgressDialog>
 #include <QString>
 #include <QStringList>
 #include <QTreeWidgetItem>
+#include <QTableWidgetItem>
 #include <QXmlInputSource>
 #include <QXmlSimpleReader>
 
@@ -29,10 +32,12 @@ class JanelaPrincipal : public QMainWindow
         ~JanelaPrincipal();
 
     private:
+        void ativar_modulo( Modulo * );
         void atualizar_falhas( const QString & );
         void atualizar_modulos( const QString & );
         void desabilitar_botoes_falhas();
         void desabilitar_botoes_modulos();
+        void desativar_modulo( Modulo * );
         void habilitar_botoes_falhas();
         void habilitar_botoes_modulos();
         void inicializar();
@@ -46,6 +51,7 @@ class JanelaPrincipal : public QMainWindow
         void on_botao_carregar_modulos_clicked();
         void on_botao_recarregar_falhas_clicked();
         void on_botao_recarregar_modulos_clicked();
+        void on_modulos_itemDoubleClicked( QTableWidgetItem * );
     
     // Atributos
     private:
@@ -55,6 +61,8 @@ class JanelaPrincipal : public QMainWindow
         ConfigModulos *cfg_modulos;
 
         ManipuladorXml manipulador_xml;
+
+        QHash< QTableWidgetItem *, Modulo * > mapeamento_modulos;
 
         QList< Modulo * > lista_modulos;
         QList< QStringList > lista_falhas;
