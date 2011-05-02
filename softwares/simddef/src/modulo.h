@@ -27,6 +27,7 @@ class Modulo
         QStringList endereco_arquivos();
 
         virtual MatrizD executar() = 0;
+        virtual QString nome_tipo() = 0;
         virtual void ler_arquivos() = 0;
 
         void config_arquivos( const QStringList & );

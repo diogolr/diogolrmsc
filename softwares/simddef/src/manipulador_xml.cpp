@@ -20,7 +20,8 @@ QList< QStringList > ManipuladorXml :: ler_falhas( const QString &nome_arq )
     // Se o arquivo nao puder ser aberto
     if ( !arq.open( QIODevice::ReadOnly | QIODevice::Text ) )
     {
-        throw ExcecaoArquivo( "O arquivo não pôde ser aberto para leitura." );
+        throw ExcecaoArquivo( "O arquivo <b>" + nome_arq + "</b> não pôde ser "
+                              "aberto." );
     }
 
     QList< QStringList > falhas;
@@ -124,7 +125,8 @@ QList< Modulo * > ManipuladorXml :: ler_modulos( const QString &nome_arq )
     // Se o arquivo nao puder ser aberto
     if ( !arq.open( QIODevice::ReadOnly | QIODevice::Text ) )
     {
-        throw ExcecaoArquivo( "O arquivo não pôde ser aberto para leitura." );
+        throw ExcecaoArquivo( "O arquivo <b>" + nome_arq + "</b> não pôde ser "
+                              "aberto." );
     }
 
     QList< Modulo * > modulos;
@@ -239,7 +241,10 @@ void ManipuladorXml :: processar_arquivos( const int &num_arqs,
         if ( xml.tokenType() != QXmlStreamReader::StartElement )
         {
             xml.raiseError( "Não foi possível ler os arquivos. Verifique se "
-                            "a tag <b>arq</b> está corretamente configurada." );
+                            "a tag <b>arq</b> está corretamente configurada e "
+                            "se existem tantas tags <b>arq</b> quanto aquelas "
+                            "definidas no atributo <b>qtde</b> da tag "
+                            "<b>arquivos</b>." );
             arquivos.clear();
             return;
         }

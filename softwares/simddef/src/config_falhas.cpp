@@ -75,10 +75,7 @@ void ConfigFalhas :: carregar_falhas()
     ui->falhas_cad->setSortingEnabled( true );
 
     // Redimensionando as colunas de acordo com o conteudo
-    for ( int i = 0 ; i < ui->falhas_cad->columnCount() ; i++ )
-    {
-        ui->falhas_cad->resizeColumnToContents( i );
-    }
+    ui->falhas_cad->resizeColumnsToContents();
 }
 
 
