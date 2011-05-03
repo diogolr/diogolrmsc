@@ -26,11 +26,6 @@ ConfigModulos :: ~ConfigModulos()
 }
 
 
-void ConfigModulos :: atualizar_modulos()
-{
-}
-
-
 void ConfigModulos :: carregar_modulos()
 {
     // Limpando os modulos que ja existem
@@ -88,6 +83,109 @@ void ConfigModulos :: carregar_modulos()
 
 void ConfigModulos :: on_adicionar_clicked()
 {
+    // Lista de arquivos
+    QStringList arqs;
+
+    int num_arqs = ui->lista_arquivos->count();
+
+    if ( num_arqs == 0 )
+    {
+        exibir_mensagem( this, 
+                         "Erro", 
+                         "Nenhum arquivo na lista de arquivos de configuração "
+                         "do módulo.",
+                         Aviso );
+        return;
+    }
+
+    for ( int i = 0 ; i < num_arqs ; i++ )
+    {
+        arqs << ui->lista_arquivos->item( i )->text();
+    }
+
+    // Criando o novo modulo
+    Modulo *modulo;
+
+    switch( ui->tipos->currentIndex() )
+    {
+        case Modulo::RNA:
+            modulo = new Rede;
+            break;
+
+        case Modulo::Fuzzy:
+            // TODO
+            exibir_mensagem( this, 
+                             "Erro", 
+                             "Módulo <b>Fuzzy</b> não implementado.", 
+                             Aviso );
+            return;
+            //break;
+
+        case Modulo::Estatistico:
+            // TODO
+            exibir_mensagem( this, 
+                             "Erro", 
+                             "Módulo <b>Estatístico</b> não implementado.", 
+                             Aviso );
+            return;
+            //break;
+
+        case Modulo::Personalizado:
+        default:
+            // TODO
+            exibir_mensagem( this, 
+                             "Erro", 
+                             "Módulo <b>Personalizado</b> não implementado.", 
+                             Aviso );
+            return;
+            //break;
+    }
+
+    // Configurando os parametros do modulo
+    modulo->config_arquivos( arqs );
+    modulo->config_falha( ui->falhas->currentText() );
+
+    // Adicionando o modulo a lista de modulos
+    modulos << modulo;
+
+    // Adicionando o modulo no lista de modulos cadastrados da interface
+    ui->modulos_cad->setSortingEnabled( false );
+
+    ui->modulos_cad->insertRow( 0 );
+
+    QTableWidgetItem *tipo = new QTableWidgetItem( modulo->nome_tipo() );
+    QTableWidgetItem *falha = new QTableWidgetItem( modulo->nome_falha() );
+    QTableWidgetItem *qtde = new QTableWidgetItem( numero( arqs.count() ) );
+    
+    // Alinhamento dos textos nas celulas
+    tipo->setTextAlignment( Qt::AlignHCenter | Qt::AlignVCenter );
+    falha->setTextAlignment( Qt::AlignHCenter | Qt::AlignVCenter );
+    qtde->setTextAlignment( Qt::AlignHCenter | Qt::AlignVCenter );
+
+    // Insercao dos itens (sempre na linha zero)
+    ui->modulos_cad->setItem( 0, 0, tipo );
+    ui->modulos_cad->setItem( 0, 1, falha );
+    ui->modulos_cad->setItem( 0, 2, qtde );
+
+    // Fazendo o mapeamento de um dos itens da linha (qualquer um dos tres
+    // teria a mesma funcao no mapeamento) para o respectivo modulo. Isso
+    // permitira fazer alteracoes nos modulos posteriormente
+    mapeamento_modulos[ tipo ] = modulo;
+
+    // Reabilitando a ordenacao
+    ui->modulos_cad->setSortingEnabled( true );
+
+    // Ordenando os itens
+    ui->modulos_cad->sortItems( 1, Qt::AscendingOrder );
+
+    // Ajustando a largura das colunas de acordo com o conteudo das celulas
+    ui->modulos_cad->resizeColumnsToContents();
+
+    // Limpando os campos da interface para que um novo modulo possa ser
+    // inserido
+    ui->lista_arquivos->clear();
+    ui->falhas->setCurrentIndex( 0 );
+    ui->tipos->setCurrentIndex( 0 );
 }
 
 
@@ -103,16 +201,31 @@ void ConfigModulos :: on_adicionar_arq_clicked()
 
         case Modulo::Fuzzy:
             // TODO
-            break;
+            exibir_mensagem( this, 
+                             "Erro", 
+                             "Módulo <b>Fuzzy</b> não implementado.", 
+                             Aviso );
+            return;
+            //break;
 
         case Modulo::Estatistico:
             // TODO
-            break;
+            exibir_mensagem( this, 
+                             "Erro", 
+                             "Módulo <b>Estatístico</b> não implementado.", 
+                             Aviso );
+            return;
+            //break;
 
         case Modulo::Personalizado:
         default:
             // TODO
-            break;
+            exibir_mensagem( this, 
+                             "Erro", 
+                             "Módulo <b>Personalizado</b> não implementado.", 
+                             Aviso );
+            return;
+            //break;
     }
 
     // Capturando o(s) nome(s) do(s) arquivo(s)
@@ -153,6 +266,8 @@ void ConfigModulos :: on_adicionar_arq_clicked()
                              "não foram novamente adicionados.",
                              Informacao );
         }
+
+        ui->salvar->setEnabled( true );
     }
 }
 
@@ -197,6 +312,56 @@ void ConfigModulos :: on_modulos_cad_itemDoubleClicked( QTableWidgetItem *it )
 
 void ConfigModulos :: on_remover_clicked()
 {
+    QTableWidgetItem *it = ui->modulos_cad->currentItem();
+
+    if ( it == NULL )
+    {
+        exibir_mensagem( this,
+                         "Erro",
+                         "Nenhum item selecionado para a remoção.",
+                         Aviso );
+        return;
+    }
+
+    // Verificando se o usuario deseja realmente remover o item selecionado
+    QMessageBox msg( this );
+
+    msg.setModal( true );
+    msg.setIcon( QMessageBox::Question );
+    msg.setText( "Deseja realmente remover o item selecionado?" );
+    
+    QPushButton *sim = msg.addButton( "Sim", QMessageBox::YesRole );
+    QPushButton *nao = msg.addButton( utf8( "Não" ), QMessageBox::NoRole );
+        
+    msg.setDefaultButton( nao );
+
+    msg.exec();
+
+    Q_UNUSED( sim );
+
+    if ( msg.clickedButton() == nao )
+        return;
+
+    // Linha do item selecionado
+    int lin = it->row();
+
+    // Item utilizado no mapeamento do modulo
+    QTableWidgetItem *item = ui->modulos_cad->item( lin, 0 );
+
+    // Modo correspondente a linha selecionada
+    Modulo *modulo = mapeamento_modulos[ item ];
+
+    // Removendo o modulo
+    modulos.removeAll( modulo );
+
+    // Removendo o mapeamento
+    mapeamento_modulos.remove( item );
+
+    // Removendo a linha da lista de modulos cadastrados
+    ui->modulos_cad->removeRow( lin );
+
+    // Habilitando o botao salvar
+    ui->salvar->setEnabled( true );
 }
 
 
@@ -231,6 +396,80 @@ void ConfigModulos :: on_remover_arq_clicked()
     QListWidgetItem *item = ui->lista_arquivos->takeItem( lin ); 
 
     Q_UNUSED( item );
+
+    ui->salvar->setEnabled( true );
+}
+
+
+void ConfigModulos :: on_salvar_clicked()
+{
+    QString tipos_arq = "Arquivos Simddef (*.sdd)";
+
+    QString nome_arq = QFileDialog::getSaveFileName( this, 
+                                                     "Salvar como...",
+                                                     ".",
+                                                     tipos_arq );
+
+    if ( !nome_arq.isEmpty() )
+    {
+        QFile arq( nome_arq );
+
+        if ( !arq.open( QIODevice::WriteOnly ) )
+        {
+            exibir_mensagem( this, 
+                             "Erro", 
+                             "O arquivo não pôde ser aberto para escrita.",
+                             Aviso );
+        }
+
+        // Escrita no arquivo
+        QXmlStreamWriter stream( &arq );
+
+        stream.setAutoFormatting( true );
+        stream.writeStartDocument();
+        stream.writeStartElement( "Simddef" );        // <Simddef
+        stream.writeAttribute( "versao", "1.0" );     // versao="1.0"
+        stream.writeAttribute( "tipo", "modulos" );   // tipo="falhas">
+
+        for ( int m = 0 ; m < modulos.count() ; m++ )
+        {
+            stream.writeStartElement( "Modulo" );               // <Modulo>
+            stream.writeStartElement( "tipo" );                 // <tipo>
+            stream.writeCharacters( modulos[m]->nome_tipo() );  // ...
+            stream.writeEndElement();                           // </tipo>
+            stream.writeStartElement( "falha" );                // <falha>
+            stream.writeCharacters( modulos[m]->nome_falha() ); // ...
+            stream.writeEndElement();                           // </falha>
+
+            QStringList arqs = modulos[m]->endereco_arquivos();
+
+            stream.writeStartElement( "arquivos" );             // <arquivos
+            stream.writeAttribute( "qtde", 
+                                   numero( arqs.count() ) );    // qtde="...">
+
+            for ( int a = 0 ; a < arqs.count() ; a++ )
+            {
+                stream.writeStartElement( "arq" );              // <arq
+                stream.writeAttribute( "end", arqs[a] );        // end="..."
+                stream.writeEndElement();                       // />
+            }
+
+            stream.writeEndElement();                           // </arquivos>
+            stream.writeEndElement();                           // </Modulo>
+        }
+
+        stream.writeEndElement();                    // </Simddef>
+        stream.writeEndDocument();
+
+        arq.close();
+
+        exibir_mensagem( this, 
+                         "Arquivo salvo com sucesso", 
+                         "O arquivo foi salvo com sucesso.",
+                         Informacao );
+
+        ui->salvar->setEnabled( false );
+    }
 }
 
 

@@ -81,8 +81,6 @@ void ConfigFalhas :: carregar_falhas()
 
 void ConfigFalhas :: on_adicionar_clicked()
 {
-    ui->salvar->setEnabled( true );
-
     QString loc, abv, des;
 
     // Local da falha
@@ -172,13 +170,14 @@ void ConfigFalhas :: on_adicionar_clicked()
     
     // Reabilitando a ordenacao
     ui->falhas_cad->setSortingEnabled( true );
+
+    // Habilitando o botao salvar
+    ui->salvar->setEnabled( true );
 }
 
 
 void ConfigFalhas :: on_remover_clicked()
 {
-    ui->salvar->setEnabled( true );
-
     QTableWidgetItem *item = ui->falhas_cad->currentItem();
 
     if ( item == 0 )
@@ -206,6 +205,9 @@ void ConfigFalhas :: on_remover_clicked()
         return;
 
     ui->falhas_cad->removeRow( item->row() );
+
+    // Habilitando o botao salvar
+    ui->salvar->setEnabled( true );
 }
 
 
