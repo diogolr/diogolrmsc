@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>797</width>
-    <height>572</height>
+    <width>817</width>
+    <height>593</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_4">
     <item row="0" column="0">
-     <widget class="QMdiArea" name="mdiArea"/>
+     <widget class="QMdiArea" name="mdi"/>
     </item>
    </layout>
   </widget>
@@ -29,7 +29,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>797</width>
+     <width>817</width>
      <height>22</height>
     </rect>
    </property>
@@ -37,6 +37,7 @@
     <property name="title">
      <string>&amp;Arquivo</string>
     </property>
+    <addaction name="acao_sair"/>
    </widget>
    <widget class="QMenu" name="menu_Configurar">
     <property name="title">
@@ -201,7 +202,7 @@
      <item row="1" column="0">
       <widget class="QTableWidget" name="modulos">
        <property name="toolTip">
-        <string>Lista de módulos cadastrados</string>
+        <string>Lista de módulos cadastrados. Para ativar um módulo, clique duas vezes.</string>
        </property>
        <property name="editTriggers">
         <set>QAbstractItemView::NoEditTriggers</set>
@@ -321,6 +322,9 @@
    <property name="toolTip">
     <string>Configurar falhas</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
   </action>
   <action name="acao_cfg_modulos">
    <property name="enabled">
@@ -336,8 +340,32 @@
    <property name="toolTip">
     <string>Configurar módulos</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
+   </property>
+  </action>
+  <action name="acao_sair">
+   <property name="text">
+    <string>Sair</string>
+   </property>
+   <property name="toolTip">
+    <string>Encerrar a aplicação</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
+   </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>botao_carregar_falhas</tabstop>
+  <tabstop>botao_carregar_modulos</tabstop>
+  <tabstop>botao_recarregar_falhas</tabstop>
+  <tabstop>botao_recarregar_modulos</tabstop>
+  <tabstop>end_arq_falhas</tabstop>
+  <tabstop>end_arq_modulos</tabstop>
+  <tabstop>falhas</tabstop>
+  <tabstop>modulos</tabstop>
+ </tabstops>
  <resources>
   <include location="../imgs/imgs.qrc"/>
  </resources>

@@ -14,9 +14,11 @@
 #include <QString>
 #include <QStringList>
 #include <QWidget>
+#include <QXmlStreamWriter>
 
 #include "funcoes.h"
 #include "modulo.h"
+#include "rede.h"
 #include "ui_config_modulos.h"
 
 class ConfigModulos : public QDialog
@@ -31,7 +33,6 @@ class ConfigModulos : public QDialog
         ~ConfigModulos();
 
     private:
-        void atualizar_modulos();
         void carregar_modulos();
 
     private slots:
@@ -41,6 +42,7 @@ class ConfigModulos : public QDialog
         void on_modulos_cad_itemDoubleClicked( QTableWidgetItem * );
         void on_remover_clicked();
         void on_remover_arq_clicked();
+        void on_salvar_clicked();
         void on_subir_arq_clicked();
 
     // Atributos

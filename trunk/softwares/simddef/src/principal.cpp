@@ -25,8 +25,11 @@ JanelaPrincipal :: ~JanelaPrincipal()
 }
 
 
-void JanelaPrincipal :: ativar_modulo( Modulo * )
+void JanelaPrincipal :: ativar_modulo( Modulo *modulo )
 {
+    QMdiSubWindow *janela = new QMdiSubWindow( ui->mdi );
+
+    janela->show();
 }
 
 
@@ -256,6 +259,12 @@ void JanelaPrincipal :: on_acao_cfg_modulos_triggered()
     cfg_modulos = new ConfigModulos( this, abreviaturas, lista_modulos );
 
     cfg_modulos->exec();
+}
+
+
+void JanelaPrincipal :: on_acao_sair_triggered()
+{
+    this->close();
 }
 
 

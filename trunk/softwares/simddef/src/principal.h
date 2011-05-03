@@ -5,8 +5,9 @@
 
 #include <QFileDialog>
 #include <QHash>
-#include <QMainWindow>
 #include <QList>
+#include <QMainWindow>
+#include <QMdiSubWindow>
 #include <QProgressDialog>
 #include <QString>
 #include <QStringList>
@@ -47,6 +48,7 @@ class JanelaPrincipal : public QMainWindow
     private slots:
         void on_acao_cfg_falhas_triggered();
         void on_acao_cfg_modulos_triggered();
+        void on_acao_sair_triggered();
         void on_botao_carregar_falhas_clicked();
         void on_botao_carregar_modulos_clicked();
         void on_botao_recarregar_falhas_clicked();
