@@ -33,6 +33,7 @@ class ManipuladorXml
                                QList< QStringList > & );
         void processar_modulos( QXmlStreamReader &,
                                 QList< Modulo * > & );
+        void processar_rede( QXmlStreamReader &, Rede * );
 };
 
 #endif

@@ -368,6 +368,7 @@
  </tabstops>
  <resources>
   <include location="../imgs/imgs.qrc"/>
+  <include location="../cfgs_rnas/rnas.qrc"/>
  </resources>
  <connections/>
 </ui>

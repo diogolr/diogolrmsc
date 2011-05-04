@@ -7,7 +7,6 @@
 #include <QHash>
 #include <QList>
 #include <QMainWindow>
-#include <QMdiSubWindow>
 #include <QProgressDialog>
 #include <QString>
 #include <QStringList>
@@ -16,9 +15,15 @@
 #include <QXmlInputSource>
 #include <QXmlSimpleReader>
 
+#include <Matrix.h>
+using Flood::Matrix;
+
+typedef Matrix< double > MatrizD;
+
 #include "config_falhas.h"
 #include "config_modulos.h"
 #include "excecoes.h"
+#include "janela_interna.h"
 #include "manipulador_xml.h"
 #include "rede.h"
 #include "ui_principal.h"
@@ -44,6 +49,7 @@ class JanelaPrincipal : public QMainWindow
         void inicializar();
         void limpar_falhas();
         void limpar_modulos();
+        void processar_dados();
 
     private slots:
         void on_acao_cfg_falhas_triggered();

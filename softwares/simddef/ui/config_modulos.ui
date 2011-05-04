@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>409</width>
-    <height>472</height>
+    <width>414</width>
+    <height>588</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -40,7 +40,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="1" rowspan="2">
+   <item row="1" column="1" rowspan="3">
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
       <widget class="QComboBox" name="falhas">
@@ -76,6 +76,9 @@
        </item>
       </widget>
      </item>
+     <item>
+      <widget class="QLineEdit" name="ordem"/>
+     </item>
     </layout>
    </item>
    <item row="2" column="0">
@@ -91,7 +94,20 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="0" colspan="2">
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_ordem">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Ordem</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QLabel" name="label_5">
@@ -171,7 +187,7 @@
      </item>
     </layout>
    </item>
-   <item row="4" column="0" colspan="2">
+   <item row="6" column="0" colspan="2">
     <widget class="QListWidget" name="lista_arquivos">
      <property name="maximumSize">
       <size>
@@ -184,7 +200,7 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="0" colspan="2">
+   <item row="7" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
       <widget class="QLabel" name="label_3">
@@ -240,7 +256,7 @@
      </item>
     </layout>
    </item>
-   <item row="6" column="0" colspan="2">
+   <item row="8" column="0" colspan="2">
     <widget class="QTableWidget" name="modulos_cad">
      <property name="toolTip">
       <string>Módulos cadastrados</string>
@@ -280,7 +296,7 @@
      </column>
     </widget>
    </item>
-   <item row="7" column="0" colspan="2">
+   <item row="9" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
       <spacer name="horizontalSpacer_2">
@@ -349,12 +365,12 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>484</x>
-     <y>466</y>
+     <x>409</x>
+     <y>571</y>
     </hint>
     <hint type="destinationlabel">
-     <x>301</x>
-     <y>455</y>
+     <x>211</x>
+     <y>553</y>
     </hint>
    </hints>
   </connection>

@@ -380,23 +380,44 @@ void ManipuladorXml :: processar_modulos( QXmlStreamReader &xml,
         // Tipo do modulo
         if ( nome_tag == "tipo" )
         {
-            xml.readNext();
-            
-            if( xml.tokenType() != QXmlStreamReader::Characters )
+            QXmlStreamAttributes atribs = xml.attributes();
+
+            if ( !atribs.hasAttribute( "nome" ) )
             {
-                xml.raiseError( "Erro no processamento da falha. Esperado o "
-                                "valor da tag <b>" + nome_tag + "</b>." );
+                xml.raiseError( "Atributo <b>nome</b> não definido para a tag "
+                                "<b>" + nome_tag + "</b>." );
                 return;
             }
 
-            // RNA
-            if ( xml.text().toString() == "RNA" )
+            if ( atribs.value( "nome" ).toString() == "RNA" )
             {
                 modulo = new Rede;
+
+                processar_rede( xml, (Rede *)modulo );
+
+                // Se houve algum erro no processamento da rede, a ordem ainda
+                // estara definida como -1
+                if ( ((Rede *)modulo)->ordem() == -1 )
+                    return;
             }
-            // TODO Fuzzy
-            // TODO Estatistico
-            // TODO Personalizado
+            // TODO
+            /*
+            else if ( atribs.value( "id" ).toString() == "Fuzzy" )
+            {
+            }
+            else if ( atribs.value( "id" ).toString() == "Estatistico" )
+            {
+            }
+            else if ( atribs.value( "id" ).toString() == "Personalizado" )
+            {
+            }
+            */
+            else
+            {
+                xml.raiseError( "Valor do atributo <b>id</b> para a tag <b>"
+                                "tipo</b> inválido." );
+                return;
+            }
         }
         // Falha  a ser detectada
         else if ( nome_tag == "falha" )
@@ -406,7 +427,7 @@ void ManipuladorXml :: processar_modulos( QXmlStreamReader &xml,
             if( xml.tokenType() != QXmlStreamReader::Characters )
             {
                 xml.raiseError( "Erro no processamento da falha. Esperado o "
-                                "valor da tag <b>" + nome_tag + "</b>." );
+                                "valor da tag <b>falha</b>." );
                 return;
             }
 
@@ -420,7 +441,7 @@ void ManipuladorXml :: processar_modulos( QXmlStreamReader &xml,
             if ( !atribs.hasAttribute( "qtde" ) )
             {
                 xml.raiseError( "Atributo <b>qtde</b> não definido para a tag "
-                                "<b>" + nome_tag + "</b>." );
+                                "<b>arquivos</b>." );
                 return;
             }
 
@@ -469,6 +490,63 @@ void ManipuladorXml :: processar_modulos( QXmlStreamReader &xml,
 
     // Adicionando o modulo a lista de modulos
     modulos << modulo;
+}
+
+
+void ManipuladorXml :: processar_rede( QXmlStreamReader &xml, Rede *rede )
+{
+    // Ordem da rede
+    xml.readNext();
+
+    // Ignorando os espacos em branco
+    while ( xml.isWhitespace() )
+        xml.readNext();
+
+    if ( xml.tokenType() != QXmlStreamReader::StartElement )
+    {
+        xml.raiseError( "Erro no processamento do módulo. Tag <b>" +
+                        xml.name().toString() + "</b> inválida. "
+                        "Esperado tag <b>ordem</b>." );
+        return;
+    }
+
+    xml.readNext();
+
+    // Ignorando os espacos em branco
+    while ( xml.isWhitespace() )
+        xml.readNext();
+
+    if( xml.tokenType() != QXmlStreamReader::Characters )
+    {
+        xml.raiseError( "Erro no processamento do módulo. Esperado o valor da "
+                        "tag <b>ordem</b>." );
+        return;
+    }
+
+    bool ok = true;
+
+    int ordem = xml.text().toString().toInt( &ok );
+
+    if ( !ok )
+    {
+        xml.raiseError( "Valor da tag <b>ordem</b> inválido." );
+        return;
+    }
+
+    rede->configurar_ordem( ordem );
+
+    xml.readNext();
+
+    // Ignorando os espacos em branco
+    while ( xml.isWhitespace() )
+        xml.readNext();
+
+    if( xml.tokenType() != QXmlStreamReader::EndElement )
+    {
+        xml.raiseError( "Erro no processamento do módulo. "
+                        "Esperado fim da tag <b>ordem</b>." );
+        return;
+    }
 }
 
 #endif

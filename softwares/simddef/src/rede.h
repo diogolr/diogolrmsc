@@ -6,6 +6,7 @@
 #include <QDialog>
 #include <QFile>
 #include <QIODevice>
+#include <QList>
 #include <QRegExp>
 #include <QString>
 #include <QStringList>
@@ -25,6 +26,7 @@ using Flood::Vector;
 
 typedef Matrix< double > MatrizD;
 typedef Vector< double > VetorD;
+typedef Vector< int > VetorI;
 
 #define LINEAR MultilayerPerceptron::Linear
 #define LOGSIG MultilayerPerceptron::Logistic
@@ -41,11 +43,27 @@ class Rede : public Modulo
         Rede();
         ~Rede();
         
+        int ordem();
+
         MatrizD executar();
+
         QString nome_tipo();
+
+        void configurar_ordem( const int & );
         void ler_arquivos();
 
     private:
+        MatrizD adicionar_regressores( const MatrizD &, const QList< int > & );
+        MatrizD concatenar_colunas( const MatrizD &, const MatrizD & );
+        MatrizD ler_dados( const QString & );
+        MatrizD remover_colunas( const QList< int > &, const MatrizD & );
+
+        VetorD descer_coluna( const VetorD &, 
+                              const int &, 
+                              const double &valor = 0.0 );
+
+        void configurar_entrada( const MatrizD & );
+        void configurar_entrada( const QString &, const QString & );
         void configurar_funcoes_ativacao();
         void configurar_pesos();
         void criar_rede();
@@ -58,6 +76,9 @@ class Rede : public Modulo
     
     // Atributos
     private:
+        // Ordem da rede
+        int ord;
+
         // Rede neural da biblioteca Flood
         MultilayerPerceptron rede;
 
