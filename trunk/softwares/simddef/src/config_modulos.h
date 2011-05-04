@@ -34,6 +34,9 @@ class ConfigModulos : public QDialog
 
     private:
         void carregar_modulos();
+        void desabilitar_ordem();
+        void habilitar_ordem();
+        void inicializar();
 
     private slots:
         void on_adicionar_clicked();
@@ -44,6 +47,7 @@ class ConfigModulos : public QDialog
         void on_remover_arq_clicked();
         void on_salvar_clicked();
         void on_subir_arq_clicked();
+        void on_tipos_textChanged( QString );
 
     // Atributos
     private:

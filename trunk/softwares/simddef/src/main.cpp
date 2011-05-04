@@ -11,8 +11,8 @@ int main( int argc, char **argv )
 
     JanelaPrincipal principal;
 
-    //principal.show();
-    principal.showFullScreen();
+    principal.show();
+    //principal.showFullScreen();
 
     return app.exec();
 }

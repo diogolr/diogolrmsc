@@ -16,6 +16,8 @@ ConfigModulos :: ConfigModulos( QWidget *pai,
 
     modulos = mods;
 
+    inicializar();
+
     carregar_modulos();
 }
 
@@ -81,6 +83,30 @@ void ConfigModulos :: carregar_modulos()
 }
 
 
+void ConfigModulos :: desabilitar_ordem()
+{
+    ui->label_ordem->setVisible( false );
+    ui->ordem->setVisible( false );
+}
+
+
+void ConfigModulos :: habilitar_ordem()
+{
+    ui->label_ordem->setVisible( true );
+    ui->ordem->setVisible( true );
+}
+
+
+void ConfigModulos :: inicializar()
+{
+    if ( ui->tipos->currentText() != "RNA" )
+    {
+        ui->label_ordem->setVisible( false );
+        ui->ordem->setVisible( false );
+    }
+}
+
+
 void ConfigModulos :: on_adicionar_clicked()
 {
     // Lista de arquivos
@@ -106,10 +132,27 @@ void ConfigModulos :: on_adicionar_clicked()
     // Criando o novo modulo
     Modulo *modulo;
 
+    bool ok = true; 
+    int ordem = -1;
+
     switch( ui->tipos->currentIndex() )
     {
         case Modulo::RNA:
             modulo = new Rede;
+
+            ordem =  ui->ordem->text().toInt( &ok );
+
+            if ( !ok )
+            {
+                exibir_mensagem( this, 
+                                 "Erro", 
+                                 "Ordem inválida.", 
+                                 Aviso );
+                return;
+            }
+
+            ((Rede *)modulo)->configurar_ordem( ordem );
+
             break;
 
         case Modulo::Fuzzy:
@@ -430,15 +473,45 @@ void ConfigModulos :: on_salvar_clicked()
         stream.writeStartElement( "Simddef" );        // <Simddef
         stream.writeAttribute( "versao", "1.0" );     // versao="1.0"
         stream.writeAttribute( "tipo", "modulos" );   // tipo="falhas">
+        
+        QString nome_tipo; 
+        QString nome_falha;
 
         for ( int m = 0 ; m < modulos.count() ; m++ )
         {
+            // Nome do tipo de modulo e da falha
+            nome_tipo = modulos[m]->nome_tipo();
+            nome_falha = modulos[m]->nome_falha();
+
             stream.writeStartElement( "Modulo" );               // <Modulo>
-            stream.writeStartElement( "tipo" );                 // <tipo>
-            stream.writeCharacters( modulos[m]->nome_tipo() );  // ...
+            stream.writeStartElement( "tipo" );                 // <tipo
+            stream.writeAttribute( "nome", nome_tipo );         // nome="..."
+
+            if ( nome_tipo == "RNA" )
+            {
+                Rede *rede = (Rede *)modulos[m];
+
+                stream.writeStartElement( "ordem" );               // <ordem>
+                stream.writeCharacters( numero( rede->ordem() ) ); // ...
+                stream.writeEndElement();                          // </ordem>
+            }
+            // TODO
+            /*
+            else if ( nome_tipo == "Fuzzy" )
+            {
+            }
+            else if ( nome_tipo == "Estatistico" )
+            {
+            }
+            else if ( nome_tipo == "Personalizado" )
+            {
+            }
+            */
+            
             stream.writeEndElement();                           // </tipo>
+
             stream.writeStartElement( "falha" );                // <falha>
-            stream.writeCharacters( modulos[m]->nome_falha() ); // ...
+            stream.writeCharacters( nome_falha );               // ...
             stream.writeEndElement();                           // </falha>
 
             QStringList arqs = modulos[m]->endereco_arquivos();
@@ -479,6 +552,19 @@ void ConfigModulos :: on_subir_arq_clicked()
 
     ui->lista_arquivos->insertItem( lin, 
                                     ui->lista_arquivos->takeItem( lin - 1 ) );
+}
+
+
+void ConfigModulos :: on_tipos_textChanged( QString str )
+{
+    if ( str == "RNA" )
+    {
+        habilitar_ordem();
+    }
+    else
+    {
+        desabilitar_ordem();
+    }
 }
 
 

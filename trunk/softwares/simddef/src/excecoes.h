@@ -52,4 +52,11 @@ class ExcecaoLeituraXML : public Excecao
         ExcecaoLeituraXML( const QString &e ) : Excecao( e ){ /* Vazio */ }
 };
 
+class ExcecaoTamanho : public Excecao
+{
+    // Metodos
+    public:
+        ExcecaoTamanho( const QString &e ) : Excecao( e ){ /* Vazio */ }
+};
+
 #endif

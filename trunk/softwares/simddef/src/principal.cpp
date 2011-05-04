@@ -25,10 +25,40 @@ JanelaPrincipal :: ~JanelaPrincipal()
 }
 
 
+#include <iostream>
+using namespace::std;
 void JanelaPrincipal :: ativar_modulo( Modulo *modulo )
 {
-    QMdiSubWindow *janela = new QMdiSubWindow( ui->mdi );
+    JanelaInterna *janela = new JanelaInterna( ui->mdi );
 
+    ui->mdi->addSubWindow( janela );
+
+    // TODO Simular sistema (a partir da rede identificada ou de um arquivo de
+    // configuracao para execucao do script do matlab)
+    // TODO Processar dados da simulacao e gerar matriz de entrada do modulo
+    // neural (olhar metodo ler_arquivos da classe Rede)
+
+    // Obtendo a saida do modulo
+    MatrizD matriz = modulo->executar();
+
+    cout << matriz;
+
+    /*
+    // Processando os dados de saida
+    QList< QList< double > > valores = processar_dados( matriz );
+
+    // Configurando o grafico com os valores obtidos a partir do resultado do
+    // processamento
+    janela->cfg_dados( valores );
+
+    // Exibir saida
+    janela->exibir_saida();
+
+    // Exibindo as deteccoes de falha
+    janela->exibir_deteccoes();
+    */
+
+    // Exibindo a janela
     janela->show();
 }
 
@@ -237,6 +267,12 @@ void JanelaPrincipal :: limpar_modulos()
 
     ui->modulos->clearContents();
     ui->modulos->setRowCount( 0 );
+}
+
+
+void JanelaPrincipal :: processar_dados()
+{
+
 }
 
 
