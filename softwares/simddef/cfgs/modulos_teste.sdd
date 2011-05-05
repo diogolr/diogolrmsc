@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Simddef versao="1.0" tipo="modulos">
+    <Modulo>
+        <tipo nome="RNA">
+            <ordem>2</ordem>
+        </tipo>
+        <falha>FADG</falha>
+        <arquivos qtde="4">
+            <arq end="cfgs_rnas/FADG/niveis.dat"/>
+            <arq end="cfgs_rnas/FADG/erro_sc.dat"/>
+            <arq end="cfgs_rnas/FADG/O2N8T3_RNA.cfg"/>
+            <arq end="cfgs_rnas/FADG/O2N8T3_RNA.lim"/>
+        </arquivos>
+    </Modulo>
+</Simddef>

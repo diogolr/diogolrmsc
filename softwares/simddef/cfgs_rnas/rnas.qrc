@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="rnas">
+    <file>rede_ident.lim</file>
+    <file>rede_ident.cfg</file>
+  </qresource>
+</RCC>

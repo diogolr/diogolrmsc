@@ -11,7 +11,6 @@
 #include <QString>
 #include <QStringList>
 #include <QTextStream>
-#include <QVector>
 
 #include <Matrix.h>
 #include <MultilayerPerceptron.h>
@@ -26,7 +25,6 @@ using Flood::Vector;
 
 typedef Matrix< double > MatrizD;
 typedef Vector< double > VetorD;
-typedef Vector< int > VetorI;
 
 #define LINEAR MultilayerPerceptron::Linear
 #define LOGSIG MultilayerPerceptron::Logistic
@@ -53,17 +51,6 @@ class Rede : public Modulo
         void ler_arquivos();
 
     private:
-        MatrizD adicionar_regressores( const MatrizD &, const QList< int > & );
-        MatrizD concatenar_colunas( const MatrizD &, const MatrizD & );
-        MatrizD ler_dados( const QString & );
-        MatrizD remover_colunas( const QList< int > &, const MatrizD & );
-
-        VetorD descer_coluna( const VetorD &, 
-                              const int &, 
-                              const double &valor = 0.0 );
-
-        void configurar_entrada( const MatrizD & );
-        void configurar_entrada( const QString &, const QString & );
         void configurar_funcoes_ativacao();
         void configurar_pesos();
         void criar_rede();
@@ -82,13 +69,13 @@ class Rede : public Modulo
         // Rede neural da biblioteca Flood
         MultilayerPerceptron rede;
 
-        QVector< char > f_ativacao;
-        QVector< double > x_min;
-        QVector< double > x_max;
-        QVector< double > x_range;
-        QVector< double > y_min;
-        QVector< double > y_max;
-        QVector< double > y_range;
+        QList< char > f_ativacao;
+        QList< double > x_min;
+        QList< double > x_max;
+        QList< double > x_range;
+        QList< double > y_min;
+        QList< double > y_max;
+        QList< double > y_range;
 
         uint n_amostras;
         uint n_camadas;

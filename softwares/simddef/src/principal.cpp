@@ -25,8 +25,6 @@ JanelaPrincipal :: ~JanelaPrincipal()
 }
 
 
-#include <iostream>
-using namespace::std;
 void JanelaPrincipal :: ativar_modulo( Modulo *modulo )
 {
     JanelaInterna *janela = new JanelaInterna( ui->mdi );
@@ -40,8 +38,6 @@ void JanelaPrincipal :: ativar_modulo( Modulo *modulo )
 
     // Obtendo a saida do modulo
     MatrizD matriz = modulo->executar();
-
-    cout << matriz;
 
     /*
     // Processando os dados de saida

@@ -20,7 +20,6 @@ void JanelaInterna :: cfg_dados( const QList< QList< double > > &dados )
 {
 }
 
-
 void JanelaInterna :: exibir_saida()
 {
 }
