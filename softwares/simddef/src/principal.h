@@ -19,6 +19,7 @@
 using Flood::Matrix;
 
 typedef Matrix< double > MatrizD;
+typedef Matrix< int > MatrizI;
 
 #include "config_falhas.h"
 #include "config_modulos.h"

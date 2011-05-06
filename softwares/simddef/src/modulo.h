@@ -1,6 +1,7 @@
 #ifndef MODULO_H_
 #define MODULO_H_
 
+#include <QList>
 #include <QString>
 #include <QStringList>
 
@@ -8,6 +9,7 @@
 using Flood::Matrix;
 
 typedef Matrix< double > MatrizD;
+typedef Matrix< int > MatrizI;
 
 class Modulo
 {
@@ -26,15 +28,18 @@ class Modulo
 
         QStringList endereco_arquivos();
 
-        virtual MatrizD executar() = 0;
         virtual QString nome_tipo() = 0;
         virtual void ler_arquivos() = 0;
 
-        void config_arquivos( const QStringList & );
-        void config_falha( const QString & );
+        virtual QList< MatrizI > falhas();
+
+        void configurar_arquivos( const QStringList & );
+        void configurar_falha( const QString & );
 
     // Metodos protegidos
     protected:
+        virtual void processar_saida() = 0;
+
         virtual void nome_entrada( const int &, const QString & );
         virtual void nome_saida( const int &, const QString & );
         virtual void nomes_entradas( const QStringList & );
@@ -44,6 +49,8 @@ class Modulo
     protected:
         MatrizD entrada;
         MatrizD saida;
+
+        QList< MatrizI > intervalos;
 
         QString falha;
 

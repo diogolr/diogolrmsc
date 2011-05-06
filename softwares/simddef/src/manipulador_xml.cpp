@@ -431,7 +431,7 @@ void ManipuladorXml :: processar_modulos( QXmlStreamReader &xml,
                 return;
             }
 
-            modulo->config_falha( xml.text().toString() );
+            modulo->configurar_falha( xml.text().toString() );
         }
         // Arquivos a serem utilizados pelo modulo
         else if ( nome_tag == "arquivos" )
@@ -462,7 +462,7 @@ void ManipuladorXml :: processar_modulos( QXmlStreamReader &xml,
             if ( arquivos.count() == 0 )
                 return;
 
-            modulo->config_arquivos( arquivos );
+            modulo->configurar_arquivos( arquivos );
 
             // Limpando a lista de arquivos para o proximo modulo
             arquivos.clear();

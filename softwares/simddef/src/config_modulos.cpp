@@ -185,8 +185,8 @@ void ConfigModulos :: on_adicionar_clicked()
     }
 
     // Configurando os parametros do modulo
-    modulo->config_arquivos( arqs );
-    modulo->config_falha( ui->falhas->currentText() );
+    modulo->configurar_arquivos( arqs );
+    modulo->configurar_falha( ui->falhas->currentText() );
 
     // Adicionando o modulo a lista de modulos
     modulos << modulo;
