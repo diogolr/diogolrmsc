@@ -24,11 +24,15 @@ using Flood::Vector;
 #include "modulo.h"
 
 typedef Matrix< double > MatrizD;
+typedef Matrix< int > MatrizI;
 typedef Vector< double > VetorD;
+typedef Vector< int > VetorI;
 
 #define LINEAR MultilayerPerceptron::Linear
 #define LOGSIG MultilayerPerceptron::Logistic
 #define TANH   MultilayerPerceptron::HyperbolicTangent
+
+#define INTERVALO_MIN_DETECCAO 3
 
 class Rede : public Modulo
 {
@@ -42,8 +46,6 @@ class Rede : public Modulo
         ~Rede();
         
         int ordem();
-
-        MatrizD executar();
 
         QString nome_tipo();
 
@@ -60,6 +62,9 @@ class Rede : public Modulo
         void ler_limites( const QString & );
         void ler_rede( const QString & );
         void normalizar( MatrizD * );
+
+    protected:
+        void processar_saida();
     
     // Atributos
     private:

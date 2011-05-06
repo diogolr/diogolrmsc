@@ -37,12 +37,17 @@ void JanelaPrincipal :: ativar_modulo( Modulo *modulo )
     // neural (olhar metodo ler_arquivos da classe Rede)
 
     // Obtendo a saida do modulo
-    MatrizD matriz = modulo->executar();
+    QList< MatrizI >intervalos = modulo->falhas();
+
+    qDebug() << modulo->nome_falha();
+
+    // Imprimindo os intervalos
+    for ( int i = 0 ; i < intervalos[0].get_rows_number() ; i++ )
+    {
+        qDebug() << intervalos[0][i][0] << intervalos[0][i][1];
+    }
 
     /*
-    // Processando os dados de saida
-    QList< QList< double > > valores = processar_dados( matriz );
-
     // Configurando o grafico com os valores obtidos a partir do resultado do
     // processamento
     janela->cfg_dados( valores );
@@ -208,6 +213,10 @@ void JanelaPrincipal :: atualizar_modulos( const QString &nome_arq )
     ui->modulos->resizeColumnsToContents();
         
     progresso.setValue( num_modulos );
+
+    // TODO Quando todos os modulos forem carregados e exibidos a area de
+    // exibicao das falhas devera ser "limpa", retirando a exibicao de todos
+    // eles
 }
 
 

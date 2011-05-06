@@ -3,12 +3,8 @@
 
 #include "rede.h"
 
-#include <iostream>
-using namespace::std;
-
 Rede :: Rede() : Modulo( Modulo::RNA )
 {
-    inicializar();
 }
 
 
@@ -20,18 +16,6 @@ Rede :: ~Rede()
 int Rede :: ordem()
 {
     return ord;
-}
-
-
-MatrizD Rede :: executar()
-{
-    normalizar( &entrada );
-
-    MatrizD saida = rede.calculate_output_matrix( entrada );
-
-    desnormalizar( &saida );
-
-    return saida;
 }
 
 
@@ -49,6 +33,8 @@ void Rede :: configurar_ordem( const int &o )
 
 void Rede :: ler_arquivos()
 {
+    inicializar();
+
     try
     {
         ler_entrada( arquivos[0] );
@@ -69,6 +55,7 @@ void Rede :: ler_arquivos()
     }
     
     criar_rede();
+    processar_saida();
 }
 
 
@@ -168,8 +155,30 @@ void Rede :: desnormalizar( MatrizD *valores )
 
 void Rede :: inicializar()
 {
+    // Valores iniciais das variaveis do modulo
     ord = -1;
     n_amostras = n_camadas = n_entradas = n_saidas = 0;
+
+    // Limpando as listas auxiliares
+    f_ativacao.clear();
+    x_min.clear();
+    x_max.clear();
+    x_range.clear();
+    y_min.clear();
+    y_max.clear();
+    y_range.clear();
+
+    // Limpando os intervalos de falhas detectados
+    intervalos.clear();
+
+    // Limpando as matrizes de entrada/saida
+    entrada.set( 0, 0 );
+    saida.set( 0, 0 );
+
+    // Limpando os vetores dos neuronios, pesos e biases
+    n_neuronios.set( 0 );
+    pesos.set( 0 );
+    biases.set( 0 );
 }
 
 
@@ -485,6 +494,161 @@ void Rede :: normalizar( MatrizD *valores )
                                ( 2.0 / x_range[n] ) - 1.0;
         }
     }
+}
+
+
+// As saidas das redes de deteccao obedecerao as seguintes condicoes:
+//
+// Falha em T1  =>  Bit 1 = -1
+// Falha em T2  =>  Bit 2 = +1 
+//
+// Assim, a tabela verdade das redes de deteccao terao sempre o formato
+// representado abaixo
+//
+// -----------------------------------------------
+// |                Tabela Verdade               |
+// -----------------------------------------------
+// |   Bit 1   |   Bit 2   |      Resultado      |
+// -----------------------------------------------
+// |     0     |     0     |     Nao ha falha    |
+// |    -1     |     0     |       Falha T1      |
+// |     0     |     1     |       Falha T2      |
+// |    -1     |     1     | Falha T1 + Falha T2 |
+// -----------------------------------------------
+//
+// Como a saida da rede nunca e precisa, serao considerados na pratica os
+// valores expostos abaixo. Observe que todas as situacoes possiveis estao 
+// descritas
+//
+// -----------------------------------------------------------------------------
+//                                   Tanque 1
+// -----------------------------------------------------------------------------
+//  |   Desejado   |    Obtido    |                   Resultado
+// -----------------------------------------------------------------------------
+//  |      0       |   >= -0.5    | Correto (Nao ha falha em T1)
+//  |     -1       |    < -0.5    | Correto (Ha falha em T1)
+//  |      0       |    < -0.5    | Falso positivo
+//  |     -1       |   >= -0.5    | Falso negativo
+// -----------------------------------------------------------------------------
+//
+// -----------------------------------------------------------------------------
+//                                   Tanque 2
+// -----------------------------------------------------------------------------
+//  |   Desejado   |    Obtido    |                   Resultado
+// -----------------------------------------------------------------------------
+//  |      0       |    <= 0.5    | Correto (Nao ha falha em T1)
+//  |      1       |     > 0.5    | Correto (Ha falha em T1)
+//  |      0       |     > 0.5    | Falso positivo
+//  |      1       |    <= 0.5    | Falso negativo
+// -----------------------------------------------------------------------------
+void Rede :: processar_saida()
+{
+    // Obtendo a saida da rede neural
+    normalizar( &entrada );
+
+    saida = rede.calculate_output_matrix( entrada );
+
+    desnormalizar( &saida );
+
+    // As matrizes serao criadas com 1 linha e 2 colunas. Ao final do laco, a
+    // primeira linha devera ser removida
+    MatrizI falhas_t1( 1, 2, 0 );
+    MatrizI falhas_t2( 1, 2, 0 );
+
+    VetorI intervalo_t1( 2, 0 );
+    VetorI intervalo_t2( 2, 0 );
+
+    bool flag_t1 = false;
+    bool flag_t2 = false;
+
+    for ( int i = 0 ; i < saida.get_rows_number() ; i++ )
+    {
+        // Falhas em T1 --------------------------------------------------------
+        if ( saida[i][0] < -0.5 && !flag_t1 )
+        {
+            flag_t1 = true;
+
+            intervalo_t1[0] = i;
+        }
+        else if ( saida[i][0] >= -0.5 && flag_t1 )
+        {
+            flag_t1 = false;
+
+            // Tratando os casos especiais de deteccao
+            // Nas falhas FSeDG, FSeDO e FSiVzT acontece o problema da deteccao
+            // somente nos instantes em que ha a mudanca.
+            if( falha == "FSeDG" || falha == "FSeDO" || falha == "FSiVzT" )
+            {
+            }
+            /*
+            else if ( falha == "" )
+            {
+            }
+            */
+            else
+            {
+                // Se o intervalo for menor do que X amostras, a deteccao sera
+                // desconsiderada
+                if ( ( i - intervalo_t1[0] ) < INTERVALO_MIN_DETECCAO )
+                {
+                    intervalo_t1.initialize( 0 );
+                    continue;
+                }
+            }
+
+            intervalo_t1[1] = i;
+
+            falhas_t1.add_row( intervalo_t1 );
+
+            intervalo_t1.initialize( 0 );
+        }
+
+        // Falhas em T2 --------------------------------------------------------
+        if ( saida[i][1] > 0.5 && !flag_t2 )
+        {
+            flag_t2 = true;
+
+            intervalo_t2[0] = i;
+        }
+        else if ( saida[i][1] <= 0.5 && flag_t2 )
+        {
+            flag_t2 = false;
+
+            // Tratando os casos especiais de deteccao
+            // Nas falhas FSeDG, FSeDO e FSiVzT acontece o problema da deteccao
+            // somente nos instantes em que ha a mudanca.
+            if( falha == "FSeDG" || falha == "FSeDO" || falha == "FSiVzT" )
+            {
+            }
+            /*
+            else if ( falha == "" )
+            {
+            }
+            */
+            else
+            {
+                // Se o intervalo for menor do que X amostras, a deteccao sera
+                // desconsiderada
+                if ( ( i - intervalo_t2[0] ) < INTERVALO_MIN_DETECCAO )
+                {
+                    intervalo_t2.initialize( 0 );
+                    continue;
+                }
+            }
+
+            intervalo_t2[1] = i;
+
+            falhas_t2.add_row( intervalo_t2 );
+
+            intervalo_t2.initialize( 0 );
+        }
+    }
+
+    // Removendo as linhas criadas na alocacao das matrizes
+    falhas_t1.subtract_row( 0 );
+    falhas_t2.subtract_row( 0 );
+
+    intervalos << falhas_t1 << falhas_t2;
 }
 
 #endif
