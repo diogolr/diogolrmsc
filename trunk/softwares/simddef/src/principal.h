@@ -18,16 +18,17 @@
 #include <Matrix.h>
 using Flood::Matrix;
 
-typedef Matrix< double > MatrizD;
-typedef Matrix< int > MatrizI;
-
 #include "config_falhas.h"
 #include "config_modulos.h"
 #include "excecoes.h"
-#include "janela_interna.h"
 #include "manipulador_xml.h"
 #include "rede.h"
 #include "ui_principal.h"
+
+typedef Matrix< double > MatrizD;
+typedef Matrix< int > MatrizI;
+
+#define PERIODO_AMOSTRAGEM 0.1
 
 class JanelaPrincipal : public QMainWindow
 {
@@ -64,14 +65,12 @@ class JanelaPrincipal : public QMainWindow
     
     // Atributos
     private:
-        bool arq_falhas_configurado;
-
         ConfigFalhas *cfg_falhas;
         ConfigModulos *cfg_modulos;
 
         ManipuladorXml manipulador_xml;
 
-        QHash< QTableWidgetItem *, Modulo * > mapeamento_modulos;
+        QHash< QTableWidgetItem *, Modulo * > map_tab_modulo;
 
         QList< Modulo * > lista_modulos;
         QList< QStringList > lista_falhas;
