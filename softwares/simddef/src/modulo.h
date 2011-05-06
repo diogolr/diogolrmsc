@@ -1,7 +1,7 @@
 #ifndef MODULO_H_
 #define MODULO_H_
 
-#include <QList>
+#include <QHash>
 #include <QString>
 #include <QStringList>
 
@@ -21,36 +21,40 @@ class Modulo
     public:
         Modulo( const Modulo::TipoModulo &tipo = Modulo::RNA );
         ~Modulo();
+
+        bool ativo();
         
         Modulo::TipoModulo tipo();
+
+        QList< MatrizD > dados();
 
         QString nome_falha();
 
         QStringList endereco_arquivos();
 
+        virtual QHash< int, QString > curvas_a_exibir() = 0;
+        virtual QHash< QString, MatrizI > deteccoes_falhas();
+
         virtual QString nome_tipo() = 0;
+
         virtual void ler_arquivos() = 0;
 
-        virtual QList< MatrizI > falhas();
-
         void configurar_arquivos( const QStringList & );
+        void configurar_ativo( const bool & );
         void configurar_falha( const QString & );
 
     // Metodos protegidos
     protected:
         virtual void processar_saida() = 0;
 
-        virtual void nome_entrada( const int &, const QString & );
-        virtual void nome_saida( const int &, const QString & );
-        virtual void nomes_entradas( const QStringList & );
-        virtual void nomes_saidas( const QStringList & );
-
     // Atributos
     protected:
+        bool ativ;
+
         MatrizD entrada;
         MatrizD saida;
 
-        QList< MatrizI > intervalos;
+        QHash< QString, MatrizI > deteccoes;
 
         QString falha;
 

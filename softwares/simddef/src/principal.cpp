@@ -27,40 +27,17 @@ JanelaPrincipal :: ~JanelaPrincipal()
 
 void JanelaPrincipal :: ativar_modulo( Modulo *modulo )
 {
-    JanelaInterna *janela = new JanelaInterna( ui->mdi );
+    // Configurando as informacoes a serem exibidas
+    ui->janela_interna->configurar_curvas( modulo->dados()[0], 
+                                           modulo->curvas_a_exibir(),
+                                           PERIODO_AMOSTRAGEM );
+    ui->janela_interna->configurar_deteccoes( modulo->deteccoes_falhas() );
 
-    ui->mdi->addSubWindow( janela );
-
-    // TODO Simular sistema (a partir da rede identificada ou de um arquivo de
-    // configuracao para execucao do script do matlab)
-    // TODO Processar dados da simulacao e gerar matriz de entrada do modulo
-    // neural (olhar metodo ler_arquivos da classe Rede)
-
-    // Obtendo a saida do modulo
-    QList< MatrizI >intervalos = modulo->falhas();
-
-    qDebug() << modulo->nome_falha();
-
-    // Imprimindo os intervalos
-    for ( int i = 0 ; i < intervalos[0].get_rows_number() ; i++ )
-    {
-        qDebug() << intervalos[0][i][0] << intervalos[0][i][1];
-    }
-
-    /*
-    // Configurando o grafico com os valores obtidos a partir do resultado do
-    // processamento
-    janela->cfg_dados( valores );
-
-    // Exibir saida
-    janela->exibir_saida();
+    // Exibindo as curvas de entrada do modulo
+    ui->janela_interna->exibir_curvas();
 
     // Exibindo as deteccoes de falha
-    janela->exibir_deteccoes();
-    */
-
-    // Exibindo a janela
-    janela->show();
+    ui->janela_interna->exibir_deteccoes();
 }
 
 
@@ -169,6 +146,11 @@ void JanelaPrincipal :: atualizar_modulos( const QString &nome_arq )
                                      "</b> ainda não cadastrada." );
         }
 
+        // TODO Simular sistema (a partir da rede identificada ou de um arquivo
+        // de configuracao para execucao do script do matlab) 
+        // TODO Processar dados da simulacao e gerar matriz de entrada do modulo
+        // de deteccao
+
         // Leitura dos arquivos de configuracao dos modulos
         lista_modulos[m]->ler_arquivos();
 
@@ -195,11 +177,13 @@ void JanelaPrincipal :: atualizar_modulos( const QString &nome_arq )
         // Status --------------------------------------------------------------
         item = new QTableWidgetItem( "Desativado" );
 
+        lista_modulos[m]->configurar_ativo( false );
+
         item->setTextAlignment( Qt::AlignHCenter | Qt::AlignVCenter );
 
         // O mapeamento so e feito para o terceiro item porque e ele que contem
         // o status (ativado/desativado) do modulo
-        mapeamento_modulos[item] = lista_modulos[m];
+        map_tab_modulo[item] = lista_modulos[m];
 
         ui->modulos->setItem( 0, 2, item );
     }
@@ -238,6 +222,7 @@ void JanelaPrincipal :: desabilitar_botoes_modulos()
 
 void JanelaPrincipal :: desativar_modulo( Modulo * )
 {
+    ui->janela_interna->limpar();
 }
 
 
@@ -245,6 +230,8 @@ void JanelaPrincipal :: inicializar()
 {
     cfg_falhas = NULL;
     cfg_modulos = NULL;
+
+    this->setFocusProxy( ui->botao_carregar_falhas );
 }
 
 
@@ -268,7 +255,7 @@ void JanelaPrincipal :: limpar_falhas()
 void JanelaPrincipal :: limpar_modulos()
 {
     lista_modulos.clear();
-    mapeamento_modulos.clear();
+    map_tab_modulo.clear();
 
     ui->modulos->clearContents();
     ui->modulos->setRowCount( 0 );
@@ -436,14 +423,35 @@ void JanelaPrincipal :: on_modulos_itemDoubleClicked( QTableWidgetItem *it )
     // coluna da tabela
     QTableWidgetItem *item = ui->modulos->item( it->row(), 2 );
 
+    Modulo *modulo = map_tab_modulo[ item ];
+
     if ( item->text() == "Desativado" )
     {
-        ativar_modulo( mapeamento_modulos[ item ] );
+        // Desativando os modulos ativos (somente um modulo pode estar ativo em
+        // determinado instante). Versoes futuras do simddef poderao contemplar
+        // mais um modulo ativo simultaneamente
+        for ( int i = 0 ; i < lista_modulos.count() ; i++ )
+        {
+            if ( lista_modulos[i]->ativo() )
+            {
+                desativar_modulo( lista_modulos[i] );
+                lista_modulos[i]->configurar_ativo( false );
+
+                QTableWidgetItem *aux = map_tab_modulo.key( lista_modulos[i] );
+
+                aux = ui->modulos->item( aux->row(), 2 );
+                aux->setText( "Desativado" );
+            }
+        }
+
+        ativar_modulo( modulo );
+        modulo->configurar_ativo( true );
         item->setText( "Ativado" );
     }
     else
     {
-        desativar_modulo( mapeamento_modulos[ item ] );
+        desativar_modulo( map_tab_modulo[ item ] );
+        modulo->configurar_ativo( false );
         item->setText( "Desativado" );
     }
 }

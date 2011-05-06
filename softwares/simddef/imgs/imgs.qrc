@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="imgs">
+    <file>destacar.png</file>
     <file>abrir.png</file>
     <file>adicionar.png</file>
     <file>arquivo.png</file>

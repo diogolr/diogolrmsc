@@ -5,6 +5,7 @@
 
 Rede :: Rede() : Modulo( Modulo::RNA )
 {
+    configurar_ordem( -1 );
 }
 
 
@@ -16,6 +17,44 @@ Rede :: ~Rede()
 int Rede :: ordem()
 {
     return ord;
+}
+
+
+QHash< int, QString > Rede :: curvas_a_exibir()
+{
+    // Observe que as entradas das redes dependem do numero de regressores.
+    // Logo, as curvas a serem exibidas deverao pular os regressores. Ou seja, o
+    // incremento da variavel do loop devera ser igual a ordem da rede (no caso
+    // em que existe a mesma quantidade de regressores para cada variavel de
+    // entrada)
+    QHash< int, QString > curvas;
+
+    QStringList nomes;
+
+    nomes << "Nível T<sub>1</sub>"
+          << "Nível T<sub>2</sub>"
+          << "Sinal Cont. T<sub>1</sub>"
+          << "Sinal Cont. T<sub>2</sub>"
+          << "Erro Est. T<sub>1</sub>"
+          << "Erro Est. T<sub>2</sub>";
+
+    int contador = 0;
+
+    // Como os regressores sao aplicados somente aos niveis e aos sinais de
+    // controle, as duas ultimas colunas sempre serao os residuos produzidos
+    // pelo erro de estimativa
+    int num_entradas_sem_residuos = entrada.get_columns_number() - 2;
+
+    for ( int i = 0 ; i < num_entradas_sem_residuos ; i += ord )
+    {
+        curvas[ i ] = nomes[contador];
+        contador++;
+    }
+
+    curvas[ num_entradas_sem_residuos ] = nomes[ contador++ ];
+    curvas[ num_entradas_sem_residuos + 1 ] = nomes[ contador ];
+
+    return curvas;
 }
 
 
@@ -56,6 +95,50 @@ void Rede :: ler_arquivos()
     
     criar_rede();
     processar_saida();
+}
+
+
+MatrizD Rede :: desnormalizar( const MatrizD &valores, 
+                               const QList< QList< double > > &limites )
+{
+    MatrizD matriz = valores;
+
+    QList< double > min = limites[0];
+    QList< double > range = limites[1];
+
+    for ( uint a = 0 ; a < n_amostras ; a++ )
+    {
+        // A desnormalizacao so acontece para os dados de saida, por isso so se
+        // utiliza o numero de saidas
+        for ( uint n = 0 ; n < n_saidas ; n++ )
+        {
+            matriz[a][n] = ( matriz[a][n] + 1.0 ) * ( range[n] / 2.0 ) + min[n];
+        }
+    }
+
+    return matriz;
+}
+
+
+MatrizD Rede :: normalizar( const MatrizD &valores, 
+                            const QList< QList< double > > &limites )
+{
+    MatrizD matriz = valores;
+
+    QList< double > min = limites[0];
+    QList< double > range = limites[1];
+
+    for ( uint a = 0 ; a < n_amostras ; a++ )
+    {
+        // A normalizacao so acontece para os dados de entrada, por isso so se
+        // utiliza o numero de entradas
+        for ( uint n = 0 ; n < n_entradas ; n++ )
+        {
+            matriz[a][n] = ( matriz[a][n] - min[n] ) * ( 2.0 / range[n] ) - 1.0;
+        }
+    }
+
+    return matriz;
 }
 
 
@@ -138,25 +221,9 @@ void Rede :: criar_rede()
 }
 
 
-void Rede :: desnormalizar( MatrizD *valores )
-{
-    for ( uint a = 0 ; a < n_amostras ; a++ )
-    {
-        // A desnormalizacao so acontece para os dados de saida, por isso so se
-        // utiliza o numero de saidas
-        for ( uint n = 0 ; n < n_saidas ; n++ )
-        {
-            (*valores)[a][n] = ( (*valores)[a][n] + 1.0 ) * 
-                               ( y_range[n] / 2.0 ) + y_min[n];
-        }
-    }
-}
-
-
 void Rede :: inicializar()
 {
     // Valores iniciais das variaveis do modulo
-    ord = -1;
     n_amostras = n_camadas = n_entradas = n_saidas = 0;
 
     // Limpando as listas auxiliares
@@ -168,8 +235,8 @@ void Rede :: inicializar()
     y_max.clear();
     y_range.clear();
 
-    // Limpando os intervalos de falhas detectados
-    intervalos.clear();
+    // Limpando as deteccoes de falhas
+    deteccoes.clear();
 
     // Limpando as matrizes de entrada/saida
     entrada.set( 0, 0 );
@@ -482,21 +549,6 @@ void Rede :: ler_rede( const QString &nome_arq )
 }
 
 
-void Rede :: normalizar( MatrizD *valores )
-{
-    for ( uint a = 0 ; a < n_amostras ; a++ )
-    {
-        // A normalizacao so acontece para os dados de entrada, por isso so se
-        // utiliza o numero de entradas
-        for ( uint n = 0 ; n < n_entradas ; n++ )
-        {
-            (*valores)[a][n] = ( (*valores)[a][n] - x_min[n] ) * 
-                               ( 2.0 / x_range[n] ) - 1.0;
-        }
-    }
-}
-
-
 // As saidas das redes de deteccao obedecerao as seguintes condicoes:
 //
 // Falha em T1  =>  Bit 1 = -1
@@ -544,11 +596,19 @@ void Rede :: normalizar( MatrizD *valores )
 void Rede :: processar_saida()
 {
     // Obtendo a saida da rede neural
-    normalizar( &entrada );
+    QList< QList< double > > limites;
 
-    saida = rede.calculate_output_matrix( entrada );
+    limites << x_min << x_range;
 
-    desnormalizar( &saida );
+    saida = rede.calculate_output_matrix( normalizar( entrada, limites ) );
+
+    limites.clear();
+
+    limites << y_min << y_range;
+
+    saida = desnormalizar( saida, limites );
+
+    limites.clear();
 
     // As matrizes serao criadas com 1 linha e 2 colunas. Ao final do laco, a
     // primeira linha devera ser removida
@@ -648,7 +708,8 @@ void Rede :: processar_saida()
     falhas_t1.subtract_row( 0 );
     falhas_t2.subtract_row( 0 );
 
-    intervalos << falhas_t1 << falhas_t2;
+    deteccoes[ "Falhas em T<sub>1</sub>" ] = falhas_t1;
+    deteccoes[ "Falhas em T<sub>2</sub>" ] = falhas_t2;
 }
 
 #endif

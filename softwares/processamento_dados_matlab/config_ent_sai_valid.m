@@ -68,7 +68,7 @@ function [entrada saida erros] = config_ent_sai_valid( arq_niveis, ...
     % Para os resultados da qualificacao =======================================
     else
         div = num_amostras / 7;
-        linhas = [  div+1 2*div ; 3*div+1 4*div ; 5*div+1 6*div ];
+        linhas = [ div+1 2*div ; 3*div+1 4*div ; 5*div+1 6*div ];
     end
         
     % Falha T1

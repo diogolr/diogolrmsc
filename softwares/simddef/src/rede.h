@@ -5,6 +5,7 @@
 
 #include <QDialog>
 #include <QFile>
+#include <QHash>
 #include <QIODevice>
 #include <QList>
 #include <QRegExp>
@@ -47,12 +48,17 @@ class Rede : public Modulo
         
         int ordem();
 
+        QHash< int, QString > curvas_a_exibir();
+
         QString nome_tipo();
 
         void configurar_ordem( const int & );
         void ler_arquivos();
 
     private:
+        MatrizD desnormalizar( const MatrizD &, const QList< QList< double > > & );
+        MatrizD normalizar( const MatrizD &, const QList< QList< double > > & );
+
         void configurar_funcoes_ativacao();
         void configurar_pesos();
         void criar_rede();

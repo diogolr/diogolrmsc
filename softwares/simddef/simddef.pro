@@ -33,6 +33,7 @@ QT += svg xml
 FORMS += ui/config_falhas.ui \
          ui/config_modulos.ui \
          ui/janela_interna.ui \
+         ui/legenda.ui \
          ui/principal.ui
 
 HEADERS += src/config_falhas.h \
@@ -41,6 +42,7 @@ HEADERS += src/config_falhas.h \
            src/funcoes.h \
            src/grafico.h \
            src/janela_interna.h \
+           src/legenda.h \
            src/manipulador_xml.h \
            src/modulo.h \
            src/principal.h \
@@ -52,6 +54,7 @@ SOURCES += src/config_falhas.cpp \
            src/funcoes.cpp \
            src/grafico.cpp \
            src/janela_interna.cpp \
+           src/legenda.cpp \ 
            src/main.cpp \
            src/manipulador_xml.cpp \
            src/modulo.cpp \

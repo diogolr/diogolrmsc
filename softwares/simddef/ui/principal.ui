@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>817</width>
-    <height>593</height>
+    <width>911</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,10 @@
    <iconset resource="../imgs/imgs.qrc">
     <normaloff>:/imgs/falhas.png</normaloff>:/imgs/falhas.png</iconset>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_4">
+  <widget class="QWidget" name="widget_central">
+   <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
-     <widget class="QMdiArea" name="mdi"/>
+     <widget class="JanelaInterna" name="janela_interna" native="true"/>
     </item>
    </layout>
   </widget>
@@ -29,7 +29,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>817</width>
+     <width>911</width>
      <height>22</height>
     </rect>
    </property>
@@ -70,6 +70,12 @@
    <addaction name="acao_cfg_modulos"/>
   </widget>
   <widget class="QDockWidget" name="dock_falhas">
+   <property name="minimumSize">
+    <size>
+     <width>250</width>
+     <height>183</height>
+    </size>
+   </property>
    <property name="features">
     <set>QDockWidget::DockWidgetMovable</set>
    </property>
@@ -185,6 +191,12 @@
    </widget>
   </widget>
   <widget class="QDockWidget" name="dock_modulos">
+   <property name="minimumSize">
+    <size>
+     <width>250</width>
+     <height>163</height>
+    </size>
+   </property>
    <property name="features">
     <set>QDockWidget::DockWidgetMovable</set>
    </property>
@@ -356,14 +368,22 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>JanelaInterna</class>
+   <extends>QWidget</extends>
+   <header>../src/janela_interna.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>botao_carregar_falhas</tabstop>
   <tabstop>botao_carregar_modulos</tabstop>
   <tabstop>botao_recarregar_falhas</tabstop>
   <tabstop>botao_recarregar_modulos</tabstop>
   <tabstop>end_arq_falhas</tabstop>
-  <tabstop>end_arq_modulos</tabstop>
   <tabstop>falhas</tabstop>
+  <tabstop>end_arq_modulos</tabstop>
   <tabstop>modulos</tabstop>
  </tabstops>
  <resources>
