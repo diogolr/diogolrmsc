@@ -1,8 +1,6 @@
 #ifndef GRAFICO_CPP_
 #define GRAFICO_CPP_
 
-#include <QPrinter>
-
 #include "grafico.h"
 
 Grafico :: Grafico( QWidget *p ) : QwtPlot( p ), pai( p )
@@ -13,304 +11,277 @@ Grafico :: Grafico( QWidget *p ) : QwtPlot( p ), pai( p )
 
 Grafico :: ~Grafico()
 {
-    for ( int i = 0 ; i < curvas.size() ; i++ )
-    {
-        delete x[i];
-        delete y[i];
-        delete curvas[i];
-    }
-
-    x.clear();
-    y.clear();
-    curvas.clear();
+    if ( zoom != NULL )
+        delete zoom;
 }
+        
 
-
-QwtPlotCurve * Grafico :: curva( const int &curva )
+bool Grafico :: adicionar_conjunto( const QString &nome_conj )
 {
-    if ( curva < 0 || curva >= x.size() )
+    if ( conjuntos.contains( nome_conj ) )
     {
-        exibir_mensagem( (QWidget *) this->parent(),
+        exibir_mensagem( pai, 
                          "Erro", 
-                         "A curva especificada não existe", 
+                         "Já existe um conjunto com o nome de <b>" +
+                         nome_conj + "</b> adicionado à lista de conjuntos.", 
                          Aviso );
-        return NULL;
+        return false;
     }
 
-    return curvas[curva];
+    conjuntos << nome_conj;
+
+    // Lista de curvas
+    QList< QwtPlotCurve * > *curvas = new QList< QwtPlotCurve * >;
+
+    map_conj_curvas[ nome_conj ] = curvas;
+
+    // Lista de nomes de curvas
+    QStringList *nomes_curvas = new QStringList;
+
+    map_conj_nomes_curvas[ nome_conj ] = nomes_curvas;
+
+    // Lista de dados (x, y)
+    QList< ParXY * > *lista_dados = new QList< ParXY * >;
+
+    map_conj_dados[ nome_conj ] = lista_dados;
+
+    // Atualizando a legenda
+    if ( legenda != NULL )
+    {
+        // TODO
+    }
+
+    return true;
 }
 
 
-void Grafico :: adicionar_curva( const QPen &linha, const QString &titulo )
+// Nesta função uma nova curva é adicionada ao conjunto se não existir nenhuma
+// curva com o mesmo nome. Ao adicionar a nova curva, a lista de nomes das
+// curvas e a lista de curvas será atualizada de tal maneira que o nome terá o
+// mesmo índice que a curva em suas respectivas listas. Isso fará com que a
+// curva possa ser indexada pelo mesmo índice do nome da curva.
+bool Grafico :: adicionar_curva( const QString &nome_conj, 
+                                 const QString &nome_curva,
+                                 const QPen &linha,
+                                 const QwtPlotCurve::CurveStyle &estilo )
 {
-    QwtPlotCurve *curva;
+    if ( !conjuntos.contains( nome_conj ) )
+    {
+        exibir_mensagem( pai, 
+                         "Erro", 
+                         "Não existe um conjunto com o nome de <b>" +
+                         nome_conj + "</b> adicionado à lista de conjuntos.", 
+                         Aviso );
+        return false;
+    }
 
-    QVector< double > *x_pontos;
-    QVector< double > *y_pontos;
+    // Obtendo a lista de nomes de curvas do dado conjunto
+    QStringList *nomes_curvas = map_conj_nomes_curvas[ nome_conj ];
 
-    x_pontos = new QVector< double >();
-    y_pontos = new QVector< double >();
+    if ( nomes_curvas->contains( nome_curva ) )
+    {
+        exibir_mensagem( pai, 
+                         "Erro", 
+                         "Já existe uma curva com o nome <b>" + nome_curva + 
+                         "</b> adicionada à lista de curvas do conjunto <b>" +
+                         nome_conj + "</b>.", 
+                         Aviso );
+        return false;
+    }
 
-    x.push_back( x_pontos );
-    y.push_back( y_pontos );
+    // Adicionando o nome da nova curva à lista de nomes
+    (*nomes_curvas) << nome_curva;
 
-    curva = new QwtPlotCurve( utf8( titulo ) );
+    // Obtendo a lista de curvas do dado conjunto
+    QList< QwtPlotCurve * > *curvas = map_conj_curvas[ nome_conj ];
 
-    curva->setRenderHint( QwtPlotItem::RenderAntialiased );
+    // Criando a nova curva
+    QwtPlotCurve *curva = new QwtPlotCurve( nome_curva );
+
     curva->setPen( linha );
+    curva->setStyle( estilo );
 
-    curvas.push_back( curva );
+    (*curvas) << curva;
 
-    curvas[ curvas.size() - 1 ]->attach( this );
+    curva->attach( this );
+
+    // Criando o par (x, y) e adicionando-o à lista de dados
+    QList< ParXY * > *lista_dados = map_conj_dados[ nome_conj ];
+
+    ParXY *par = new ParXY;
+
+    (*lista_dados) << par;
+
+    // Atualizando a legenda
+    if ( legenda != NULL )
+    {
+        // TODO
+    }
+
+    return true;
 }
 
 
-void Grafico :: adicionar_xy( const int &c, 
-                              const double &novo_x, 
-                              const double &novo_y,
+void Grafico :: adicionar_xy( const QString &nome_conj, 
+                              const QString &nome_curva,
+                              const double &x,
+                              const double &y,
                               const bool &replote )
 {
-    if ( c < 0 || c >= x.size() )
+    if ( !conjuntos.contains( nome_conj ) )
     {
-        exibir_mensagem( (QWidget *) this->parent(),
+        exibir_mensagem( pai, 
                          "Erro", 
-                         "A curva especificada não existe", 
+                         "Não existe um conjunto com o nome de <b>" +
+                         nome_conj + "</b> adicionado à lista de conjuntos.", 
                          Aviso );
         return;
     }
 
-    x[c]->push_back( novo_x );
-    y[c]->push_back( novo_y );
+    // Obtendo a lista de nomes de curvas para o dado conjunto
+    QStringList *nomes_curvas = map_conj_nomes_curvas[ nome_conj ];
 
-    curvas[c]->setData( x[c]->data(), y[c]->data(), x[c]->size() );
+    int indice_curva = nomes_curvas->indexOf( nome_curva );
+
+    if ( indice_curva == -1 )
+    {
+        exibir_mensagem( pai, 
+                         "Erro", 
+                         "Não existe uma curva com o nome <b>" + nome_curva + 
+                         "</b> adicionada à lista de curvas do conjunto <b>" +
+                         nome_conj + "</b>.", 
+                         Aviso );
+        return;
+    }
+
+    // Obtendo os vetores X e Y da lista de pares
+    ParXY *dados = (*map_conj_dados[ nome_conj ])[ indice_curva ];
+
+    // Adicionando o valor de X
+    dados->first.push_back( x );
+    // Adicionando o valor de Y
+    dados->second.push_back( y );
+
+    // Obtendo a curva a da lista de curvas
+    QwtPlotCurve *curva = (*map_conj_curvas[ nome_conj ])[ indice_curva ];
+
+    curva->setRawSamples( dados->first.data(), 
+                          dados->second.data(), 
+                          dados->first.count() );
 
     if ( replote )
         this->replot();
 }
 
 
-void Grafico :: configurar_legenda( QwtLegend *legenda, 
-                                    const QwtPlot::LegendPosition &posicao )
+void Grafico :: configurar_legenda( Legenda *l )
 {
-    this->insertLegend( legenda, posicao );
-    legenda->setItemMode( QwtLegend::CheckableItem );
+    legenda = l;
 }
 
 
-void Grafico :: configurar_limites( const QwtPlot::Axis &eixo, 
-                                    const double &min,
-                                    const double &max )
+void Grafico :: habilitar_legenda( const bool &b )
 {
-    this->setAxisScale( eixo, min, max );
+    legenda->setVisible( b );
 }
 
 
-void Grafico :: configurar_nome_eixo( const QwtPlot::Axis &eixo, 
-                                      const QwtText &texto )
+void Grafico :: habilitar_zoom( const bool &b )
 {
-    this->setAxisTitle( eixo, texto );
+    zoom->setEnabled( b );
 }
 
 
-void Grafico :: configurar_titulo( const QwtText &texto )
+void Grafico :: limpar( const bool &replote )
 {
-    this->setTitle( texto );
-}
-
-
-void Grafico :: exportar( const QString &nome_arquivo )
-{
-    // Considera-se que todas as extensoes dos arquivos possuem 3 caracteres.
-    QString extensao = nome_arquivo.right( 3 );
-
-    QwtPlotPrintFilter filtro;
-
-    int opcoes = ( QwtPlotPrintFilter::PrintAll & 
-                   ~QwtPlotPrintFilter::PrintBackground ) |
-                 QwtPlotPrintFilter::PrintFrameWithScales;
-
-    filtro.setOptions( opcoes );
-
-    if ( extensao == "svg" )
+    while( !conjuntos.isEmpty() )
     {
-        QSvgGenerator gerador;
-
-        gerador.setFileName( nome_arquivo );
-        gerador.setSize( this->size() );
-
-        this->print( gerador, filtro );
+        remover_conjunto( conjuntos.first(), false );
     }
-    else if ( extensao == "pdf" || extensao == "ps" )
-    {
-        QPrinter impressora;
 
-        if ( extensao == "pdf" )
-        {
-            impressora.setOutputFormat( QPrinter::PdfFormat );
-        }
-        else
-        {
-            impressora.setOutputFormat( QPrinter::PostScriptFormat );
-        }
-
-        impressora.setOutputFileName( nome_arquivo );
-        impressora.setCreator( utf8( "Controle para o Sistema de Tanques" ) );
-        impressora.setOrientation( QPrinter::Landscape );
-
-        this->print( impressora, filtro );
-    }
-    else
-    {
-        QPixmap imagem( 2 * this->size() );
-
-        if ( extensao == "png" )
-        {
-            imagem.fill( Qt::transparent );
-        }
-        else
-        {
-            imagem.fill( Qt::white );
-        }
-
-        this->print( imagem, filtro );
-
-        imagem.save( nome_arquivo, qstring_char( extensao ), 100 );
-    }
+    if ( replote )
+        this->replot();
 }
 
 
-void Grafico :: habilitar_zoom( const bool &hab )
+void Grafico :: remover_conjunto( const QString &nome_conj, 
+                                  const bool &replote )
 {
-    if ( hab )
+    if ( !conjuntos.contains( nome_conj ) )
     {
-        zoom->setZoomBase();
-        zoom->setEnabled( true );
-    }
-    else
-    {
-        zoom->setEnabled( false );
-        this->setAxisAutoScale( QwtPlot::yLeft );
-        this->setAxisAutoScale( QwtPlot::xBottom );
-    }
-}
-
-
-void Grafico :: limpar( const int &curva )
-{
-    if ( curva < -1 || curva >= x.size() )
-    {
-        exibir_mensagem( (QWidget *) this->parent(),
+        exibir_mensagem( pai, 
                          "Erro", 
-                         "A curva especificada não existe", 
+                         "Não existe um conjunto com o nome de <b>" +
+                         nome_conj + "</b> adicionado à lista de conjuntos.", 
                          Aviso );
         return;
     }
 
-    // Se nao for identificada nenhuma curva em especifico
-    if ( curva == -1 )
+    QStringList *nomes_curvas = map_conj_nomes_curvas[ nome_conj ];
+
+    while( !nomes_curvas->isEmpty() )
     {
-        for ( int i = 0 ; i < x.size() ; i++ )
-        {
-            x[i]->clear();
-            y[i]->clear();
-        }
+        remover_curva( nome_conj, nomes_curvas->first(), false );
     }
-    else
+
+    conjuntos.removeOne( nome_conj );
+
+    // Atualizando a legenda
+    if ( legenda != NULL )
     {
-        x[curva]->clear();
-        y[curva]->clear();
+        // TODO
     }
+
+    if ( replote )
+        this->replot();
 }
 
 
-void Grafico :: salvar( const QString &nome_arquivo,
-                        const char &separador,
-                        const int &c,
-                        const bool &msm_valor_x )
+void Grafico :: remover_curva( const QString &nome_conj, 
+                               const QString &nome_curva,
+                               const bool &replote )
 {
-    if ( c < -1 || c >= x.size() )
+    if ( !conjuntos.contains( nome_conj ) )
     {
-        exibir_mensagem( (QWidget *) this->parent(),
+        exibir_mensagem( pai, 
                          "Erro", 
-                         "A curva especificada não existe", 
+                         "Não existe um conjunto com o nome de <b>" +
+                         nome_conj + "</b> adicionado à lista de conjuntos.", 
                          Aviso );
         return;
     }
 
-    ofstream of( qstring_char( nome_arquivo ), ios::out );
+    // Obtendo a lista de nomes de curvas para o dado conjunto
+    QStringList *nomes_curvas = map_conj_nomes_curvas[ nome_conj ];
 
-    if ( !of )
+    int indice_curva = nomes_curvas->indexOf( nome_curva );
+
+    if ( indice_curva == -1 )
     {
-        exibir_mensagem( (QWidget *) this->parent(),
+        exibir_mensagem( pai, 
                          "Erro", 
-                         "Não foi possível abrir o arquivo para escrita.", 
+                         "Não existe uma curva com o nome <b>" + nome_curva + 
+                         "</b> adicionada à lista de curvas do conjunto <b>" +
+                         nome_conj + "</b>.", 
                          Aviso );
         return;
     }
-    
-    // Se nao for identificada nenhuma curva em especifico
-    if ( c == -1 )
-    {
-        // Se o X e o mesmo para todas as colunas, entao o numermo de
-        // linhas devera ser o mesmo. Portanto, adota-se que o numero de
-        // linhas (elementos) e o numero de linhas da primeira curva. 
-        for ( int elemento = 0 ; elemento < x[0]->size() ; elemento ++ )
-        {
-            for ( int curva = 0 ; curva < y.size() ; curva++ )
-            {
-                // Se todos os valores de X (para todas as curvas) forem iguais,
-                // nao ha necessidade de salvar os mesmos valores repetidas
-                // vezes no arquivo de saida. Portanto, somente a primeira
-                // coluna do arquivo de saida correspondera aos valores de X e o
-                // restante das colunas serao compostas pelos valores de Y de
-                // cada uma das curvas.
-                if ( msm_valor_x )
-                {
-                    if ( curva == 0 )
-                    {
-                        of << (*x[curva])[elemento] << separador;
-                    }
-                }
-                else
-                {
-                    of << (*x[curva])[elemento] << separador;
-                }
-                
-                of << (*y[curva])[elemento];
-               
-                // Nao adicionar o separador na ultima coluna
-                if ( curva != y.size() -1 )
-                {
-                    of << separador;
-                }
-            }
 
-            of << endl;
-        }
-    }
-    else
+    delete (*map_conj_curvas[ nome_conj ])[ indice_curva ];
+    delete (*map_conj_dados[ nome_conj ])[ indice_curva ];
+
+    map_conj_curvas[ nome_conj ]->removeAt( indice_curva );
+    map_conj_dados[ nome_conj ]->removeAt( indice_curva );
+
+    nomes_curvas->removeAt( indice_curva );
+
+    if ( legenda != NULL )
     {
-        for ( int elemento = 0 ; elemento < x[0]->size() ; elemento ++ )
-        {
-            of << (*x[c])[elemento] << separador
-               << (*y[c])[elemento] << endl;
-        }
+        // TODO
     }
 
-    of.close();
-}
-
-
-void Grafico :: utilizar_grid( const bool &g )
-{
-    if ( g )
-    {
-        grid.attach( this );
-    }
-    else
-    {
-        grid.detach();
-    }
+    if ( replote )
+        this->replot();
 }
 
 
@@ -319,38 +290,73 @@ void Grafico :: configurar()
     // Modificando as fontes dos eixos
     for ( int i = 0 ; i < QwtPlot::axisCnt ; i++ )
     {
-        this->setAxisFont( i, pai->font() );
+        setAxisFont( i, pai->font() );
     }
 
     // Ajustando o canvas
-    this->canvas()->setFrameStyle( QFrame::Box | QFrame::Plain );
-    this->canvas()->setLineWidth( 0 );
+    canvas()->setFrameStyle( QFrame::Box | QFrame::Plain );
+    canvas()->setLineWidth( 1 );
+    canvas()->setBorderRadius( 15 );
 
-    this->plotLayout()->setAlignCanvasToScales( true );
+    plotLayout()->setAlignCanvasToScales( true );
+
+    // Gradiente do canvas
+    QPalette pal = canvas()->palette();
+
+#if QT_VERSION >= 0x040400
+    QLinearGradient gradiente( 0.0, 0.0, 1.0, 0.0 );
+
+    gradiente.setCoordinateMode( QGradient::StretchToDeviceMode );
+    gradiente.setColorAt( 0.0, QColor( 235, 235, 235 ) );
+    gradiente.setColorAt( 1.0, QColor( 179, 179, 179 ) );
+
+    pal.setBrush( QPalette::Window, QBrush( gradiente ) );
+#else
+    pal.setBrush( QPalette::Window, QBrush( color ) );
+#endif
+
+    canvas()->setPalette( pal );
 
     // Grid
-    QPen linha( Qt::lightGray );
-    linha.setStyle( Qt::DotLine );
-    grid.setPen( linha );
+    QwtPlotGrid *grid = new QwtPlotGrid();
+
+    grid->setPen( QPen( Qt::darkGray, 0.0, Qt::DotLine ) );
+    grid->enableX( true );
+    grid->enableXMin( true );
+    grid->enableY( true );
+    grid->enableYMin( false );
+    grid->attach( this );
 
     // Zoom
-    zoom = new QwtPlotZoomer( QwtPlot::xBottom, 
-                              QwtPlot::yLeft,
-                              this->canvas() );
+    zoom = new QwtPlotZoomer( canvas() );
+
     zoom->setRubberBand( QwtPicker::RectRubberBand );
 
-    linha.setStyle( Qt::SolidLine );
-    linha.setColor( Qt::red );
+    zoom->setRubberBandPen( QPen( Qt::white, 0.5, Qt::SolidLine ) );
 
-    zoom->setRubberBandPen( linha );
-
-    linha.setColor( Qt::black );
-
-    zoom->setTrackerPen( linha );
+    zoom->setTrackerPen( QPen( Qt::white ) );
 
     zoom->setTrackerMode( QwtPicker::ActiveOnly );
 
-    zoom->setEnabled( false );
+    zoom->setEnabled( true );
+    
+    // The backing store is important, when working with widget overlays ( f.e
+    // rubberbands for zooming ). 
+    canvas()->setPaintAttribute( QwtPlotCanvas::BackingStore, true );
+
+#if defined(Q_WS_X11)
+    // Even if not recommended by TrollTech, Qt::WA_PaintOutsidePaintEvent
+    // works on X11. This has a nice effect on the performance.
+    canvas()->setAttribute( Qt::WA_PaintOutsidePaintEvent, true );
+#endif
+
+}
+
+
+void Grafico :: inicializar()
+{
+    legenda = NULL;
+    zoom = NULL;
 }
 
 #endif

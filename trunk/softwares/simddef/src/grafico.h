@@ -1,38 +1,30 @@
 #ifndef GRAFICO_H_
 #define GRAFICO_H_
 
-#include <QDebug>
-
-#include <QChar>
-#include <QFont>
+#include <QColor>
+#include <QHash>
+#include <QLinearGradient>
+#include <QList>
+#include <QPair>
+#include <QPalette>
 #include <QPen>
-#include <QPixmap>
-#include <QSize>
 #include <QString>
-#include <QSvgGenerator>
 #include <QVector>
 #include <QWidget>
 
-#include <qwt_legend.h>
+#include <qwt_picker.h>
 #include <qwt_plot.h>
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_curve.h>
 #include <qwt_plot_grid.h>
-#include <qwt_plot_item.h>
 #include <qwt_plot_layout.h>
-#include <qwt_plot_printfilter.h>
 #include <qwt_plot_zoomer.h>
-#include <qwt_picker.h>
-#include <qwt_text.h>
 
-#include <fstream>
-using std::ifstream;
-using std::ofstream;
-using std::ios;
-#include <iostream>
-using std::endl;
+typedef QVector< double > QVectorD;
+typedef QPair< QVectorD, QVectorD > ParXY;
 
 #include "funcoes.h"
+#include "legenda.h"
 
 class Grafico : public QwtPlot
 {
@@ -41,43 +33,45 @@ class Grafico : public QwtPlot
         Grafico( QWidget *pai = NULL );
         ~Grafico();
 
-        QwtPlotCurve * curva( const int & );
+        bool adicionar_conjunto( const QString & );
+        bool adicionar_curva( const QString &, 
+                              const QString &,
+                              const QPen & = QPen(),
+                              const QwtPlotCurve::CurveStyle & = 
+                                    QwtPlotCurve::Lines );
 
-        void adicionar_curva( const QPen &, const QString & = "" );
-        void adicionar_xy( const int &curva, 
-                           const double &x, 
-                           const double &y,
-                           const bool &replote = true );
-        void configurar_legenda( QwtLegend *, const QwtPlot::LegendPosition & );
-        void configurar_limites( const QwtPlot::Axis &, 
-                                 const double &,
-                                 const double & );
-        void configurar_nome_eixo( const QwtPlot::Axis &, 
-                                   const QwtText & );
-        void configurar_titulo( const QwtText & );
-        void exportar( const QString &nome_arquivo = "saida.svg" );
+        void adicionar_xy( const QString &, 
+                           const QString &,
+                           const double &,
+                           const double &,
+                           const bool & = true );
+        void configurar_legenda( Legenda * );
+        void habilitar_legenda( const bool & );
         void habilitar_zoom( const bool & );
-        void limpar( const int &curva = -1 );
-        void salvar( const QString &nome_arquivo = "saida.dat", 
-                     const char &separador = '\t',
-                     const int &curva = -1,
-                     const bool &msm_valor_x = true );
-        void utilizar_grid( const bool & );
+        void limpar( const bool & = true );
+        void remover_conjunto( const QString &, const bool & = true );
+        void remover_curva( const QString &, 
+                            const QString &, 
+                            const bool & = true );
 
     private:
         void configurar();
+        void inicializar();
 
     // Atributos
     private:
-        QVector< QVector< double > * > x;
-        QVector< QVector< double > * > y;
-
-        QVector< QwtPlotCurve * > curvas;
-
         QWidget *pai;
 
-        QwtLegend *legenda;
-        QwtPlotGrid grid;
+        Legenda *legenda;
+
+        // Conjuntos de curvas
+        QStringList conjuntos;
+
+        // Hash de conjuntos para curvas
+        QHash< QString, QList< QwtPlotCurve * > * > map_conj_curvas;
+        QHash< QString, QStringList * > map_conj_nomes_curvas;
+        QHash< QString, QList< ParXY * > * > map_conj_dados;
+
         QwtPlotZoomer *zoom;
 };
 
