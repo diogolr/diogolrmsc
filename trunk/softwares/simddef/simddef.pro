@@ -30,13 +30,15 @@ CONFIG += release console
 QT += svg xml
 
 # Input
-FORMS += ui/config_falhas.ui \
+FORMS += ui/caixa_marcacao.ui \
+         ui/config_falhas.ui \
          ui/config_modulos.ui \
          ui/janela_interna.ui \
          ui/legenda.ui \
          ui/principal.ui
 
-HEADERS += src/config_falhas.h \
+HEADERS += src/caixa_marcacao.h \
+           src/config_falhas.h \
            src/config_modulos.h \
            src/excecoes.h \
            src/funcoes.h \
@@ -46,9 +48,11 @@ HEADERS += src/config_falhas.h \
            src/manipulador_xml.h \
            src/modulo.h \
            src/principal.h \
-           src/rede.h
+           src/rede.h \
+           src/retangulo.h
 
-SOURCES += src/config_falhas.cpp \
+SOURCES += src/caixa_marcacao.cpp \
+           src/config_falhas.cpp \
            src/config_modulos.cpp \
            src/excecoes.cpp \
            src/funcoes.cpp \
@@ -60,6 +64,7 @@ SOURCES += src/config_falhas.cpp \
            src/modulo.cpp \
            src/principal.cpp \
            src/rede.cpp \
+           src/retangulo.cpp
 
 RESOURCES += imgs/imgs.qrc \
              cfgs_rnas/rnas.qrc

@@ -13,6 +13,8 @@ class Legenda : public QWidget
         Legenda( QWidget *pai = NULL );
         ~Legenda();
 
+        void limpar();
+
     private:
         void inicializar();
 

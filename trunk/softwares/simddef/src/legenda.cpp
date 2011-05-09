@@ -19,6 +19,11 @@ Legenda :: ~Legenda()
 }
 
 
+void Legenda :: limpar()
+{
+}
+
+
 void Legenda :: inicializar()
 {
     // Retirando a borda

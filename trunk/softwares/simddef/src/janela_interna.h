@@ -15,6 +15,7 @@ using Flood::Vector;
 
 #include <cstdlib>
 
+#include "excecoes.h"
 #include "ui_janela_interna.h"
 
 typedef Matrix< double > MatrizD;
@@ -29,13 +30,17 @@ class JanelaInterna : public QWidget
         JanelaInterna( QWidget *pai = 0 );
         ~JanelaInterna();
 
-        void configurar_curvas( const MatrizD &, 
+        void configurar_curvas( const QString &nome_falha,
+                                const MatrizD &, 
                                 const QHash< int, QString > &,
                                 const double &periodo_amost = 1.0 );
-        void configurar_deteccoes( const QHash< QString, MatrizI > & );
-        void exibir_curvas();
-        void exibir_deteccoes();
+        void configurar_deteccoes( const QString &,
+                                   const QHash< QString, MatrizI > & );
+        void exibir_curvas( const bool & );
+        void exibir_deteccoes( const bool & );
         void limpar();
+        void remover_curvas( const QString & );
+        void remover_deteccoes( const QString & );
 
     private:
         void inicializar();
@@ -43,9 +48,6 @@ class JanelaInterna : public QWidget
     // Atributos
     private:
         QList< QColor > lista_cores;
-
-        QList< MatrizI > intervalos;
-        QList< QString > nomes_deteccoes;
 
         Ui_JanelaInterna *ui;
 };

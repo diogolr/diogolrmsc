@@ -28,16 +28,21 @@ JanelaPrincipal :: ~JanelaPrincipal()
 void JanelaPrincipal :: ativar_modulo( Modulo *modulo )
 {
     // Configurando as informacoes a serem exibidas
-    ui->janela_interna->configurar_curvas( modulo->dados()[0], 
+    ui->janela_interna->configurar_curvas( modulo->nome_falha(),
+                                           modulo->dados()[0], 
                                            modulo->curvas_a_exibir(),
                                            PERIODO_AMOSTRAGEM );
-    ui->janela_interna->configurar_deteccoes( modulo->deteccoes_falhas() );
+    ui->janela_interna->configurar_deteccoes( modulo->nome_falha(),
+                                              modulo->deteccoes_falhas() );
 
     // Exibindo as curvas de entrada do modulo
-    ui->janela_interna->exibir_curvas();
+    ui->janela_interna->exibir_curvas( true );
 
     // Exibindo as deteccoes de falha
-    ui->janela_interna->exibir_deteccoes();
+    ui->janela_interna->exibir_deteccoes( true );
+
+    // Configurando a flag interna do modulo
+    modulo->configurar_ativo( true );
 }
 
 
@@ -90,6 +95,9 @@ void JanelaPrincipal :: atualizar_falhas( const QString &nome_arq )
     }
 
     ui->falhas->expandAll();
+
+    // Apangando as informações do gráfico
+    ui->janela_interna->limpar();
 }
 
 
@@ -198,9 +206,8 @@ void JanelaPrincipal :: atualizar_modulos( const QString &nome_arq )
         
     progresso.setValue( num_modulos );
 
-    // TODO Quando todos os modulos forem carregados e exibidos a area de
-    // exibicao das falhas devera ser "limpa", retirando a exibicao de todos
-    // eles
+    // Apangando as informações do gráfico
+    ui->janela_interna->limpar();
 }
 
 
@@ -220,9 +227,21 @@ void JanelaPrincipal :: desabilitar_botoes_modulos()
 }
 
 
-void JanelaPrincipal :: desativar_modulo( Modulo * )
+void JanelaPrincipal :: desativar_modulo( Modulo *modulo )
 {
-    ui->janela_interna->limpar();
+    try
+    {
+        ui->janela_interna->remover_curvas( modulo->nome_falha() );
+        ui->janela_interna->remover_deteccoes( modulo->nome_falha() );
+    }
+    catch( Excecao e )
+    {
+        exibir_mensagem( this, "Erro", e.msg_erro(), Aviso );
+        return;
+    }
+
+    // Configurando a flag interna do modulo
+    modulo->configurar_ativo( false );
 }
 
 
@@ -427,31 +446,12 @@ void JanelaPrincipal :: on_modulos_itemDoubleClicked( QTableWidgetItem *it )
 
     if ( item->text() == "Desativado" )
     {
-        // Desativando os modulos ativos (somente um modulo pode estar ativo em
-        // determinado instante). Versoes futuras do simddef poderao contemplar
-        // mais um modulo ativo simultaneamente
-        for ( int i = 0 ; i < lista_modulos.count() ; i++ )
-        {
-            if ( lista_modulos[i]->ativo() )
-            {
-                desativar_modulo( lista_modulos[i] );
-                lista_modulos[i]->configurar_ativo( false );
-
-                QTableWidgetItem *aux = map_tab_modulo.key( lista_modulos[i] );
-
-                aux = ui->modulos->item( aux->row(), 2 );
-                aux->setText( "Desativado" );
-            }
-        }
-
         ativar_modulo( modulo );
-        modulo->configurar_ativo( true );
         item->setText( "Ativado" );
     }
     else
     {
         desativar_modulo( map_tab_modulo[ item ] );
-        modulo->configurar_ativo( false );
         item->setText( "Desativado" );
     }
 }
