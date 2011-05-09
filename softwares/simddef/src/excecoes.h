@@ -31,11 +31,32 @@ class ExcecaoAssociacao : public Excecao
         ExcecaoAssociacao( const QString &e ) : Excecao( e ){ /* Vazio */ }
 };
 
+class ExcecaoConjunto : public Excecao
+{
+    // Metodos
+    public:
+        ExcecaoConjunto( const QString &e ) : Excecao( e ){ /* Vazio */ }
+};
+
 class ExcecaoConversao : public Excecao
 {
     // Metodos
     public:
         ExcecaoConversao( const QString &e ) : Excecao( e ){ /* Vazio */ }
+};
+
+class ExcecaoCurva : public Excecao
+{
+    // Metodos
+    public:
+        ExcecaoCurva( const QString &e ) : Excecao( e ){ /* Vazio */ }
+};
+
+class ExcecaoDeteccao : public Excecao
+{
+    // Metodos
+    public:
+        ExcecaoDeteccao( const QString &e ) : Excecao( e ){ /* Vazio */ }
 };
 
 class ExcecaoFuncao : public Excecao
