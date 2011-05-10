@@ -149,11 +149,15 @@ void JanelaInterna :: configurar_deteccoes( const QString &nome_falha,
 
 void JanelaInterna :: exibir_curvas( const bool &b )
 {
+    // TODO
+    Q_UNUSED( b );
 }
 
 
 void JanelaInterna :: exibir_deteccoes( const bool &b )
 {
+    // TODO
+    Q_UNUSED( b );
 }
 
 
@@ -208,13 +212,17 @@ void JanelaInterna :: inicializar()
     // Associando a legenda ao grafico
     ui->grafico->configurar_legenda( ui->legenda );
 
+    // Zoom
+    ui->grafico->habilitar_zoom( false );
+
     lista_cores << Qt::red
                 << Qt::blue
-                << Qt::green
+                << Qt::darkGreen
                 << Qt::magenta
                 << Qt::cyan
+                << Qt::green
+                << Qt::yellow
                 << Qt::black
-                << Qt::darkGreen
                 << Qt::darkCyan
                 << Qt::darkYellow
                 << Qt::darkGray;

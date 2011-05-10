@@ -17,7 +17,9 @@ class Retangulo : public QwtPlotItem
         Retangulo( const QPen &, const QBrush & );
         ~Retangulo();
 
-        void configurar( const QRectF & );
+        void configurar_retangulo( const QRectF & );
+        void configurar_linha( const QPen & );
+        void configurar_preenchimento( const QBrush & );
 
         void draw( QPainter *, 
                    const QwtScaleMap &,

@@ -14,9 +14,21 @@ Retangulo :: ~Retangulo()
 }
 
 
-void Retangulo :: configurar( const QRectF &ret )
+void Retangulo :: configurar_retangulo( const QRectF &ret )
 {
     coordenadas = ret;
+}
+
+
+void Retangulo :: configurar_linha( const QPen &l )
+{
+    linha = l;
+}
+
+
+void Retangulo :: configurar_preenchimento( const QBrush &b )
+{
+    preenchimento = b;
 }
 
 
@@ -25,6 +37,8 @@ void Retangulo :: draw( QPainter *painter,
                         const QwtScaleMap &y_map,
                         const QRectF &canvas_rect ) const
 {
+    Q_UNUSED( canvas_rect );
+
     if ( coordenadas.isValid() )
     {
         const QRectF rect = QwtScaleMap::transform( x_map, y_map, coordenadas );

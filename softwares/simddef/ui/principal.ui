@@ -108,7 +108,7 @@
           <string>Endereço do arquivo de configuração de falhas</string>
          </property>
          <property name="text">
-          <string/>
+          <string>cfgs/falhas.sdd</string>
          </property>
         </widget>
        </item>
@@ -134,9 +134,6 @@
        </item>
        <item>
         <widget class="QToolButton" name="botao_recarregar_falhas">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
          <property name="toolTip">
           <string>Recarregar arquivo de configuração de falhas</string>
          </property>
@@ -262,7 +259,7 @@
           <string>Endereço do arquivo de configuração de módulos</string>
          </property>
          <property name="text">
-          <string/>
+          <string>cfgs/modulos.sdd</string>
          </property>
         </widget>
        </item>
@@ -292,7 +289,7 @@
        <item>
         <widget class="QToolButton" name="botao_recarregar_modulos">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="toolTip">
           <string>Recarregar arquivo de configuração de módulos</string>
