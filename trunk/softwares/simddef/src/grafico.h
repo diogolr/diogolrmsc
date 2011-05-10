@@ -1,36 +1,31 @@
 #ifndef GRAFICO_H_
 #define GRAFICO_H_
 
+// Aqui são colocados os "protótipos" das classes para evitar problemas de
+// declaração devido a dependência circular dos arquivos grafico.h e
+// conjunto_itens.h
+class Grafico;
+class ConjuntoItens;
+
 #include <QBrush>
 #include <QColor>
-#include <QHash>
 #include <QLinearGradient>
 #include <QList>
-#include <QPair>
 #include <QPalette>
 #include <QPen>
 #include <QString>
-#include <QVector>
 #include <QWidget>
 
-#include <cfloat>
-
-#include <qwt_picker.h>
 #include <qwt_plot.h>
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_curve.h>
 #include <qwt_plot_grid.h>
 #include <qwt_plot_layout.h>
 #include <qwt_plot_zoomer.h>
-#include <qwt_scale_div.h>
 
-typedef QVector< double > QVectorD;
-typedef QPair< QVectorD, QVectorD > ParXY;
-
+#include "conjunto_itens.h"
 #include "excecoes.h"
-#include "funcoes.h"
 #include "legenda.h"
-#include "retangulo.h"
 
 class Grafico : public QwtPlot
 {
@@ -38,11 +33,6 @@ class Grafico : public QwtPlot
     public:
         Grafico( QWidget *pai = NULL );
         ~Grafico();
-
-        double min_x();
-        double min_y();
-        double max_x();
-        double max_y();
 
         void adicionar_conjunto( const QString & );
         void adicionar_curva( const QString &, 
@@ -85,16 +75,9 @@ class Grafico : public QwtPlot
     private:
         Legenda *legenda;
 
-        // Conjuntos de curvas
-        QStringList conjuntos;
+        QStringList nomes_conjuntos;
 
-        // Hash de conjuntos para curvas
-        QHash< QString, QList< QwtPlotCurve * > * > map_conj_curvas;
-        QHash< QString, QStringList * > map_conj_nomes_curvas;
-        QHash< QString, QStringList * > map_conj_nomes_detec;
-        QHash< QString, QList< ParXY * > * > map_conj_dados;
-        QHash< QPair< QString, QString >, 
-               QList< Retangulo * > * > map_conj_detec_retangulos;
+        QList< ConjuntoItens > conjuntos;
 
         QWidget *pai;
 

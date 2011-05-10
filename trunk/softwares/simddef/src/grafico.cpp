@@ -18,134 +18,90 @@ Grafico :: ~Grafico()
 
 void Grafico :: adicionar_conjunto( const QString &nome_conj )
 {
-    if ( conjuntos.contains( nome_conj ) )
+    if ( nomes_conjuntos.contains( nome_conj ) )
     {
         throw ExcecaoConjunto( "Já existe um conjunto com o nome de <b>" +
                                nome_conj + "</b> adicionado à lista de "
                                "conjuntos." );
     }
 
-    conjuntos << nome_conj;
+    nomes_conjuntos << nome_conj;
 
-    // Lista de curvas
-    QList< QwtPlotCurve * > *curvas = new QList< QwtPlotCurve * >;
+    ConjuntoItens novo_conj( this, nome_conj );        
 
-    map_conj_curvas[ nome_conj ] = curvas;
+    conjuntos << novo_conj;
 
-    // Lista de nomes de curvas
-    QStringList *nomes_curvas = new QStringList;
-
-    map_conj_nomes_curvas[ nome_conj ] = nomes_curvas;
-
-    // Lista de nomes das detecções
-    QStringList *nomes_detec = new QStringList;
-
-    map_conj_nomes_detec[ nome_conj ] = nomes_detec;
-
-    // Lista de dados (x, y)
-    QList< ParXY * > *lista_dados = new QList< ParXY * >;
-
-    map_conj_dados[ nome_conj ] = lista_dados;
-
+    /*
     // Atualizando a legenda
     if ( legenda != NULL )
     {
         // TODO
     }
+    */
 }
 
 
-// Nesta função uma nova curva é adicionada ao conjunto se não existir nenhuma
-// curva com o mesmo nome. Ao adicionar a nova curva, a lista de nomes das
-// curvas e a lista de curvas será atualizada de tal maneira que o nome terá o
-// mesmo índice que a curva em suas respectivas listas. Isso fará com que a
-// curva possa ser indexada pelo mesmo índice do nome da curva.
 void Grafico :: adicionar_curva( const QString &nome_conj, 
                                  const QString &nome_curva,
                                  const QPen &linha,
                                  const QwtPlotCurve::CurveStyle &estilo )
 {
-    if ( !conjuntos.contains( nome_conj ) )
+    int indice_conj = nomes_conjuntos.indexOf( nome_conj );
+
+    if ( indice_conj == -1 )
     {
         throw ExcecaoConjunto( "Não existe um conjunto com o nome de <b>" +
                                nome_conj + "</b> adicionado à lista de "
                                "conjuntos." );
     }
 
-    // Obtendo a lista de nomes de curvas do dado conjunto
-    QStringList *nomes_curvas = map_conj_nomes_curvas[ nome_conj ];
-
-    if ( nomes_curvas->contains( nome_curva ) )
+    try
     {
-        throw ExcecaoCurva( "Já existe uma curva com o nome <b>" + nome_curva +
-                            "</b> adicionada à lista de curvas do conjunto <b>" 
-                            + nome_conj + "</b>." );
+        conjuntos[indice_conj].adicionar_curva( nome_curva, linha, estilo );
+    }
+    catch( Excecao e )
+    {
+        throw e;
     }
 
-    // Adicionando o nome da nova curva à lista de nomes
-    (*nomes_curvas) << nome_curva;
-
-    // Obtendo a lista de curvas do dado conjunto
-    QList< QwtPlotCurve * > *curvas = map_conj_curvas[ nome_conj ];
-
-    // Criando a nova curva
-    QwtPlotCurve *curva = new QwtPlotCurve( nome_curva );
-
-    curva->setPen( linha );
-    curva->setStyle( estilo );
-
-    (*curvas) << curva;
-
-    curva->attach( this );
-
-    // Criando o par (x, y) e adicionando-o à lista de dados
-    QList< ParXY * > *lista_dados = map_conj_dados[ nome_conj ];
-
-    ParXY *par = new ParXY;
-
-    (*lista_dados) << par;
-
+    /*
     // Atualizando a legenda
     if ( legenda != NULL )
     {
         // TODO
     }
+    */
 }
 
 
 void Grafico :: adicionar_deteccao( const QString &nome_conj,
                                     const QString &nome_detec )
 {
-    if ( !conjuntos.contains( nome_conj ) )
+    int indice_conj = nomes_conjuntos.indexOf( nome_conj );
+
+    if ( indice_conj == -1 )
     {
         throw ExcecaoConjunto( "Não existe um conjunto com o nome de <b>" +
                                nome_conj + "</b> adicionado à lista de "
                                "conjuntos." );
     }
 
-    // Obtendo a lista de nomes das detecções do dado conjunto
-    QStringList *nomes_detec = map_conj_nomes_detec[ nome_conj ];
-
-    if ( nomes_detec->contains( nome_detec ) )
+    try
     {
-        throw ExcecaoDeteccao( "Já existe uma detecção com o nome <b>" + 
-                               nome_detec + "</b> adicionada à lista de "
-                               "detecções do conjunto <b>" + nome_conj + 
-                               "</b>." );
+        conjuntos[indice_conj].adicionar_deteccao( nome_detec );
+    }
+    catch( Excecao e )
+    {
+        throw e;
     }
 
-    // Adicionando o nome da nova curva à lista de nomes
-    (*nomes_detec) << nome_detec;
-
-    // Mapeando uma lista de retangulos a partir de um par (conjunto,nome_detec)
-    QList< Retangulo * > *lista = new QList< Retangulo * >;
-
-    QPair< QString, QString > conj_detec;
-
-    conj_detec.first = nome_conj;
-    conj_detec.second = nome_detec;
-
-    map_conj_detec_retangulos[ conj_detec ] = lista;
+    /*
+    // Atualizando a legenda
+    if ( legenda != NULL )
+    {
+        // TODO
+    }
+    */
 }
 
 
@@ -157,51 +113,34 @@ void Grafico :: adicionar_intervalo_detec( const QString &nome_conj,
                                            const QBrush &preenchimento,
                                            const bool &replote )
 {
-    if ( !conjuntos.contains( nome_conj ) )
+    int indice_conj = nomes_conjuntos.indexOf( nome_conj );
+
+    if ( indice_conj == -1 )
     {
         throw ExcecaoConjunto( "Não existe um conjunto com o nome de <b>" +
                                nome_conj + "</b> adicionado à lista de "
                                "conjuntos." );
     }
 
-    // Obtendo a lista de nomes das detecções do dado conjunto
-    QStringList *nomes_detec = map_conj_nomes_detec[ nome_conj ];
-
-    if ( !nomes_detec->contains( nome_detec ) )
+    try
     {
-        throw ExcecaoDeteccao( "Não existe uma detecção com o nome <b>" + 
-                               nome_detec + "</b> adicionada à lista de "
-                               "detecções do conjunto <b>" + nome_conj + 
-                               "</b>." );
+        QwtScaleDiv *escala = this->axisScaleDiv( QwtPlot::yLeft );
+
+        qreal x_inicial = inicio_fim.first;
+        qreal y_inicial = escala->lowerBound();
+        qreal larg = inicio_fim.second - x_inicial;
+        qreal alt = escala->upperBound() - y_inicial;
+
+        QRectF ret( x_inicial, y_inicial, larg, alt );
+
+        conjuntos[indice_conj].adicionar_intervalo_detec( nome_detec, 
+                                                          ret, 
+                                                          linha, 
+                                                          preenchimento );
     }
-
-    // Obtendo a lista de retangulos a partir do par (nome_conj, nome_detec)
-    QPair< QString, QString > conj_detec;
-
-    conj_detec.first = nome_conj;
-    conj_detec.second = nome_detec;
-
-    QList< Retangulo * > *lista = map_conj_detec_retangulos[ conj_detec ];
-
-    // Criando o novo retangulo e adicionando-o a lista/grafico
-    Retangulo *retangulo = new Retangulo( linha, preenchimento );
-
-    QwtScaleDiv *escala = this->axisScaleDiv( QwtPlot::yLeft );
-
-    qreal x_inicial = inicio_fim.first;
-    qreal y_inicial = escala->lowerBound();
-    qreal larg = inicio_fim.second - x_inicial;
-    qreal alt = escala->upperBound() - y_inicial;
-
-    retangulo->configurar( QRectF( x_inicial, y_inicial, larg, alt ) );
-
-    retangulo->attach( this );
-
-    (*lista) << retangulo;
-
-    if ( legenda != NULL )
+    catch( Excecao e )
     {
-        // TODO
+        throw e;
     }
 
     if ( replote )
@@ -215,39 +154,23 @@ void Grafico :: adicionar_xy( const QString &nome_conj,
                               const double &y,
                               const bool &replote )
 {
-    if ( !conjuntos.contains( nome_conj ) )
+    int indice_conj = nomes_conjuntos.indexOf( nome_conj );
+
+    if ( indice_conj == -1 )
     {
         throw ExcecaoConjunto( "Não existe um conjunto com o nome de <b>" +
                                nome_conj + "</b> adicionado à lista de "
                                "conjuntos." );
     }
 
-    // Obtendo a lista de nomes de curvas para o dado conjunto
-    QStringList *nomes_curvas = map_conj_nomes_curvas[ nome_conj ];
-
-    int indice_curva = nomes_curvas->indexOf( nome_curva );
-
-    if ( indice_curva == -1 )
+    try
     {
-        throw ExcecaoCurva( "Não existe uma curva com o nome <b>" + nome_curva +
-                            "</b> adicionada à lista de curvas do conjunto <b>" 
-                            + nome_conj + "</b>." );
+        conjuntos[indice_conj].adicionar_xy( nome_curva, x, y );
     }
-
-    // Obtendo os vetores X e Y da lista de pares
-    ParXY *dados = (*map_conj_dados[ nome_conj ])[ indice_curva ];
-
-    // Adicionando o valor de X
-    dados->first.push_back( x );
-    // Adicionando o valor de Y
-    dados->second.push_back( y );
-
-    // Obtendo a curva a da lista de curvas
-    QwtPlotCurve *curva = (*map_conj_curvas[ nome_conj ])[ indice_curva ];
-
-    curva->setRawSamples( dados->first.data(), 
-                          dados->second.data(), 
-                          dados->first.count() );
+    catch( Excecao e )
+    {
+        throw e;
+    }
 
     if ( replote )
         this->replot();
@@ -275,16 +198,28 @@ void Grafico :: habilitar_legenda( const bool &b )
 void Grafico :: habilitar_zoom( const bool &b )
 {
     zoom->setEnabled( b );
+
+    if ( b )
+    {
+        zoom->setZoomBase();
+    }
+    else
+    {
+        this->setAxisAutoScale( QwtPlot::yLeft );
+        this->setAxisAutoScale( QwtPlot::xBottom );
+    }
 }
 
 
 void Grafico :: limpar( const bool &replote )
 {
+    // Removendo todos os conjuntos
     while( !conjuntos.isEmpty() )
     {
-        remover_conjunto( conjuntos.first(), false );
-        conjuntos.removeFirst();
+        conjuntos.takeFirst().limpar();
     }
+
+    nomes_conjuntos.clear();
 
     if ( replote )
         this->replot();
@@ -294,21 +229,34 @@ void Grafico :: limpar( const bool &replote )
 void Grafico :: remover_conjunto( const QString &nome_conj, 
                                   const bool &replote )
 {
+    int indice_conj = nomes_conjuntos.indexOf( nome_conj );
+
+    if ( indice_conj == -1 )
+    {
+        throw ExcecaoConjunto( "Não existe um conjunto com o nome de <b>" +
+                               nome_conj + "</b> adicionado à lista de "
+                               "conjuntos." );
+    }
+    
     try
     {
-        remover_curvas( nome_conj, false );
-        remover_deteccoes( nome_conj, false );
+        conjuntos[indice_conj].limpar();
+        conjuntos.removeAt( indice_conj );
+
+        nomes_conjuntos.removeAt( indice_conj );
     }
     catch( Excecao e )
     {
         throw e;
     }
 
+    /*
     // Atualizando a legenda
     if ( legenda != NULL )
     {
         // TODO
     }
+    */
 
     if ( replote )
         this->replot();
@@ -319,36 +267,22 @@ void Grafico :: remover_curva( const QString &nome_conj,
                                const QString &nome_curva,
                                const bool &replote )
 {
-    if ( !conjuntos.contains( nome_conj ) )
+    int indice_conj = nomes_conjuntos.indexOf( nome_conj );
+
+    if ( indice_conj == -1 )
     {
         throw ExcecaoConjunto( "Não existe um conjunto com o nome de <b>" +
                                nome_conj + "</b> adicionado à lista de "
                                "conjuntos." );
     }
-
-    // Obtendo a lista de nomes de curvas para o dado conjunto
-    QStringList *nomes_curvas = map_conj_nomes_curvas[ nome_conj ];
-
-    int indice_curva = nomes_curvas->indexOf( nome_curva );
-
-    if ( indice_curva == -1 )
+    
+    try
     {
-        throw ExcecaoCurva( "Não existe uma curva com o nome <b>" + nome_curva +
-                            "</b> adicionada à lista de curvas do conjunto <b>" 
-                            + nome_conj + "</b>." );
+        conjuntos[indice_conj].remover_curva( nome_curva );
     }
-
-    delete (*map_conj_curvas[ nome_conj ])[ indice_curva ];
-    delete (*map_conj_dados[ nome_conj ])[ indice_curva ];
-
-    map_conj_curvas[ nome_conj ]->removeAt( indice_curva );
-    map_conj_dados[ nome_conj ]->removeAt( indice_curva );
-
-    nomes_curvas->removeAt( indice_curva );
-
-    if ( legenda != NULL )
+    catch( Excecao e )
     {
-        // TODO
+        throw e;
     }
 
     if ( replote )
@@ -359,25 +293,22 @@ void Grafico :: remover_curva( const QString &nome_conj,
 void Grafico :: remover_curvas( const QString &nome_conj, 
                                 const bool &replote )
 {
-    if ( !conjuntos.contains( nome_conj ) )
+    int indice_conj = nomes_conjuntos.indexOf( nome_conj );
+
+    if ( indice_conj == -1 )
     {
         throw ExcecaoConjunto( "Não existe um conjunto com o nome de <b>" +
                                nome_conj + "</b> adicionado à lista de "
                                "conjuntos." );
     }
-
-    // Obtendo a lista de nomes de curvas para o dado conjunto
-    QStringList *nomes_curvas = map_conj_nomes_curvas[ nome_conj ];
-
-    while( !nomes_curvas->isEmpty() )
+    
+    try
     {
-        remover_curva( nome_conj, nomes_curvas->first(), false );
+        conjuntos[indice_conj].remover_curvas();
     }
-
-    // Atualizando a legenda
-    if ( legenda != NULL )
+    catch( Excecao e )
     {
-        // TODO
+        throw e;
     }
 
     if ( replote )
@@ -389,44 +320,22 @@ void Grafico :: remover_deteccao( const QString &nome_conj,
                                   const QString &nome_detec,
                                   const bool &replote )
 {
-    if ( !conjuntos.contains( nome_conj ) )
+    int indice_conj = nomes_conjuntos.indexOf( nome_conj );
+
+    if ( indice_conj == -1 )
     {
         throw ExcecaoConjunto( "Não existe um conjunto com o nome de <b>" +
                                nome_conj + "</b> adicionado à lista de "
                                "conjuntos." );
     }
-
-    // Obtendo a lista de nomes de deteccoes para o dado conjunto
-    QStringList *nomes_detec = map_conj_nomes_detec[ nome_conj ];
-
-    if ( !nomes_detec->contains( nome_detec ) )
+    
+    try
     {
-        throw ExcecaoDeteccao( "Não existe uma detecção com o nome <b>" + 
-                               nome_detec + "</b> adicionada à lista de "
-                               "detecções do conjunto <b>" + nome_conj + 
-                               "</b>." );
+        conjuntos[indice_conj].remover_deteccao( nome_detec );
     }
-
-    // Obtendo a lista de retangulos da detecção
-    QPair< QString, QString > conj_detec;
-
-    conj_detec.first = nome_conj;
-    conj_detec.second = nome_detec;
-
-    // Obtendo a lista de retângulos
-    QList< Retangulo * > *lista = map_conj_detec_retangulos[ conj_detec ];
-
-    // Deletando os elementos da lista
-    while( !lista->isEmpty() )
+    catch( Excecao e )
     {
-        delete lista->takeFirst();
-    }
-
-    delete lista;
-
-    if ( legenda != NULL )
-    {
-        // TODO
+        throw e;
     }
 
     if ( replote )
@@ -437,25 +346,22 @@ void Grafico :: remover_deteccao( const QString &nome_conj,
 void Grafico :: remover_deteccoes( const QString &nome_conj, 
                                    const bool &replote )
 {
-    // Obtendo a lista de nomes de deteccoes para o dado conjunto
-    QStringList *nomes_detec = map_conj_nomes_detec[ nome_conj ];
+    int indice_conj = nomes_conjuntos.indexOf( nome_conj );
 
-    while( !nomes_detec->isEmpty() )
+    if ( indice_conj == -1 )
     {
-        try
-        {
-            remover_deteccao( nome_conj, nomes_detec->first(), false );
-            nomes_detec->removeFirst();
-        }
-        catch( Excecao e )
-        {
-            throw e;
-        }
+        throw ExcecaoConjunto( "Não existe um conjunto com o nome de <b>" +
+                               nome_conj + "</b> adicionado à lista de "
+                               "conjuntos." );
     }
-
-    if ( legenda != NULL )
+    
+    try
     {
-        // TODO
+        conjuntos[indice_conj].remover_deteccoes();
+    }
+    catch( Excecao e )
+    {
+        throw e;
     }
 
     if ( replote )

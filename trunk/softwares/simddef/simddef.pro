@@ -40,6 +40,7 @@ FORMS += ui/caixa_marcacao.ui \
 HEADERS += src/caixa_marcacao.h \
            src/config_falhas.h \
            src/config_modulos.h \
+           src/conjunto_itens.h \
            src/excecoes.h \
            src/funcoes.h \
            src/grafico.h \
@@ -54,6 +55,7 @@ HEADERS += src/caixa_marcacao.h \
 SOURCES += src/caixa_marcacao.cpp \
            src/config_falhas.cpp \
            src/config_modulos.cpp \
+           src/conjunto_itens.cpp \
            src/excecoes.cpp \
            src/funcoes.cpp \
            src/grafico.cpp \

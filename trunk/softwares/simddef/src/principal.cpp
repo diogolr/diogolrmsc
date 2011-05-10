@@ -37,10 +37,10 @@ void JanelaPrincipal :: ativar_modulo( Modulo *modulo )
                                               PERIODO_AMOSTRAGEM );
 
     // Exibindo as curvas de entrada do modulo
-    ui->janela_interna->exibir_curvas( true );
+    //ui->janela_interna->exibir_curvas( true );
 
     // Exibindo as deteccoes de falha
-    ui->janela_interna->exibir_deteccoes( true );
+    //ui->janela_interna->exibir_deteccoes( true );
 
     // Configurando a flag interna do modulo
     modulo->configurar_ativo( true );
@@ -233,15 +233,15 @@ void JanelaPrincipal :: desativar_modulo( Modulo *modulo )
     try
     {
         ui->janela_interna->remover_conjunto( modulo->nome_falha() );
+
+        // Configurando a flag interna do modulo
+        modulo->configurar_ativo( false );
     }
     catch( Excecao e )
     {
         exibir_mensagem( this, "Erro", e.msg_erro(), Aviso );
         return;
     }
-
-    // Configurando a flag interna do modulo
-    modulo->configurar_ativo( false );
 }
 
 
