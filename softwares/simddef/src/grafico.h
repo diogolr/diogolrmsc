@@ -22,6 +22,7 @@
 #include <qwt_plot_grid.h>
 #include <qwt_plot_layout.h>
 #include <qwt_plot_zoomer.h>
+#include <qwt_scale_div.h>
 
 typedef QVector< double > QVectorD;
 typedef QPair< QVectorD, QVectorD > ParXY;
@@ -71,6 +72,9 @@ class Grafico : public QwtPlot
                             const QString &, 
                             const bool & = true );
         void remover_curvas( const QString &, const bool & = true );
+        void remover_deteccao( const QString &, 
+                               const QString &, 
+                               const bool & = true );
         void remover_deteccoes( const QString &, const bool & = true );
 
     private:
@@ -79,8 +83,6 @@ class Grafico : public QwtPlot
 
     // Atributos
     private:
-        QWidget *pai;
-
         Legenda *legenda;
 
         // Conjuntos de curvas
@@ -93,6 +95,8 @@ class Grafico : public QwtPlot
         QHash< QString, QList< ParXY * > * > map_conj_dados;
         QHash< QPair< QString, QString >, 
                QList< Retangulo * > * > map_conj_detec_retangulos;
+
+        QWidget *pai;
 
         QwtPlotZoomer *zoom;
 };

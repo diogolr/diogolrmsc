@@ -95,7 +95,8 @@ void JanelaInterna :: configurar_curvas( const QString &nome_falha,
 
 void JanelaInterna :: configurar_deteccoes( const QString &nome_falha,
                                             const QHash< QString, 
-                                                         MatrizI > &deteccoes )
+                                                         MatrizI > &deteccoes,
+                                            const double &periodo_amostragem )
 {
     QList< QString > nomes_deteccoes = deteccoes.keys();
     QList< MatrizI > intervalos = deteccoes.values();
@@ -121,19 +122,28 @@ void JanelaInterna :: configurar_deteccoes( const QString &nome_falha,
         }
 
         // Transparencia de 50% para as deteccoes
-        cor.setAlpha( 150 );
+        cor.setAlpha( 50 );
+
+        ui->grafico->adicionar_deteccao( nome_falha, 
+                                         nomes_deteccoes[i] );
 
         saida = intervalos[i];
 
         for ( int a = 0 ; a < saida.get_rows_number() ; a++ )
         {
-            inicio_fim.first = saida[a][0];
-            inicio_fim.second = saida[a][1];
-                
-            ui->grafico->adicionar_deteccao( nome_falha, 
-                                             nomes_deteccoes[i] );
+            inicio_fim.first = saida[a][0] * periodo_amostragem;
+            inicio_fim.second = saida[a][1] * periodo_amostragem;
+
+            ui->grafico->adicionar_intervalo_detec( nome_falha,
+                                                    nomes_deteccoes[i],
+                                                    inicio_fim,
+                                                    QPen( cor ),
+                                                    QBrush( cor ),
+                                                    false );
         }
     }
+
+    ui->grafico->atualizar();
 }
 
 
@@ -151,6 +161,19 @@ void JanelaInterna :: limpar()
 {
     ui->grafico->limpar();
     ui->legenda->limpar();
+}
+
+
+void JanelaInterna :: remover_conjunto( const QString &nome_falha )
+{
+    try
+    {
+        ui->grafico->remover_conjunto( nome_falha );
+    }
+    catch( Excecao e )
+    {
+        throw e;
+    }
 }
 
 
