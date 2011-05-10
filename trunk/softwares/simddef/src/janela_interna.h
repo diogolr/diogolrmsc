@@ -35,10 +35,12 @@ class JanelaInterna : public QWidget
                                 const QHash< int, QString > &,
                                 const double &periodo_amost = 1.0 );
         void configurar_deteccoes( const QString &,
-                                   const QHash< QString, MatrizI > & );
+                                   const QHash< QString, MatrizI > &,
+                                   const double & = 1.0 );
         void exibir_curvas( const bool & );
         void exibir_deteccoes( const bool & );
         void limpar();
+        void remover_conjunto( const QString & );
         void remover_curvas( const QString & );
         void remover_deteccoes( const QString & );
 

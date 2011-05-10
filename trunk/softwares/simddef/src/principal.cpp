@@ -33,7 +33,8 @@ void JanelaPrincipal :: ativar_modulo( Modulo *modulo )
                                            modulo->curvas_a_exibir(),
                                            PERIODO_AMOSTRAGEM );
     ui->janela_interna->configurar_deteccoes( modulo->nome_falha(),
-                                              modulo->deteccoes_falhas() );
+                                              modulo->deteccoes_falhas(),
+                                              PERIODO_AMOSTRAGEM );
 
     // Exibindo as curvas de entrada do modulo
     ui->janela_interna->exibir_curvas( true );
@@ -231,8 +232,7 @@ void JanelaPrincipal :: desativar_modulo( Modulo *modulo )
 {
     try
     {
-        ui->janela_interna->remover_curvas( modulo->nome_falha() );
-        ui->janela_interna->remover_deteccoes( modulo->nome_falha() );
+        ui->janela_interna->remover_conjunto( modulo->nome_falha() );
     }
     catch( Excecao e )
     {

@@ -16,98 +16,6 @@ Grafico :: ~Grafico()
 }
 
 
-double Grafico :: min_x()
-{
-    double min = DBL_MIN;
-    
-    QList< QList< QwtPlotCurve * > * > listas_curvas = map_conj_curvas.values();
-
-    int num_curvas = 0;
-
-    for ( int i = 0 ; i < listas_curvas.count() ; i++ )
-    {
-        num_curvas = listas_curvas[i]->count();
-
-        for ( int j = 0 ; j < num_curvas ; j++ )
-        {
-            if ( (*listas_curvas[i])[j]->minXValue() < min )
-                min = (*listas_curvas[i])[j]->minXValue();
-        }
-    }
-
-    return min;
-}
-
-
-double Grafico :: min_y()
-{
-    double min = DBL_MIN;
-
-    QList< QList< QwtPlotCurve * > * > listas_curvas = map_conj_curvas.values();
-
-    int num_curvas = 0;
-
-    for ( int i = 0 ; i < listas_curvas.count() ; i++ )
-    {
-        num_curvas = listas_curvas[i]->count();
-
-        for ( int j = 0 ; j < num_curvas ; j++ )
-        {
-            if ( (*listas_curvas[i])[j]->minYValue() < min )
-                min = (*listas_curvas[i])[j]->minYValue();
-        }
-    }
-
-    return min;
-}
-
-
-double Grafico :: max_x()
-{
-    double max = DBL_MAX;
-
-    QList< QList< QwtPlotCurve * > * > listas_curvas = map_conj_curvas.values();
-
-    int num_curvas = 0;
-
-    for ( int i = 0 ; i < listas_curvas.count() ; i++ )
-    {
-        num_curvas = listas_curvas[i]->count();
-
-        for ( int j = 0 ; j < num_curvas ; j++ )
-        {
-            if ( (*listas_curvas[i])[j]->maxXValue() > max )
-                max = (*listas_curvas[i])[j]->maxXValue();
-        }
-    }
-
-    return max;
-}
-
-
-double Grafico :: max_y()
-{
-    double max = DBL_MAX;
-
-    QList< QList< QwtPlotCurve * > * > listas_curvas = map_conj_curvas.values();
-
-    int num_curvas = 0;
-
-    for ( int i = 0 ; i < listas_curvas.count() ; i++ )
-    {
-        num_curvas = listas_curvas[i]->count();
-
-        for ( int j = 0 ; j < num_curvas ; j++ )
-        {
-            if ( (*listas_curvas[i])[j]->maxYValue() > max )
-                max = (*listas_curvas[i])[j]->maxYValue();
-        }
-    }
-
-    return max;
-}
-        
-
 void Grafico :: adicionar_conjunto( const QString &nome_conj )
 {
     if ( conjuntos.contains( nome_conj ) )
@@ -259,9 +167,9 @@ void Grafico :: adicionar_intervalo_detec( const QString &nome_conj,
     // Obtendo a lista de nomes das detecções do dado conjunto
     QStringList *nomes_detec = map_conj_nomes_detec[ nome_conj ];
 
-    if ( nomes_detec->contains( nome_detec ) )
+    if ( !nomes_detec->contains( nome_detec ) )
     {
-        throw ExcecaoDeteccao( "Já existe uma detecção com o nome <b>" + 
+        throw ExcecaoDeteccao( "Não existe uma detecção com o nome <b>" + 
                                nome_detec + "</b> adicionada à lista de "
                                "detecções do conjunto <b>" + nome_conj + 
                                "</b>." );
@@ -278,10 +186,12 @@ void Grafico :: adicionar_intervalo_detec( const QString &nome_conj,
     // Criando o novo retangulo e adicionando-o a lista/grafico
     Retangulo *retangulo = new Retangulo( linha, preenchimento );
 
+    QwtScaleDiv *escala = this->axisScaleDiv( QwtPlot::yLeft );
+
     qreal x_inicial = inicio_fim.first;
-    qreal y_inicial = min_y();
+    qreal y_inicial = escala->lowerBound();
     qreal larg = inicio_fim.second - x_inicial;
-    qreal alt = max_y() - y_inicial;
+    qreal alt = escala->upperBound() - y_inicial;
 
     retangulo->configurar( QRectF( x_inicial, y_inicial, larg, alt ) );
 
@@ -289,7 +199,10 @@ void Grafico :: adicionar_intervalo_detec( const QString &nome_conj,
 
     (*lista) << retangulo;
 
-    // TODO parei aqui
+    if ( legenda != NULL )
+    {
+        // TODO
+    }
 
     if ( replote )
         this->replot();
@@ -370,6 +283,7 @@ void Grafico :: limpar( const bool &replote )
     while( !conjuntos.isEmpty() )
     {
         remover_conjunto( conjuntos.first(), false );
+        conjuntos.removeFirst();
     }
 
     if ( replote )
@@ -380,21 +294,15 @@ void Grafico :: limpar( const bool &replote )
 void Grafico :: remover_conjunto( const QString &nome_conj, 
                                   const bool &replote )
 {
-    if ( !conjuntos.contains( nome_conj ) )
+    try
     {
-        throw ExcecaoConjunto( "Não existe um conjunto com o nome de <b>" +
-                               nome_conj + "</b> adicionado à lista de "
-                               "conjuntos." );
+        remover_curvas( nome_conj, false );
+        remover_deteccoes( nome_conj, false );
     }
-
-    QStringList *nomes_curvas = map_conj_nomes_curvas[ nome_conj ];
-
-    while( !nomes_curvas->isEmpty() )
+    catch( Excecao e )
     {
-        remover_curva( nome_conj, nomes_curvas->first(), false );
+        throw e;
     }
-
-    conjuntos.removeOne( nome_conj );
 
     // Atualizando a legenda
     if ( legenda != NULL )
@@ -463,13 +371,7 @@ void Grafico :: remover_curvas( const QString &nome_conj,
 
     while( !nomes_curvas->isEmpty() )
     {
-        delete (*map_conj_curvas[ nome_conj ])[ 0 ];
-        delete (*map_conj_dados[ nome_conj ])[ 0 ];
-
-        map_conj_curvas[ nome_conj ]->removeAt( 0 );
-        map_conj_dados[ nome_conj ]->removeAt( 0 );
-        
-        nomes_curvas->removeAt( 0 );
+        remover_curva( nome_conj, nomes_curvas->first(), false );
     }
 
     // Atualizando a legenda
@@ -483,8 +385,9 @@ void Grafico :: remover_curvas( const QString &nome_conj,
 }
 
 
-void Grafico :: remover_deteccoes( const QString &nome_conj, 
-                                   const bool &replote )
+void Grafico :: remover_deteccao( const QString &nome_conj, 
+                                  const QString &nome_detec,
+                                  const bool &replote )
 {
     if ( !conjuntos.contains( nome_conj ) )
     {
@@ -493,6 +396,67 @@ void Grafico :: remover_deteccoes( const QString &nome_conj,
                                "conjuntos." );
     }
 
+    // Obtendo a lista de nomes de deteccoes para o dado conjunto
+    QStringList *nomes_detec = map_conj_nomes_detec[ nome_conj ];
+
+    if ( !nomes_detec->contains( nome_detec ) )
+    {
+        throw ExcecaoDeteccao( "Não existe uma detecção com o nome <b>" + 
+                               nome_detec + "</b> adicionada à lista de "
+                               "detecções do conjunto <b>" + nome_conj + 
+                               "</b>." );
+    }
+
+    // Obtendo a lista de retangulos da detecção
+    QPair< QString, QString > conj_detec;
+
+    conj_detec.first = nome_conj;
+    conj_detec.second = nome_detec;
+
+    // Obtendo a lista de retângulos
+    QList< Retangulo * > *lista = map_conj_detec_retangulos[ conj_detec ];
+
+    // Deletando os elementos da lista
+    while( !lista->isEmpty() )
+    {
+        delete lista->takeFirst();
+    }
+
+    delete lista;
+
+    if ( legenda != NULL )
+    {
+        // TODO
+    }
+
+    if ( replote )
+        this->replot();
+}
+
+
+void Grafico :: remover_deteccoes( const QString &nome_conj, 
+                                   const bool &replote )
+{
+    // Obtendo a lista de nomes de deteccoes para o dado conjunto
+    QStringList *nomes_detec = map_conj_nomes_detec[ nome_conj ];
+
+    while( !nomes_detec->isEmpty() )
+    {
+        try
+        {
+            remover_deteccao( nome_conj, nomes_detec->first(), false );
+            nomes_detec->removeFirst();
+        }
+        catch( Excecao e )
+        {
+            throw e;
+        }
+    }
+
+    if ( legenda != NULL )
+    {
+        // TODO
+    }
 
     if ( replote )
         this->replot();

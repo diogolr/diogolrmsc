@@ -14,7 +14,7 @@ INCLUDEPATH += . \
                qwt
 
 unix {
-    LIBS += /usr/lib/qwt-6.0/libqwt.so.6 \
+    LIBS += /usr/lib/libqwt/libqwt.so.6 \
             /usr/lib/flood/libflood.so.1
 }
 win32 {
