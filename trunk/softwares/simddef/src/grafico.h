@@ -29,6 +29,8 @@ class ConjuntoItens;
 
 class Grafico : public QwtPlot
 {
+    Q_OBJECT
+
     // Metodos
     public:
         Grafico( QWidget *pai = NULL );
@@ -52,10 +54,7 @@ class Grafico : public QwtPlot
                            const double &,
                            const double &,
                            const bool & = true );
-        void atualizar();
         void configurar_legenda( Legenda * );
-        void habilitar_legenda( const bool & );
-        void habilitar_zoom( const bool & );
         void limpar( const bool & = true );
         void remover_conjunto( const QString &, const bool & = true );
         void remover_curva( const QString &, 
@@ -70,6 +69,12 @@ class Grafico : public QwtPlot
     private:
         void configurar();
         void inicializar();
+
+    public slots:
+        void atualizar();
+
+        void habilitar_legenda( const bool & );
+        void habilitar_zoom( const bool & );
 
     // Atributos
     private:

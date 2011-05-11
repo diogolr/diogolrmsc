@@ -17,6 +17,10 @@ class Retangulo : public QwtPlotItem
         Retangulo( const QPen &, const QBrush & );
         ~Retangulo();
 
+        QBrush preenchimento();
+
+        QPen linha();
+
         void configurar_retangulo( const QRectF & );
         void configurar_linha( const QPen & );
         void configurar_preenchimento( const QBrush & );
@@ -28,8 +32,8 @@ class Retangulo : public QwtPlotItem
 
     // Atributos
     private:
-        QBrush preenchimento;
-        QPen linha;
+        QBrush estilo_preenchimento;
+        QPen estilo_linha;
         QRectF coordenadas;
 };
 

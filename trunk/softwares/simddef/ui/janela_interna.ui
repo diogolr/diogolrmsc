@@ -23,12 +23,9 @@
       <widget class="Legenda" name="legenda" native="true">
        <property name="maximumSize">
         <size>
-         <width>200</width>
+         <width>230</width>
          <height>16777215</height>
         </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QGraphicsView{ background: transparent; border: 0px}</string>
        </property>
       </widget>
      </item>

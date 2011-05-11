@@ -27,6 +27,10 @@ class ConjuntoItens
         ConjuntoItens( Grafico *, const QString & );
         ~ConjuntoItens();
 
+        QwtPlotCurve * curva( const QString & );
+
+        QList< Retangulo * > retangulos( const QString & );
+
         void adicionar_curva( const QString &,
                               const QPen & = QPen(),
                               const QwtPlotCurve::CurveStyle & =

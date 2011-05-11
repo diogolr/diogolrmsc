@@ -4,13 +4,25 @@
 #include "retangulo.h"
 
 Retangulo :: Retangulo( const QPen &p, const QBrush &b ) : 
-             preenchimento( b ), linha( p )
+             estilo_preenchimento( b ), estilo_linha( p )
 {
 }
 
 
 Retangulo :: ~Retangulo()
 {
+}
+
+
+QBrush Retangulo :: preenchimento()
+{
+    return estilo_preenchimento;
+}
+
+
+QPen Retangulo :: linha()
+{
+    return estilo_linha;
 }
 
 
@@ -22,13 +34,13 @@ void Retangulo :: configurar_retangulo( const QRectF &ret )
 
 void Retangulo :: configurar_linha( const QPen &l )
 {
-    linha = l;
+    estilo_linha = l;
 }
 
 
 void Retangulo :: configurar_preenchimento( const QBrush &b )
 {
-    preenchimento = b;
+    estilo_preenchimento = b;
 }
 
 
@@ -43,8 +55,8 @@ void Retangulo :: draw( QPainter *painter,
     {
         const QRectF rect = QwtScaleMap::transform( x_map, y_map, coordenadas );
 
-        painter->setPen( linha );
-        painter->setBrush( preenchimento );
+        painter->setPen( estilo_linha );
+        painter->setBrush( estilo_preenchimento );
 
         QwtPainter::drawRect( painter, rect );
     }
