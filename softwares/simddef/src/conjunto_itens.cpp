@@ -14,6 +14,37 @@ ConjuntoItens :: ~ConjuntoItens()
 }
 
 
+QwtPlotCurve * ConjuntoItens :: curva( const QString &nome_curva )
+{
+    int indice_curva = nomes_curvas.indexOf( nome_curva );
+
+    if ( indice_curva == - 1 )
+    {
+        throw ExcecaoCurva( "Não existe uma curva com o nome <b>" + nome_curva +
+                            "</b> adicionada à lista de curvas do conjunto <b>" 
+                            + nome_conj + "</b>." );
+    }
+
+    return curvas[ indice_curva ];
+}
+
+
+QList< Retangulo * > ConjuntoItens :: retangulos( const QString &nome_detec )
+{
+    int indice_detec = nomes_deteccoes.indexOf( nome_detec );
+
+    if ( indice_detec == -1 )
+    {
+        throw ExcecaoDeteccao( "Não existe uma detecção com o nome <b>" + 
+                               nome_detec + "</b> adicionada à lista de "
+                               "detecções do conjunto <b>" + nome_conj + 
+                               "</b>." );
+    }
+    
+    return (*map_detec_retangulos[ nomes_deteccoes[indice_detec] ]);
+}
+
+
 void ConjuntoItens :: adicionar_curva( const QString &nome_curva, 
                                        const QPen &linha,
                                        const QwtPlotCurve::CurveStyle &estilo )

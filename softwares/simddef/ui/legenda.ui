@@ -6,15 +6,32 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>254</width>
-    <height>460</height>
+    <width>206</width>
+    <height>473</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Legenda</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
+  <property name="styleSheet">
+   <string notr="true">QToolBox::tab{
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                             stop: 0    #DDDDDD, 
+                                             stop: 0.4 #D8D8D8,
+                                             stop: 0.5 #D3D3D3,
+                                             stop: 1.0 #CFCFCF);
+    border-radius: 5px;
+    color: black;
+    font-weight: normal;
+}
+
+QToolBox::tab:selected{
+    font-weight: bold;
+    color: black;
+}</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="sizeConstraint">
       <enum>QLayout::SetFixedSize</enum>
@@ -54,25 +71,35 @@
      </item>
     </layout>
    </item>
-   <item row="1" column="0">
-    <widget class="QScrollArea" name="scroll">
-     <property name="widgetResizable">
-      <bool>true</bool>
+   <item>
+    <widget class="QToolBox" name="paginas">
+     <property name="currentIndex">
+      <number>0</number>
      </property>
-     <widget class="QWidget" name="scrollAreaWidgetContents">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>234</width>
-        <height>412</height>
-       </rect>
-      </property>
+     <widget class="QWidget" name="page_2">
+      <attribute name="label">
+       <string>Page</string>
+      </attribute>
      </widget>
     </widget>
    </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>10</width>
+       <height>0</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../imgs/imgs.qrc"/>
+ </resources>
  <connections/>
 </ui>

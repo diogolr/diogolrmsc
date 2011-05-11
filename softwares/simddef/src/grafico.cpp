@@ -31,13 +31,11 @@ void Grafico :: adicionar_conjunto( const QString &nome_conj )
 
     conjuntos << novo_conj;
 
-    /*
     // Atualizando a legenda
     if ( legenda != NULL )
     {
-        // TODO
+        legenda->adicionar_conjunto( nome_conj );
     }
-    */
 }
 
 
@@ -64,13 +62,12 @@ void Grafico :: adicionar_curva( const QString &nome_conj,
         throw e;
     }
 
-    /*
     // Atualizando a legenda
     if ( legenda != NULL )
     {
-        // TODO
+        legenda->adicionar_curva( nome_conj, 
+                                  conjuntos[indice_conj].curva( nome_curva ) );
     }
-    */
 }
 
 
@@ -177,36 +174,14 @@ void Grafico :: adicionar_xy( const QString &nome_conj,
 }
 
 
-void Grafico :: atualizar()
-{
-    this->replot();
-}
-
-
 void Grafico :: configurar_legenda( Legenda *l )
 {
-    legenda = l;
-}
-
-
-void Grafico :: habilitar_legenda( const bool &b )
-{
-    legenda->setVisible( b );
-}
-
-
-void Grafico :: habilitar_zoom( const bool &b )
-{
-    zoom->setEnabled( b );
-
-    if ( b )
+    if ( l != NULL )
     {
-        zoom->setZoomBase();
-    }
-    else
-    {
-        this->setAxisAutoScale( QwtPlot::yLeft );
-        this->setAxisAutoScale( QwtPlot::xBottom );
+        legenda = l;
+
+        connect( legenda, SIGNAL( legenda_atualizada() ),
+                 this, SLOT( atualizar() ) );
     }
 }
 
@@ -441,6 +416,34 @@ void Grafico :: inicializar()
 {
     legenda = NULL;
     zoom = NULL;
+}
+
+
+void Grafico :: atualizar()
+{
+    this->replot();
+}
+
+
+void Grafico :: habilitar_legenda( const bool &b )
+{
+    legenda->setVisible( b );
+}
+
+
+void Grafico :: habilitar_zoom( const bool &b )
+{
+    zoom->setEnabled( b );
+
+    if ( b )
+    {
+        zoom->setZoomBase();
+    }
+    else
+    {
+        this->setAxisAutoScale( QwtPlot::yLeft );
+        this->setAxisAutoScale( QwtPlot::xBottom );
+    }
 }
 
 #endif
