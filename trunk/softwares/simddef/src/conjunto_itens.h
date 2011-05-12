@@ -27,22 +27,24 @@ class ConjuntoItens
         ConjuntoItens( Grafico *, const QString & );
         ~ConjuntoItens();
 
-        QwtPlotCurve * curva( const QString & );
+        QList< Retangulo * > * retangulos( const QString & );
 
-        QList< Retangulo * > retangulos( const QString & );
+        QPair< QPen, QBrush > estilos( const QString & );
+
+        QwtPlotCurve * curva( const QString & );
 
         void adicionar_curva( const QString &,
                               const QPen & = QPen(),
                               const QwtPlotCurve::CurveStyle & =
                                     QwtPlotCurve::Lines );
-        void adicionar_deteccao( const QString & );
+        void adicionar_deteccao( const QString &, 
+                                 const QPen &, 
+                                 const QBrush & );
         void adicionar_xy( const QString &, 
                            const double &, 
                            const double & );
         void adicionar_intervalo_detec( const QString &, 
-                                        const QRectF &,
-                                        const QPen &,
-                                        const QBrush & );
+                                        const QRectF & );
         void limpar();
         void remover_curva( const QString & );
         void remover_curvas();
@@ -52,6 +54,9 @@ class ConjuntoItens
     // Atributos
     private:
         Grafico *grafico;
+        
+        QHash< QString, QPair< QPen, QBrush > > map_detec_estilos;
+        QHash< QString, QList< Retangulo * > * > map_detec_retangulos;
 
         QString nome_conj;
 
@@ -60,7 +65,6 @@ class ConjuntoItens
 
         QList< QwtPlotCurve * > curvas;
         QList< XY > dados;
-        QHash< QString, QList< Retangulo * > * > map_detec_retangulos;
 };
 
 #endif

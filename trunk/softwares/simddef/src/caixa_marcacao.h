@@ -1,8 +1,11 @@
 #ifndef CAIXA_MARCACAO_H_
 #define CAIXA_MARCACAO_H_
 
+#include <QBrush>
 #include <QGraphicsScene>
 #include <QRectF>
+#include <QPair>
+#include <QPen>
 #include <QString>
 #include <QWidget>
 
@@ -24,14 +27,16 @@ class CaixaMarcacao : public QWidget
     // Metodos
     public:
         CaixaMarcacao( QwtPlotCurve * );
-        CaixaMarcacao( const QString &, 
-                       const QList< Retangulo * > & );
+        CaixaMarcacao( const QString &,
+                       const QPair< QPen, QBrush > &,
+                       QList< Retangulo * > * );
         ~CaixaMarcacao();
 
     private:
         void inicializa_curva( QwtPlotCurve * );
         void inicializa_deteccao( const QString &,
-                                  const QList< Retangulo * > & );
+                                  const QPair< QPen, QBrush > &,
+                                  QList< Retangulo * > * );
 
     private slots:
         void on_cb_stateChanged( int );
@@ -41,7 +46,7 @@ class CaixaMarcacao : public QWidget
 
     // Atributos
     private:
-        QList< Retangulo * > retangulos;
+        QList< Retangulo * > *retangulos;
 
         QwtPlotCurve *curva;
 

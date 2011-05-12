@@ -11,6 +11,7 @@ class ConjuntoItens;
 #include <QColor>
 #include <QLinearGradient>
 #include <QList>
+#include <QPair>
 #include <QPalette>
 #include <QPen>
 #include <QString>
@@ -42,12 +43,13 @@ class Grafico : public QwtPlot
                               const QPen & = QPen(),
                               const QwtPlotCurve::CurveStyle & = 
                                     QwtPlotCurve::Lines );
-        void adicionar_deteccao( const QString &, const QString & );
+        void adicionar_deteccao( const QString &, 
+                                 const QString &,
+                                 const QPen & = QPen(),
+                                 const QBrush & = QBrush() );
         void adicionar_intervalo_detec( const QString &,
                                         const QString &,
                                         const QPair< double, double > &,
-                                        const QPen & = QPen(),
-                                        const QBrush & = QBrush(),
                                         const bool & = true );
         void adicionar_xy( const QString &, 
                            const QString &,
