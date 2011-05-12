@@ -12,14 +12,15 @@ CaixaMarcacao :: CaixaMarcacao( QwtPlotCurve *c )
     inicializa_curva( c );
 }
 
-CaixaMarcacao :: CaixaMarcacao( const QString &nome_detec, 
-                                const QList< Retangulo * > &rets )
+CaixaMarcacao :: CaixaMarcacao( const QString &nome_detec,
+                                const QPair< QPen, QBrush > &estilos, 
+                                QList< Retangulo * > *rets )
 {
     ui = new Ui_CaixaMarcacao;
 
     ui->setupUi( this );
 
-    inicializa_deteccao( nome_detec, rets );
+    inicializa_deteccao( nome_detec, estilos, rets );
 }
 
 
@@ -50,7 +51,8 @@ void CaixaMarcacao :: inicializa_curva( QwtPlotCurve *c )
 
 
 void CaixaMarcacao :: inicializa_deteccao( const QString &nome_detec,
-                                           const QList< Retangulo * > &rets )
+                                           const QPair< QPen, QBrush > &estilos,
+                                           QList< Retangulo * > *rets )
 {
     // Inicializando a lista de retangulos
     retangulos = rets;
@@ -66,9 +68,9 @@ void CaixaMarcacao :: inicializa_deteccao( const QString &nome_detec,
 
     ui->imagem->setScene( cena );
 
-    cena->addRect( QRectF( 0.0, 0.0, 25.0, 5.0 ), 
-                   retangulos[0]->linha(),
-                   retangulos[0]->preenchimento() );
+    cena->addRect( QRectF( 0.0, 0.0, 25.0, 10.0 ), 
+                   estilos.first,
+                   estilos.second );
 }
 
 
@@ -94,9 +96,9 @@ void CaixaMarcacao :: on_cb_stateChanged( int estado )
             break;
 
         case CaixaMarcacao::Deteccao:
-            for ( int i = 0 ; i < retangulos.count() ; i++ )
+            for ( int i = 0 ; i < retangulos->count() ; i++ )
             {
-                retangulos[i]->setVisible( marcado );
+                (*retangulos)[i]->setVisible( marcado );
             }
             break;
     }

@@ -35,6 +35,9 @@ void Grafico :: adicionar_conjunto( const QString &nome_conj )
     if ( legenda != NULL )
     {
         legenda->adicionar_conjunto( nome_conj );
+
+        if ( !legenda->isVisible() )
+            legenda->setVisible( true );
     }
 }
 
@@ -72,7 +75,9 @@ void Grafico :: adicionar_curva( const QString &nome_conj,
 
 
 void Grafico :: adicionar_deteccao( const QString &nome_conj,
-                                    const QString &nome_detec )
+                                    const QString &nome_detec,
+                                    const QPen &linha,
+                                    const QBrush &preenchimento )
 {
     int indice_conj = nomes_conjuntos.indexOf( nome_conj );
 
@@ -85,20 +90,25 @@ void Grafico :: adicionar_deteccao( const QString &nome_conj,
 
     try
     {
-        conjuntos[indice_conj].adicionar_deteccao( nome_detec );
+        conjuntos[indice_conj].adicionar_deteccao( nome_detec, 
+                                                   linha, 
+                                                   preenchimento);
     }
     catch( Excecao e )
     {
         throw e;
     }
 
-    /*
     // Atualizando a legenda
     if ( legenda != NULL )
     {
-        // TODO
+        QPair< QPen, QBrush > estilos;
+
+        legenda->adicionar_deteccao( nome_conj,
+                                     nome_detec,
+                              conjuntos[indice_conj].estilos( nome_detec ),
+                              conjuntos[indice_conj].retangulos( nome_detec ) );
     }
-    */
 }
 
 
@@ -106,8 +116,6 @@ void Grafico :: adicionar_intervalo_detec( const QString &nome_conj,
                                            const QString &nome_detec,
                                            const QPair< double, 
                                                         double > &inicio_fim,
-                                           const QPen &linha,
-                                           const QBrush &preenchimento,
                                            const bool &replote )
 {
     int indice_conj = nomes_conjuntos.indexOf( nome_conj );
@@ -130,10 +138,7 @@ void Grafico :: adicionar_intervalo_detec( const QString &nome_conj,
 
         QRectF ret( x_inicial, y_inicial, larg, alt );
 
-        conjuntos[indice_conj].adicionar_intervalo_detec( nome_detec, 
-                                                          ret, 
-                                                          linha, 
-                                                          preenchimento );
+        conjuntos[indice_conj].adicionar_intervalo_detec( nome_detec, ret );
     }
     catch( Excecao e )
     {
@@ -196,6 +201,13 @@ void Grafico :: limpar( const bool &replote )
 
     nomes_conjuntos.clear();
 
+    // Removendo os itens da legenda
+    if ( legenda != NULL )
+    {
+        legenda->limpar();
+        legenda->setVisible( false );
+    }
+
     if ( replote )
         this->replot();
 }
@@ -225,13 +237,14 @@ void Grafico :: remover_conjunto( const QString &nome_conj,
         throw e;
     }
 
-    /*
     // Atualizando a legenda
     if ( legenda != NULL )
     {
-        // TODO
+        legenda->remover_conjunto( nome_conj );
+
+        if ( nomes_conjuntos.count() == 0 )
+            legenda->setVisible( false );
     }
-    */
 
     if ( replote )
         this->replot();

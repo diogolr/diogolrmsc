@@ -125,7 +125,9 @@ void JanelaInterna :: configurar_deteccoes( const QString &nome_falha,
         cor.setAlpha( 50 );
 
         ui->grafico->adicionar_deteccao( nome_falha, 
-                                         nomes_deteccoes[i] );
+                                         nomes_deteccoes[i],
+                                         QPen( cor ),
+                                         QBrush( cor ) );
 
         saida = intervalos[i];
 
@@ -137,8 +139,6 @@ void JanelaInterna :: configurar_deteccoes( const QString &nome_falha,
             ui->grafico->adicionar_intervalo_detec( nome_falha,
                                                     nomes_deteccoes[i],
                                                     inicio_fim,
-                                                    QPen( cor ),
-                                                    QBrush( cor ),
                                                     false );
         }
     }
@@ -211,6 +211,10 @@ void JanelaInterna :: inicializar()
 {
     // Associando a legenda ao grafico
     ui->grafico->configurar_legenda( ui->legenda );
+    ui->grafico->habilitar_legenda( true ); 
+
+    // Desabilitando a legenda até que algum conjunto de itens esteja visível
+    ui->legenda->setVisible( false );
 
     // Zoom
     ui->grafico->habilitar_zoom( false );

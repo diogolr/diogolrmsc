@@ -14,6 +14,38 @@ ConjuntoItens :: ~ConjuntoItens()
 }
 
 
+QList< Retangulo * > * ConjuntoItens :: retangulos( const QString &nome_detec )
+{
+    int indice_detec = nomes_deteccoes.indexOf( nome_detec );
+
+    if ( indice_detec == -1 )
+    {
+        throw ExcecaoDeteccao( "Não existe uma detecção com o nome <b>" + 
+                               nome_detec + "</b> adicionada à lista de "
+                               "detecções do conjunto <b>" + nome_conj + 
+                               "</b>." );
+    }
+
+    return map_detec_retangulos[ nomes_deteccoes[indice_detec] ];
+}
+
+
+QPair< QPen, QBrush > ConjuntoItens :: estilos( const QString &nome_detec )
+{
+    int indice_detec = nomes_deteccoes.indexOf( nome_detec );
+
+    if ( indice_detec == -1 )
+    {
+        throw ExcecaoDeteccao( "Não existe uma detecção com o nome <b>" + 
+                               nome_detec + "</b> adicionada à lista de "
+                               "detecções do conjunto <b>" + nome_conj + 
+                               "</b>." );
+    }
+
+    return map_detec_estilos[ nomes_deteccoes[indice_detec] ];
+}
+
+
 QwtPlotCurve * ConjuntoItens :: curva( const QString &nome_curva )
 {
     int indice_curva = nomes_curvas.indexOf( nome_curva );
@@ -26,22 +58,6 @@ QwtPlotCurve * ConjuntoItens :: curva( const QString &nome_curva )
     }
 
     return curvas[ indice_curva ];
-}
-
-
-QList< Retangulo * > ConjuntoItens :: retangulos( const QString &nome_detec )
-{
-    int indice_detec = nomes_deteccoes.indexOf( nome_detec );
-
-    if ( indice_detec == -1 )
-    {
-        throw ExcecaoDeteccao( "Não existe uma detecção com o nome <b>" + 
-                               nome_detec + "</b> adicionada à lista de "
-                               "detecções do conjunto <b>" + nome_conj + 
-                               "</b>." );
-    }
-    
-    return (*map_detec_retangulos[ nomes_deteccoes[indice_detec] ]);
 }
 
 
@@ -72,7 +88,9 @@ void ConjuntoItens :: adicionar_curva( const QString &nome_curva,
 }
 
 
-void ConjuntoItens :: adicionar_deteccao( const QString &nome_detec )
+void ConjuntoItens :: adicionar_deteccao( const QString &nome_detec,
+                                          const QPen &linha,
+                                          const QBrush &preenchimento )
 {
     if ( nomes_deteccoes.contains( nome_detec ) )
     {
@@ -86,13 +104,19 @@ void ConjuntoItens :: adicionar_deteccao( const QString &nome_detec )
     QList< Retangulo * > *lista_retangulos = new QList< Retangulo * >;
 
     map_detec_retangulos[ nome_detec ] = lista_retangulos;
+
+    // Estilo de linha e preenchimento
+    QPair< QPen, QBrush > estilos;
+
+    estilos.first = linha;
+    estilos.second = preenchimento;
+
+    map_detec_estilos[ nome_detec ] = estilos;
 }
 
 
 void ConjuntoItens :: adicionar_intervalo_detec( const QString &nome_detec,
-                                                 const QRectF &ret,
-                                                 const QPen &linha,
-                                                 const QBrush &preenchimento )
+                                                 const QRectF &ret )
 {
     int indice_detec = nomes_deteccoes.indexOf( nome_detec );
 
@@ -109,7 +133,12 @@ void ConjuntoItens :: adicionar_intervalo_detec( const QString &nome_detec,
 
     retangulos = map_detec_retangulos[ nomes_deteccoes[indice_detec] ];
 
-    Retangulo *retangulo = new Retangulo( linha, preenchimento );
+    // Estilos
+    QPair< QPen, QBrush > estilos;
+
+    estilos = map_detec_estilos[ nomes_deteccoes[indice_detec] ];
+
+    Retangulo *retangulo = new Retangulo( estilos.first, estilos.second );
 
     retangulo->configurar_retangulo( ret );
     retangulo->attach( grafico );
@@ -220,6 +249,7 @@ void ConjuntoItens :: remover_deteccao( const QString &nome_detec )
     delete retangulos;
 
     map_detec_retangulos.remove( nomes_deteccoes[indice_detec] );
+    map_detec_estilos.remove( nomes_deteccoes[indice_detec] );
 
     nomes_deteccoes.removeAt( indice_detec );
 }
@@ -249,6 +279,7 @@ void ConjuntoItens :: remover_deteccoes()
 
     nomes_deteccoes.clear();
     map_detec_retangulos.clear();
+    map_detec_estilos.clear();
 }
 
 #endif
