@@ -14,6 +14,7 @@ class ConjuntoItens;
 #include <QPair>
 #include <QPalette>
 #include <QPen>
+#include <QRectF>
 #include <QString>
 #include <QWidget>
 
@@ -56,6 +57,7 @@ class Grafico : public QwtPlot
                            const double &,
                            const double &,
                            const bool & = true );
+        void atualizar_deteccoes();
         void configurar_legenda( Legenda * );
         void limpar( const bool & = true );
         void remover_conjunto( const QString &, const bool & = true );

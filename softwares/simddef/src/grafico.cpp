@@ -132,9 +132,9 @@ void Grafico :: adicionar_intervalo_detec( const QString &nome_conj,
         QwtScaleDiv *escala = this->axisScaleDiv( QwtPlot::yLeft );
 
         qreal x_inicial = inicio_fim.first;
-        qreal y_inicial = escala->lowerBound();
+        qreal y_inicial = escala->upperBound();
         qreal larg = inicio_fim.second - x_inicial;
-        qreal alt = escala->upperBound() - y_inicial;
+        qreal alt = y_inicial - escala->lowerBound();
 
         QRectF ret( x_inicial, y_inicial, larg, alt );
 
@@ -187,6 +187,39 @@ void Grafico :: configurar_legenda( Legenda *l )
 
         connect( legenda, SIGNAL( legenda_atualizada() ),
                  this, SLOT( atualizar() ) );
+    }
+}
+
+
+void Grafico :: atualizar_deteccoes()
+{
+    if ( nomes_conjuntos.count() > 0 )
+    {
+        QList< Retangulo * > *lista_rets;
+
+        QStringList nomes_deteccoes;
+
+        QwtScaleDiv *escala = this->axisScaleDiv( QwtPlot::yLeft );
+
+        qreal y_inicial = escala->lowerBound();
+        qreal altura = escala->upperBound() - y_inicial;
+
+        for ( int c = 0 ; c < conjuntos.count() ; c++ )
+        {
+            nomes_deteccoes = conjuntos[c].deteccoes();
+
+            for ( int d = 0 ; d < nomes_deteccoes.count() ; d++ )
+            {
+                lista_rets = conjuntos[c].retangulos( nomes_deteccoes[d] );
+
+                for ( int r = 0 ; r < lista_rets->count() ; r++ )
+                {
+                    (*lista_rets)[r]->configurar_eixo_y( y_inicial, altura );
+                }
+            }
+        }
+
+        this->replot();
     }
 }
 

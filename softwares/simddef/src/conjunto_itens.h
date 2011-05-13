@@ -31,6 +31,8 @@ class ConjuntoItens
 
         QPair< QPen, QBrush > estilos( const QString & );
 
+        QStringList deteccoes();
+
         QwtPlotCurve * curva( const QString & );
 
         void adicionar_curva( const QString &,

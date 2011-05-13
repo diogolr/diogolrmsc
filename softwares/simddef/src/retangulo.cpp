@@ -26,6 +26,28 @@ QPen Retangulo :: linha()
 }
 
 
+void Retangulo :: configurar_eixo_x( qreal x_inicial, qreal larg )
+{
+    QPointF sup_esq = coordenadas.topLeft();
+    QPointF inf_dir = coordenadas.bottomRight();
+
+    qreal altura = inf_dir.y() - sup_esq.y();
+
+    coordenadas.setRect( x_inicial, sup_esq.y(), larg, altura );
+}
+
+
+void Retangulo :: configurar_eixo_y( qreal y_inicial, qreal altura )
+{
+    QPointF sup_esq = coordenadas.topLeft();
+    QPointF inf_dir = coordenadas.bottomRight();
+
+    qreal larg = inf_dir.x() - sup_esq.x();
+
+    coordenadas.setRect( sup_esq.x(), y_inicial, larg, altura );
+}
+
+
 void Retangulo :: configurar_retangulo( const QRectF &ret )
 {
     coordenadas = ret;

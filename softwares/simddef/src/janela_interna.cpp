@@ -19,6 +19,12 @@ JanelaInterna :: ~JanelaInterna()
 }
 
 
+void JanelaInterna :: atualizar_deteccoes()
+{
+    ui->grafico->atualizar_deteccoes();
+}
+
+
 void JanelaInterna :: configurar_curvas( const QString &nome_falha,
                                          const MatrizD &dados,
                                          const QHash< int, QString > &curvas,
@@ -40,6 +46,9 @@ void JanelaInterna :: configurar_curvas( const QString &nome_falha,
     // as curvas serão criadas pela primeira vez e se o conjunto já existia, as
     // curvas foram removidas e serão criadas novamente
     QList< int > curvas_escolhidas = curvas.keys();
+
+    qSort( curvas_escolhidas );
+
     QList< QString > nomes_curvas = curvas.values();
 
     int num_cores = lista_cores.count();
@@ -63,10 +72,17 @@ void JanelaInterna :: configurar_curvas( const QString &nome_falha,
             cor = lista_cores[c];
         }
 
-        // Adicionando a curva ao grafico e a legenda
-        ui->grafico->adicionar_curva( nome_falha, 
-                                      nomes_curvas[c], 
-                                      QPen( cor ) );
+        try
+        {
+            // Adicionando a curva ao grafico e a legenda
+            ui->grafico->adicionar_curva( nome_falha, 
+                                          curvas[ curvas_escolhidas[c] ], 
+                                          QPen( cor ) );
+        }
+        catch( Excecao e )
+        {
+            throw e;
+        }
 
         // Inserindo os dados
         coluna = dados.get_column( curvas_escolhidas[c] );
@@ -79,11 +95,18 @@ void JanelaInterna :: configurar_curvas( const QString &nome_falha,
             x += periodo_amostragem;
             y = coluna[a];
 
-            ui->grafico->adicionar_xy( nome_falha, 
-                                       nomes_curvas[c], 
-                                       x, 
-                                       y, 
-                                       false );
+            try
+            {
+                ui->grafico->adicionar_xy( nome_falha, 
+                                           curvas[ curvas_escolhidas[c] ], 
+                                           x, 
+                                           y, 
+                                           false );
+            }
+            catch( Excecao e )
+            {
+                throw e;
+            }
         }
 
         coluna.set( 0 );
@@ -99,7 +122,8 @@ void JanelaInterna :: configurar_deteccoes( const QString &nome_falha,
                                             const double &periodo_amostragem )
 {
     QList< QString > nomes_deteccoes = deteccoes.keys();
-    QList< MatrizI > intervalos = deteccoes.values();
+
+    qSort( nomes_deteccoes );
 
     MatrizI saida;
 
@@ -109,7 +133,7 @@ void JanelaInterna :: configurar_deteccoes( const QString &nome_falha,
     
     int num_cores = lista_cores.count();
 
-    for ( int i = 0 ; i < intervalos.count() ; i++ )
+    for ( int i = 0 ; i < nomes_deteccoes.count() ; i++ )
     {
         // Configurando a cor da curva
         if ( i >= num_cores )
@@ -124,40 +148,40 @@ void JanelaInterna :: configurar_deteccoes( const QString &nome_falha,
         // Transparencia de 50% para as deteccoes
         cor.setAlpha( 50 );
 
-        ui->grafico->adicionar_deteccao( nome_falha, 
-                                         nomes_deteccoes[i],
-                                         QPen( cor ),
-                                         QBrush( cor ) );
+        try
+        {
+            ui->grafico->adicionar_deteccao( nome_falha, 
+                                             nomes_deteccoes[i],
+                                             QPen( cor ),
+                                             QBrush( cor ) );
+        }
+        catch( Excecao e )
+        {
+            throw e;
+        }
 
-        saida = intervalos[i];
+        saida = deteccoes[ nomes_deteccoes[i] ];
 
         for ( int a = 0 ; a < saida.get_rows_number() ; a++ )
         {
             inicio_fim.first = saida[a][0] * periodo_amostragem;
             inicio_fim.second = saida[a][1] * periodo_amostragem;
 
-            ui->grafico->adicionar_intervalo_detec( nome_falha,
-                                                    nomes_deteccoes[i],
-                                                    inicio_fim,
-                                                    false );
+            try
+            {
+                ui->grafico->adicionar_intervalo_detec( nome_falha,
+                                                        nomes_deteccoes[i],
+                                                        inicio_fim,
+                                                        false );
+            }
+            catch( Excecao e )
+            {
+                throw e;
+            }
         }
     }
 
     ui->grafico->atualizar();
-}
-
-
-void JanelaInterna :: exibir_curvas( const bool &b )
-{
-    // TODO
-    Q_UNUSED( b );
-}
-
-
-void JanelaInterna :: exibir_deteccoes( const bool &b )
-{
-    // TODO
-    Q_UNUSED( b );
 }
 
 
