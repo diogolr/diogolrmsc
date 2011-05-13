@@ -30,6 +30,7 @@ class JanelaInterna : public QWidget
         JanelaInterna( QWidget *pai = 0 );
         ~JanelaInterna();
 
+        void atualizar_deteccoes();
         void configurar_curvas( const QString &nome_falha,
                                 const MatrizD &, 
                                 const QHash< int, QString > &,

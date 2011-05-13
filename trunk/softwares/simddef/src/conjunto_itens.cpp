@@ -46,6 +46,12 @@ QPair< QPen, QBrush > ConjuntoItens :: estilos( const QString &nome_detec )
 }
 
 
+QStringList ConjuntoItens :: deteccoes()
+{
+    return nomes_deteccoes;
+}
+
+
 QwtPlotCurve * ConjuntoItens :: curva( const QString &nome_curva )
 {
     int indice_curva = nomes_curvas.indexOf( nome_curva );

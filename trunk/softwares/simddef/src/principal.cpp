@@ -27,23 +27,25 @@ JanelaPrincipal :: ~JanelaPrincipal()
 
 void JanelaPrincipal :: ativar_modulo( Modulo *modulo )
 {
-    // Configurando as informacoes a serem exibidas
-    ui->janela_interna->configurar_curvas( modulo->nome_falha(),
-                                           modulo->dados()[0], 
-                                           modulo->curvas_a_exibir(),
-                                           PERIODO_AMOSTRAGEM );
-    ui->janela_interna->configurar_deteccoes( modulo->nome_falha(),
-                                              modulo->deteccoes_falhas(),
-                                              PERIODO_AMOSTRAGEM );
+    try
+    {
+        // Configurando as informacoes a serem exibidas
+        ui->janela_interna->configurar_curvas( modulo->nome_falha(),
+                                               modulo->dados()[0], 
+                                               modulo->curvas_a_exibir(),
+                                               PERIODO_AMOSTRAGEM );
+        ui->janela_interna->configurar_deteccoes( modulo->nome_falha(),
+                                                  modulo->deteccoes_falhas(),
+                                                  PERIODO_AMOSTRAGEM );
+        ui->janela_interna->atualizar_deteccoes();
 
-    // Exibindo as curvas de entrada do modulo
-    //ui->janela_interna->exibir_curvas( true );
-
-    // Exibindo as deteccoes de falha
-    //ui->janela_interna->exibir_deteccoes( true );
-
-    // Configurando a flag interna do modulo
-    modulo->configurar_ativo( true );
+        // Configurando a flag interna do modulo
+        modulo->configurar_ativo( true );
+    }
+    catch( Excecao e )
+    {
+        throw e;
+    }
 }
 
 
@@ -233,6 +235,7 @@ void JanelaPrincipal :: desativar_modulo( Modulo *modulo )
     try
     {
         ui->janela_interna->remover_conjunto( modulo->nome_falha() );
+        ui->janela_interna->atualizar_deteccoes();
 
         // Configurando a flag interna do modulo
         modulo->configurar_ativo( false );

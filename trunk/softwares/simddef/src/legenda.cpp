@@ -104,6 +104,12 @@ void Legenda :: adicionar_deteccao( const QString &nome_conj,
 
 void Legenda :: limpar()
 {
+    QList< QString > nomes_conjuntos = map_conj_widget.keys();
+
+    for ( int c = 0 ; c < nomes_conjuntos.count() ; c++ )
+    {
+        remover_conjunto( nomes_conjuntos[c] ) ;
+    }
 }
 
 

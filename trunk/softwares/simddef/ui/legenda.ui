@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>248</width>
-    <height>532</height>
+    <width>230</width>
+    <height>366</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -87,8 +87,8 @@ QToolBox::tab:selected{
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>230</width>
-        <height>486</height>
+        <width>212</width>
+        <height>320</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
@@ -102,8 +102,8 @@ QToolBox::tab:selected{
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>212</width>
-            <height>440</height>
+            <width>194</width>
+            <height>274</height>
            </rect>
           </property>
           <attribute name="label">

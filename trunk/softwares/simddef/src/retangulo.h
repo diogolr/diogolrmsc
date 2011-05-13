@@ -4,6 +4,7 @@
 #include <QBrush>
 #include <QPainter>
 #include <QPen>
+#include <QPointF>
 #include <QRectF>
 
 #include <qwt_painter.h>
@@ -21,6 +22,8 @@ class Retangulo : public QwtPlotItem
 
         QPen linha();
 
+        void configurar_eixo_x( qreal, qreal );
+        void configurar_eixo_y( qreal, qreal );
         void configurar_retangulo( const QRectF & );
         void configurar_linha( const QPen & );
         void configurar_preenchimento( const QBrush & );
