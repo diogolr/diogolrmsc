@@ -25,6 +25,8 @@ typedef Vector< int > VetorI;
 
 class JanelaInterna : public QWidget
 {
+    Q_OBJECT
+
     // Metodos
     public:
         JanelaInterna( QWidget *pai = 0 );
@@ -47,6 +49,11 @@ class JanelaInterna : public QWidget
 
     private:
         void inicializar();
+
+    private slots:
+        void on_zoom_clicked( bool );
+        void on_imprimir_clicked();
+        void on_salvar_clicked();
 
     // Atributos
     private:

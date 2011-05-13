@@ -27,6 +27,7 @@
     <file>recortar.png</file>
     <file>remover.png</file>
     <file>salvar.png</file>
+    <file>zoom.png</file>
     <file>zoom_mais.png</file>
     <file>zoom_menos.png</file>
   </qresource>

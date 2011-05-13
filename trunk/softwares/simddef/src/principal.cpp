@@ -98,9 +98,6 @@ void JanelaPrincipal :: atualizar_falhas( const QString &nome_arq )
     }
 
     ui->falhas->expandAll();
-
-    // Apangando as informações do gráfico
-    ui->janela_interna->limpar();
 }
 
 
@@ -208,9 +205,6 @@ void JanelaPrincipal :: atualizar_modulos( const QString &nome_arq )
     ui->modulos->resizeColumnsToContents();
         
     progresso.setValue( num_modulos );
-
-    // Apangando as informações do gráfico
-    ui->janela_interna->limpar();
 }
 
 
@@ -329,7 +323,11 @@ void JanelaPrincipal :: on_botao_carregar_falhas_clicked()
 
     if ( !nome_arq.isEmpty() )
     {
+        // Limpando a lista de falhas e demais atributos relacionados
         limpar_falhas();
+
+        // Apangando as informações do gráfico
+        ui->janela_interna->limpar();
 
         try
         {
@@ -339,8 +337,12 @@ void JanelaPrincipal :: on_botao_carregar_falhas_clicked()
 
             ui->botao_recarregar_falhas->setEnabled( true );
             ui->acao_cfg_falhas->setEnabled( true );
-
             ui->botao_carregar_modulos->setEnabled( true );
+
+            // Após carregar novas falhas, os módulos que estavam carregados
+            // podem não mais estar relacionados com aquelas falhas, não fazendo
+            // mais sentido manter os módulos cadastrados no sistema
+            limpar_modulos();
         }
         catch( Excecao e )
         {
@@ -372,7 +374,11 @@ void JanelaPrincipal :: on_botao_carregar_modulos_clicked()
 
     if ( !nome_arq.isEmpty() )
     {
+        // Limpando a lista de módulos e demais atributos relacionados
         limpar_modulos();
+
+        // Apangando as informações do gráfico
+        ui->janela_interna->limpar();
 
         try
         {
@@ -397,11 +403,20 @@ void JanelaPrincipal :: on_botao_carregar_modulos_clicked()
 
 void JanelaPrincipal :: on_botao_recarregar_falhas_clicked()
 {
+    // Limpando a lista de falhas e demais atributos relacionados
     limpar_falhas();
+
+    // Apangando as informações do gráfico
+    ui->janela_interna->limpar();
 
     try
     {
         atualizar_falhas( ui->end_arq_falhas->text() );
+
+        // Após recarregar o arquivo de falhas, os módulos que estavam
+        // carregados podem não mais estar relacionados com aquelas falhas, não
+        // fazendo mais sentido manter os módulos cadastrados no sistema
+        limpar_modulos();
     }
     catch( Excecao e )
     {
@@ -422,7 +437,11 @@ void JanelaPrincipal :: on_botao_recarregar_falhas_clicked()
 
 void JanelaPrincipal :: on_botao_recarregar_modulos_clicked()
 {
+    // Limpando a lista de módulos e demais atributos relacionados
     limpar_modulos();
+
+    // Apangando as informações do gráfico
+    ui->janela_interna->limpar();
 
     try
     {

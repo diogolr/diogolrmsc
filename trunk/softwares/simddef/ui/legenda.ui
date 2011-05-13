@@ -16,16 +16,21 @@
   <property name="styleSheet">
    <string notr="true">QToolBox::tab{
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                             stop: 0    #DDDDDD, 
-                                             stop: 0.4 #D8D8D8,
-                                             stop: 0.5 #D3D3D3,
-                                             stop: 1.0 #CFCFCF);
+                                             stop: 0    #E1E1E1, 
+                                             stop: 0.4 #DDDDDD,
+                                             stop: 0.5 #D8D8D8,
+                                             stop: 1.0 #D3D3D3);
     border-radius: 5px;
     color: black;
     font-weight: normal;
 }
 
 QToolBox::tab:selected{
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                             stop: 0    #D8D8D8, 
+                                             stop: 0.4 #D3D3D3,
+                                             stop: 0.5 #CECECE,
+                                             stop: 1.0 #CACACA);
     font-weight: bold;
     color: black;
 }</string>

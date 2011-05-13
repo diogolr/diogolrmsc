@@ -191,39 +191,6 @@ void Grafico :: configurar_legenda( Legenda *l )
 }
 
 
-void Grafico :: atualizar_deteccoes()
-{
-    if ( nomes_conjuntos.count() > 0 )
-    {
-        QList< Retangulo * > *lista_rets;
-
-        QStringList nomes_deteccoes;
-
-        QwtScaleDiv *escala = this->axisScaleDiv( QwtPlot::yLeft );
-
-        qreal y_inicial = escala->lowerBound();
-        qreal altura = escala->upperBound() - y_inicial;
-
-        for ( int c = 0 ; c < conjuntos.count() ; c++ )
-        {
-            nomes_deteccoes = conjuntos[c].deteccoes();
-
-            for ( int d = 0 ; d < nomes_deteccoes.count() ; d++ )
-            {
-                lista_rets = conjuntos[c].retangulos( nomes_deteccoes[d] );
-
-                for ( int r = 0 ; r < lista_rets->count() ; r++ )
-                {
-                    (*lista_rets)[r]->configurar_eixo_y( y_inicial, altura );
-                }
-            }
-        }
-
-        this->replot();
-    }
-}
-
-
 void Grafico :: limpar( const bool &replote )
 {
     // Removendo todos os conjuntos
@@ -436,13 +403,9 @@ void Grafico :: configurar()
     zoom = new QwtPlotZoomer( canvas() );
 
     zoom->setRubberBand( QwtPicker::RectRubberBand );
-
-    zoom->setRubberBandPen( QPen( Qt::white, 0.5, Qt::SolidLine ) );
-
-    zoom->setTrackerPen( QPen( Qt::white ) );
-
-    zoom->setTrackerMode( QwtPicker::ActiveOnly );
-
+    zoom->setRubberBandPen( QPen( Qt::darkGray, 0.5, Qt::DotLine ) );
+    zoom->setTrackerPen( QPen( Qt::darkGray ) );
+    zoom->setTrackerMode( QwtPicker::AlwaysOn );
     zoom->setEnabled( true );
     
     // The backing store is important, when working with widget overlays ( f.e
@@ -471,6 +434,52 @@ void Grafico :: atualizar()
 }
 
 
+void Grafico :: atualizar_deteccoes( const bool &replote )
+{
+    if ( nomes_conjuntos.count() > 0 )
+    {
+        QList< Retangulo * > *lista_rets;
+
+        QStringList nomes_deteccoes;
+
+        QwtScaleDiv *escala = this->axisScaleDiv( QwtPlot::yLeft );
+
+        qreal y_inicial = escala->lowerBound();
+        qreal altura = escala->upperBound() - y_inicial;
+
+        for ( int c = 0 ; c < conjuntos.count() ; c++ )
+        {
+            nomes_deteccoes = conjuntos[c].deteccoes();
+
+            for ( int d = 0 ; d < nomes_deteccoes.count() ; d++ )
+            {
+                lista_rets = conjuntos[c].retangulos( nomes_deteccoes[d] );
+
+                for ( int r = 0 ; r < lista_rets->count() ; r++ )
+                {
+                    (*lista_rets)[r]->configurar_eixo_y( y_inicial, altura );
+                }
+            }
+        }
+
+        if ( replote )
+            this->replot();
+    }
+}
+
+
+void Grafico :: atualizar_escala( const bool &replote )
+{
+    this->setAxisAutoScale( QwtPlot::yLeft );
+    this->setAxisAutoScale( QwtPlot::xBottom );
+
+    if ( replote )
+        this->replot();
+
+    zoom->setZoomBase();
+}
+
+
 void Grafico :: habilitar_legenda( const bool &b )
 {
     legenda->setVisible( b );
@@ -481,15 +490,7 @@ void Grafico :: habilitar_zoom( const bool &b )
 {
     zoom->setEnabled( b );
 
-    if ( b )
-    {
-        zoom->setZoomBase();
-    }
-    else
-    {
-        this->setAxisAutoScale( QwtPlot::yLeft );
-        this->setAxisAutoScale( QwtPlot::xBottom );
-    }
+    atualizar_escala( true );
 }
 
 #endif
