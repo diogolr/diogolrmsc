@@ -21,7 +21,10 @@ JanelaInterna :: ~JanelaInterna()
 
 void JanelaInterna :: atualizar_deteccoes()
 {
-    ui->grafico->atualizar_deteccoes();
+    // Atualização da escala para, replotando o grafico para que os eixos x e y
+    // estejam adequadamente representados de acordo com os valores das curvas 
+    ui->grafico->atualizar_escala( true );
+    ui->grafico->atualizar_deteccoes( true );
 }
 
 
@@ -255,5 +258,23 @@ void JanelaInterna :: inicializar()
                 << Qt::darkYellow
                 << Qt::darkGray;
 }
+
+
+void JanelaInterna :: on_zoom_clicked( bool selecionado )
+{
+    ui->grafico->habilitar_zoom( selecionado );
+}
+
+
+void JanelaInterna :: on_imprimir_clicked()
+{
+}
+
+
+void JanelaInterna :: on_salvar_clicked()
+{
+}
+
+
 
 #endif

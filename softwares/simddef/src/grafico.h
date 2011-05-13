@@ -57,7 +57,6 @@ class Grafico : public QwtPlot
                            const double &,
                            const double &,
                            const bool & = true );
-        void atualizar_deteccoes();
         void configurar_legenda( Legenda * );
         void limpar( const bool & = true );
         void remover_conjunto( const QString &, const bool & = true );
@@ -76,6 +75,8 @@ class Grafico : public QwtPlot
 
     public slots:
         void atualizar();
+        void atualizar_deteccoes( const bool & = true );
+        void atualizar_escala( const bool & = true );
 
         void habilitar_legenda( const bool & );
         void habilitar_zoom( const bool & );

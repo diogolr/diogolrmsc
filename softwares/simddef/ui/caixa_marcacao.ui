@@ -83,7 +83,7 @@
       <widget class="QGraphicsView" name="imagem">
        <property name="maximumSize">
         <size>
-         <width>25</width>
+         <width>40</width>
          <height>16</height>
         </size>
        </property>
