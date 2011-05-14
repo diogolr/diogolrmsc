@@ -191,6 +191,55 @@ void Grafico :: configurar_legenda( Legenda *l )
 }
 
 
+void Grafico :: configurar_nomes_eixos( const QString &x, const QString &y )
+{
+    QwtText texto_eixo_x( x );
+    QwtText texto_eixo_y( y );
+    
+    QFont fonte = this->font();
+
+    fonte.setBold( true );
+
+    texto_eixo_x.setFont( fonte );
+    texto_eixo_y.setFont( fonte );
+
+    this->setAxisTitle( QwtPlot::xBottom, texto_eixo_x );
+    this->setAxisTitle( QwtPlot::yLeft, texto_eixo_y );
+}
+
+
+void Grafico :: imprimir()
+{
+    QPrinter impressora( QPrinter::HighResolution );
+
+    QString nome_doc = this->title().text();
+
+    if ( !nome_doc.isEmpty() )
+    {
+        nome_doc.replace( QRegExp( utf8( "\n" ) ), tr(" -- ") );
+        impressora.setDocName( nome_doc );
+    }
+
+    impressora.setCreator( "Simddef" );
+    impressora.setOrientation( QPrinter::Landscape );
+
+    QPrintDialog dialog( &impressora );
+
+    if ( dialog.exec() )
+    {
+        QwtPlotRenderer renderizador;
+
+        if ( impressora.colorMode() == QPrinter::GrayScale )
+        {
+            renderizador.setDiscardFlag( QwtPlotRenderer::DiscardCanvasBackground );
+            renderizador.setLayoutFlag( QwtPlotRenderer::FrameWithScales );
+        }
+
+        renderizador.renderTo( this, impressora );
+    }
+}
+
+
 void Grafico :: limpar( const bool &replote )
 {
     // Removendo todos os conjuntos
@@ -357,6 +406,71 @@ void Grafico :: remover_deteccoes( const QString &nome_conj,
 }
 
 
+void Grafico :: salvar()
+{
+    QString nome_arq;
+
+#ifndef QT_NO_PRINTER
+    nome_arq = "simddef.pdf";
+#else
+    nome_arq = "simddef.png";
+#endif
+
+#ifndef QT_NO_FILEDIALOG
+    const QList< QByteArray > formatos_imagem = 
+                              QImageWriter::supportedImageFormats();
+
+    QStringList filtro;
+    
+    filtro << "Portable Document Format (*.pdf)";
+#ifndef QWT_NO_SVG
+    filtro << "Scalable Vector Graphics (*.svg)";
+#endif
+    filtro << "PostScript (*.ps)";
+
+    if ( formatos_imagem.size() > 0 )
+    {
+        QString filtro_img ( "Imagens (");
+
+        for ( int i = 0; i < formatos_imagem.size(); i++ )
+        {
+            if ( i > 0 )
+                filtro_img += " ";
+
+            filtro_img += "*.";
+            filtro_img += formatos_imagem[i];
+        }
+
+        filtro_img += ")";
+
+        filtro << filtro_img;
+    }
+
+    nome_arq = QFileDialog::getSaveFileName( pai, 
+                                             "Exportar arquivo como...", 
+                                             nome_arq,
+                                             filtro.join( ";;" ), 
+                                             NULL, 
+                                             QFileDialog::DontConfirmOverwrite );
+#endif
+
+    if ( !nome_arq.isEmpty() )
+    {
+        QwtPlotRenderer renderizador;
+
+        // flags to make the document look like the widget
+        renderizador.setDiscardFlag( QwtPlotRenderer::DiscardBackground, false );
+        renderizador.setLayoutFlag( QwtPlotRenderer::KeepFrames, true );
+
+        qreal larg = 500;
+        qreal alt = ( 10 * larg ) / 16; // Formato 16:10
+
+        renderizador.renderDocument( this, nome_arq, QSizeF( larg, alt ), 100 );
+    }
+
+}
+
+
 void Grafico :: configurar()
 {
     // Modificando as fontes dos eixos
@@ -403,8 +517,8 @@ void Grafico :: configurar()
     zoom = new QwtPlotZoomer( canvas() );
 
     zoom->setRubberBand( QwtPicker::RectRubberBand );
-    zoom->setRubberBandPen( QPen( Qt::darkGray, 0.5, Qt::DotLine ) );
-    zoom->setTrackerPen( QPen( Qt::darkGray ) );
+    zoom->setRubberBandPen( QPen( Qt::blue, 1, Qt::DashLine ) );
+    zoom->setTrackerPen( QPen( Qt::blue ) );
     zoom->setTrackerMode( QwtPicker::AlwaysOn );
     zoom->setEnabled( true );
     

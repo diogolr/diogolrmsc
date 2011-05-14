@@ -8,14 +8,22 @@ class Grafico;
 class ConjuntoItens;
 
 #include <QBrush>
+#include <QByteArray>
 #include <QColor>
+#include <QFileDialog>
+#include <QFont>
+#include <QImageWriter>
 #include <QLinearGradient>
 #include <QList>
 #include <QPair>
 #include <QPalette>
 #include <QPen>
+#include <QPrintDialog>
+#include <QPrinter>
 #include <QRectF>
+#include <QSizeF>
 #include <QString>
+#include <QStringList>
 #include <QWidget>
 
 #include <qwt_plot.h>
@@ -23,7 +31,9 @@ class ConjuntoItens;
 #include <qwt_plot_curve.h>
 #include <qwt_plot_grid.h>
 #include <qwt_plot_layout.h>
+#include <qwt_plot_renderer.h>
 #include <qwt_plot_zoomer.h>
+#include <qwt_text.h>
 
 #include "conjunto_itens.h"
 #include "excecoes.h"
@@ -58,6 +68,8 @@ class Grafico : public QwtPlot
                            const double &,
                            const bool & = true );
         void configurar_legenda( Legenda * );
+        void configurar_nomes_eixos( const QString &, const QString & );
+        void imprimir();
         void limpar( const bool & = true );
         void remover_conjunto( const QString &, const bool & = true );
         void remover_curva( const QString &, 
@@ -68,6 +80,7 @@ class Grafico : public QwtPlot
                                const QString &, 
                                const bool & = true );
         void remover_deteccoes( const QString &, const bool & = true );
+        void salvar();
 
     private:
         void configurar();
