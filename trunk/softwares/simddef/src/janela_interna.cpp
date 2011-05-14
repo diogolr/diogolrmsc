@@ -155,7 +155,7 @@ void JanelaInterna :: configurar_deteccoes( const QString &nome_falha,
         {
             ui->grafico->adicionar_deteccao( nome_falha, 
                                              nomes_deteccoes[i],
-                                             QPen( cor ),
+                                             QPen( cor, 0 ),
                                              QBrush( cor ) );
         }
         catch( Excecao e )
@@ -246,6 +246,13 @@ void JanelaInterna :: inicializar()
     // Zoom
     ui->grafico->habilitar_zoom( false );
 
+    // Nomes dos eixos
+    QString nome_eixo_x = "Tempo Aproximado [s]";
+    QString nome_eixo_y =  utf8( "Nível [cm] | Erro Est. [cm] | Tensão [V]" );
+
+    ui->grafico->configurar_nomes_eixos( nome_eixo_x, nome_eixo_y );
+                                        
+
     lista_cores << Qt::red
                 << Qt::blue
                 << Qt::darkGreen
@@ -268,11 +275,13 @@ void JanelaInterna :: on_zoom_clicked( bool selecionado )
 
 void JanelaInterna :: on_imprimir_clicked()
 {
+    ui->grafico->imprimir();
 }
 
 
 void JanelaInterna :: on_salvar_clicked()
 {
+    ui->grafico->salvar();
 }
 
 

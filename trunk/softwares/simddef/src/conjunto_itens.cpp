@@ -82,6 +82,7 @@ void ConjuntoItens :: adicionar_curva( const QString &nome_curva,
 
     QwtPlotCurve *nova_curva = new QwtPlotCurve( nome_curva );
 
+    nova_curva->setRenderHint( QwtPlotItem::RenderAntialiased );
     nova_curva->setPen( linha );
     nova_curva->setStyle( estilo );
     nova_curva->attach( grafico );
