@@ -56,21 +56,9 @@ class Rede : public Modulo
         void ler_arquivos();
 
     private:
-        MatrizD adicionar_regressores( const MatrizD &, const QList< int > & );
-        MatrizD concatenar_colunas( const MatrizD &, const MatrizD & );
-        MatrizD desnormalizar( const MatrizD &,
-                               const QList< QList< double > > & );
-        MatrizD executar();
-        MatrizD ler_dados( const QString & );
+        MatrizD desnormalizar( const MatrizD &, const QList< QList< double > > & );
         MatrizD normalizar( const MatrizD &, const QList< QList< double > > & );
-        MatrizD remover_colunas( const QList< int > &, const MatrizD & );
 
-        VetorD descer_coluna( const VetorD &, 
-                              const int &, 
-                              const double &valor = 0.0 );
-
-        void configurar_entrada( const MatrizD & );
-        void configurar_entrada( const QString &, const QString & );
         void configurar_funcoes_ativacao();
         void configurar_pesos();
         void criar_rede();

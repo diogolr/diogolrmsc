@@ -3,6 +3,7 @@
     <file>destacar.png</file>
     <file>abrir.png</file>
     <file>adicionar.png</file>
+    <file>ajuda.png</file>
     <file>arquivo.png</file>
     <file>carregar_falhas.png</file>
     <file>cancelar.png</file>
@@ -22,10 +23,12 @@
     <file>nota.png</file>
     <file>novo.png</file>
     <file>ok.png</file>
+    <file>qt.png</file>
     <file>radar.png</file>
     <file>recarregar.png</file>
     <file>recortar.png</file>
     <file>remover.png</file>
+    <file>sair.png</file>
     <file>salvar.png</file>
     <file>zoom.png</file>
     <file>zoom_mais.png</file>

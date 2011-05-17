@@ -306,6 +306,12 @@ void JanelaPrincipal :: on_acao_cfg_modulos_triggered()
 }
 
 
+void JanelaPrincipal :: on_acao_qt_triggered()
+{
+    QMessageBox::aboutQt( this, "Sobre o Qt" );
+}
+
+
 void JanelaPrincipal :: on_acao_sair_triggered()
 {
     this->close();
