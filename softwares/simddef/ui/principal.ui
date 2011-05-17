@@ -30,7 +30,7 @@
      <x>0</x>
      <y>0</y>
      <width>813</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Arquivo">
@@ -46,8 +46,18 @@
     <addaction name="acao_cfg_falhas"/>
     <addaction name="acao_cfg_modulos"/>
    </widget>
+   <widget class="QMenu" name="menu_Sobre">
+    <property name="title">
+     <string>&amp;Sobre</string>
+    </property>
+    <addaction name="acao_ajuda"/>
+    <addaction name="separator"/>
+    <addaction name="acao_simddef"/>
+    <addaction name="acao_qt"/>
+   </widget>
    <addaction name="menu_Arquivo"/>
    <addaction name="menu_Configurar"/>
+   <addaction name="menu_Sobre"/>
   </widget>
   <widget class="QStatusBar" name="barra_status"/>
   <widget class="QToolBar" name="barra_ferramentas">
@@ -108,7 +118,7 @@
           <string>Endereço do arquivo de configuração de falhas</string>
          </property>
          <property name="text">
-          <string>cfgs/falhas.sdd</string>
+          <string/>
          </property>
         </widget>
        </item>
@@ -134,6 +144,9 @@
        </item>
        <item>
         <widget class="QToolButton" name="botao_recarregar_falhas">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="toolTip">
           <string>Recarregar arquivo de configuração de falhas</string>
          </property>
@@ -259,7 +272,7 @@
           <string>Endereço do arquivo de configuração de módulos</string>
          </property>
          <property name="text">
-          <string>cfgs/modulos.sdd</string>
+          <string/>
          </property>
         </widget>
        </item>
@@ -289,7 +302,7 @@
        <item>
         <widget class="QToolButton" name="botao_recarregar_modulos">
          <property name="enabled">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
          <property name="toolTip">
           <string>Recarregar arquivo de configuração de módulos</string>
@@ -354,6 +367,10 @@
    </property>
   </action>
   <action name="acao_sair">
+   <property name="icon">
+    <iconset resource="../imgs/imgs.qrc">
+     <normaloff>:/imgs/sair.png</normaloff>:/imgs/sair.png</iconset>
+   </property>
    <property name="text">
     <string>Sair</string>
    </property>
@@ -362,6 +379,42 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="acao_ajuda">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../imgs/imgs.qrc">
+     <normaloff>:/imgs/ajuda.png</normaloff>:/imgs/ajuda.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Ajuda</string>
+   </property>
+  </action>
+  <action name="acao_qt">
+   <property name="icon">
+    <iconset resource="../imgs/imgs.qrc">
+     <normaloff>:/imgs/qt.png</normaloff>:/imgs/qt.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Qt</string>
+   </property>
+  </action>
+  <action name="acao_simddef">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../imgs/imgs.qrc">
+     <normaloff>:/imgs/modulos.png</normaloff>:/imgs/modulos.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Simddef</string>
+   </property>
+   <property name="toolTip">
+    <string>Simddef</string>
    </property>
   </action>
  </widget>
