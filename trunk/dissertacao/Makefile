@@ -1,9 +1,5 @@
-#all: clean script apres principal
 all: clean script principal
 
-#apres: apresentacao/Makefile
-#	cd apresentacao && make
-	
 script: scripts/Makefile
 	cd scripts && make
 
@@ -24,6 +20,5 @@ apres: apresentacao.tex
 
 clean: 
 	-cd scripts && make clean
-#	-cd apresentacao && make clean
 	-rm -f *.pdf *.aux *.dvi *.ps *.lo* *.toc *.bbl *.log *.blg *.gl* *.ilg *.out
 	-rm -f *.nav *.snm
