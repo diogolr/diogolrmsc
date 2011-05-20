@@ -92,7 +92,7 @@ Os sinais pseudo aleatórios gerados se mantiveram dentro dos limites
 estabelecidos durante todo o tempo da simulação. Para o processo de
 identificação foram obtidas 6000 (seis mil) amostras, equivalentes à 10 (dez)
 minutos de simulação. Já para a detecção o processo foi simulado durante 20
-(vinte) minutos, o que correspondeu a obtenção de 12000 (doze mil) amostras.
+(vinte) minutos, o que correspondeu à obtenção de 12000 (doze mil) amostras.
 
 De posse dos valores obtidos, iniciou-se a fase de treinamento das RNAs. Todas
 as redes foram treinadas de modo {\it offline} com o {\it toolbox} de redes
@@ -105,7 +105,7 @@ validação com o intuito de avaliar suas capacidades de generalização.
 Para que fossem estabelecidos critérios avaliativos significantes, diversas
 redes neurais foram treinadas com diferentes configurações. Cada uma dessas
 configurações levava em consideração o número de neurônios na camada oculta e da
-ordem do modelo. O número de redes treinadas corresponde aquele especificado no
+ordem do modelo. O número de redes treinadas corresponde àquele especificado no
 final da Tab. \ref{tab:treinamentos}. 
 
 \begin{table}[htb]
@@ -129,22 +129,25 @@ acordo com a ordem do modelo e o número de neurônios na camada oculta.}
 \hline
 \multicolumn{5}{|l|}{{\bf Identificação}}\\
 \hline
-\multirow{3}{*}{1} & 2 & 6/8/10 & \multirow{3}{*}{6} & \multirow{3}{*}{54}\\
+\multirow{3}{*}{1} & 2 & 6, 8 e 10 & \multirow{3}{*}{6} & \multirow{3}{*}{54}\\
 \cline{2-3}
-& 3 & 8/12/16 & &\\
+& 3 & 8, 12 e 16 & &\\
 \cline{2-3}
-& 4 & 10/16/22 & &\\
+& 4 & 10, 16 e 22 & &\\
 \hline
-\multirow{3}{*}{2} & 2 & 2/4/6 -- 6/8/10 & 
+\multirow{3}{*}{2} & 2 & 2/6, 4/8 e 6/10 & 
 \multirow{3}{*}{6} & \multirow{3}{*}{108}\\
 \cline{2-3}
-& 3 & 4/6/8 -- 8/12/16 & & \\
+& 3 & 4/8, 6/12 e 8/16 & & \\
 \cline{2-3}
-& 4 & 6/8/10 -- 10/16/22 & & \\
+& 4 & 6/10, 8/16 e 10/22 & & \\
 \hline
 \multicolumn{5}{|l|}{{\bf Detecção}}\\
 \hline
-\multirow{3}{*}{2} & 2 & 8/12/16 & 
+1 & -- & -- & -- & --\\
+\hline
+\multirow{3}{*}{2} & 
+2 & 8/12/16 & 
 \multirow{3}{*}{6/falha} &
 \multirow{3}{*}{702}\\
 \cline{2-3}
@@ -171,6 +174,23 @@ conjunto de 13 (treze) redes especialistas, sendo uma para cada falha, conforme
 Fig. \ref{fig:detec_prop_2}. Em virtude desses aspectos, o número de redes
 treinadas dobra da primeira para a segunda proposta de identificação e é
 multiplicado por um fator de treze para a segunda proposta de detecção.
+
+Ainda na Tab. \ref{tab:treinamentos} pode-se observar que não há nenhuma rede
+treinada na primeira proposta de detecção. Tal fato se deu em virtude de nenhuma
+das estruturas neurais terem convergido dentro de um limite de 50.000 (cinquenta
+mil) iterações. Vale ressaltar que, apesar de não ter sido obtido sucesso
+durante o treinamento, foram feitas diversas tentativas, com vários tipos de
+redes neurais de ordens distintas e de diferentes arquiteturas de interconexão
+neuronal. 
+
+A não convergência dessas redes se deu, provavelmente, em consequência da
+ausência de dados representativos no universo das variáveis disponíveis, obtidas
+direta ou indiretamente a partir do processo. No caso do sistema de tanques
+acoplados, conforme descrito anteriormente, as seis variáveis disponíveis,
+mostradas na Fig. \ref{fig:detec_prop_1}, deveriam identificar não somente as
+falhas propostas, mas também todas as combinações possíveis entre elas. Nem
+mesmo quando somente as treze falhas propostas foram consideradas a rede chegou
+a convergir.
 
 % ------------------------------------------------------------------------------
 \section{Melhores redes}
@@ -218,11 +238,11 @@ exibidos pela Tab. \ref{tab:melhores_rnas_ident}.
 \cline{2-7}
 &4 & 22 & 4 & 1,40e-6 & 2,60e-6 & 4,01e-6\\
 \hline
-\multirow{3}{*}{2} & 2 & 2 -- 6 & 2 & 5,06e-6 & 7,26e-6 & 1,23e-5\\
+\multirow{3}{*}{2} & 2 & 2/6 & 2 & 5,06e-6 & 7,26e-6 & 1,23e-5\\
 \cline{2-7}
-& 3 & 6 -- 12 & 1 & 5,48e-6 & 1,81e-7 & 5,66e-6\\
+& 3 & 6/12 & 1 & 5,48e-6 & 1,81e-7 & 5,66e-6\\
 \cline{2-7}
-& 4 & 10 -- 22 & 3 & 5,12e-6 & 9,46e-6 & 1,45e-5\\
+& 4 & 10/22 & 3 & 5,12e-6 & 9,46e-6 & 1,45e-5\\
 \hline
 \end{tabular}
 \begin{tablenotes}
@@ -244,24 +264,24 @@ quando o sistema reconhece uma falha que, na verdade, não houve, enquanto que o
 erros de tipo II, também conhecidos como {\it falsos negativos}, ocorrem quando
 o sistema deixa de reconhecer uma falha que aconteceu.
 
-Dessa maneira, a escolha das melhores redes de detecção se deu a partir do
-número de incidência de cada um desses erros. Estabeleceu-se, portanto, que a
-melhor rede para uma determinada falha seria aquela em que a soma dos erros de
-tipo I com os erros de tipo II fosse a menor possível.
+No sistema proposto, a escolha das melhores redes de detecção se deu a partir do
+número de incidência de cada um desses erros. Assim, estabeleceu-se que a melhor
+rede para uma determinada falha seria aquela em que a soma dos erros de tipo I
+com os erros de tipo II fosse a menor possível.
 
 Os resultados obtidos para cada uma das falhas podem ser observados na Tab.
-\ref{tab:melhores_redes_detec}. Como dito anteriormente, as colunas dos erros se
-referem a média obtida a partir das três validações. Já a última coluna
-representa o percentual de erro médio total\footnote{O percentual de erro médio
-total é obtido a partir da soma da quantidade de erros de tipo I com os erros de
-tipo II, dividido pelo número total de amostras.} sobre todas as amostras.
-Assim como na proposta de identificação, as melhores redes estão destacadas em
-cinza.
+\ref{tab:melhores_redes_detec}. Os valores decimais estão presentes em virtude
+das colunas dos erros se referirem a média obtida a partir das três validações.
+A última coluna representa o percentual de erro médio total\footnote{O
+percentual de erro médio total é obtido a partir da soma da quantidade de erros
+de tipo I com os erros de tipo II, dividido pelo número total de amostras.}
+sobre todas as amostras.  Assim como na proposta de identificação, as melhores
+redes estão destacadas em cinza.
 
-Deve-se observar ainda que apesar do treinamento ter sido feito com 12000 (doze
-mil) amostras, a rede deve acertar 24000 (vinte e quatro mil) vezes, pois para
-cada ponto a rede deve mostrar se está ou não havendo aquela falha em $T_1$ e em
-$T_2$. Portanto, para cada ponto de treinamento haverão dois acertos a serem
+Deve-se observar ainda que apesar de o treinamento ter sido feito com 12000
+(doze mil) amostras, a rede deve acertar 24000 (vinte e quatro mil) vezes, pois
+para cada ponto a rede deve mostrar se está ou não havendo aquela falha em $T_1$
+e em $T_2$. Portanto, para cada ponto de treinamento haverá dois acertos a serem
 realizados. 
 
 \begin{center}
@@ -379,10 +399,9 @@ realizados.
 \cline{2-8}
 & 4 & 20 & 2 & 20116 & 2075,66 & 1808,33 & 16,18\%\\
 \hline
-\multirow{1}{*}{FADO} &
-2 & 12 & 2 & 22827,66 & 612 & 560,33 & 4,88\%\\
-\multirow{2}{*}{FADO} &
-3 & 22 & 6 & 22903,33 & 606,33 & 490,33 & 4,57\%\\
+\multirow{3}{*}{FADO} & 2 & 12 & 2 & 22827,66 & 612 & 560,33 & 4,88\%\\
+\cline{2-8}
+& 3 & 22 & 6 & 22903,33 & 606,33 & 490,33 & 4,57\%\\
 \hhline{~-------}
 & 
 \cellcolor[gray]{0.85}4 & 
@@ -601,7 +620,7 @@ uma aplicação acadêmica tal situação pode não representar nenhum risco aos
 equipamentos além daqueles em que a água venha a causar. Por outro lado, em
 aplicações críticas essa ``compensação'' pode vir a causar diversos prejuízos.
 
-O sistema se comportou de maneira semelhante à essa na FSeDO e na FSiVzT,
+O sistema se comportou de maneira semelhante a essa na FSeDO e na FSiVzT,
 conforme observado nas Figs. \ref{fig:fsedo} e \ref{fig:fsivzt}. Essa semelhança
 pode vir a dificultar a identificação dessas falhas quando as redes estiverem
 agindo paralelamente. Por outro lado, o sistema composto por uma única rede pode
