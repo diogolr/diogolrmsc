@@ -180,8 +180,8 @@ descreva adequadamente a dinâmica desses tanques não é algo tão simples, vis
 que as equações gerais de movimento e energia que descrevem o escoamento de
 fluidos são bastante complicadas \cite{dorf:2009}.
 
-Assim sendo, é preciso que sejam feitas algumas hipóteses fundamentais.
-Admite-se que a água no tanque é incompressível e que o escoamento é
+Assim sendo, é preciso que sejam feitas algumas hipóteses fundamentais,
+admitindo-se que a água no tanque é incompressível e que o escoamento é
 não-viscoso, não-rotacional e regular. Cada uma dessas características serão
 descritas a seguir baseadas na argumentação exposta em \citeasnoun{dorf:2009}.
 
@@ -276,12 +276,13 @@ P_{\text{\tiny OUT}}
 \end{equation}
 
 \noindent em que $\upsilon_{\text{\tiny IN}}$ é a velocidade da água na entrada
-do reservatório e $P_{\text{\tiny IN}}$ e $P_{\text{\tiny OUT}}$ são as pressões
-na entrada e na saída, respectivamente. Mas $P_{\text{\tiny IN}}$ e
-$P_{\text{\tiny OUT}}$ são iguais à pressão atmosférica e a área de $a$ é
-suficientemente pequena ($a \approx A/85$, considerando o orifício de saída
-médio) para que a água escoe vagarosamente e a velocidade $\upsilon_{\text{\tiny
-IN}}$ seja desprezível. Assim, a equação de Bernoulli fica reduzida a:
+do reservatório, $g$ é a aceleração da gravidade e $P_{\text{\tiny IN}}$ e
+$P_{\text{\tiny OUT}}$ são as pressões na entrada e na saída, respectivamente.
+Mas $P_{\text{\tiny IN}}$ e $P_{\text{\tiny OUT}}$ são iguais à pressão
+atmosférica e a área de $a$ é suficientemente pequena ($a \approx A/85$,
+considerando o orifício de saída médio) para que a água escoe vagarosamente e a
+velocidade $\upsilon_{\text{\tiny IN}}$ seja desprezível. Assim, a equação de
+Bernoulli fica reduzida a:
 
 \begin{equation}\label{eq:bernoulli_red}
 \upsilon_{\text{\tiny OUT}} = \sqrt{2gL}
@@ -630,36 +631,10 @@ As falhas expostas na Tab. \ref{tab:classificacao_falhas} são induzidas de
 diferentes maneiras na simulação. Na FADG, por exemplo, o ganho do atuador é
 alterado de 1,0 para qualquer outro valor a juízo do usuário, no momento em que é
 realizada a leitura dos níveis. Já na FSiVzT, por questões de simplicidade,
-adiciona-se um outro orifício ao lado do orifício de saída do tanque. Esse
-orifício, de área arbitrária, terá a mesma dinâmica do orifício de saída do
-tanque, exceto que para $T_1$ a água que por ele escoa não irá cair em $T_2$.
-
-Para dar mais liberdade de configuração à simulação, foi desenvolvido um sistema
-em C++, que implementa o método de RK4 e que possui a capacidade de configurar
-todos os parâmetros referentes a cada uma dessas falhas a partir de um arquivo
-de texto. Cada um dos parâmetros do arquivo de entrada deve ser especificado em
-uma coluna e o número de linhas equivale ao número de amostras a serem
-simuladas. O período de amostragem utilizado na simulação do sistema é de 100
-(cem) milissegundos, o mesmo utilizado para o controle da planta real.
-
-Além disso, o sistema implementa as rotinas de dois controladores que podem ser
-configurados para operarem como controladores P, PI, PD, PID ou PI-D. Os ganhos
-proporcionais, integrais e derivativos são introduzidos na interface do usuário.
-
-Esse mesmo sistema pode ainda ser utilizado para operar com a planta real,
-fazendo aquisições dos dados através da rede (local ou remota), utilizando {\it
-sockets} TCP, se comunicando com um servidor implementado conforme mostrado em
-\citeasnoun{oliveira:2008}. A configuração do endereço IP e da porta de
-comunicação também é realizada a partir da interface do usuário. A Fig.
-\ref{fig:captura} mostra uma captura de tela ({\it screenshot}) do sistema em
-funcionamento.
-
-\begin{figure}[htb]
-\centering
-    \includegraphics[width=0.75\textwidth]{imgs/sistema/eps/captura}
-    \caption{Captura de tela do sistema em funcionamento.}
-    \label{fig:captura}
-\end{figure}
+supõe-se que um outro orifício de saída foi adicionado ao lado do orifício de
+saída do tanque ($a_i$). Esse orifício, de área arbitrária, terá a mesma
+dinâmica do orifício de saída do tanque, exceto que para $T_1$ a água que por
+ele escoa não irá influenciar na dinâmica de $T_2$.
 
 % ------------------------------------------------------------------------------
 \section{Estruturas neurais escolhidas}
@@ -672,11 +647,10 @@ foi designado.
 Assim sendo, para que fosse realizada uma análise comparativa, foram propostas
 duas estruturas neurais para o processo de identificação do modelo e duas outras
 estruturas para a detecção e o diagnóstico das falhas. Nos quatro casos foram
-utilizados modelos NNARX com uma camada oculta com função de ativação sigmoidal
-em que o número de regressores e o número de neurônios nessa camada foram
-determinados a partir de testes, conforme mostrado no Cap. \ref{cap:resultados}.
-Os detalhes relativos a cada uma dessas estruturas são esclarecidos nas próximas
-seções.
+utilizados modelos NNARX com uma camada oculta com função de ativação sigmoidal.
+O número de regressores e o número de neurônios nessa camada foram determinados
+a partir de testes, conforme mostrado no Cap. \ref{cap:resultados}. Os detalhes
+relativos a cada uma dessas estruturas serão esclarecidos nas próximas seções.
 
 % ------------------------------------------------------------------------------
 \subsection{Propostas de identificação}
@@ -697,8 +671,8 @@ esquemático do funcionamento dessa primeira proposta.
 
 Já a segunda estrutura de identificação leva em consideração que cada tanque
 possui uma dinâmica diferente, tendo em vista que o $T_1$ age de maneira
-independente, enquanto que a dinâmica de $T_2$ depende de $T_1$. Assim, optou-se
-por utilizar duas redes neurais, como mostrado na Fig.
+independente, enquanto que a dinâmica de $T_2$ depende da dinâmica de $T_1$.
+Assim, optou-se por utilizar duas redes neurais, como mostrado na Fig.
 \ref{fig:ident_proposta_2}.
 
 \begin{figure}[htb]
@@ -708,13 +682,14 @@ por utilizar duas redes neurais, como mostrado na Fig.
     \label{fig:ident_proposta_2}
 \end{figure}
 
-A primeira rede seria a responsável pela identificação de $T_1$, recebendo como
-entrada o nível anterior, $L_1(k-1)$, e a tensão aplicada, $V_{p_{\tiny
-1}}(k-1)$, gerando uma estimativa de $L_1$ em sua saída. Já a segunda rede seria
-a responsável pela identificação da dinâmica de $T_2$ e receberia como entrada
-as mesmas variáveis da primeira proposta, ou seja, $L_1(k-1)$, $L_2(k-1)$,
-$V_{p_{\tiny 1}}(k-1)$ e $V_{p_{\tiny 2}}(k-1)$. A saída da segunda rede seria,
-portanto, a estimativa do nível de $T_2$.
+A primeira rede seria a responsável pela identificação da dinâmica de $T_1$,
+recebendo como entrada o nível anterior deste tanque, $L_1(k-1)$, e a tensão
+aplicada à bomba que o alimenta, $V_{p_{\tiny 1}}(k-1)$, gerando uma estimativa
+de $L_1$ em sua saída. Já a segunda rede seria a responsável pela identificação
+da dinâmica de $T_2$ e receberia como entrada as mesmas variáveis da primeira
+proposta de identificação, ou seja, $L_1(k-1)$, $L_2(k-1)$, $V_{p_{\tiny
+1}}(k-1)$ e $V_{p_{\tiny 2}}(k-1)$. A saída da segunda rede seria, nesse caso,
+uma estimativa de $L_2$.
 
 Independentemente da proposta, pode-se visualizar o sistema de identificação do
 modelo como uma única estrutura neural (simples ou composta), que possui como
@@ -739,7 +714,7 @@ entrada os mesmos sinais das redes de identificação e os resíduos $e_i$,
 produzidos pela diferença dos níveis entre o modelo simulado ($L_i$) e o modelo
 identificado ($\widehat{L_i}$). A saída da rede formaria uma palavra binária que
 seria decodificada a partir de uma tabela previamente estabelecida. Nessa tabela
-cada falha teria uma palavra binária correspondente.  A Fig.
+cada falha teria uma palavra binária correspondente. A Fig.
 \ref{fig:detec_prop_1} representa um diagrama esquemático dessa proposta.
 
 \begin{figure}[!htb]
@@ -755,14 +730,14 @@ de ``especialistas''. Não se trata, entretanto, de uma máquina de comitê de
 especialistas, uma vez que não existe uma rede que realiza a tomada de decisões. 
 
 Inicialmente, as entradas de cada uma das redes seriam as mesmas da primeira
-proposta. As saídas, por sua vez, seriam compostas por uma palavra de apenas 2
-bits, indicando se aquela falha estaria sendo detectada em $T_1$ em $T_2$ ou em
-$T_1$ e $T_2$ simultaneamente. A Fig. \ref{fig:detec_prop_2} representa um
-diagrama esquemático dessa proposta.
+proposta de detecção. As saídas, por sua vez, seriam compostas por uma palavra
+de apenas 2 bits, indicando se aquela falha estaria sendo detectada em $T_1$ em
+$T_2$ ou em $T_1$ e $T_2$ simultaneamente. A Fig. \ref{fig:detec_prop_2}
+representa um diagrama esquemático dessa proposta.
 
 \begin{figure}[!htb]
 \centering
-    \includegraphics[width=0.58\textwidth]{imgs/sistema/eps/detec_prop_2}
+    \includegraphics[width=0.55\textwidth]{imgs/sistema/eps/detec_prop_2}
     \caption{Proposta de detecção através de um conjunto de redes
              especialistas.}
     \label{fig:detec_prop_2}
@@ -776,13 +751,24 @@ detectada de maneira mais precisa ou mais rápida. Essa vantagem também é
 percebida na situação inversa, em que uma determinada entrada pode estar sendo
 indiferente com relação ao processo de detecção.
 
-Modificar a estrutura das entradas na primeira proposta faria com que a rede
-precisasse ser treinada novamente. Por se tratar, provavelmente, de uma
-estrutura mais complexa, o treinamento poderia ter um grande custo relacionado
-ao tempo e ao processamento. Já na segunda proposta apenas uma das redes seria
-retreinada, o que iria reduzir esse custo de maneira considerável. Além disso,
-se o treinamento fosse realizado em tempo real, não haveria necessidade de se
-parar o sistema de detecção como um todo, mas somente uma parte deste. 
+Com relação ao tempo de treinamento e ao processamento dos dados, pode-se dizer
+que qualquer modificação na estrutura das entradas da primeira proposta faria
+com que a rede precisasse ser treinada novamente. Por se tratar, provavelmente,
+de uma estrutura mais complexa, o treinamento poderia ter um grande custo
+relacionado ao tempo e ao processamento. Já na segunda proposta apenas uma das
+redes seria retreinada, o que iria reduzir esse custo de maneira considerável.
+Além disso, se o treinamento fosse realizado em tempo real, não haveria
+necessidade de se parar o sistema de detecção como um todo, mas somente uma
+parte deste. 
+
+Ainda sobre o processamento dos dados, percebe-se que, em uma estrutura como a
+da segunda proposta, diversos tipos e classes de módulos de detecção e/ou
+diagnóstico podem ser implementados. Dependendo do tipo de falha, técnicas
+híbridas, que envolvam métodos {\it Fuzzy}, algorítimos genéticos, métodos
+estatísticos e quaisquer outras técnicas que existam ou que venham a ser
+criadas, podem vir a melhorar a eficiência de detecção. Dessa forma, o sistema
+que antes seria composto somente por redes neurais, passaria a ser composto por
+diversos módulos que utilizariam técnicas distintas.
 
 Uma outra vantagem estaria relacionada com o pós-processamento da informação. Ao
 se utilizar a segunda proposta percebe-se que não é necessário realizar uma
@@ -790,7 +776,7 @@ decodificação da saída a cada vez que uma entrada é introduzida na rede.
 Considerando que o tempo gasto para decodificar a palavra na saída da primeira
 proposta, é diretamente proporcional ao tamanho da palavra e que este, por sua
 vez, está diretamente relacionado com número de falhas a serem identificadas,
-pode-se dizer que quanto maior for o número de falhas a serem identificadas
+pode-se dizer que quanto maior for o número de falhas a serem identificadas,
 maior será esse tempo de decodificação.
 
 Além disso, vale ainda salientar que as falhas podem acontecer de maneira
@@ -814,17 +800,14 @@ individual. Dessa forma, os sinais de acionamento poderiam conter informações
 pertinentes para que os respectivos alarmes fossem gerados de maneira mais
 precisa.
 
-Apesar dessas vantagens, será feita uma análise comparativa dos resultados
-dessas estruturas, determinando qual das duas propostas melhor se adapta ao
-estudo de caso.
-
-Assim como o sistema de identificação, o sistema de detecção também pode ser
-visto como uma única estrutura neural. A única observação a ser feita é que a
-saída dessa estrutura poderá ser uma palavra binária de $p$ bits, tal que $2^p
-\geq n$, em que $n$ representa o número de palavras a serem identificadas; ou
-$n$ palavras binárias de 2 bits. Nesse último caso $n$ representa simplesmente o
-número de falhas a serem identificadas, pois as combinações de falhas são
-obtidas a partir das saídas ativas de cada uma das redes.
+Uma última consideração a ser feita é que, assim como o sistema de
+identificação, o sistema de detecção também pode ser visto como uma única
+estrutura neural. A única observação a ser feita é que a saída dessa estrutura
+poderá ser uma palavra binária de $p$ bits, tal que $2^p \geq n$, em que $n$
+representa o número de palavras a serem identificadas; ou $n$ palavras binárias
+de 2 bits. Nesse último caso $n$ representa simplesmente o número de falhas a
+serem identificadas, pois as combinações de falhas são obtidas a partir das
+saídas ativas de cada um dos módulos.
 
 % ------------------------------------------------------------------------------
 \section{Composição do sistema}
@@ -845,3 +828,144 @@ Acoplar tal sistema a um ambiente de monitoramento e supervisão, ou ainda
 associá-lo a técnicas de controle tolerante à falhas, consiste simplesmente em
 processar as informações disponíveis na interface de saída do módulo de DDF.
 Contudo, isso não faz parte do escopo deste trabalho.
+
+% ------------------------------------------------------------------------------
+\section{Sistemas computacionais desenvolvidos}
+Para dar mais liberdade de configuração à simulação e ao sistema de DDF, foram
+desenvolvidos dois sistemas computacionais, utilizando C++ como linguagem de
+programação e a biblioteca Qt para o desenvolvimento das interfaces gráficas.
+
+O primeiro sistema, cuja captura de tela ({\it screenshot}) pode ser vista na
+Fig. \ref{fig:captura}, tinha por objetivo simular o funcionamento do sistema de
+tanques. Para isso, fez-se uso do método de RK4 e da utilização de arquivos de
+texto simples para realizar a configuração de todos os parâmetros referentes a
+cada uma dessas falhas. Os parâmetros de configuração são especificados em cada
+uma das colunas do arquivo de entrada, conforme Tab.
+\ref{tab:colunas_parametros}, e o número de linhas equivale ao número de
+amostras a serem simuladas. O período de amostragem utilizado na simulação do
+sistema é de 100 (cem) milissegundos, o mesmo utilizado para o controle da
+planta real.
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.85\textwidth]{imgs/sistema/eps/captura}
+    \caption{Captura de tela do sistema em funcionamento.}
+    \label{fig:captura}
+\end{figure}
+
+\begin{table}[!htb]
+\small
+\centering
+\caption{Especificação das colunas do arquivo de configuração de parâmetros da
+         simulação.}
+\label{tab:colunas_parametros}
+\vspace{0.25cm}
+\begin{tabular}{|c|l|}
+\hline
+{\bf Coluna} & {\bf Descrição}\\
+\hline
+\hline
+1 & Tempo\\
+\hline
+2 & Ganho do sensor -- $T_1$\\
+\hline
+3 & Ganho do sensor -- $T_2$\\
+\hline
+4 & Nível DC ({\it offset}) do sensor -- $T_1$\\
+\hline
+5 & Nível DC ({\it offset}) do sensor -- $T_2$\\
+\hline
+6 & Porcentagem de ruído do sensor -- $T_1$\\
+\hline
+7 & Porcentagem de ruído do sensor -- $T_2$\\
+\hline
+8 & Ganho do atuador -- $B_1$\\
+\hline
+9 & Ganho do atuador -- $B_2$\\
+\hline
+10 & Nível DC ({\it offset}) do atuador -- $B_1$\\
+\hline
+11 & Nível DC ({\it offset}) do atuador -- $B_2$\\
+\hline
+12 & Porcentagem de ruído do atuador -- $B_1$\\
+\hline
+13 & Porcentagem de ruído do atuador -- $B_2$\\
+\hline
+14 & Área do orifício do vazamento -- $T_1$\\
+\hline
+15 & Área do orifício do vazamento -- $T_2$\\
+\hline
+16 & Constante da bomba -- $K_{m_{\tiny 1}}$\\
+\hline
+17 & Constante da bomba -- $K_{m_{\tiny 2}}$\\
+\hline
+18 & Área do orifício de saída -- $a_1$\\
+\hline
+19 & Área do orifício de saída -- $a_2$\\
+\hline
+20 & Ganho do módulo de potência -- Multiplicador de $V_{p_{\tiny 1}}$\\
+\hline
+21 & Ganho do módulo de potência -- Multiplicador de $V_{p_{\tiny 2}}$\\
+\hline
+22 & Referência ({\it setpoint}) -- $T_1$\\
+\hline
+23 & Referência ({\it setpoint}) -- $T_2$\\
+\hline
+\end{tabular}
+\end{table}
+
+Esse sistema também implementa as rotinas de dois controladores (um para cada
+bomba) que podem ser configurados para operarem como controladores P, PI, PD,
+PID ou PI-D. Os ganhos proporcionais, integrais e derivativos são introduzidos
+na interface do usuário, conforme mostra a Fig. \ref{fig:captura_controladores}.
+
+\begin{figure}[htb]
+\centering
+\subfigure[]
+{
+    \includegraphics[width=0.25\textwidth]{imgs/sistema/eps/controladores}
+    \label{fig:captura_controladores}
+}
+\subfigure[]
+{
+    \includegraphics[width=0.25\textwidth]{imgs/sistema/eps/ip_porta}
+    \label{fig:captura_ip_porta}
+}
+\caption{Captura de tela dos campos de ajuste dos ganhos dos controladores e do
+         IP/Porta de comunicação do sistema com a planta real.}
+\end{figure}
+
+Além disso, o sistema pode ainda ser utilizado para operar com a planta real,
+fazendo aquisições dos dados através da rede (local ou remota), utilizando {\it
+sockets} TCP, se comunicando com um servidor implementado conforme mostrado em
+\citeasnoun{oliveira:2008}. A configuração do endereço IP e da porta de
+comunicação também é realizada a partir da interface do usuário, conforme Fig.
+\ref{fig:captura_ip_porta}.
+
+A saída desse sistema é composta por até quatro arquivos, dependendo da
+configuração escolhida, contendo os valores da referência, dos níveis, do erro,
+das ações de controle (P, I e D) e do sinal de controle enviado para cada uma
+das bombas.
+
+Já o segundo sistema, denominado {\it Sistema modular para detecção e
+diagnóstico de falhas} (Simddef), foi idealizado para processar as informações
+de saída do primeiro sistema ({\it simulador}) e exibir as detecções das falhas
+de maneira simples e intuitiva. Para isso, as matrizes de saída do sistema
+deverão ser pré-processadas para adequar as variáveis àquelas utilizadas por
+cada um dos módulos de detecção e/ou diagnóstico.
+
+\Glossary{Simddef}{Sistema modular para detecção e diagnóstico de falhas.}
+
+Contudo, devido a possibilidade de se introduzir diversos tipos de módulos
+diferentes e de se inserir e remover falhas no processo (a critério do usuário),
+esse sistema foi projetado para ser configurado a partir de arquivos XML. Assim,
+tanto as falhas quanto os módulos são carregados a desses arquivos que
+seguem uma formatação pré-estabelecida, conforme Apêndice
+\ref{ap:formatacao_xml}.
+
+Dependendo do número de falhas e módulos a serem disponibilizados pelo sistema,
+as informações contidas nesses arquivos poderão posteriormente ser
+disponibilizadas em um banco de dados. Além disso, em virtude da manipulação das
+informações estar sendo feita em arquivos XML, qualquer tipo de modificação
+realizada pode ser facilmente reimplementada na classe que manipula esses dados,
+facilitando a integração e o aperfeiçoamento do sistema.

@@ -30,6 +30,7 @@ void exibir_mensagem( QWidget *pai,
 
         case Personalizada:
             // TODO
+            Q_UNUSED( end_img );
             break;
     }
 }
