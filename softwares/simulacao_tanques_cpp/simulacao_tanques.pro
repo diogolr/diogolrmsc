@@ -10,7 +10,7 @@ INCLUDEPATH += . qwt
 CONFIG += release console
 
 unix {
-    LIBS += /usr/lib/qwt-5.2.1/libqwt.so.5
+    LIBS += /usr/lib/libqwt5/libqwt.so.5
 }
 win32 {
     QMAKE_LIBDIR += lib

@@ -364,6 +364,8 @@ void Simulacao :: reiniciar_valores()
 
 double Simulacao :: dLdt( const double &t, double *y, const int &i )
 {
+    Q_UNUSED( t );
+
     if ( y[0] < 0.0 )
         y[0] = 0.0;
     if ( y[1] < 0.0 )
