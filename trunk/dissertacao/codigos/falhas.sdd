@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Simddef versao="1.0" tipo="falhas">
+    <Falha>
+        <local>Atuador</local>
+        <abrv>FADG</abrv>
+        <descricao>Falha do atuador por descalibramento de ganho</descricao>
+    </Falha>
+    <Falha>
+        <local>Atuador</local>
+        <abrv>FADO</abrv>
+        <descricao>Falha do atuador por descalibramento de offset</descricao>
+    </Falha>
+    <Falha>
+        <local>Atuador</local>
+        <abrv>FAQ</abrv>
+        <descricao>Falha do atuador por queima</descricao>
+    </Falha>
+    <Falha>
+        <local>Atuador</local>
+        <abrv>FASR</abrv>
+        <descricao>Falha do atuador por sensibilidade à ruídos</descricao>
+    </Falha>
+    <Falha>
+        <local>Atuador</local>
+        <abrv>FAVK</abrv>
+        <descricao>Falha do atuador por variação da constante da bomba</descricao>
+    </Falha>
+    <Falha>
+        <local>Sensor</local>
+        <abrv>FSeDG</abrv>
+        <descricao>Falha do sensor por descalibramento de ganho</descricao>
+    </Falha>
+    <Falha>
+        <local>Sensor</local>
+        <abrv>FSeDO</abrv>
+        <descricao>Falha do sensor por descalibramento de offset</descricao>
+    </Falha>
+    <Falha>
+        <local>Sensor</local>
+        <abrv>FSeQ</abrv>
+        <descricao>Falha do sensor por queima</descricao>
+    </Falha>
+    <Falha>
+        <local>Sensor</local>
+        <abrv>FSeSR</abrv>
+        <descricao>Falha do sensor por sensibilidade à ruídos</descricao>
+    </Falha>
+    <Falha>
+        <local>Sistema</local>
+        <abrv>FSiEOS</abrv>
+        <descricao>Falha do sistema por entupimento do orifício de saída</descricao>
+    </Falha>
+    <Falha>
+        <local>Sistema</local>
+        <abrv>FSiVrGMP</abrv>
+        <descricao>Falha do sistema por variação do ganho do módulo de potência</descricao>
+    </Falha>
+    <Falha>
+        <local>Sistema</local>
+        <abrv>FSiVrOS</abrv>
+        <descricao>Falha do sistema por variação do diâmetro do orifício de saída</descricao>
+    </Falha>
+    <Falha>
+        <local>Sistema</local>
+        <abrv>FSiVzT</abrv>
+        <descricao>Falha do sistema por vazamento do Tanque</descricao>
+    </Falha>
+</Simddef>

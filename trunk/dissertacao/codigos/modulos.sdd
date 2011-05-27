@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Simddef versao="1.0" tipo="modulos">
+    <Modulo>
+        <tipo nome="RNA">
+            <ordem>2</ordem>
+        </tipo>
+        <falha>FADG</falha>
+        <arquivos qtde="3">
+            <arq end="cfgs_rnas/FADG/entrada.dat"/>
+            <arq end="cfgs_rnas/FADG/O2N8T3_RNA.cfg"/>
+            <arq end="cfgs_rnas/FADG/O2N8T3_RNA.lim"/>
+        </arquivos>
+    </Modulo>
+    <Modulo>
+        <tipo nome="RNA">
+            <ordem>4</ordem>
+        </tipo>
+        <falha>FADO</falha>
+        <arquivos qtde="3">
+            <arq end="cfgs_rnas/FADO/entrada.dat"/>
+            <arq end="cfgs_rnas/FADO/O4N28T3_RNA.cfg"/>
+            <arq end="cfgs_rnas/FADO/O4N28T3_RNA.lim"/>
+        </arquivos>
+    </Modulo>
+    <Modulo>
+        <tipo nome="RNA">
+            <ordem>4</ordem>
+        </tipo>
+        <falha>FAQ</falha>
+        <arquivos qtde="3">
+            <arq end="cfgs_rnas/FAQ/entrada.dat"/>
+            <arq end="cfgs_rnas/FAQ/O4N28T6_RNA.cfg"/>
+            <arq end="cfgs_rnas/FAQ/O4N28T6_RNA.lim"/>
+        </arquivos>
+    </Modulo>
+    <Modulo>
+        <tipo nome="RNA">
+            <ordem>2</ordem>
+        </tipo>
+        <falha>FASR</falha>
+        <arquivos qtde="3">
+            <arq end="cfgs_rnas/FASR/entrada.dat"/>
+            <arq end="cfgs_rnas/FASR/O2N8T6_RNA.cfg"/>
+            <arq end="cfgs_rnas/FASR/O2N8T6_RNA.lim"/>
+        </arquivos>
+    </Modulo>
+    <Modulo>
+        <tipo nome="RNA">
+            <ordem>2</ordem>
+        </tipo>
+        <falha>FAVK</falha>
+        <arquivos qtde="3">
+            <arq end="cfgs_rnas/FAVK/entrada.dat"/>
+            <arq end="cfgs_rnas/FAVK/O2N8T5_RNA.cfg"/>
+            <arq end="cfgs_rnas/FAVK/O2N8T5_RNA.lim"/>
+        </arquivos>
+    </Modulo>
+    <Modulo>
+        <tipo nome="RNA">
+            <ordem>4</ordem>
+        </tipo>
+        <falha>FSeDG</falha>
+        <arquivos qtde="3">
+            <arq end="cfgs_rnas/FSeDG/entrada.dat"/>
+            <arq end="cfgs_rnas/FSeDG/O4N28T2_RNA.cfg"/>
+            <arq end="cfgs_rnas/FSeDG/O4N28T2_RNA.lim"/>
+        </arquivos>
+    </Modulo>
+    <Modulo>
+        <tipo nome="RNA">
+            <ordem>4</ordem>
+        </tipo>
+        <falha>FSeDO</falha>
+        <arquivos qtde="3">
+            <arq end="cfgs_rnas/FSeDO/entrada.dat"/>
+            <arq end="cfgs_rnas/FSeDO/O4N28T5_RNA.cfg"/>
+            <arq end="cfgs_rnas/FSeDO/O4N28T5_RNA.lim"/>
+        </arquivos>
+    </Modulo>
+    <Modulo>
+        <tipo nome="RNA">
+            <ordem>4</ordem>
+        </tipo>
+        <falha>FSeQ</falha>
+        <arquivos qtde="3">
+            <arq end="cfgs_rnas/FSeQ/entrada.dat"/>
+            <arq end="cfgs_rnas/FSeQ/O4N20T4_RNA.cfg"/>
+            <arq end="cfgs_rnas/FSeQ/O4N20T4_RNA.lim"/>
+        </arquivos>
+    </Modulo>
+    <Modulo>
+        <tipo nome="RNA">
+            <ordem>4</ordem>
+        </tipo>
+        <falha>FSeSR</falha>
+        <arquivos qtde="3">
+            <arq end="cfgs_rnas/FSeSR/entrada.dat"/>
+            <arq end="cfgs_rnas/FSeSR/O4N20T3_RNA.cfg"/>
+            <arq end="cfgs_rnas/FSeSR/O4N20T3_RNA.lim"/>
+        </arquivos>
+    </Modulo>
+    <Modulo>
+        <tipo nome="RNA">
+            <ordem>2</ordem>
+        </tipo>
+        <falha>FSiEOS</falha>
+        <arquivos qtde="3">
+            <arq end="cfgs_rnas/FSiEOS/entrada.dat"/>
+            <arq end="cfgs_rnas/FSiEOS/O2N12T4_RNA.cfg"/>
+            <arq end="cfgs_rnas/FSiEOS/O2N12T4_RNA.lim"/>
+        </arquivos>
+    </Modulo>
+    <Modulo>
+        <tipo nome="RNA">
+            <ordem>4</ordem>
+        </tipo>
+        <falha>FSiVrGMP</falha>
+        <arquivos qtde="3">
+            <arq end="cfgs_rnas/FSiVrGMP/entrada.dat"/>
+            <arq end="cfgs_rnas/FSiVrGMP/O4N20T2_RNA.cfg"/>
+            <arq end="cfgs_rnas/FSiVrGMP/O4N20T2_RNA.lim"/>
+        </arquivos>
+    </Modulo>
+    <Modulo>
+        <tipo nome="RNA">
+            <ordem>2</ordem>
+        </tipo>
+        <falha>FSiVrOS</falha>
+        <arquivos qtde="3">
+            <arq end="cfgs_rnas/FSiVrOS/entrada.dat"/>
+            <arq end="cfgs_rnas/FSiVrOS/O2N8T3_RNA.cfg"/>
+            <arq end="cfgs_rnas/FSiVrOS/O2N8T3_RNA.lim"/>
+        </arquivos>
+    </Modulo>
+    <Modulo>
+        <tipo nome="RNA">
+            <ordem>4</ordem>
+        </tipo>
+        <falha>FSiVzT</falha>
+        <arquivos qtde="3">
+            <arq end="cfgs_rnas/FSiVzT/entrada.dat"/>
+            <arq end="cfgs_rnas/FSiVzT/O4N24T1_RNA.cfg"/>
+            <arq end="cfgs_rnas/FSiVzT/O4N24T1_RNA.lim"/>
+        </arquivos>
+    </Modulo>
+</Simddef>

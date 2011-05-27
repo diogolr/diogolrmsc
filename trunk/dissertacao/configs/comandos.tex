@@ -57,6 +57,13 @@ diagnóstico de falhas}
 % Sequências
 \newcommand{\sequencia}[4]{$#1_{#2}$, $#1_{#3}$, \ldots, $#1_{#4}$}
 
+% Comandos para o highlight dos códigos utilizando o pacote minted
+\definecolor{cinzaclaro}{rgb}{0.95,0.95,0.95}
+\renewcommand{\theFancyVerbLine}
+{
+    \sffamily\textcolor[rgb]{0.5,0.5,0.5}{\scriptsize\arabic{FancyVerbLine}}
+}
+
 % Outros ----------------------------------------------------------------------
 \newcommand{\chave}[1]{\left\{#1\right\}}
 \newcommand{\colchete}[1]{\left[#1\right]}
