@@ -846,11 +846,11 @@ amostras a serem simuladas. O período de amostragem utilizado na simulação do
 sistema é de 100 (cem) milissegundos, o mesmo utilizado para o controle da
 planta real.
 
-\begin{figure}[htb]
+\begin{figure}[!htb]
 \centering
-    \includegraphics[width=0.85\textwidth]{imgs/sistema/eps/captura}
-    \caption{Captura de tela do sistema em funcionamento.}
-    \label{fig:captura}
+    \includegraphics[width=0.85\textwidth]{imgs/sistema/eps/captura_simulador}
+    \caption{Captura de tela do sistema de simulação em funcionamento.}
+    \label{fig:captura_simulador}
 \end{figure}
 
 \begin{table}[!htb]
@@ -919,13 +919,14 @@ bomba) que podem ser configurados para operarem como controladores P, PI, PD,
 PID ou PI-D. Os ganhos proporcionais, integrais e derivativos são introduzidos
 na interface do usuário, conforme mostra a Fig. \ref{fig:captura_controladores}.
 
-\begin{figure}[htb]
+\begin{figure}[!htb]
 \centering
 \subfigure[]
 {
     \includegraphics[width=0.25\textwidth]{imgs/sistema/eps/controladores}
     \label{fig:captura_controladores}
 }
+\quad
 \subfigure[]
 {
     \includegraphics[width=0.25\textwidth]{imgs/sistema/eps/ip_porta}
@@ -950,22 +951,34 @@ das bombas.
 Já o segundo sistema, denominado {\it Sistema modular para detecção e
 diagnóstico de falhas} (Simddef), foi idealizado para processar as informações
 de saída do primeiro sistema ({\it simulador}) e exibir as detecções das falhas
-de maneira simples e intuitiva. Para isso, as matrizes de saída do sistema
-deverão ser pré-processadas para adequar as variáveis àquelas utilizadas por
-cada um dos módulos de detecção e/ou diagnóstico.
+de maneira simples e intuitiva. Para isso, as matrizes de saída do {\it
+simulador} deverão ser pré-processadas para que se faça uma adequação das
+variáveis àquelas utilizadas por cada um dos módulos de detecção e/ou
+diagnóstico. 
 
-\Glossary{Simddef}{Sistema modular para detecção e diagnóstico de falhas.}
+\Glossary{Simddef}{Sistema modular para detecção e diagnóstico de falhas}
+
+\begin{figure}[!htb]
+\centering
+    \includegraphics[width=0.9275\textwidth]{imgs/sistema/eps/captura_simddef}
+    \caption{Captura de tela do {\it Simddef} em funcionamento.}
+    \label{fig:captura_simddef}
+\end{figure}
 
 Contudo, devido a possibilidade de se introduzir diversos tipos de módulos
 diferentes e de se inserir e remover falhas no processo (a critério do usuário),
-esse sistema foi projetado para ser configurado a partir de arquivos XML. Assim,
-tanto as falhas quanto os módulos são carregados a desses arquivos que
-seguem uma formatação pré-estabelecida, conforme Apêndice
-\ref{ap:formatacao_xml}.
+esse sistema foi projetado para ser configurado a partir de arquivos XML ({\it
+eXtensible Markup Language}). Assim, tanto as falhas quanto os módulos são
+carregados a desses arquivos que seguem uma formatação pré-estabelecida,
+conforme descrito em detalhes no Apêndice \ref{ap:formatacao_xml}. Uma captura
+de tela desse sistema em funcionamento pode ser observada na Fig.
+\ref{fig:captura_simddef}.
 
-Dependendo do número de falhas e módulos a serem disponibilizados pelo sistema,
-as informações contidas nesses arquivos poderão posteriormente ser
+\Glossary{XML}{eXtensible Markup Language}
+
+Por fim, vale ressaltar que, dependendo do número de falhas e módulos a serem
+configurados, as informações contidas nesses arquivos poderão ser posteriormente
 disponibilizadas em um banco de dados. Além disso, em virtude da manipulação das
-informações estar sendo feita em arquivos XML, qualquer tipo de modificação
-realizada pode ser facilmente reimplementada na classe que manipula esses dados,
-facilitando a integração e o aperfeiçoamento do sistema.
+informações estar sendo feita sobre arquivos XML, qualquer tipo de modificação
+realizada pode ser facilmente implementada na classe que manipula esses dados,
+facilitando a integração e o aperfeiçoamento do sistema como um todo.

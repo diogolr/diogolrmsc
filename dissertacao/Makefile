@@ -4,11 +4,11 @@ script: scripts/Makefile
 	cd scripts && make
 
 principal: principal.tex
-	latex principal
+	latex -shell-escape principal
 	makeindex -s makeglo.ist -o principal.gls principal.glo
 	bibtex principal 
-	latex principal
-	latex principal
+	latex -shell-escape principal
+	latex -shell-escape principal
 	dvipdf principal
 	evince principal.pdf&
 
@@ -20,5 +20,5 @@ apres: apresentacao.tex
 
 clean: 
 	-cd scripts && make clean
-	-rm -f *.pdf *.aux *.dvi *.ps *.lo* *.toc *.bbl *.log *.blg *.gl* *.ilg *.out
-	-rm -f *.nav *.snm
+	-rm -f *.pdf *.aux *.dvi *.ps *.lo* *.toc *.bbl *.log *.blg 
+	-rm -f *.gl* *.ilg *.out *.pyg *.nav *.snm

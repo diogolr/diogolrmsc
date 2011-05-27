@@ -1,3 +1,112 @@
-\chapter{Formatação dos arquivos XML utilizados pelo \emph{Simddef}}
+\chapter{Arquivos XML do \textbf{\textit{Simddef}}}
 \label{ap:formatacao_xml}
-Teste \ldots
+
+% ------------------------------------------------------------------------------
+\section{Arquivos XML}
+XML ({\it eXtensible Markup Language}) é uma linguagem de marcação simples e
+altamente flexível, criada pela W3C, derivada da {\it Standard Generalized
+Markup Language} (SGML -- ISO 8879). Essa linguagem foi idealizada para gerar
+linguagens de marcação para necessidades especiais e sua principal
+característica é que as linguagens desconhecidas ou de pouco uso podem ser
+facilmente definidas sem que haja necessidade de serem submetidas aos comitês de
+padronização.
+
+A formatação dos arquivos XML permite que os dados sejam organizados de forma
+hierárquica, possibilitando que sejam criados arquivos para sua validação. Além
+disso, o formato não depende de plataformas de {\it hardware} ou de {\it
+software}, de tal forma que um banco de dados pode, através de uma aplicação,
+escrever ou ler um arquivo desse tipo sem maiores complicações.
+
+Por definição, um documento XML é composto por um conjunto de caracteres que,
+quando dispostos de forma adequada, compõem uma árvore organizacional dos dados.
+A estrutura gerada possui, dentre outros, conjuntos de {\it tags}, {\it
+elementos} e {\it atributos}.
+
+As {\it tags}, nada mais são do que as marcações que iniciam com \verb|<| e
+terminam com \verb|>|, podendo ser dividida em {\it start-tags}, como por
+exemplo \verb|<secao>|, {\it end-tags}, como por exemplo \verb|</secao>| e {\it
+empty-element-tags}, como por exemplo \verb|<secao />|.
+
+Os {\it elementos}, por sua vez, são as marcações dos componentes lógicos do
+documento, que iniciam com uma {\it start-tag} e encerram com uma {\it end-tag},
+podendo ainda serem compostos apenas por uma {\it empty-element-tag}. Os
+caracteres entre as {\it tags}, quando existirem, constituem o conteúdo do
+elemento e podem conter outros tipos de marcação, inclusive outros elementos,
+dando origem aos {\it elementos filhos}. Um exemplo de elemento seria
+\verb|<fala>Olá Mundo</fala>| ou apenas \verb|<quebra_linha />|
+
+Já os {\it atributos} são marcações que consistem de um par {\it nome}/{\it
+valor}, que existem no contexto das {\it start-tags} ou das {\it
+empty-element-tags}. Como exemplo, no trecho 
+\verb|<imagem end="foto.jpg" largura="100px" />|, existem dois atributos,
+denominados \verb|end|, cujo valor é \verb|foto.jpg|, e \verb|largura|, cujo
+valor é \verb|100px|.
+
+% ------------------------------------------------------------------------------
+\section{Estrutura dos arquivos utilizados}
+A estrutura dos arquivos utilizados pelo {\it Simddef}, assim como todos arquivo
+XML tem início com uma declaração do tipo
+
+\vspace{\topsep}
+\inputminted[fontsize = \footnotesize,
+             bgcolor = cinzaclaro,
+%             linenos = true,
+             firstline = 1,
+%             firstnumber = 1,
+             lastline = 1]{xml}{codigos/falhas.sdd}
+
+\noindent na qual a versão do XML utilizado e o tipo de codificação do arquivo
+podem ser modificados a critério da aplicação. Após a {\it tag} de inicialização
+do documento, a estrutura dos elementos dos arquivos varia de acordo com o
+recurso a ser utilizado dentro do sistema.
+
+O primeiro elemento do arquivo é composto pela {\it tag} \verb|Simddef|, a qual
+possui dois atributos, denominados \verb|versao| e \verb|tipo|:
+
+\vspace{\topsep}
+\inputminted[fontsize = \footnotesize,
+             bgcolor = cinzaclaro,
+%             linenos = true,
+             firstline = 2,
+%             firstnumber = 2,
+             lastline = 2]{xml}{codigos/falhas.sdd}
+
+O primeiro atributo desta {\it tag} poderá ser utilizado, por exemplo, em
+futuras versões do sistema, para adequar a estrutura do arquivo que está sendo
+lido às novas versões disponíveis. Já o segundo atributo é utilizado para
+definir que tipo de arquivo está sendo carregado no sistema.
+
+Nessa primeira versão, existem dois valores possíveis para o atributo
+\verb|tipo|, são eles: \verb|modulos| e \verb|falhas|. Os elementos seguintes a
+serem lidos dependem diretamente do valor deste atributo. Assim, quando esse
+valor é lido, a classe que manipula os dados que estão sendo lidos a partir do
+arquivo XML poderá seguir um dos dois caminhos distintos. O término da leitura
+do arquivo encerra quando a {\it end-tag} \verb|</Simddef>| for lida.
+
+% ------------------------------------------------------------------------------
+\subsection{Leitura do arquivo de configuração de falhas}
+
+% ------------------------------------------------------------------------------
+\subsection{Leitura do arquivo de configuração de módulos}
+
+% ------------------------------------------------------------------------------
+\section{Exemplos}
+Nas seções seguintes poderão ser visualizados exemplos completos dos arquivos de
+configuração de falhas e módulos.
+
+% ------------------------------------------------------------------------------
+\subsection{Arquivo de configuração de falhas}
+\begin{listing}[H]
+\inputminted[fontsize = \footnotesize,
+             bgcolor = cinzaclaro,
+             linenos = true,
+             samepage = false ]{xml}{codigos/falhas.sdd}
+\end{listing}
+
+% ------------------------------------------------------------------------------
+\subsection{Arquivo de configuração de módulos}
+\begin{listing}[H]
+\inputminted[fontsize = \footnotesize,
+             bgcolor = cinzaclaro,
+             linenos = true ]{xml}{codigos/modulos.sdd}
+\end{listing}
