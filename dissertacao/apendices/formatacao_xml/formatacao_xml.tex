@@ -4,7 +4,7 @@
 % ------------------------------------------------------------------------------
 \section{Arquivos XML}
 XML ({\it eXtensible Markup Language}) é uma linguagem de marcação simples e
-altamente flexível, criada pela W3C, derivada da {\it Standard Generalized
+altamente flexível, criada pela W3C e derivada da {\it Standard Generalized
 Markup Language} (SGML -- ISO 8879). Essa linguagem foi idealizada para gerar
 linguagens de marcação para necessidades especiais e sua principal
 característica é que as linguagens desconhecidas ou de pouco uso podem ser
@@ -23,7 +23,7 @@ A estrutura gerada possui, dentre outros, conjuntos de {\it tags}, {\it
 elementos} e {\it atributos}.
 
 As {\it tags}, nada mais são do que as marcações que iniciam com \verb|<| e
-terminam com \verb|>|, podendo ser dividida em {\it start-tags}, como por
+terminam com \verb|>|, podendo ser divididas em {\it start-tags}, como por
 exemplo \verb|<secao>|, {\it end-tags}, como por exemplo \verb|</secao>| e {\it
 empty-element-tags}, como por exemplo \verb|<secao />|.
 
@@ -35,7 +35,7 @@ elemento e podem conter outros tipos de marcação, inclusive outros elementos,
 dando origem aos {\it elementos filhos}. Um exemplo de elemento seria
 \verb|<fala>Olá Mundo</fala>| ou apenas \verb|<quebra_linha />|
 
-Já os {\it atributos} são marcações que consistem de um par {\it nome}/{\it
+Já os {\it atributos} são marcações compostas de um par {\it nome}/{\it
 valor}, que existem no contexto das {\it start-tags} ou das {\it
 empty-element-tags}. Como exemplo, no trecho 
 \verb|<imagem end="foto.jpg" largura="100px" />|, existem dois atributos,
@@ -47,7 +47,7 @@ valor é \verb|100px|.
 A estrutura dos arquivos utilizados pelo {\it Simddef}, assim como todos arquivo
 XML tem início com uma declaração do tipo
 
-\vspace{\topsep}
+\vspace{1.1\topsep}
 \inputminted[fontsize = \footnotesize,
              bgcolor = cinzaclaro,
 %             linenos = true,
@@ -63,7 +63,7 @@ recurso a ser utilizado dentro do sistema.
 O primeiro elemento do arquivo é composto pela {\it tag} \verb|Simddef|, a qual
 possui dois atributos, denominados \verb|versao| e \verb|tipo|:
 
-\vspace{\topsep}
+\vspace{1.1\topsep}
 \inputminted[fontsize = \footnotesize,
              bgcolor = cinzaclaro,
 %             linenos = true,
@@ -76,37 +76,195 @@ futuras versões do sistema, para adequar a estrutura do arquivo que está sendo
 lido às novas versões disponíveis. Já o segundo atributo é utilizado para
 definir que tipo de arquivo está sendo carregado no sistema.
 
-Nessa primeira versão, existem dois valores possíveis para o atributo
+Nesta primeira versão, existem somente dois valores possíveis para o atributo
 \verb|tipo|, são eles: \verb|modulos| e \verb|falhas|. Os elementos seguintes a
-serem lidos dependem diretamente do valor deste atributo. Assim, quando esse
-valor é lido, a classe que manipula os dados que estão sendo lidos a partir do
-arquivo XML poderá seguir um dos dois caminhos distintos. O término da leitura
-do arquivo encerra quando a {\it end-tag} \verb|</Simddef>| for lida.
+serem lidos dependem diretamente do valor deste atributo. Assim, tendo conhecido
+esse valor, a classe que manipula os dados que estão sendo lidos poderá seguir
+um dos dois caminhos distintos. O término da leitura do arquivo encerra quando a
+{\it end-tag} \verb|</Simddef>| for lida.
 
 % ------------------------------------------------------------------------------
-\subsection{Leitura do arquivo de configuração de falhas}
+\subsection{Arquivo de configuração de falhas}
+O arquivo de configuração de falhas possui a seguinte estrutura:
+
+\vspace{1.1\topsep}
+\begin{minted}[fontsize = \footnotesize,
+               bgcolor = cinzaclaro]{xml}
+<?xml version="1.0" encoding="UTF-8"?>
+<Simddef versao="1.0" tipo="falhas">
+    <Falha>
+        <local> ... </local>
+        <abrv> ... </abrv>
+        <descricao> ... </descricao>
+    </Falha>
+</Simddef>
+\end{minted}
+\vspace{1.1\topsep}
+
+O elemento \verb|local| se refere ao local em que a falha poderá ocorrer, e pode
+ter três valores possíveis: \verb|Sensor|, \verb|Atuador| ou \verb|Sistema|. Já
+o elemento \verb|abrv| se refere a uma abreviatura estabelecida para aquela
+falha, a qual será utilizada em determinadas localizações do sistema para evitar
+que textos muito grandes apareçam na interface do usuário. Por fim, o elemento
+\verb|descricao| se refere a uma descrição da falha. Este último elemento
+poderá descrever alguns detalhes sobre como a falha ocorre e, possivelmente,
+algum outro aspecto importante relacionado à falha.
+
+O elemento \verb|Falha| poderá ser repetido tantas vezes quantas forem o número
+de falhas cadastradas no sistema, desde que cada falha seja especificada a
+partir dos três elementos citados anteriormente.
 
 % ------------------------------------------------------------------------------
-\subsection{Leitura do arquivo de configuração de módulos}
+\subsection{Arquivo de configuração de módulos}
+O arquivo de configuração dos módulos possui estrutura semelhante ao arquivo de
+falhas. Contudo, sabe-se que poderão ser implementados diversos tipos de módulos
+e cada um deles deverá estar associado à uma falha. Essa característica faz com
+que possam existir {\it tags} diferentes no arquivo, dependendo do tipo de
+módulo que está sendo carregado. Para um módulo neural, por exemplo, a estrutura
+do arquivo poderia ser:
+
+\vspace{1.1\topsep}
+\begin{minted}[fontsize = \footnotesize,
+               bgcolor = cinzaclaro]{xml}
+<?xml version="1.0" encoding="UTF-8"?>
+<Simddef versao="1.0" tipo="modulos">
+    Modulo>
+      <tipo nome="RNA">
+          <ordem>...</ordem>
+      </tipo>
+      <falha>...</falha>
+      <arquivos qtde="3">
+          <arq end="..."/>
+          <arq end="..."/>
+          <arq end="..."/>
+      </arquivos>
+   </Modulo>
+</Simddef>
+\end{minted}
+\vspace{1.1\topsep}
+
+Nesse caso, o elemento \verb|tipo| se refere ao tipo de módulo que está sendo
+configurado, podendo ter como valor, por exemplo, \verb|RNA|, \verb|Fuzzy|,
+\verb|Estatístico|, ou ainda qualquer outro nome dentre os módulos que venham a
+ser implementados. O elemento \verb|ordem|, se refere a ordem da rede neural, a
+qual determina o número de regressores que serão utilizados nas entradas e
+saídas da rede. O elemento \verb|falha| associa o módulo à uma falha previamente
+carregada a partir de sua abreviatura. O elemento \verb|arquivos| possui o
+atributo \verb|qtde|, que indica o número de arquivos que serão carregados para
+a configuração do módulo. No caso de uma rede neural, os arquivos poderão, por
+exemplo, conter os pesos sinápticos e as funções de ativação de cada uma das
+camadas. As {\it tags} \verb|arq|, com seu atributo \verb|end|, indicam o
+endereço do arquivo que será carregado. O valor do atributo \verb|qtde| deverá
+ser condizente com o número de {\it tags} \verb|arq| do módulo.
+
+Assim como no arquivo de falhas, o elemento \verb|Modulo| pode se repetir tantas
+vezes quantos forem o número de módulos cadastrados no sistema. Dependendo do
+tipo de módulo, outras {\it tags} poderão ser adicionadas. A manipulação de cada
+uma dessas {\it tags} poderá ser implementada na classe de manipulação dos
+arquivos XML.
+
+É importante ressaltar também que cada módulo deverá ser implementado pelo
+usuário como uma classe que herda métodos e atributos de uma classe abstrata,
+de acordo com a interface abaixo. Os métodos virtuais puros são os únicos
+utilizados pelo sistema para processar as informações e exibir as falhas
+detectadas ao usuário.
+
+\vspace{1.1\topsep}
+\inputminted[fontsize = \footnotesize,
+             bgcolor = cinzaclaro,
+             linenos = true,
+             firstline = 1,
+             firstnumber = 1,
+             lastline = 49]{cpp}{codigos/modulo.h}
+
+\inputminted[fontsize = \footnotesize,
+             bgcolor = cinzaclaro,
+             linenos = true,
+             firstline = 50,
+             firstnumber = 50,
+             lastline = 69]{cpp}{codigos/modulo.h}
+\vspace{1.1\topsep}
+
+Dentre os métodos a serem implementados, o método \verb|curvas_a_exibir| não
+possui nenhuma entrada e produz como saída uma {\it hash} que mapeia o número da
+curva a ser exibida com seu respectivo nome. Esta função tem como principal
+objetivo fornecer ao sistema uma maneira simples e direta de inserir os
+valores desejados no gráfico e associar as curvas inseridas à legenda.
+
+O método \verb|nome_tipo| também não possui entrada e fornece como saída o nome
+do tipo do módulo que foi carregado. Este nome é utilizado na janela de
+configuração dos módulos e na janela principal do sistema.
+
+O método \verb|ler_arquivos| assume que todos os arquivos foram configurados
+durante a criação do módulo, na leitura do arquivo XML, de tal maneira que
+nenhuma entrada é necessária. Este método serve para fazer a leitura dos
+arquivos e configurar o módulo de acordo com o seu tipo. No caso dos módulos
+neurais, por exemplo, é este método quem cria a rede, atribui os pesos
+sinápticos e configura as funções de ativação de cada camada. Como o intuito do
+método é de apenas ler os arquivos e efetuar a configuração dos módulos, este
+método não produz nenhuma saída.
+
+Por fim, o método \verb|processar_saida| é quem efetivamente realiza o
+processamento de todos os dados que foram carregados. Este método não é chamado
+a partir do sistema, devendo ser utilizado dentro de alguma rotina interna da
+classe que está sendo implementada como, por exemplo, ao final do método
+\verb|ler_arquivos|.
 
 % ------------------------------------------------------------------------------
 \section{Exemplos}
 Nas seções seguintes poderão ser visualizados exemplos completos dos arquivos de
-configuração de falhas e módulos.
+configuração de falhas e módulos. As quebras de linha que existem em alguns
+dos elementos \verb|descricao| foram ali colocadas apenas para evitar que a
+formatação do código neste documento excedesse as margens de impressão.
 
 % ------------------------------------------------------------------------------
 \subsection{Arquivo de configuração de falhas}
-\begin{listing}[H]
 \inputminted[fontsize = \footnotesize,
              bgcolor = cinzaclaro,
              linenos = true,
-             samepage = false ]{xml}{codigos/falhas.sdd}
-\end{listing}
+             samepage = false,
+             firstline = 1,
+             firstnumber = 1,
+             lastline = 48]{xml}{codigos/falhas.sdd}
+
+\inputminted[fontsize = \footnotesize,
+             bgcolor = cinzaclaro,
+             linenos = true,
+             samepage = false,
+             firstline = 49,
+             firstnumber = 49,
+             lastline = 72]{xml}{codigos/falhas.sdd}
 
 % ------------------------------------------------------------------------------
 \subsection{Arquivo de configuração de módulos}
-\begin{listing}[H]
 \inputminted[fontsize = \footnotesize,
              bgcolor = cinzaclaro,
-             linenos = true ]{xml}{codigos/modulos.sdd}
-\end{listing}
+             linenos = true,
+             samepage = false,
+             firstline = 1,
+             firstnumber = 1,
+             lastline = 24]{xml}{codigos/modulos.sdd}
+
+\inputminted[fontsize = \footnotesize,
+             bgcolor = cinzaclaro,
+             linenos = true,
+             samepage = false,
+             firstline = 25,
+             firstnumber = 25,
+             lastline = 79]{xml}{codigos/modulos.sdd}
+
+\inputminted[fontsize = \footnotesize,
+             bgcolor = cinzaclaro,
+             linenos = true,
+             samepage = false,
+             firstline = 80,
+             firstnumber = 80,
+             lastline = 134]{xml}{codigos/modulos.sdd}
+
+\inputminted[fontsize = \footnotesize,
+             bgcolor = cinzaclaro,
+             linenos = true,
+             samepage = false,
+             firstline = 135,
+             firstnumber = 135,
+             lastline = 146]{xml}{codigos/modulos.sdd}

@@ -23,7 +23,8 @@
     <Falha>
         <local>Atuador</local>
         <abrv>FAVK</abrv>
-        <descricao>Falha do atuador por variação da constante da bomba</descricao>
+        <descricao>Falha do atuador por variação da constante da
+                     bomba</descricao>
     </Falha>
     <Falha>
         <local>Sensor</local>
@@ -48,17 +49,20 @@
     <Falha>
         <local>Sistema</local>
         <abrv>FSiEOS</abrv>
-        <descricao>Falha do sistema por entupimento do orifício de saída</descricao>
+        <descricao>Falha do sistema por entupimento do orifício de
+                     saída</descricao>
     </Falha>
     <Falha>
         <local>Sistema</local>
         <abrv>FSiVrGMP</abrv>
-        <descricao>Falha do sistema por variação do ganho do módulo de potência</descricao>
+        <descricao>Falha do sistema por variação do ganho do módulo de
+                     potência</descricao>
     </Falha>
     <Falha>
         <local>Sistema</local>
         <abrv>FSiVrOS</abrv>
-        <descricao>Falha do sistema por variação do diâmetro do orifício de saída</descricao>
+        <descricao>Falha do sistema por variação do diâmetro do orifício de
+                     saída</descricao>
     </Falha>
     <Falha>
         <local>Sistema</local>
