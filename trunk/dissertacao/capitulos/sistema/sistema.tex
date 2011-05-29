@@ -404,7 +404,7 @@ do modelo de estudo de caso serão:
 \Glossary{$B_i$}{Bomba $i$}
 
 % ------------------------------------------------------------------------------
-\section{Limitações do processo}\label{sec:limitacoes}
+\subsection{Limitações do processo}\label{sec:limitacoes}
 Conforme dito anteriormente, a planta do estudo de caso foi desenvolvida para
 fins acadêmicos e possui algumas limitações com relação as interfaces e aos
 padrões de comunicação. Por causa dessas limitações a planta é normalmente
@@ -833,14 +833,15 @@ Contudo, isso não faz parte do escopo deste trabalho.
 \section{Sistemas computacionais desenvolvidos}
 Para dar mais liberdade de configuração à simulação e ao sistema de DDF, foram
 desenvolvidos dois sistemas computacionais, utilizando C++ como linguagem de
-programação e a biblioteca Qt para o desenvolvimento das interfaces gráficas.
+programação, a biblioteca Qt para o desenvolvimento das interfaces gráficas e a
+biblioteca {\it Flood} para a implementação das redes neurais.
 
 O primeiro sistema, cuja captura de tela ({\it screenshot}) pode ser vista na
-Fig. \ref{fig:captura}, tinha por objetivo simular o funcionamento do sistema de
-tanques. Para isso, fez-se uso do método de RK4 e da utilização de arquivos de
-texto simples para realizar a configuração de todos os parâmetros referentes a
-cada uma dessas falhas. Os parâmetros de configuração são especificados em cada
-uma das colunas do arquivo de entrada, conforme Tab.
+Fig. \ref{fig:captura_simulador}, tinha por objetivo simular o funcionamento do
+sistema de tanques. Para isso, fez-se uso do método de RK4 e da utilização de
+arquivos de texto simples para realizar a configuração de todos os parâmetros
+referentes a cada uma dessas falhas. Os parâmetros de configuração são
+especificados em cada uma das colunas do arquivo de entrada, conforme Tab.
 \ref{tab:colunas_parametros}, e o número de linhas equivale ao número de
 amostras a serem simuladas. O período de amostragem utilizado na simulação do
 sistema é de 100 (cem) milissegundos, o mesmo utilizado para o controle da
@@ -938,7 +939,7 @@ na interface do usuário, conforme mostra a Fig. \ref{fig:captura_controladores}
 
 Além disso, o sistema pode ainda ser utilizado para operar com a planta real,
 fazendo aquisições dos dados através da rede (local ou remota), utilizando {\it
-sockets} TCP, se comunicando com um servidor implementado conforme mostrado em
+sockets} TCP, se comunicando com um servidor implementado conforme descrito em
 \citeasnoun{oliveira:2008}. A configuração do endereço IP e da porta de
 comunicação também é realizada a partir da interface do usuário, conforme Fig.
 \ref{fig:captura_ip_porta}.
@@ -950,11 +951,10 @@ das bombas.
 
 Já o segundo sistema, denominado {\it Sistema modular para detecção e
 diagnóstico de falhas} (Simddef), foi idealizado para processar as informações
-de saída do primeiro sistema ({\it simulador}) e exibir as detecções das falhas
-de maneira simples e intuitiva. Para isso, as matrizes de saída do {\it
-simulador} deverão ser pré-processadas para que se faça uma adequação das
-variáveis àquelas utilizadas por cada um dos módulos de detecção e/ou
-diagnóstico. 
+de saída do primeiro sistema (simulador) e exibir as detecções das falhas de
+maneira simples e intuitiva. Para isso, as matrizes de saída do simulador
+deverão ser pré-processadas para que se faça uma adequação das variáveis àquelas
+utilizadas por cada um dos módulos de detecção e/ou diagnóstico. 
 
 \Glossary{Simddef}{Sistema modular para detecção e diagnóstico de falhas}
 
@@ -969,7 +969,7 @@ Contudo, devido a possibilidade de se introduzir diversos tipos de módulos
 diferentes e de se inserir e remover falhas no processo (a critério do usuário),
 esse sistema foi projetado para ser configurado a partir de arquivos XML ({\it
 eXtensible Markup Language}). Assim, tanto as falhas quanto os módulos são
-carregados a desses arquivos que seguem uma formatação pré-estabelecida,
+carregados a partir desses arquivos que seguem uma formatação pré-estabelecida,
 conforme descrito em detalhes no Apêndice \ref{ap:formatacao_xml}. Uma captura
 de tela desse sistema em funcionamento pode ser observada na Fig.
 \ref{fig:captura_simddef}.

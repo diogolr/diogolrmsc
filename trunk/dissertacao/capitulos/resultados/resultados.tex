@@ -1,17 +1,10 @@
 \mychapter{Resultados parciais}
 \label{cap:resultados}
 
-\begin{comment}
-Neste capítulo será realizada uma análise comparativa dos resultados obtidos nas
-duas propostas do sistema de DDF. Ao final, do capítulo a melhor estrutura será
-escolhida para que seja feita uma análise mais detalhada dos resultados.
-\end{comment}
-
-Neste capítulo serão analisados os resultados parciais obtidos a partir da
-implementação da segunda proposta do sistema de DDF. Para isso, em um primeiro
-momento será mostrado como se deu a coleta dos dados de treinamento e validação
-das redes especialistas e em seguida será feita uma comparação de desempenho
-entre as redes treinadas. Ao final do capítulo as melhores estruturas serão
+Neste capítulo serão analisados os resultados obtidos a partir da implementação
+das propostas de detecção do sistema. Para isso, em um primeiro momento será
+mostrado como se deu a coleta dos dados de treinamento e validação das redes
+especialistas. Ao final do capítulo as melhores estruturas neurais serão
 selecionadas para que se possa realizar uma análise um pouco mais detalhada.
 
 % ------------------------------------------------------------------------------
@@ -22,14 +15,14 @@ treinamento supervisionado das redes neurais de identificação do modelo e de
 detecção e diagnóstico das falhas.
 
 Dessa maneira, realizou-se a coleta dos dados a partir da estimulação do sistema
-simulado através da aplicação de sinais binários pseudo aleatórios ({Pseudo
+simulado através da aplicação de sinais binários pseudo aleatórios ({\it Pseudo
 Random Binary Signals} -- PRBS) à referência de cada um dos tanques e aos
 parâmetros do sistema que simulam as falhas. Para a identificação, a faixa de
 valores aplicados se deu do nível mínimo (zero) ao máximo (trinta). Já para a
 detecção das falhas, os valores foram aplicados conforme Tab.
-\ref{tab:valores_treinamento}. Nessa tabela, os valores gerados no
-intervalo determinado pelos mínimos e máximos de cada parâmetro eram
-multiplicados pelos respectivos valores padrão e aplicados ao modelo.
+\ref{tab:valores_treinamento}. Nessa tabela, os valores gerados no intervalo
+determinado pelos mínimos e máximos de cada parâmetro eram multiplicados pelos
+respectivos valores padrão e aplicados ao modelo.
 
 \begin{table}[htb]
 \small
@@ -95,7 +88,7 @@ minutos de simulação. Já para a detecção o processo foi simulado durante 20
 (vinte) minutos, o que correspondeu à obtenção de 12000 (doze mil) amostras.
 
 De posse dos valores obtidos, iniciou-se a fase de treinamento das RNAs. Todas
-as redes foram treinadas de modo {\it offline} com o {\it toolbox} de redes
+as redes foram treinadas em modo {\it offline} com o {\it toolbox} de redes
 neurais do {\it software} matemático Matlab\reg, utilizando o algoritmo LMA. Ao
 final de cada etapa de treinamento as redes eram submetidas aos testes de
 validação com o intuito de avaliar suas capacidades de generalização.
@@ -103,9 +96,9 @@ validação com o intuito de avaliar suas capacidades de generalização.
 % ------------------------------------------------------------------------------
 \section{Análise das RNAs}
 Para que fossem estabelecidos critérios avaliativos significantes, diversas
-redes neurais foram treinadas com diferentes configurações. Cada uma dessas
-configurações levava em consideração o número de neurônios na camada oculta e da
-ordem do modelo. O número de redes treinadas corresponde àquele especificado no
+redes neurais foram treinadas com diferentes configurações. Para cada uma dessas
+configurações o número de neurônios na camada oculta e a ordem do modelo eram
+modificadas. O número de redes treinadas corresponde àquele especificado no
 final da Tab. \ref{tab:treinamentos}. 
 
 \begin{table}[htb]
@@ -169,10 +162,10 @@ primeira proposta.
 
 Observa-se entretanto que, na segunda proposta de identificação, existiam duas
 redes a serem treinadas em cada etapa de treinamento, conforme Fig.
-\ref{fig:ident_proposta_2}, e que a segunda proposta de detecção considera-se um
-conjunto de 13 (treze) redes especialistas, sendo uma para cada falha, conforme
-Fig. \ref{fig:detec_prop_2}. Em virtude desses aspectos, o número de redes
-treinadas dobra da primeira para a segunda proposta de identificação e é
+\ref{fig:ident_proposta_2}. Já para a segunda proposta de detecção, considera-se
+um conjunto de 13 (treze) redes especialistas, sendo uma para cada falha,
+conforme Fig. \ref{fig:detec_prop_2}. Em virtude desses aspectos, o número de
+redes treinadas dobra da primeira para a segunda proposta de identificação e é
 multiplicado por um fator de treze para a segunda proposta de detecção.
 
 Ainda na Tab. \ref{tab:treinamentos} pode-se observar que não há nenhuma rede
@@ -188,9 +181,9 @@ ausência de dados representativos no universo das variáveis disponíveis, obti
 direta ou indiretamente a partir do processo. No caso do sistema de tanques
 acoplados, conforme descrito anteriormente, as seis variáveis disponíveis,
 mostradas na Fig. \ref{fig:detec_prop_1}, deveriam identificar não somente as
-falhas propostas, mas também todas as combinações possíveis entre elas. Nem
-mesmo quando somente as treze falhas propostas foram consideradas a rede chegou
-a convergir.
+falhas propostas, mas também todas as combinações possíveis entre elas.
+Entretanto, nem mesmo quando somente as treze falhas propostas foram
+consideradas como saída a rede chegou a convergir.
 
 % ------------------------------------------------------------------------------
 \section{Melhores redes}
@@ -203,9 +196,9 @@ número de erros de tipo I e II de cada rede foram obtidos a partir da média do
 valores de três validações distintas.
 
 % ------------------------------------------------------------------------------
-\subsection{Redes para identificação}
+\subsection{Redes para a identificação do modelo}
 Utilizando o EMQ estabelecido pela Eq. \ref{eq:emq}, foram obtidos os resultados
-exibidos pela Tab. \ref{tab:melhores_rnas_ident}.
+exibidos na Tab. \ref{tab:melhores_rnas_ident}.
 
 \begin{table}[htb]
 \small
@@ -221,8 +214,8 @@ exibidos pela Tab. \ref{tab:melhores_rnas_ident}.
 {\bf Ordem} & 
 {\bf NCO\tnote{$*$}} & 
 {\bf Treinamento} &
-{\bf EMQ $\mathbf{L_1}$} & 
-{\bf EMQ $\mathbf{L_2}$} & 
+{\bf EMQ $\mathbf{\widehat{L_1}}$} & 
+{\bf EMQ $\mathbf{\widehat{L_2}}$} & 
 {\bf EMQ}\\
 \hline
 \hhline\\
@@ -258,7 +251,7 @@ obtida no segundo treinamento. Essa rede, cuja soma dos EMQs foi de $3,73 \times
 que compõem a entrada das redes de detecção.
 
 % ------------------------------------------------------------------------------
-\subsection{Redes para detecção de falhas}
+\subsection{Redes para a detecção/diagnóstico de falhas}
 Os erros de tipo I, também conhecidos como {\it falsos positivos}, ocorrem
 quando o sistema reconhece uma falha que, na verdade, não houve, enquanto que os
 erros de tipo II, também conhecidos como {\it falsos negativos}, ocorrem quando
@@ -280,56 +273,27 @@ redes estão destacadas em cinza.
 
 Deve-se observar ainda que apesar de o treinamento ter sido feito com 12000
 (doze mil) amostras, a rede deve acertar 24000 (vinte e quatro mil) vezes, pois
-para cada ponto a rede deve mostrar se está ou não havendo aquela falha em $T_1$
-e em $T_2$. Portanto, para cada ponto de treinamento haverá dois acertos a serem
-realizados. 
+para cada ponto a rede terá que exibir se está ou não havendo aquela falha em
+$T_1$ e em $T_2$. Portanto, para cada ponto de treinamento haverá dois acertos a
+serem realizados. 
 
-\begin{center}
+\begin{table}[!htb]
+\centering
 \small
-\tablefirsthead
-{
-\hline
-\multirow{2}{*}{\bf Falha} &
-\multirow{2}{*}{\bf Ordem} &
-\multirow{2}{*}{\bf NCO} &
-\multirow{2}{*}{\bf Treinamento} &
-\multirow{2}{*}{\bf Acertos} &
-{\bf Erros de} & {\bf Erros de} & {\bf Total de}\\
-& & & & & {\bf tipo I} & {\bf tipo II} & {\bf erros}\\
-\hline
-\hline
-}
-% Demais cabeçalhos
-\tablehead
-{
-\hline
-\multicolumn{8}{|l|}{\scriptsize\it Continuação da página anterior}\\
-\hline
-\multirow{2}{*}{\bf Falha} &
-\multirow{2}{*}{\bf Ordem} &
-\multirow{2}{*}{\bf NCO} &
-\multirow{2}{*}{\bf Treinamento} &
-\multirow{2}{*}{\bf Acertos} &
-{\bf Erros de} & {\bf Erros de} & {\bf Total de}\\
-& & & & & {\bf tipo I} & {\bf tipo II} & {\bf erros}\\
-\hline
-\hline
-}
-% Final da tabela em cada página
-\tabletail
-{
-\hline
-\multicolumn{8}{|r|}{\scriptsize\it Continua na página seguinte}\\
-\hline
-}
-% Último final da tabela
-\tablelasttail
-{
-\hline
-}
-\tablecaption{Melhores redes treinadas para a detecção de falhas.}
+\caption{Melhores redes treinadas para a detecção de falhas.}
+\vspace{0.25cm}
 \label{tab:melhores_redes_detec}
-\begin{supertabular}{|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{\bf Falha} &
+\multirow{2}{*}{\bf Ordem} &
+\multirow{2}{*}{\bf NCO} &
+\multirow{2}{*}{\bf Treinamento} &
+\multirow{2}{*}{\bf Acertos} &
+{\bf Erros de} & {\bf Erros de} & {\bf Total de}\\
+& & & & & {\bf tipo I} & {\bf tipo II} & {\bf erros}\\
+\hline
+\hline
 \multirow{3}{*}{FSeDG} &
 2 & 16 & 1 & 23430 & 133,66 & 436,33 & 2,37\%\\
 \cline{2-8}
@@ -505,8 +469,9 @@ realizados.
 & 3 & 14 & 5 & 23995 & 2 & 3 & 0,021\%\\
 \cline{2-8}
 & 4 & 20 & 2 & 23995 & 2 & 3 & 0,021\%\\
-\end{supertabular}
-\end{center}
+\hline
+\end{tabular}
+\end{table}
 
 Analisando os valores exibidos nessas tabelas, percebe-se que as redes
 especialistas possuem uma certa dificuldade em identificar a maioria das falhas
@@ -618,13 +583,12 @@ Dessa forma, quando o valor lido pelos sensores for de 24\ cm, o tanque estará
 prestes a transbordar, atingindo, na verdade, o limite superior de 30\ cm. Em
 uma aplicação acadêmica tal situação pode não representar nenhum risco aos
 equipamentos além daqueles em que a água venha a causar. Por outro lado, em
-aplicações críticas essa ``compensação'' pode vir a causar diversos prejuízos.
+aplicações críticas, essa ``compensação'' pode vir a causar diversos prejuízos.
 
 O sistema se comportou de maneira semelhante a essa na FSeDO e na FSiVzT,
 conforme observado nas Figs. \ref{fig:fsedo} e \ref{fig:fsivzt}. Essa semelhança
 pode vir a dificultar a identificação dessas falhas quando as redes estiverem
-agindo paralelamente. Por outro lado, o sistema composto por uma única rede pode
-conseguir diferenciar cada uma dessas falhas de maneira mais eficiente. 
+agindo paralelamente.
 
 \begin{figure}[htb]
 \footnotesize
@@ -776,18 +740,6 @@ em que a falha deveria realmente ser detectada. Trata-se, portanto, de um falso
 positivo.
 
 Ressalta-se por fim que as situações adversas podem ter ocorrido no sistema em
-virtude do treinamento ter sido realizado com valores constantes para a variação
+virtude dos testes terem sido realizados com valores constantes para a variação
 dos parâmetros. Por esse motivo os resultados obtidos nem sempre estão de acordo
 com os valores da Tab. \ref{tab:melhores_redes_detec}.
-
-% TODO CONCLUSAO?
-%Apesar do número de acertos obtidos em algumas falhas durante o processo de
-%validação, utilizando um sinal de excitação pseudo aleatório, percebeu-se que em
-%casos mais simples, tais como a modificação do parâmetro para um valor
-%constante, nem sempre o percentual de acerto era mantido. Um exemplo desse fato
-%ocorre com a FSeDG, em que o percentual de erro salta de 2,12\% para X\%.
-
-% ------------------------------------------------------------------------------
-% TODO Dissertação
-% \section{Comparação das propostas de detecção}
-
