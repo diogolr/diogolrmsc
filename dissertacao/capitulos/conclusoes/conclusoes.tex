@@ -42,10 +42,8 @@ sobre cada uma das redes especialistas, o passo seguinte a ser dado envolve a
 aplicação de sinais de excitação em todas as redes especialistas
 simultaneamente. Dessa forma, a partir das saídas ativas de cada uma das redes,
 será possível identificar as falhas que possuem um comportamento semelhante.
-
-Depois dessa etapa, poderá ser desenvolvida a primeira proposta de
-identificação, a qual possui uma única rede neural, permitindo então que seja
-realizada uma análise comparativa dos resultados obtidos.
+As falhas que possuírem essa característica podem ser classificadas a partir de
+diferentes técnicas de detecção, utilizando tipos de módulos diferentes.
 
 Tendo sido selecionada a melhor estrutura de detecção, o ambiente de simulação
 desenvolvido em C++ poderá ser incrementado, adicionando a possibilidade da
@@ -55,21 +53,20 @@ formas de entrada dos parâmetros a serem modificados. Além disso, o sistema
 poderá gerar sinais de saída de tal forma que as detecções das falhas sejam
 observadas a partir de um sistema de monitoramento e supervisão externo. 
 
-Uma vez que o sistema tenha sido testado com vários sinais de excitação, pode-se
-então acoplá-lo à um SCTF. Nesse caso os sinais gerados pelo sistema de DDF
-servirão como ``alarmes''. O SCTF, por sua vez, poderá realizar a reconfiguração
-dos controladores, modificando os valores dos ganhos ou até mesmo suas
-estruturas, de tal forma que o sistema continue funcionando de maneira correta
-até que a falha tenha sido corrigida.
+Com relação ao {\it Simddef}, apesar de os testes terem sido realizados apenas
+com estruturas neurais, nada impede que novas técnicas venham a ser
+implementadas, tais como técnicas {\it Fuzzy}, métodos estatísticos, novos tipos
+de estruturas neurais, métodos de detecção por verificação de limites, técnicas
+que utilizam observadores de estado, dentre outras. Além disso, a utilização de
+arquivos de configuração com sintaxe XML facilita a integração desses novos
+módulos ao sistema. Todo o código desenvolvido está disponível para {\it
+download} em {\tt http://code.google.com/p/proeng-ufrn} para todos os
+participantes do projeto Pró-Engenharias.
 
-% ------------------------------------------------------------------------------
-\section{Cronograma de atividades}
-Na Fig. \ref{fig:cronograma} é exibido o cronograma das atividades já realizadas
-no decorrer do projeto, bem como aquelas a serem realizadas após a qualificação.
-
-\begin{figure}[htb]
-\centering
-    \includegraphics[width=0.8\textwidth]{imgs/conclusoes/eps/cronograma}
-    \caption{Cronograma de atividades do projeto.}
-    \label{fig:cronograma}
-\end{figure}
+Uma vez que todo o sistema tenha sido testado com vários sinais de excitação e
+diferentes tipos de módulos de detecção, pode-se agregar suas características à
+um SCTF. Nesse caso os sinais gerados pelo sistema de DDF servirão como
+``alarmes''. O SCTF, por sua vez, poderá realizar a reconfiguração dos
+controladores, modificando os valores dos ganhos ou até mesmo suas estruturas,
+de tal forma que o sistema continue funcionando de maneira correta até que a
+falha tenha sido corrigida.
