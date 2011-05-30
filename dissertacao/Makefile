@@ -10,7 +10,9 @@ principal: principal.tex
 	latex -shell-escape principal
 	latex -shell-escape principal
 	dvipdf principal
-	evince principal.pdf&
+	pdftk principal.pdf update_info metadata output dissertacao.pdf
+	rm -f principal.pdf
+	evince dissertacao.pdf&
 
 apres: apresentacao.tex
 	latex apresentacao
