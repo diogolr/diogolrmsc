@@ -64,9 +64,9 @@
 \input{configs/comandos_apres.tex}
 
 % Configuração da página inicial ===============================================
-\title[Exame de Qualificação de Mestrado]
+\title[Dissertação de Mestrado]
 {
-    Exame de Qualificação de Mestrado
+    Dissertação de Mestrado
 }
 \subtitle{\small\titulo}
 \author[Diogo Leite Rebouças]
@@ -91,7 +91,7 @@
 %\compressedtitle
 
 % Logo somente após a capa
-\logo{\includegraphics[width=2cm]{imgs/outras/eps/ufrn_trad}}
+\logo{\includegraphics[width=1.75cm]{imgs/outras/eps/ufrn_trad}}
 
 % Sumário ......................................................................
 \begin{frame}
@@ -110,6 +110,8 @@
             \tableofcontents[sections=5]
             \vspace{0.25cm}
             \tableofcontents[sections=6]
+            \vspace{0.25cm}
+            \tableofcontents[sections=7]
     \end{columns}
 \end{frame}
 
@@ -185,7 +187,6 @@
 \end{frame}
 
 % TODO adicionar na dissertação
-\begin{comment}
 \begin{frame}
     \frametitle{Introdução da automação na indústria}
 
@@ -224,20 +225,25 @@
     {imgs/introducao/eps/esquema_automacao_sup}
 \end{figure}
 \end{frame}
-\end{comment}
 
 \begin{frame}
     \frametitle{Introdução da automação na indústria}
 
-    Eficiência das estratégias de controle aumenta (nível inferior):
+    Aumento da eficiência das estratégias de controle (nível inferior):
 
 \begin{itemize}
     \item Operadores são retirados do processo
-    \item Operadores não se limitam a controlar o processo e mudar referências
-          \implica realizam atividade de supervisão (contato direto)
 \end{itemize}
+   
+    Contudo:
 
-    Deve-se melhorar estratégias de supervisão (nível intermediário)
+\begin{itemize}
+    \item Operadores não se limitam a controlar o processo e mudar referências
+    \item Realizam atividade de supervisão (contato direto)
+\end{itemize} 
+
+    Maior eficiência (nível inferior) \implica Melhoramento das estratégias de
+    supervisão (nível intermediário)
 
 \end{frame}
 
@@ -269,27 +275,22 @@
 \begin{frame}
     \frametitle{Sistemas de supervisão}
 
-    Os desafios das estratégias de detecção/diagnóstico
+    Novas estratégias passaram a ser desenvolvidas (diversas técnicas):
 
 \begin{itemize}
-    \item Utilização de diversas técnicas
-    \begin{itemize}
-        \item Modelos matemáticos
-        \item Modelos de sinais
-        \item Métodos de identificação/estimação
-        \item \alert{Técnicas de IA}
-    \end{itemize}
-    \item Objetivo: desenvolver um sistema capaz de detectar e diagnosticar
+    \item Modelos matemáticos
+    \item Modelos de sinais
+    \item Métodos de identificação/estimação
+    \item \alert{Técnicas de IA}
+\end{itemize}
+
+    Objetivo dessas estratégias:
+
+\begin{itemize}
+    \item Desenvolver um sistema capaz de detectar e diagnosticar
           falhas em um processo de maneira rápida e eficiente
 \end{itemize}
 
-Existem diversos aspectos a serem considerados
-
-\begin{itemize}
-    \item Detecção antecipada de pequenas falhas
-    \item Supervisionamento de estados transientes
-    \item Reparo/Manutenção
-\end{itemize}
 \end{frame}
 
 % ------------------------------------------------------------------------------
@@ -300,15 +301,16 @@ Existem diversos aspectos a serem considerados
     Sistema proposto:
 
 \begin{itemize}
-    \item Baseado em RNAs
-    \item Constituído de uma estrutura neural (simples ou composta)
+    \item Baseado em Técnicas de IA (RNAs)
+    \item Constituído por estruturas neurais simples ou compostas
 \end{itemize}
 
     Objetivos do sistema:
 
 \begin{itemize}
-    \item Detectar e diagnosticar falhas em tempo real
-    \item Gerar alarmes de notificação
+    \item Detectar e diagnosticar falhas em um processo
+    \item Gerar sinais que possam ser pós-processados (notificação, geração de
+          alarmes)
     \item Estudo de caso: Sistema de tanques acoplados
 \end{itemize}
 
@@ -343,12 +345,9 @@ Existem diversos aspectos a serem considerados
 \begin{frame}
     \frametitle{Arquitetura e modelo neural}
 
-    Arquitetura escolhida: PMC
+    Arquitetura: Rede PMC, completamente conectada
 
-\begin{figure}[htb]
-\centering
-    \includegraphics[width=0.7\textwidth]{imgs/rnas/eps/pmc}
-\end{figure}
+    \vspace{0.25cm}
 
     Treinamento: Levenberg-Marquardt (LMA) -- Matlab\reg
 
@@ -357,15 +356,26 @@ Existem diversos aspectos a serem considerados
     \item Rápida convergência
 \end{itemize}
 
+    Modelo Neural: NNARX
+    
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.45\textwidth]{imgs/rnas/eps/nnarx}
+\end{figure}
+
+    \vspace{0.25cm}
+
+    Seleção das melhores redes: EMQ
+
 \end{frame}
 
+\begin{comment}
 \begin{frame}
     \frametitle{Arquitetura e modelo neural}
 
     Modelo neural: NNARX
 \begin{figure}[htb]
 \centering
-    \includegraphics[width=0.5\textwidth]{imgs/rnas/eps/nnarx}
 \end{figure}
 
     Ordem \implica número de regressores \implica complexidade
@@ -374,6 +384,7 @@ Existem diversos aspectos a serem considerados
 
     Avaliação das melhores redes \implica EMQ
 \end{frame}
+\end{comment}
 
 % Detecção e diagnóstico de falhas ---------------------------------------------
 \section{Detecção e diagnóstico de falhas}
@@ -383,11 +394,13 @@ Existem diversos aspectos a serem considerados
     \frametitle{Conceitos e terminologias}
 
     Necessidades de otimização dos processos (qualidade, tempo de produção,
-    custo, \ldots) \implica Importância dos sistemas de {\bf Detecção e 
-    Diagnóstico de Falhas} (DDFs)
+    custo):
 
-    \vspace{0.25cm}
-    
+\begin{itemize}
+    \item Evidenciou a importância dos sistemas de {\bf Detecção e Diagnóstico
+          de Falhas} (DDFs)
+\end{itemize}
+
     Conceitos envolvidos com os sistemas de DDF:
 
 \begin{itemize}
@@ -419,6 +432,7 @@ Existem diversos aspectos a serem considerados
            que possa ser, justificadamente, confiável.}
 \end{frame}
 
+\begin{comment}
 \begin{frame}
     \frametitle{Dependabilidade}
 
@@ -442,11 +456,10 @@ Existem diversos aspectos a serem considerados
     Utilização do termo dependabilidade de maneira mais conveniente \implica
     {\it Dependable System} \implica ``Sistema Confiável''
 \end{frame}
+\end{comment}
 
 \begin{frame}
     \frametitle{Dependabilidade}
-
-    Sistemática de um sistema computacional confiável:
 
 \begin{figure}[htb]
 \centering
@@ -546,7 +559,7 @@ Existem diversos aspectos a serem considerados
 
 \begin{figure}[htb]
 \centering
-    \includegraphics[width=0.55\textwidth]{imgs/detec_diag/eps/mapa_conceitos}
+    \includegraphics[width=0.65\textwidth]{imgs/detec_diag/eps/mapa_conceitos}
 \[
 \ldots
 \quad\Longrightarrow\quad
@@ -594,11 +607,7 @@ Existem diversos aspectos a serem considerados
 
     \vspace{0.25cm}
 
-    Maneira generalizada de se separar as áreas susceptíveis em um processo
-
-    \vspace{0.25cm}
-
-    Exemplos de falhas:
+    Exemplos de falhas (sistema genérico):
 
 \begin{table}[htb]
 \scriptsize
@@ -637,7 +646,7 @@ Queima & Queima & Queima (transmissor)\\
           da operação do processo
 \end{itemize}
 
-    Na realidade, DDF consiste em 4 etapas:
+    Na realidade, DDF subdividido em 4 etapas:
 
 \begin{figure}[htb]
 \centering
@@ -649,7 +658,7 @@ Queima & Queima & Queima (transmissor)\\
 \begin{frame}
     \frametitle{Detecção e diagnóstico}
 
-    O sistema proposto abrange as 3 primeiras etapas:
+    O sistema proposto neste trabalho abrange as 3 primeiras etapas:
 
 \begin{itemize}
     \item {\bf Detectar:} determinar se ocorreu ou não uma falha
@@ -657,9 +666,10 @@ Queima & Queima & Queima (transmissor)\\
     \item {\bf Diagnosticar:} definir que falha ocorreu e fornecer o maior
           número de detalhes possíveis
     \begin{itemize}
-        \item Intensidade
         \item Localização
         \item Momento de detecção
+        \item Intensidade
+        \item \ldots
     \end{itemize}
 \end{itemize}
 \end{frame}
@@ -669,34 +679,23 @@ Queima & Queima & Queima (transmissor)\\
 
     Existem diversas técnicas para detecção e diagnóstico
 
-    \vspace{0.25cm}
-
-    Exemplos de técnicas/métodos de detecção:
 \begin{itemize}
-    \item Verificação de limites
-    \item Modelos de sinais
-    \item Equações de paridade
-    \item Métodos de identificação
-    \item Observadores/Estimadores de estado
+    \item Detecção:
+        \begin{itemize}
+            \item Verificação de limites
+            \item Equações de paridade
+            \item Observadores/Estimadores de estado
+        \end{itemize}
+    \item Diagnóstico:
+        \begin{itemize}
+            \item Classificação estatística
+            \item Reconhecimento de padrões
+            \item Métodos de aproximação
+        \end{itemize}
 \end{itemize}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Detecção e diagnóstico}
-
-    Exemplos de técnicas/métodos de diagnóstico:
-\begin{itemize}
-    \item Classificação estatística
-    \item Reconhecimento de padrões
-    \item Métodos de aproximação
-    \item Lógica de predicados
-\end{itemize}
-
-    \vspace{0.25cm}
 
     Dentre as várias técnicas \implica RNAs (detecção e diagnóstico)
 \end{frame}
-
 
 % Sistema proposto -------------------------------------------------------------
 \section{Sistema proposto}
@@ -832,9 +831,14 @@ Queima & Queima & Queima (transmissor)\\
 \end{frame}
 
 % ------------------------------------------------------------------------------
-\subsection{Simulações}
+\subsection{Softwares desenvolvidos}
 \begin{frame}
     \frametitle{Simulações}
+
+    Necessidade da simulação do modelo \implica Incitar falhas na planta real =
+    Prejuízos
+
+    \vspace{0.25cm}
 
     EDOs do modelo simuladas com Runge-Kutta 4\textordfeminine\ ordem
 
@@ -922,11 +926,37 @@ Falha do sistema &
     Sistema desenvolvido para as simulações (Qt/C++)
 
 \begin{itemize}
-    \item Configuração através de arquivo
+    \item Configuração através de arquivo de texto simples
     \item Simulação em tempo real ou Simulação rápida
+    \item Implementação de controladores P/PI/PD/PID/PI-D
     \item Comunicação com a planta real (Sockets TCP/IP)
-    \item Exportação de dados
-    \item Exportação de imagens
+    \item Exportação de dados (Sinais de controle, ações de controle e saídas
+          dos sensores)
+    \item Exportação de imagens (Diversos formatos)
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Detecção e diagnóstico}
+
+    Sistema desenvolvido para a detecção e o diagnóstico (Qt/C++)
+
+\begin{itemize}
+    \item Configuração através de arquivos XML
+    \item Diferentes módulos detecção/diagnóstico (RNAs, estatísticos, Fuzzy
+          \ldots)
+    \item Módulos desenvolvidos sobre interface padronizada (Classe abstrata)
+    \item Cadastramento/Edição/Remoção de falhas
+    \item Exportação de imagens (Diversos formatos)
+\end{itemize}
+
+    Módulo de RNAs:
+
+\begin{itemize}
+    \item Desenvolvido em C++ (Biblioteca Flood)
+    \item Permite que as redes treinadas pelo Matlab\reg\ sejam carregadas de
+          maneira simples
 \end{itemize}
 
 \end{frame}
@@ -953,26 +983,15 @@ Falha do sistema &
 \begin{frame}
     \frametitle{Estruturas neurais -- Detecção}
 
-    Para detecção mais eficiente \implica Utilização de resíduos:
-
-\begin{figure}[htb]
-\centering
-    \includegraphics[width=0.65\textwidth]{imgs/detec_diag/eps/residuos}
-\end{figure}
-
     Duas propostas de detecção:
 
 \begin{itemize}
     \item RNA única (todas as falhas)
     \item Conjunto de especialistas (uma RNA para cada falha)
 \end{itemize}
-    
-\end{frame}
-
-\begin{frame}
-    \frametitle{Estruturas neurais -- Detecção}
 
     Primeira proposta:
+
 \begin{figure}[htb]
 \centering
     \includegraphics[width=0.35\textwidth]{imgs/sistema/eps/detec_prop_1}
@@ -1121,7 +1140,7 @@ Falha do sistema &
 \end{frame}
 
 % Resultados parciais ----------------------------------------------------------
-\section{Resultados parciais}
+\section{Resultados}
 % ------------------------------------------------------------------------------
 \subsection{Coleta dos dados}
 
@@ -1139,10 +1158,10 @@ Falha do sistema &
         \item $K_m' = \pm 20\% K_m$
         \item ...
     \end{itemize}
-    \item Testes realizados até o momento:
+    \item Testes realizados:
     \begin{itemize}
         \item Simulação do sistema sem falhas \implica identificação do modelo
-        \item Simulação com falhas (individual -- proposta 2)
+        \item Simulação com falhas \implica propostas de detecção
     \end{itemize}
 \end{itemize}
 \end{frame}
@@ -1178,22 +1197,25 @@ Falha do sistema &
 \hline
 \multicolumn{5}{|l|}{{\bf Identificação}}\\
 \hline
-\multirow{3}{*}{1} & 2 & 6/8/10 & \multirow{3}{*}{6} & \multirow{3}{*}{54}\\
+\multirow{3}{*}{1} & 2 & 6, 8 e 10 & \multirow{3}{*}{6} & \multirow{3}{*}{54}\\
 \cline{2-3}
-& 3 & 8/12/16 & &\\
+& 3 & 8, 12 e 16 & &\\
 \cline{2-3}
-& 4 & 10/16/22 & &\\
+& 4 & 10, 16 e 22 & &\\
 \hline
-\multirow{3}{*}{2} & 2 & 2/4/6 -- 6/8/10 & 
+\multirow{3}{*}{2} & 2 & 2/6, 4/8 e 6/10 & 
 \multirow{3}{*}{6} & \multirow{3}{*}{108}\\
 \cline{2-3}
-& 3 & 4/6/8 -- 8/12/16 & & \\
+& 3 & 4/8, 6/12 e 8/16 & & \\
 \cline{2-3}
-& 4 & 6/8/10 -- 10/16/22 & & \\
+& 4 & 6/10, 8/16 e 10/22 & & \\
 \hline
 \multicolumn{5}{|l|}{{\bf Detecção}}\\
 \hline
-\multirow{3}{*}{2} & 2 & 8/12/16 & 
+1 & -- & -- & -- & --\\
+\hline
+\multirow{3}{*}{2} & 
+2 & 8/12/16 & 
 \multirow{3}{*}{6/falha} &
 \multirow{3}{*}{702}\\
 \cline{2-3}
@@ -1202,9 +1224,10 @@ Falha do sistema &
 & 4 & 20/24/28 & &\\
 \hline
 \hline
-\multicolumn{4}{|r|}{{\bf Total}} & 864\\
+\multicolumn{4}{|r|}{{\bf Total geral}} & 864\\
 \hline
 \end{tabular}
+
 \end{table}
 
 \end{frame}
@@ -1374,12 +1397,6 @@ Simulação final:
 
     \vspace{0.25cm}
 
-    Semelhança de comportamento pode dificultar a identificação (proposta 2)
-
-\begin{itemize}
-    \item Proposta 1 pode apresentar melhores resultados
-\end{itemize}
-
     Possibilidade de utilização de {\it flags} para correção do problema
 
 \end{frame}
@@ -1478,9 +1495,6 @@ original:
     \item 3 tiveram desempenho satisfatório (correção do problema com {\it
           flags})
     \item Outros 2 casos o sistema não conseguiu detectar corretamente 
-    \begin{itemize}
-        \item Detecção correta somente para $T_1$
-    \end{itemize}
 \end{itemize}
 
     Desempenho geral satisfatório: detecção correta de 85\% das falhas propostas
@@ -1496,43 +1510,38 @@ original:
 \begin{frame}
     \frametitle{Perspectivas}
 
-    Atividades a serem realizadas:
+    Perspectivas de trabalhos futuros:
 
 \begin{itemize}
-    \item Simulação de falhas (individual -- proposta 1)
-    \item Combinações de falhas (proposta 1 e 2)
-    \item RNAs agindo em paralelo (proposta 2)
-\end{itemize}
-
-    Possíveis trabalhos futuros:
-\begin{itemize}
-    \item Adição das redes neurais ao sistema desenvolvido em C++
+    \item Implementação de novos módulos de detecção/diagnóstico:
     \begin{itemize}
-        \item Possibilidade de observação das falhas em tempo de execução
-        \item Visualização dos alarmes por parte do operador
+        \item Fuzzy
+        \item Estatísticos
     \end{itemize}
-    \item Acoplamento à um Sistema de Controle Tolerante a Falhas (SCTF) -- Não
-          é o escopo deste trabalho
+    \item Permitir a simulação de novos modelos
+    \begin{itemize}
+        \item Utilizando o RK4
+        \item Integrando o sistema com o Matlab\reg
+    \end{itemize}
+    \item Acoplar o sistema a um Sistema de Controle Tolerante a Falhas (SCTF)
+          -- Não é o escopo deste trabalho
     \begin{itemize}
         \item Reconfiguração dos controladores ou mudança das estratégias de
-              controle
+              controle, permitindo que o sistema continue operando mesmo na
+              presença de falhas
     \end{itemize}
 \end{itemize}
 
 \end{frame}
 
+% Dúvidas ----------------------------------------------------------------------
+\section{Vídeo}
 % ------------------------------------------------------------------------------
-\subsection{Cronograma de atividades}
+\subsection*{Vídeo}
 \begin{frame}
-    \frametitle{Cronograma de atividades}
+    \frametitle{Vídeo}
 
-    Atividades executadas/pendentes:
-
-\begin{figure}[htb]
-\centering
-    \includegraphics[width=0.85\textwidth]{imgs/conclusoes/eps/cronograma}
-\end{figure}
-    
+    \Large Vídeo do sistema desenvolvido
 \end{frame}
 
 % Dúvidas ----------------------------------------------------------------------
