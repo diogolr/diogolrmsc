@@ -15,8 +15,8 @@ principal: principal.tex
 	evince dissertacao.pdf&
 
 apres: apresentacao.tex
-	latex apresentacao
-	latex apresentacao
+	latex -shell-escape apresentacao
+	latex -shell-escape apresentacao
 	dvipdf apresentacao
 	evince apresentacao.pdf&
 
