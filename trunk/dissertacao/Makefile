@@ -18,6 +18,9 @@ apres: apresentacao.tex
 	latex -shell-escape apresentacao
 	latex -shell-escape apresentacao
 	dvipdf apresentacao
+	mv apresentacao.pdf apres.pdf
+	pdftk apres.pdf update_info metadata output apresentacao.pdf
+	rm -f apres.pdf
 	evince apresentacao.pdf&
 
 clean: 
