@@ -64,20 +64,20 @@
 \input{configs/comandos_apres.tex}
 
 % Configuração da página inicial ===============================================
-\title[Dissertação de Mestrado]
+\title[\documento]
 {
-    Dissertação de Mestrado
+    \documento
 }
 \subtitle{\small\titulo}
-\author[Diogo Leite Rebouças]
+\author[\autor]
 {
     \autor\\
     \emailautor
 }
 \institute
 {
-    Universidade Federal do Rio Grande do Norte\\
-    Programa de Pós-Graduação em Engenharia Elétrica e Computação
+    \ufrn\\
+    \ppgeec
 }
 %\date{\today}
 \date{\dataaprovacao}
@@ -165,7 +165,8 @@
 \begin{frame}
     \frametitle{Introdução da automação na indústria}
 
-    Com o surgimento dos CLPs e a popularização do controle automático, foco:
+    Com o surgimento dos CLPs e a popularização do controle automático, foco da
+    indústria:
 
 \begin{itemize}
     \item Desempenho dos processos
@@ -401,7 +402,7 @@
           de Falhas} (DDFs)
 \end{itemize}
 
-    Conceitos envolvidos com os sistemas de DDF:
+    Dentre os diversos conceitos envolvidos nos sistemas de DDF:
 
 \begin{itemize}
     \item Falha
@@ -807,11 +808,11 @@ Queima & Queima & Queima (transmissor)\\
 \end{frame}
 
 % ------------------------------------------------------------------------------
-\subsection{Estrutura do sistema e limitações}
+\subsection{Estrutura de funcionamento e limitações}
 \begin{frame}
-    \frametitle{Estrutura do sistema e limitações}
+    \frametitle{Estrutura de funcionamento e limitações}
 
-    Estrutura do sistema proposto:
+    Estrutura de funcionamento:
 
 \begin{figure}[htb]
 \centering
@@ -962,6 +963,89 @@ Falha do sistema &
 \end{frame}
 
 % ------------------------------------------------------------------------------
+\subsection{Composição do sistema}
+\begin{frame}
+    \frametitle{Composição do sistema}
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_0}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Composição do sistema}
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_1}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Composição do sistema}
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_2}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Composição do sistema}
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_3}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Composição do sistema}
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_4}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Composição do sistema}
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_5}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Composição do sistema}
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_6}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Composição do sistema}
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_7}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Composição do sistema}
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_8}
+\end{figure}
+\end{frame}
+
+% ------------------------------------------------------------------------------
 \subsection{Estruturas neurais}
 \begin{frame}
     \frametitle{Estruturas neurais -- Identificação}
@@ -1056,88 +1140,6 @@ Falha do sistema &
 \end{frame}
 \end{comment}
 
-% ------------------------------------------------------------------------------
-\subsection{Composição do sistema}
-\begin{frame}
-    \frametitle{Composição do sistema}
-
-\begin{figure}[htb]
-\centering
-    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_0}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Composição do sistema}
-
-\begin{figure}[htb]
-\centering
-    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_1}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Composição do sistema}
-
-\begin{figure}[htb]
-\centering
-    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_2}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Composição do sistema}
-
-\begin{figure}[htb]
-\centering
-    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_3}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Composição do sistema}
-
-\begin{figure}[htb]
-\centering
-    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_4}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Composição do sistema}
-
-\begin{figure}[htb]
-\centering
-    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_5}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Composição do sistema}
-
-\begin{figure}[htb]
-\centering
-    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_6}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Composição do sistema}
-
-\begin{figure}[htb]
-\centering
-    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_7}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Composição do sistema}
-
-\begin{figure}[htb]
-\centering
-    \includegraphics[width=0.9\textwidth]{imgs/sistema/eps/composicao_mod_8}
-\end{figure}
-\end{frame}
 
 % Resultados parciais ----------------------------------------------------------
 \section{Resultados}
