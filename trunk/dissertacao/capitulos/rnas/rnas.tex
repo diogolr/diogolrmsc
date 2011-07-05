@@ -49,7 +49,7 @@ secundárias de um processo.
 \end{comment}
 
 Apesar de se conhecer as equações que regem a dinâmica do processo escolhido
-como estudo de caso neste trabalho, conforme será mostrado no Capítulo
+como estudo de caso deste trabalho, conforme será mostrado no Capítulo
 \ref{cap:sistema}, justifica-se desde já a utilização de RNAs para identificação
 do modelo em virtude da necessidade de simulação das falhas. Maiores detalhes
 serão esclarecidos ao longo do texto do referido capítulo.
@@ -100,7 +100,8 @@ aproximada por uma rede neural PMC que possua uma camada oculta com funções de
 ativação sigmoidal ou tangente hiperbólica.
 
 A Eq. \ref{eq:func_rede_pmc} expressa matematicamente o funcionamento de uma
-rede neural PMC em que $\delta_i$ representa a $i$-ésima saída da rede.
+rede neural PMC de duas camadas, como na Fig. \ref{fig:pmc}, em que $\delta_i$
+representa a $i$-ésima saída da rede.
 
 \begin{equation}\label{eq:func_rede_pmc}
 \delta_i(t) = g_i[\phi,\theta] =
@@ -173,12 +174,13 @@ chamada NNARX ({\it Neural Network ARX}). Do mesmo modo, existirão também
 modelos NNFIR, NNARMAX, NNOE e NNSSIF.
 
 \Glossary{FIR}{{\it Finite Impulse Response}}
-\Glossary{ARX}{{\it AutoRegressive eXternal Input}}
-\Glossary{ARMAX}{{\it AutoRegressive Moving Average eXternal input}}
+\Glossary{ARX}{{\it AutoRegressive eXogenous}}
+\Glossary{ARMAX}{{\it AutoRegressive Moving Average eXogenous}}
 \Glossary{OE}{{\it Output Error}}
 \Glossary{SSIF}{{\it State Space Innovations Form}}
-\Glossary{NNARX}{{\it Neural Network AutoRegressive eXternal Input}}
-\Glossary{NNARMAX}{{\it Neural Network AutoRegressive Moving Average eXternal input}}
+\Glossary{NNARX}{{\it Neural Network AutoRegressive eXogenous inputs}}
+\Glossary{NNARMAX}{{\it Neural Network AutoRegressive Moving Average eXogenous
+                        inputs}}
 \Glossary{NNOE}{{\it Neural Network Output Error}}
 \Glossary{NNSSIF}{{\it Neural Network State Space Innovations Form}}
 
@@ -204,7 +206,7 @@ conforme Eq. \ref{eq:modelo_nnarx}.
 
 \begin{equation}
 \label{eq:modelo_nnarx}
-\hat{y}(t) = f\parent{y(t-1), \ldots, y(t-n), u(t-d), \ldots, u(t-d-m)}
+\hat{y}(t) = g\parent{y(t-1), \ldots, y(t-n), u(t-d), \ldots, u(t-d-m)}
 \end{equation}
 
 \Glossary{$\widehat{y}(t)$}{Saída estimada pela rede neural}
@@ -212,7 +214,7 @@ conforme Eq. \ref{eq:modelo_nnarx}.
 \Glossary{$m$}{Ordem de entrada}
 
 Nessa equação $\hat{y}$ representa a saída estimada, $d$ o atraso de transporte,
-$n$ a ordem da saída, $m$ a ordem de entrada da planta, $f( \cdotp )$ uma função
+$n$ a ordem da saída, $m$ a ordem de entrada da planta, $g( \cdotp )$ uma função
 não linear mapeada pela rede neural, $y$ a saída da planta e $u$ a entrada da
 planta.
 
@@ -224,13 +226,18 @@ saída estimada.
 % ------------------------------------------------------------------------------
 \subsection{Determinação da ordem do modelo}
 \label{sec:det_ordem}
-Em sistemas de identificação {\it blackbox}, como o utilizado neste trabalho, é
-de fundamental importância que a ordem do modelo seja determinada adequadamente.
-Uma escolha inadequada poderá fazer com que a dinâmica do processo não seja
-assimilada pela rede neural, fazendo com que as estimativas geradas possuam erro
-médio consideravelmente alto. Segundo \citeasnoun{arruda:2003}, existe uma ordem
-de modelo ótima que permite obter o menor erro entre o modelo estimado e o
-sistema real.
+Em sistemas de identificação {\it blackbox}\footnote{Também conhecida como
+identificação em caixa-preta, a identificação {\it blackbox} pressupõe que não
+se dispõe de nenhuma informação sobre a estrutura interna ou sobre o
+funcionamento do sistema. Nesse tipo de abordagem, faz-se uso de uma análise da
+relação dos valores de saída obtidos a partir dos estímulos fornecidos nas
+entradas do sistema.}, como o utilizado neste trabalho, é de fundamental
+importância que a ordem do modelo seja determinada adequadamente.  Uma escolha
+inadequada poderá fazer com que a dinâmica do processo não seja assimilada pela
+rede neural, fazendo com que as estimativas geradas possuam erro médio
+consideravelmente alto. Segundo \citeasnoun{arruda:2003}, existe uma ordem de
+modelo ótima que permite obter o menor erro entre o modelo estimado e o sistema
+real.
 
 A ordem de entrada ($m$) e de saída ($n$) de um sistema desse tipo pode ser
 obtida a partir da realização de testes ou simulações com o processo. Por
@@ -252,12 +259,13 @@ família escolhida.
 A escolha por uma estrutura do tipo NNARX se deu pelas diversas vantagens em se
 utilizar RNAs para estimar valores e por se tratar de um modelo que não faz uso
 de realimentação da saída estimada, o que permite dizer que este é estável no
-sentido BIBO ({\it Bounded Input, Bounded Output}). Para
-\citeasnoun{norgaard:2000}, devido a estas características, o modelo NNARX é um
-dos mais utilizados quando o sistema a ser modelado é determinístico ou o nível
-de ruído não é significativo.
+sentido BIBO\footnote{Um sistema é dito BIBO estável quando, para qualquer
+entrada limitada, obtém-se uma saída também limitada.} ({\it Bounded Input,
+Bounded Output}). Para \citeasnoun{norgaard:2000}, devido a estas
+características, o modelo NNARX é um dos mais utilizados quando o sistema a ser
+modelado é determinístico ou o nível de ruído não é significativo.
 
-\Glossary{BIBO}{\it Bounded Input, Bounde Output}
+\Glossary{BIBO}{\it Bounded Input, Bounded Output}
 
 De maneira resumida, após a seleção da estrutura, segue-se uma sequência de
 etapas até que o modelo possa representar adequadamente o sistema, de acordo com
@@ -280,10 +288,7 @@ real e $\widehat{y_i}$ o valor estimado.
 \Glossary{$y_i$}{$i$-ésimo valor real de saída da planta}
 \Glossary{$\widehat{y_i}$}{$i$-ésimo valor estimado pelo sistema}
 
-\begin{comment}
-% ------------------------------------------------------------------------------
-\section{Composição do sistema}
-
-% ------------------------------------------------------------------------------
-\section{RNAs para detecção e diagnóstico de falhas}
-\end{comment}
+Tendo conhecido as características das redes neurais que serão utilizadas no
+desenvolvimento deste trabalho, o capítulo seguinte trará os principais
+conceitos e terminologias relacionadas ao tema de detecção e diagnóstico de
+falhas.

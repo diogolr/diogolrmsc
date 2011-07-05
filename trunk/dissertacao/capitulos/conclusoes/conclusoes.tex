@@ -3,10 +3,6 @@
 
 % ------------------------------------------------------------------------------
 \section{Conclusões}
-%TODO dissertacao
-% Fazer uma análise dos resultados obtidos com as redes atuando em paralelo e
-% comparar o desempenho com a proposta 1 de detecção
-
 O presente trabalho foi desenvolvido com o intuito de fornecer um sistema DDF
 para um sistema de tanques acoplados. Para isso, o sistema fez uso de uma
 estrutura neural que, a partir dos valores disponíveis, indicava ao usuário os
@@ -33,17 +29,27 @@ identificar cerca de 85\% das falhas propostas. Comprova-se, portanto, que as
 redes neurais de múltiplas camadas são estruturas eficientes tanto para a
 identificação de modelos quanto para a detecção e o diagnóstico de falhas.
 
+Em contraponto, vale salientar que não foram realizados testes que avaliassem o
+desempenho das redes de detecção atuando de maneira simultânea ou paralelamente.
+Essa situação pode vir a gerar falsos positivos uma vez que as variáveis de
+entrada das redes são idênticas. Outro aspecto que reforça essa teoria é que a
+rede da primeira proposta de detecção não convergiu. Conforme dito
+anteriormente, a não convergência das redes dessa proposta se deu,
+provavelmente, em consequência da ausência de dados representativos no universo
+das variáveis disponíveis, obtidas direta ou indiretamente a partir do processo.
+
 % ------------------------------------------------------------------------------
 \section{Perspectivas}
-% Modificação das estruturas neurais: Base Radial, SVM ...
-
-Após obter os resultados parciais, com as falhas agindo de maneira individual
-sobre cada uma das redes especialistas, o passo seguinte a ser dado envolve a
-aplicação de sinais de excitação em todas as redes especialistas
-simultaneamente. Dessa forma, a partir das saídas ativas de cada uma das redes,
-será possível identificar as falhas que possuem um comportamento semelhante.
-As falhas que possuírem essa característica podem ser classificadas a partir de
-diferentes técnicas de detecção, utilizando tipos de módulos diferentes.
+Após obter os resultados, com as falhas agindo de maneira individual sobre cada
+uma das redes especialistas, o passo seguinte a ser dado envolve a aplicação de
+sinais de excitação em todas as redes especialistas simultaneamente. Dessa
+forma, a partir das saídas ativas de cada uma das redes, será possível
+identificar as falhas que possuem um comportamento semelhante. 
+ 
+Uma outra comparação pode ser realizada a partir da modificação das estruturas
+neurais, utilizando novos tipos de rede, tais como as redes de função de base
+radial, máquinas de vetor de suporte ou quaisquer outros modelos neurais que
+possam ser adaptados ao problema de detecção e diagnóstico de falhas.
 
 Tendo sido selecionada a melhor estrutura de detecção, o ambiente de simulação
 desenvolvido em C++ poderá ser incrementado, adicionando a possibilidade da

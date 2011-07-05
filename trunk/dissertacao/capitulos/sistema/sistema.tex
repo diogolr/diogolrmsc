@@ -256,9 +256,9 @@ deixa o tanque, logo:
  
 \begin{equation}\label{eq:mudanca_massa}
 \dot{m} = \rhoagua\ A\dot{L} = 
-            Q_{\text{\tiny IN}} - 
-\underbrace{\rhoagua\ a\upsilon_{\text{\tiny OUT}}}_
-           {Q_{\text{\tiny OUT}}}
+          \rhoagua\ Q_{\text{\tiny IN}} - 
+          \rhoagua\ \underbrace{a\upsilon_{\text{\tiny OUT}}}_
+                     {Q_{\text{\tiny OUT}}}
 \end{equation}
 
 \noindent em que $Q_{\text{\tiny IN}}$ é a vazão de entrada de massa em regime
@@ -382,9 +382,9 @@ atuadores com um deles em {\it standby}. Ademais, é válido ressaltar que essa
 anteriores sugeridas pelo fabricante.
 
 É evidente que, no caso da Fig. \ref{fig:nova_config_1}, o sistema deixa de ser
-SISO e passa a ser MIMO. Por esse motivo, esse sistema será o utilizado como
-modelo de estudo de caso no trabalho. A única modificação existente nas equações
-que regem a dinâmica do modelo é a introdução de uma nova variável na equação do
+SISO e passa a ser MIMO. Assim sendo, esse sistema será o utilizado como modelo
+de estudo de caso no trabalho. A única modificação existente nas equações que
+regem a dinâmica do modelo é a introdução de uma nova variável na equação do
 segundo tanque, em virtude da adição da segunda bomba. Assim, as equações finais
 do modelo de estudo de caso serão:
 
@@ -451,7 +451,7 @@ ordem (RK4).
 \Glossary{RK4}{Método de Runge-Kutta de 4\textordfeminine\ ordem}
 
 De maneira resumida, pode-se dizer que o RK4 faz parte de uma família de métodos
-interativos para a aproximação numérica de soluções de equações diferenciais
+iterativos para a aproximação numérica de soluções de equações diferenciais
 ordinárias. O funcionamento do método pode ser esclarecido conforme explicação a
 seguir. 
 
@@ -629,7 +629,7 @@ quanto a referenciação textual.
 
 As falhas expostas na Tab. \ref{tab:classificacao_falhas} são induzidas de
 diferentes maneiras na simulação. Na FADG, por exemplo, o ganho do atuador é
-alterado de 1,0 para qualquer outro valor a juízo do usuário, no momento em que é
+alterado de 1,0 para qualquer outro valor a escolha do usuário, no momento em que é
 realizada a leitura dos níveis. Já na FSiVzT, por questões de simplicidade,
 supõe-se que um outro orifício de saída foi adicionado ao lado do orifício de
 saída do tanque ($a_i$). Esse orifício, de área arbitrária, terá a mesma
