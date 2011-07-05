@@ -69,6 +69,8 @@ set size 1,0.5
 load "../../dados/qualificacao/FSeDG_t1.gp"
 plot "../../softwares/simulacao_tanques_cpp/saidas/FSeDG/niveis_qualif.dat" \
      using 1:2 title 'Ref. $T_1$' ls 1 with lines,\
+     "fsedg.dat" \
+     using 1:6 title 'Saída real $T_1$' ls 3 with lines,\
      "../../softwares/simulacao_tanques_cpp/saidas/FSeDG/niveis_qualif.dat" \
      using 1:4 title 'Saída $T_1$' ls 2 with lines
 unset obj
@@ -80,6 +82,8 @@ set xlabel 'Tempo [s]'
 load "../../dados/qualificacao/FSeDG_t2.gp"
 plot "../../softwares/simulacao_tanques_cpp/saidas/FSeDG/niveis_qualif.dat" \
      using 1:3 title 'Ref. $T_2$' ls 5 with lines,\
+     "fsedg.dat" \
+     using 1:7 title 'Saída real $T_2$' ls 3 with lines,\
      "../../softwares/simulacao_tanques_cpp/saidas/FSeDG/niveis_qualif.dat" \
      using 1:5 title 'Saída $T_2$' ls 7 with lines
 unset obj
