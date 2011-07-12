@@ -1,0 +1,205 @@
+.ListaPeq { font-size: 9px; color: #333399; font-family: Verdana, Arial, Helvetica, sans-serif; }
+.TextoNormas { font-size: 12px; font-family: Arial, Helvetica, sans-serif; }
+.RotComp { 
+	border-left: 1px solid #000000;
+    border-bottom: 1px solid #000000; 
+	border-right: 1px solid #000000;
+	font-size: 12px; font-family: Verdana, Tahoma, Helvetica, Arial; 
+	text-align: right;
+}
+.DadosComp { 
+    border-bottom: 1px solid #000000; 
+	border-right: 1px solid #000000;
+	font-size: 12px; font-family: Verdana, Tahoma, Helvetica, Arial; 
+	font-weight: bold; 
+	text-align: left;
+}
+.TitComp { 
+    border-left: 1px solid #000000;
+    border-bottom: 1px solid #000000; 
+	border-right: 1px solid #000000;
+	font-size: 14px; font-family: Verdana, Tahoma, Helvetica, Arial; 
+	font-weight: bold; 
+	text-align: center;
+}
+
+.TextoMensagem {
+  font-family: Arial, Helvetica, sans-serif; 
+  font-size: 12px; 
+}
+.CaixaDados { 
+   border-bottom: 1px solid #000000; 
+   border-left: 1px solid #000000; 
+   border-right: 1px solid #000000; 
+   border-top: 1px solid #000000; 
+   background-color: #FFFFFF; 
+   font-size: 13px; 
+   color: #FF0000; 
+   font-weight: bold; 
+   font-family: Verdana, Tahoma, Helvetica, Arial; 
+}
+.AreadeTexto { 
+   border-bottom: 1px solid #000000; 
+   border-left: 1px solid #000000; 
+   border-right: 1px solid #000000; 
+   border-top: 1px solid #000000; 
+   background-color: #FFFFFF; 
+   font-size: 13px; 
+   color: #3333FF; 
+   font-weight: bold; 
+   font-family: Verdana, Tahoma, Helvetica, Arial; 
+}
+.Lista { 
+  font-size: 13px; 
+  color: #FF0000; 
+  font-weight: bold; 
+  font-family: Verdana, Tahoma, Helvetica, Arial; 
+}
+.BotaoBase { 
+    border-bottom: 1px solid #000099; 
+	border-left: 1px solid #000099;
+	border-right: 1px solid #000099;
+	border-top: 1px solid #000099; 
+	background-color: #FFFFCC; 
+	font-size: 12px; font-family: Verdana, Tahoma, Helvetica, Arial; font-weight: bold; 
+	color: #000000;
+	cursor: pointer;
+	text-align: center;
+}
+.BotaoImp { 
+    border-bottom: 1px solid #CCCCCC; 
+	border-left: 1px solid #CCCCCC;
+	border-right: 1px solid #CCCCCC;
+	border-top: 1px solid #CCCCCC; 
+	background-color: #FFFFFF; 
+	font-size: 09px; font-family: Verdana, Tahoma, Helvetica, Arial; font-weight: bold; 
+	cursor: pointer
+}
+.CelulaTituloPrincipal {
+  background-color: #006633; 
+  font-family: Arial, Helvetica, sans-serif; font-size: 12px; 
+  color: #FFFFFF;
+  text-align: center;
+  font-weight: bold;
+}
+.CelulaPrincipal {
+  font-family: Arial, Helvetica, sans-serif; font-size: 12px; 
+  color: #000099;
+  font-weight: bold;
+  text-align: center;
+}
+.CelulaAviso {
+  background-color: #FFCC00; 
+  font-family: Arial, Helvetica, sans-serif; font-size: 14px; 
+  color: #FF0000;
+  text-align: center;
+  font-weight: bold;
+}
+
+.CelulaTitulo {
+  background-color: #006633; 
+  font-family: Arial, Helvetica, sans-serif; font-size: 12px; 
+  color: #FFFFFF;
+  text-align: Left;
+  font-weight: bold;
+}
+.CelulaRotulo {
+  font-family: Arial, Helvetica, sans-serif; font-size: 12px; 
+  color: #000099;
+  text-align: right;
+}
+.CelulaObriga {
+  font-family: Arial, Helvetica, sans-serif; font-size: 12px; 
+  color: #000099;
+  text-align: right;
+	font-weight: bold;
+}
+.CelulaCampo {
+  font-family: Arial, Helvetica, sans-serif; font-size: 12px; 
+  color: #000000;
+  text-align: Left;
+  font-weight: bold;
+}
+a.LinkCadastro:link,a.LinkCadastro:visited{ color: #000000; font-size: 10px; text-decoration: underline; }
+a.LinkCadastro:hover,a.LinkCadastro:active{ color: #990000; font-size: 10px; text-decoration: none; }
+
+.BordaTotal {
+border-left: #000000 1px solid; 
+border-top: #000000 1px solid; 
+border-right: #000000 1px solid; 
+border-bottom: #000000 1px solid;
+}
+.BordaSID {
+border-top: #000000 1px solid; 
+border-right: #000000 1px solid; 
+border-bottom: #000000 1px solid;
+}
+.BordaEID {
+border-left: #000000 1px solid; 
+border-right: #000000 1px solid; 
+border-bottom: #000000 1px solid;
+}
+.BordaEI {
+border-left: #000000 1px solid; 
+border-bottom: #000000 1px solid;
+}
+.BordaID {
+border-right: #000000 1px solid; 
+border-bottom: #000000 1px solid;
+}
+.BordaED {
+border-left: #000000 1px solid; 
+border-right: #000000 1px solid;
+}
+.BordaES {
+border-left: #000000 1px solid; 
+border-top: #000000 1px solid;
+}
+.BordaSD {
+border-top: #000000 1px solid; 
+border-right: #000000 1px solid;
+}
+.BordaSI {
+border-top: #000000 1px solid; 
+border-bottom: #000000 1px solid;
+}
+.BordaI {
+border-bottom: #000000 1px solid;
+}
+.BordaS {
+border-top: #000000 1px solid;
+}
+.P01 { 
+margin-bottom: 0px; 
+margin-top: 1px; 
+font-size: 11px; 
+font-family: Arial; 
+}
+.P01C { 
+margin-bottom: 0px; 
+margin-top: 1px; 
+font-size: 11px; 
+font-family: Arial; 
+text-align: center;
+}
+.P00 { 
+margin-bottom: 0px; 
+margin-top: 0px; 
+font-size: 10px; 
+font-family: Arial; 
+}
+.P00C { 
+margin-bottom: 0px; 
+margin-top: 0px; 
+font-size: 10px; 
+font-family: Arial; 
+text-align: center;
+}
+.P00R { 
+margin-bottom: 0px; 
+margin-top: 0px; 
+font-size: 10px; 
+font-family: Arial; 
+text-align: right;
+}
+
